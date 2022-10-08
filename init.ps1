@@ -1,4 +1,4 @@
-#$name = $args[0]
+$name = $args[0]
 $ver = "6.0.0"
 $apps = "account"
 $shared_common = "shared/common"
