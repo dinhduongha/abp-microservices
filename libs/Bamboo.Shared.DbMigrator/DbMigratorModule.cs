@@ -1,8 +1,6 @@
 ﻿using Volo.Abp.Autofac;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Modularity;
-using Starify.Administration;
-using Starify.Administration.EntityFrameworkCore;
 
 /*
 User must change "Administration" to module's name
