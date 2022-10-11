@@ -5,11 +5,13 @@ $msver = "6.0.5"
 $ntsver = "13.0.1"
 $apps = "account"
 $shared_common = "shared/common"
+$shared_app = "shared/app"
 $sln_account = "$name.Account"
 $sln_service = "$name.Services.All"
 $sln_webs = "$name.Web"
 $sln_gateways = "$name.Gateways"
-	
+$use_share = "True"	
+
 function CreateCoreLibs {
 	new-item "$shared_common" -itemtype directory
 	new-item "$apps" -itemtype directory
@@ -73,8 +75,10 @@ function CreateCoreLibs {
 	dotnet add ./$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.EntityFrameworkCore -v $abpver
 	dotnet add ./$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj reference ./$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj
 	Copy-Item -Path "./libs/Bamboo.Shared.Hosting/Microservices/*" -Destination ./$shared_common/$name.Shared.Microservices/ -recurse -Force
+	Copy-Item "./common.props*" -Destination ./shared/ -Force
+	Copy-Item "./common.props*" -Destination ./web_apps/ -Force
 
-	dotnet sln "./services/$sln_service.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/**/*.csproj)
+	dotnet sln "./services/$sln_service.sln" add --solution-folder "shared/common" (Get-ChildItem -r ./$shared_common/**/*.csproj)
 }
 
 function CreateGateways {
@@ -93,6 +97,12 @@ function CreateGateways {
 
 function CreateCoreApp  {
 
+	new-item "./shared/app" -itemtype directory
+	if ($use_share -eq "True") {
+		$shared_app = "./shared/app"
+	} else {
+		$shared_app = "./$apps/$name/src"
+	}
 	## Blazor
 	abp new "$name" -t app --no-random-port -u blazor -m none --database-provider ef -dbms PostgreSQL --create-solution-folder -o $apps --skip-installing-libs
 	Move-Item -Path "./$apps/$name/src/$name.Blazor" -Destination ./web_apps/"$name.Blazor" -Force
@@ -128,22 +138,39 @@ function CreateCoreApp  {
 	Copy-Item -Path "./libs/Bamboo.Shared.Common/Filter" -Destination ./$apps/$name/src/$name.Domain.Shared/ -recurse -Force
 	Copy-Item -Path "./libs/Bamboo.Shared.Common/Utils" -Destination ./$apps/$name/src/$name.Domain.Shared/ -recurse -Force
 	Copy-Item -Path "./libs/Bamboo.Shared.EfCore/Extensions" -Destination ./$apps/$name/src/$name.EntityFrameworkCore/ -recurse -Force
-	
+
+	if ($use_share -eq "True") {	
+		Copy-Item -Path "./$apps/$name/src/$name.Domain.Shared" -Destination "./shared/app/" -recurse -Force
+		Copy-Item -Path "./$apps/$name/src/$name.Application.Contracts" -Destination "./shared/app/" -recurse -Force
+		Copy-Item -Path "./$apps/$name/src/$name.HttpApi.Client" -Destination "./shared/app/" -recurse -Force
+	}
 	dotnet sln "./$apps/$sln_account.sln" add (Get-ChildItem -r ./$apps/**/*.csproj)
 	
 	Move-Item -Path "./temp-sas/$name/src/$name.HttpApi.Host" -Destination ./$apps/$name/src/"$name.HttpApi.Sas.Host" -Force
 
-	dotnet sln "./web_apps/$sln_webs.Blazor.sln" add --solution-folder shared (Get-ChildItem -r ./$apps/$name/src/$name.Domain.Shared/$name.Domain.Shared.csproj)
-	dotnet sln "./web_apps/$sln_webs.Blazor.sln" add --solution-folder shared (Get-ChildItem -r ./$apps/$name/src/$name.Application.Contracts/$name.Application.Contracts.csproj)
-	dotnet sln "./web_apps/$sln_webs.Blazor.sln" add --solution-folder shared (Get-ChildItem -r ./$apps/$name/src/$name.HttpApi.Client/$name.HttpApi.Client.csproj)
+	dotnet remove ./web_apps/$name.Blazor/$name.Blazor.csproj reference "..\..\src\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
+	dotnet remove ./web_apps/$name.BlazorServer/$name.Blazor.csproj reference "..\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
+	dotnet remove ./web_apps/$name.Web/$name.Web.csproj reference "..\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
+	dotnet remove ./web_apps/$name.Web/$name.Web.csproj reference "..\$name.HttpApi\$name.HttpApi.csproj"	
+
+	dotnet add ./web_apps/$name.Blazor/$name.Blazor.csproj reference $shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj	
+	dotnet add ./web_apps/$name.BlazorServer/$name.Blazor.csproj reference $shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj	
+	Move-Item "./web_apps/$name.BlazorServer/$name.Blazor.csproj" -Destination "./web_apps/$name.BlazorServer/$name.BlazorServer.csproj" -Force
+	dotnet add ./web_apps/$name.Web/$name.Web.csproj reference $shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj
 	
-	dotnet sln "./web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r ./$apps/$name/src/$name.Domain.Shared/$name.Domain.Shared.csproj)
-	dotnet sln "./web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r ./$apps/$name/src/$name.Application.Contracts/$name.Application.Contracts.csproj)
-	dotnet sln "./web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r ./$apps/$name/src/$name.HttpApi.Client/$name.HttpApi.Client.csproj)
+	dotnet add ./web_apps/$name.Web/$name.Web.csproj reference ./$apps/$name/src/$name.HttpApi/$name.HttpApi.csproj
+
+	dotnet sln "./web_apps/$sln_webs.Blazor.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.Domain.Shared/$name.Domain.Shared.csproj)
+	dotnet sln "./web_apps/$sln_webs.Blazor.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.Application.Contracts/$name.Application.Contracts.csproj)
+	dotnet sln "./web_apps/$sln_webs.Blazor.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj)
 	
-	dotnet sln "./web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r ./$apps/$name/src/$name.Domain.Shared/$name.Domain.Shared.csproj)
-	dotnet sln "./web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r ./$apps/$name/src/$name.Application.Contracts/$name.Application.Contracts.csproj)
-	dotnet sln "./web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r ./$apps/$name/src/$name.HttpApi.Client/$name.HttpApi.Client.csproj)
+	dotnet sln "./web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.Domain.Shared/$name.Domain.Shared.csproj)
+	dotnet sln "./web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.Application.Contracts/$name.Application.Contracts.csproj)
+	dotnet sln "./web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj)
+	
+	dotnet sln "./web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.Domain.Shared/$name.Domain.Shared.csproj)
+	dotnet sln "./web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.Application.Contracts/$name.Application.Contracts.csproj)
+	dotnet sln "./web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj)
 	
 	#dotnet sln "./web_apps/$sln_webs.sln" add (Get-ChildItem -r ./$apps/$name/src/$name.Domain/$name.Domain.csproj)
 	#dotnet sln "./web_apps/$sln_webs.sln" add (Get-ChildItem -r ./$apps/$name/src/$name.Application/$name.Application.csproj)
@@ -153,13 +180,6 @@ function CreateCoreApp  {
 	dotnet sln "./web_apps/$sln_webs.BlazorServer.sln" add (Get-ChildItem -r ./web_apps/$name.BlazorServer/**/*.csproj)	
 	dotnet sln "./web_apps/$sln_webs.MVC.sln" add (Get-ChildItem -r ./web_apps/$name.Web/**/*.csproj)
 
-	dotnet add ./web_apps/$name.Blazor/$name.Blazor.csproj reference ./$apps/$name/src/$name.HttpApi.Client/$name.HttpApi.Client.csproj
-	
-	dotnet add ./web_apps/$name.BlazorServer/$name.Blazor.csproj reference ./$apps/$name/src/$name.HttpApi.Client/$name.HttpApi.Client.csproj
-	
-	dotnet add ./web_apps/$name.Web/$name.Web.csproj reference ./$apps/$name/src/$name.HttpApi.Client/$name.HttpApi.Client.csproj
-	dotnet add ./web_apps/$name.Web/$name.Web.csproj reference ./$apps/$name/src/$name.HttpApi/$name.HttpApi.csproj
-	
 	## Un-comment to use Newtonsoft.Json and Volo.Abp.Guids at client side
 	#dotnet add ./web_apps/$name.Blazor/$name.Blazor.csproj package Newtonsoft.Json -v $ntsver
 	#dotnet add ./web_apps/$name.Blazor/$name.Blazor.csproj package Volo.Abp.Guids -v $abpver
@@ -205,7 +225,7 @@ function AppAddSource {
 }
 
 CreateCoreLibs
-CreateCoreApp
 CreateGateways
+CreateCoreApp
 
 cmd /c pause

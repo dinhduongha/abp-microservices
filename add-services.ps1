@@ -4,6 +4,7 @@ $abpver = "6.0.0"
 
 $sln_service = "$name.Services.All"
 $shared_common = "shared/common"
+$use_share = "True"
 
 $services = @{}
 $services.Add('Administration', 'administration')
@@ -20,15 +21,22 @@ function CmsKitAddReference {
 function AdminServiceAddReference {
 	# ADMINISTRATION SERVICES 
 	## Domain.Shared
+	if ($use_share -eq "True") {
+		$shared_folder = "./shared/$folder"
+	} else {
+		$shared_folder = "./services/$folder/src"		
+	}
 	$admin = "Administration"
-	dotnet add services/administration/src/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.Identity.Domain.Shared -v $abpver
-	dotnet add services/administration/src/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.BackgroundJobs.Domain.Shared -v $abpver
-	dotnet add services/administration/src/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.AuditLogging.Domain.Shared -v $abpver
-	dotnet add services/administration/src/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.TenantManagement.Domain.Shared -v $abpver
-	dotnet add services/administration/src/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.FeatureManagement.Domain.Shared -v $abpver
-	dotnet add services/administration/src/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.PermissionManagement.Domain.Shared -v $abpver
-	dotnet add services/administration/src/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.SettingManagement.Domain.Shared -v $abpver
-	dotnet add services/administration/src/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.OpenIddict.Domain.Shared -v $abpver
+	
+	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.Identity.Domain.Shared -v $abpver
+	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.BackgroundJobs.Domain.Shared -v $abpver
+	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.AuditLogging.Domain.Shared -v $abpver
+	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.TenantManagement.Domain.Shared -v $abpver
+	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.FeatureManagement.Domain.Shared -v $abpver
+	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.PermissionManagement.Domain.Shared -v $abpver
+	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.SettingManagement.Domain.Shared -v $abpver
+	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.OpenIddict.Domain.Shared -v $abpver
+	
 	## Domain
 	dotnet add services/administration/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.Emailing -v $abpver
 	dotnet add services/administration/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.Identity.Domain -v $abpver
@@ -42,13 +50,13 @@ function AdminServiceAddReference {
 	dotnet add services/administration/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.PermissionManagement.Domain.OpenIddict -v $abpver
 
 	## Application.Contracts
-	dotnet add services/administration/src/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.ObjectExtending -v $abpver
-	dotnet add services/administration/src/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.Account.Application.Contracts -v $abpver
-	dotnet add services/administration/src/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.Identity.Application.Contracts -v $abpver
-	dotnet add services/administration/src/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.PermissionManagement.Application.Contracts -v $abpver
-	dotnet add services/administration/src/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.TenantManagement.Application.Contracts -v $abpver
-	dotnet add services/administration/src/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.FeatureManagement.Application.Contracts -v $abpver
-	dotnet add services/administration/src/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.SettingManagement.Application.Contracts -v $abpver
+	dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.ObjectExtending -v $abpver
+	dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.Account.Application.Contracts -v $abpver
+	dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.Identity.Application.Contracts -v $abpver
+	dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.PermissionManagement.Application.Contracts -v $abpver
+	dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.TenantManagement.Application.Contracts -v $abpver
+	dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.FeatureManagement.Application.Contracts -v $abpver
+	dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.SettingManagement.Application.Contracts -v $abpver
 
 	## Application
 	dotnet add services/administration/src/$name.$admin.Application/$name.$admin.Application.csproj package Volo.Abp.Account.Application -v $abpver
@@ -78,14 +86,15 @@ function AdminServiceAddReference {
 	dotnet add services/administration/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.SettingManagement.HttpApi -v $abpver
 
 	## HTTP API
-	dotnet add services/administration/src/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.Account.HttpApi.Client -v $abpver
-	dotnet add services/administration/src/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.Identity.HttpApi.Client -v $abpver
-	dotnet add services/administration/src/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.PermissionManagement.HttpApi.Client -v $abpver
-	dotnet add services/administration/src/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.TenantManagement.HttpApi.Client -v $abpver
-	dotnet add services/administration/src/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.FeatureManagement.HttpApi.Client -v $abpver
-	dotnet add services/administration/src/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.SettingManagement.HttpApi.Client -v $abpver
+	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.Account.HttpApi.Client -v $abpver
+	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.Identity.HttpApi.Client -v $abpver
+	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.PermissionManagement.HttpApi.Client -v $abpver
+	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.TenantManagement.HttpApi.Client -v $abpver
+	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.FeatureManagement.HttpApi.Client -v $abpver
+	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.SettingManagement.HttpApi.Client -v $abpver
 
 }
+
 function AdminServiceAddSource {
 	# SOURCE CODE
 	abp add-module Volo.AuditLogging -s "services/administration/$name.$admin.sln" --skip-db-migrations
@@ -107,11 +116,17 @@ function CreateServices {
 			cmd /c pause
 			continue
 		}
+		if ($use_share -eq "True") {
+			$shared_folder = "./shared/$folder"
+			new-item "$shared_folder" -itemtype directory			
+		} else {
+			$shared_folder = "./services/$folder/src"		
+		}
+		
 		abp new "$name.$service" -t module --no-ui -o services/$folder --skip-installing-libs
 		dotnet add ./services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql
 		#dotnet remove ./services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.SqlServer
 		
-		dotnet add ./services/$folder/src/"$name.$service".Domain.Shared/"$name.$service".Domain.Shared.csproj reference ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
 		dotnet add ./services/$folder/src/"$name.$service".EntityFrameworkCore/"$name.$service".EntityFrameworkCore.csproj reference ./$shared_common/$name.Shared.EfCore/$name.Shared.EfCore.csproj
 		dotnet add ./services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference ./$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
 		#dotnet add ./services/$folder/src/"$name.$service".Domain/"$name.$service".Domain.csproj reference ./$shared_common/$name.Shared.Domain/$name.Shared.Domain.csproj
@@ -126,13 +141,35 @@ function CreateServices {
 		dotnet add ./services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.BackgroundJobs -v $abpver
 		dotnet add ./services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Identity.Domain -v $abpver
 		dotnet add ./services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.TenantManagement.Domain -v $abpver	
-		dotnet add ./services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj	
 		dotnet add ./services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj
 		Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination ./services/$folder/host/$name.$service.DbMigrator/ -recurse -Force
 		
 		if ($service -ne 'Administration') {
 			dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj)
 		}
+		if ($use_share  -eq "True") {
+			dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.Domain.Shared/$name.$service.Domain.Shared.csproj)
+			dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj)
+			dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.HttpApi.Client/$name.$service.HttpApi.Client.csproj)
+			
+			dotnet remove ./services/$folder/src/"$name.$service".Domain/"$name.$service".Domain.csproj reference "..\$name.$service.Domain.Shared\$name.$service.Domain.Shared.csproj"
+			#dotnet remove ./services/$folder/src/"$name.$service".Domain/"$name.$service".Domain.csproj reference ./services/$folder/"$name.$service".Domain.Shared/"$name.$service".Domain.Shared.csproj
+			dotnet remove ./services/$folder/src/"$name.$service".Application/"$name.$service".Application.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
+			dotnet remove ./services/$folder/src/"$name.$service".HttpApi/"$name.$service".HttpApi.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
+			
+			Move-Item -Path "./services/$folder/src/$name.$service.Domain.Shared" -Destination $shared_folder"/$name.$service.Domain.Shared" -Force
+			Move-Item -Path "./services/$folder/src/$name.$service.Application.Contracts" -Destination $shared_folder"/$name.$service.Application.Contracts" -Force
+			Move-Item -Path "./services/$folder/src/$name.$service.HttpApi.Client" -Destination $shared_folder"/$name.$service.HttpApi.Client" -Force
+			dotnet add ./services/$folder/src/"$name.$service".Domain/"$name.$service".Domain.csproj reference "$shared_folder/$name.$service.Domain.Shared/$name.$service.Domain.Shared.csproj"
+			dotnet add ./services/$folder/src/"$name.$service".Application/"$name.$service".Application.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
+			dotnet add ./services/$folder/src/"$name.$service".HttpApi/"$name.$service".HttpApi.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
+			dotnet sln "./services/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r $shared_folder/**/*.csproj)			
+			dotnet add ./services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"						
+		} else {
+			dotnet add ./services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj			
+		}
+		dotnet add $shared_folder/"$name.$service".Domain.Shared/"$name.$service".Domain.Shared.csproj reference ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
+
 		#dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/host/$name.$service.Host.Shared/$name.$service.Host.Shared.csproj)		
 		dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.Installer/$name.$service.Installer.csproj)
 		dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.MongoDB/$name.$service.MongoDB.csproj)
@@ -149,6 +186,9 @@ function CreateServices {
 		dotnet sln "./services/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/**/*.csproj)
 		dotnet sln "./services/$folder/$name.$service.sln" add --solution-folder host ./services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj		
 		dotnet sln "./services/$sln_service.sln" add (Get-ChildItem -r ./services/$folder/**/*.csproj)
+		if ($use_share  -eq "True") {
+			dotnet sln "./services/$sln_service.sln" add --solution-folder "shared/$folder" (Get-ChildItem -r $shared_folder/**/*.csproj)
+		}
 		if ($service -eq 'Administration') {
 			AdminServiceAddReference
 		}
