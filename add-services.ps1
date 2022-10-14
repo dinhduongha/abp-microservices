@@ -5,6 +5,7 @@ $abpver = "6.0.0"
 $sln_service = "$name.Services.All"
 $shared_common = "shared/common"
 $use_share = "True"
+$ui_enable = "True"
 
 $services = @{}
 $services.Add('Administration', 'administration')
@@ -108,12 +109,18 @@ function AdminServiceAddSource {
 
 
 function CreateServices {
+	$sln_service = "$name.Services.All"
+	if (-not(Test-Path -Path "./services/$sln_service.sln" -PathType Leaf)) {
+		#dotnet new sln -n "$sln_service" -o ./services
+	}
+	#dotnet sln "./web_apps/$name.Web.Blazor.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
+	#dotnet sln "./web_apps/$name.Web.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
+	#dotnet sln "./web_apps/$name.Web.MVC.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
 	foreach($service in $services.keys)
 	{
 		$folder = $services[$service]
 		if (Test-Path -Path "./services/$folder") {
 			"$service's path exists!"
-			cmd /c pause
 			continue
 		}
 		if ($use_share -eq "True") {
@@ -123,7 +130,15 @@ function CreateServices {
 			$shared_folder = "./services/$folder/src"		
 		}
 		
-		abp new "$name.$service" -t module --no-ui -o services/$folder --skip-installing-libs
+		if ($ui_enable -eq "True") {
+			new-item "./web_apps/$folder/src" -itemtype directory
+			new-item "./web_apps/$folder/host" -itemtype directory
+	        Copy-Item "./common.props*" -Destination "./web_apps/$folder/" -Force
+			abp new "$name.$service" -t module -o services/$folder --skip-installing-libs
+		} else {
+			abp new "$name.$service" -t module --no-ui -o services/$folder --skip-installing-libs			
+		}
+
 		dotnet add ./services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql
 		#dotnet remove ./services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.SqlServer
 		
@@ -151,43 +166,139 @@ function CreateServices {
 			dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.Domain.Shared/$name.$service.Domain.Shared.csproj)
 			dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj)
 			dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.HttpApi.Client/$name.$service.HttpApi.Client.csproj)
+			if ($ui_enable -eq "True") {
+				dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.Blazor/$name.$service.Blazor.csproj)
+				dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.Blazor.WebAssembly/$name.$service.Blazor.WebAssembly.csproj)
+				dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.Blazor.Server/$name.$service.Blazor.Server.csproj)
+				dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.Web/$name.$service.Web.csproj)
+
+                dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/host/$name.$service.Blazor.Host/$name.$service.Blazor.Host.csproj)
+                dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/host/$name.$service.Blazor.Server.Host/$name.$service.Blazor.Server.Host.csproj)
+                dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/host/$name.$service.Web.Host/$name.$service.Web.Host.csproj)
+                dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/host/$name.$service.Web.Unified/$name.$service.Web.Unified.csproj)
+				#dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/test/$name.$service.HttpApi.Client.ConsoleTestApp/$name.$service.HttpApi.Client.ConsoleTestApp.csproj)
+			}
 			
+			# Remove reference
 			dotnet remove ./services/$folder/src/"$name.$service".Domain/"$name.$service".Domain.csproj reference "..\$name.$service.Domain.Shared\$name.$service.Domain.Shared.csproj"
 			#dotnet remove ./services/$folder/src/"$name.$service".Domain/"$name.$service".Domain.csproj reference ./services/$folder/"$name.$service".Domain.Shared/"$name.$service".Domain.Shared.csproj
 			dotnet remove ./services/$folder/src/"$name.$service".Application/"$name.$service".Application.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
 			dotnet remove ./services/$folder/src/"$name.$service".HttpApi/"$name.$service".HttpApi.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
-			
+			if ($ui_enable -eq "True") {
+				dotnet remove ./services/$folder/src/"$name.$service".Blazor/"$name.$service".Blazor.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
+				dotnet remove ./services/$folder/src/"$name.$service".Blazor.WebAssembly/"$name.$service".Blazor.WebAssembly.csproj reference "..\$name.$service.HttpApi.Client\$name.$service.HttpApi.Client.csproj"
+				dotnet remove ./services/$folder/src/"$name.$service".Web/"$name.$service".Web.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
+
+                dotnet remove ./services/$folder/host/"$name.$service".Blazor.Host/"$name.$service".Blazor.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
+                
+                dotnet remove ./services/$folder/host/"$name.$service".Blazor.Server.Host/"$name.$service".Blazor.Server.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
+                dotnet remove ./services/$folder/host/"$name.$service".Blazor.Server.Host/"$name.$service".Blazor.Server.Host.csproj reference  "..\..\src\$name.$service.Application\$name.$service.Application.csproj"
+                dotnet remove ./services/$folder/host/"$name.$service".Blazor.Server.Host/"$name.$service".Blazor.Server.Host.csproj reference  "..\..\src\$name.$service.EntityFrameworkCore\$name.$service.EntityFrameworkCore.csproj"
+                dotnet remove ./services/$folder/host/"$name.$service".Blazor.Server.Host/"$name.$service".Blazor.Server.Host.csproj reference  "..\..\src\$name.$service.HttpApi\$name.$service.HttpApi.csproj"
+
+                dotnet remove ./services/$folder/host/"$name.$service".Web.Host/"$name.$service".Web.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
+                dotnet remove ./services/$folder/host/"$name.$service".Web.Host/"$name.$service".Web.Host.csproj reference  "..\..\src\$name.$service.HttpApi.Client\$name.$service.HttpApi.Client.csproj"
+                dotnet remove ./services/$folder/host/"$name.$service".Web.Host/"$name.$service".Web.Host.csproj reference  "..\..\src\$name.$service.HttpApi\$name.$service.HttpApi.csproj"                                                				
+                dotnet remove ./services/$folder/host/"$name.$service".Web.Unified/"$name.$service".Web.Unified.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
+                dotnet remove ./services/$folder/host/"$name.$service".Web.Unified/"$name.$service".Web.Unified.csproj reference  "..\..\src\$name.$service.Application\$name.$service.Application.csproj"
+                dotnet remove ./services/$folder/host/"$name.$service".Web.Unified/"$name.$service".Web.Unified.csproj reference  "..\..\src\$name.$service.EntityFrameworkCore\$name.$service.EntityFrameworkCore.csproj"
+                dotnet remove ./services/$folder/host/"$name.$service".Web.Unified/"$name.$service".Web.Unified.csproj reference  "..\..\src\$name.$service.HttpApi\$name.$service.HttpApi.csproj"
+				
+				dotnet remove ./services/$folder/test/$name.$service.HttpApi.Client.ConsoleTestApp/$name.$service.HttpApi.Client.ConsoleTestApp.csproj reference  "..\..\src\$name.$service.HttpApi.Client\$name.$service.HttpApi.Client.csproj"
+
+			}
+
+			## Move Project
 			Move-Item -Path "./services/$folder/src/$name.$service.Domain.Shared" -Destination $shared_folder"/$name.$service.Domain.Shared" -Force
 			Move-Item -Path "./services/$folder/src/$name.$service.Application.Contracts" -Destination $shared_folder"/$name.$service.Application.Contracts" -Force
 			Move-Item -Path "./services/$folder/src/$name.$service.HttpApi.Client" -Destination $shared_folder"/$name.$service.HttpApi.Client" -Force
+
+			if ($ui_enable -eq "True") {
+				Move-Item -Path "./services/$folder/src/$name.$service.Blazor" -Destination "./web_apps/$folder/src/$name.$service.Blazor" -Force
+				Move-Item -Path "./services/$folder/src/$name.$service.Blazor.WebAssembly" -Destination "./web_apps/$folder/src/$name.$service.Blazor.WebAssembly" -Force
+				Move-Item -Path "./services/$folder/src/$name.$service.Blazor.Server" -Destination "./web_apps/$folder/src/$name.$service.Blazor.Server" -Force
+				Move-Item -Path "./services/$folder/src/$name.$service.Web" -Destination "./web_apps/$folder/src/$name.$service.Web" -Force
+
+				Move-Item -Path "./services/$folder/host/$name.$service.Blazor.Host" -Destination "./web_apps/$folder/host/$name.$service.Blazor.Host" -Force
+				Move-Item -Path "./services/$folder/host/$name.$service.Blazor.Server.Host" -Destination "./web_apps/$folder/host/$name.$service.Blazor.Server.Host" -Force
+				Move-Item -Path "./services/$folder/host/$name.$service.Web.Host" -Destination "./web_apps/$folder/host/$name.$service.Web.Host" -Force
+				Move-Item -Path "./services/$folder/host/$name.$service.Web.Unified" -Destination "./web_apps/$folder/host/$name.$service.Web.Unified" -Force				
+			}
 			dotnet add ./services/$folder/src/"$name.$service".Domain/"$name.$service".Domain.csproj reference "$shared_folder/$name.$service.Domain.Shared/$name.$service.Domain.Shared.csproj"
 			dotnet add ./services/$folder/src/"$name.$service".Application/"$name.$service".Application.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
 			dotnet add ./services/$folder/src/"$name.$service".HttpApi/"$name.$service".HttpApi.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
-			dotnet sln "./services/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r $shared_folder/**/*.csproj)			
-			dotnet add ./services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"						
+			dotnet add "./web_apps/$folder/src/$name.$service.Blazor/$name.$service.Blazor.csproj" reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
+			dotnet add "./web_apps/$folder/src/$name.$service.Blazor.WebAssembly/$name.$service.Blazor.WebAssembly.csproj" reference "$shared_folder/$name.$service.HttpApi.Client/$name.$service.HttpApi.Client.csproj"
+			dotnet add "./web_apps/$folder/src/$name.$service.Web/$name.$service.Web.csproj" reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
+			
+            if ($ui_enable -eq "True") {
+                dotnet add "./web_apps/$folder/host/$name.$service.Blazor.Host/$name.$service.Blazor.Host.csproj" reference ./services/$folder/host/$name.$service.Host.Shared/$name.$service.Host.Shared.csproj
+
+                dotnet add "./web_apps/$folder/host/$name.$service.Blazor.Server.Host/$name.$service.Blazor.Server.Host.csproj" reference ./services/$folder/host/$name.$service.Host.Shared/$name.$service.Host.Shared.csproj
+                dotnet add "./web_apps/$folder/host/$name.$service.Blazor.Server.Host/$name.$service.Blazor.Server.Host.csproj" reference ./services/$folder/src/$name.$service.Application/$name.$service.Application.csproj
+                dotnet add "./web_apps/$folder/host/$name.$service.Blazor.Server.Host/$name.$service.Blazor.Server.Host.csproj" reference ./services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj
+                dotnet add "./web_apps/$folder/host/$name.$service.Blazor.Server.Host/$name.$service.Blazor.Server.Host.csproj" reference ./services/$folder/src/$name.$service.HttpApi/$name.$service.HttpApi.csproj
+
+                dotnet add "./web_apps/$folder/host/$name.$service.Web.Host/$name.$service.Web.Host.csproj" reference ./services/$folder/host/$name.$service.Host.Shared/$name.$service.Host.Shared.csproj
+                dotnet add "./web_apps/$folder/host/$name.$service.Web.Host/$name.$service.Web.Host.csproj" reference ./services/$folder/src/$name.$service.HttpApi/$name.$service.HttpApi.csproj
+                dotnet add "./web_apps/$folder/host/$name.$service.Web.Host/$name.$service.Web.Host.csproj" reference "$shared_folder/$name.$service.HttpApi.Client/$name.$service.HttpApi.Client.csproj"
+                
+                dotnet add "./web_apps/$folder/host/$name.$service.Web.Unified/$name.$service.Web.Unified.csproj" reference ./services/$folder/host/$name.$service.Host.Shared/$name.$service.Host.Shared.csproj
+                dotnet add "./web_apps/$folder/host/$name.$service.Web.Unified/$name.$service.Web.Unified.csproj" reference ./services/$folder/src/$name.$service.Application/$name.$service.Application.csproj
+                dotnet add "./web_apps/$folder/host/$name.$service.Web.Unified/$name.$service.Web.Unified.csproj" reference ./services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj
+                dotnet add "./web_apps/$folder/host/$name.$service.Web.Unified/$name.$service.Web.Unified.csproj" reference ./services/$folder/src/$name.$service.HttpApi/$name.$service.HttpApi.csproj
+				
+				dotnet add ./services/$folder/test/$name.$service.HttpApi.Client.ConsoleTestApp/$name.$service.HttpApi.Client.ConsoleTestApp.csproj reference "$shared_folder/$name.$service.HttpApi.Client/$name.$service.HttpApi.Client.csproj"
+			
+            }
+			dotnet add ./services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"					
+
 		} else {
 			dotnet add ./services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj			
 		}
 		dotnet add $shared_folder/"$name.$service".Domain.Shared/"$name.$service".Domain.Shared.csproj reference ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
 
+		Write-Output "Solution remove ./services/$folder/$name.$service.sln" 
 		#dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/host/$name.$service.Host.Shared/$name.$service.Host.Shared.csproj)		
-		dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.Installer/$name.$service.Installer.csproj)
 		dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.MongoDB/$name.$service.MongoDB.csproj)
 		dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/test/$name.$service.MongoDB.Tests/$name.$service.MongoDB.Tests.csproj)
+		dotnet sln "./services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./services/$folder/src/$name.$service.Installer/$name.$service.Installer.csproj)
 		
 		if ($service -ne 'Administration') {
 			Remove-Item -Recurse -Force (Get-ChildItem -r ./services/**/*.$service.AuthServer)		
 		}
+		Write-Output "REMOVE UN-USE ITEMS" 
 		#Remove-Item -Recurse -Force (Get-ChildItem -r **/*.$service.Host.Shared)
-		Remove-Item -Recurse -Force (Get-ChildItem -r ./services/**/*.$service.Installer)
-		Remove-Item -Recurse -Force (Get-ChildItem -r ./services/**/*.$service.MongoDB)
-		Remove-Item -Recurse -Force (Get-ChildItem -r ./services/**/*.$service.MongoDB.Tests)
+		Remove-Item -Recurse -Force ./services/$folder/src/*.$service.MongoDB
+		Remove-Item -Recurse -Force ./services/$folder/test/*.$service.MongoDB.Tests
+		Remove-Item -Recurse -Force ./services/$folder/src/*.$service.Installer
+		Remove-Item -Recurse -Force ./services/$folder/angular*
 
+		Write-Output "Solution add ./services/$folder/$name.$service.sln" 
 		dotnet sln "./services/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/**/*.csproj)
-		dotnet sln "./services/$folder/$name.$service.sln" add --solution-folder host ./services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj		
+		dotnet sln "./services/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r $shared_folder/**/*.csproj)			
+
+		if ($ui_enable -eq "True") {
+			#dotnet sln "./services/$folder/$name.$service.sln" add --solution-folder "ui/shared"(Get-ChildItem -r ./web_apps/$folder/src/**/*.csproj)
+			#dotnet sln "./services/$folder/$name.$service.sln" add --solution-folder "ui/host"(Get-ChildItem -r ./web_apps/$folder/host/**/*.csproj)	
+		}		
+		dotnet sln "./services/$folder/$name.$service.sln" add --solution-folder host ./services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj
+		
 		dotnet sln "./services/$sln_service.sln" add (Get-ChildItem -r ./services/$folder/**/*.csproj)
 		if ($use_share  -eq "True") {
 			dotnet sln "./services/$sln_service.sln" add --solution-folder "shared/$folder" (Get-ChildItem -r $shared_folder/**/*.csproj)
+			if ($ui_enable -eq "True") {
+				dotnet sln "./web_apps/$name.Web.Blazor.sln" add --solution-folder "$folder/ui" (Get-ChildItem -r ./web_apps/$folder/src/*.Blazor.csproj)
+				dotnet sln "./web_apps/$name.Web.Blazor.sln" add --solution-folder "$folder/ui" (Get-ChildItem -r ./web_apps/$folder/src/*.WebAssembly.csproj)
+				dotnet sln "./web_apps/$name.Web.Blazor.sln" add --solution-folder "$folder/shared" (Get-ChildItem -r $shared_folder/**/*.csproj)
+
+				dotnet sln "./web_apps/$name.Web.BlazorServer.sln" add --solution-folder "$folder/ui" (Get-ChildItem -r ./web_apps/$folder/src/*.Blazor.csproj)
+				dotnet sln "./web_apps/$name.Web.BlazorServer.sln" add --solution-folder "$folder/ui" (Get-ChildItem -r ./web_apps/$folder/src/*.Blazor.Server.csproj)
+				dotnet sln "./web_apps/$name.Web.BlazorServer.sln" add --solution-folder "$folder/shared" (Get-ChildItem -r $shared_folder/**/*.csproj)
+				
+				dotnet sln "./web_apps/$name.Web.MVC.sln" add --solution-folder "$folder/ui" (Get-ChildItem -r ./web_apps/$folder/src/*.Web.csproj)
+				dotnet sln "./web_apps/$name.Web.MVC.sln" add --solution-folder "$folder/shared" (Get-ChildItem -r $shared_folder/**/*.csproj)
+			}
 		}
 		if ($service -eq 'Administration') {
 			AdminServiceAddReference

@@ -143,6 +143,9 @@ function CreateCoreApp  {
 		Copy-Item -Path "./$apps/$name/src/$name.Domain.Shared" -Destination "./shared/app/" -recurse -Force
 		Copy-Item -Path "./$apps/$name/src/$name.Application.Contracts" -Destination "./shared/app/" -recurse -Force
 		Copy-Item -Path "./$apps/$name/src/$name.HttpApi.Client" -Destination "./shared/app/" -recurse -Force
+		
+		# For MVC
+		Copy-Item -Path "./$apps/$name/src/$name.HttpApi" -Destination "./shared/app/$name.HttpApi" -recurse -Force
 	}
 	dotnet sln "./$apps/$sln_account.sln" add (Get-ChildItem -r ./$apps/**/*.csproj)
 	
@@ -158,23 +161,28 @@ function CreateCoreApp  {
 	Move-Item "./web_apps/$name.BlazorServer/$name.Blazor.csproj" -Destination "./web_apps/$name.BlazorServer/$name.BlazorServer.csproj" -Force
 	dotnet add ./web_apps/$name.Web/$name.Web.csproj reference $shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj
 	
-	dotnet add ./web_apps/$name.Web/$name.Web.csproj reference ./$apps/$name/src/$name.HttpApi/$name.HttpApi.csproj
+	dotnet add ./web_apps/$name.Web/$name.Web.csproj reference $shared_app/$name.HttpApi/$name.HttpApi.csproj
+	#dotnet add ./web_apps/$name.Web/$name.Web.csproj reference ./$apps/$name/src/$name.HttpApi/$name.HttpApi.csproj
 
+	dotnet sln "./web_apps/$sln_webs.Blazor.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
 	dotnet sln "./web_apps/$sln_webs.Blazor.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.Domain.Shared/$name.Domain.Shared.csproj)
 	dotnet sln "./web_apps/$sln_webs.Blazor.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.Application.Contracts/$name.Application.Contracts.csproj)
 	dotnet sln "./web_apps/$sln_webs.Blazor.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj)
 	
+	dotnet sln "./web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
 	dotnet sln "./web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.Domain.Shared/$name.Domain.Shared.csproj)
 	dotnet sln "./web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.Application.Contracts/$name.Application.Contracts.csproj)
 	dotnet sln "./web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj)
 	
+	dotnet sln "./web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
 	dotnet sln "./web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.Domain.Shared/$name.Domain.Shared.csproj)
 	dotnet sln "./web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.Application.Contracts/$name.Application.Contracts.csproj)
 	dotnet sln "./web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj)
+	dotnet sln "./web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $shared_app/$name.HttpApi/$name.HttpApi.csproj)
 	
 	#dotnet sln "./web_apps/$sln_webs.sln" add (Get-ChildItem -r ./$apps/$name/src/$name.Domain/$name.Domain.csproj)
 	#dotnet sln "./web_apps/$sln_webs.sln" add (Get-ChildItem -r ./$apps/$name/src/$name.Application/$name.Application.csproj)
-	dotnet sln "./web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r ./$apps/$name/src/$name.HttpApi/$name.HttpApi.csproj)
+	#dotnet sln "./web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r ./$apps/$name/src/$name.HttpApi/$name.HttpApi.csproj)
 	
 	dotnet sln "./web_apps/$sln_webs.Blazor.sln" add (Get-ChildItem -r ./web_apps/$name.Blazor/**/*.csproj)
 	dotnet sln "./web_apps/$sln_webs.BlazorServer.sln" add (Get-ChildItem -r ./web_apps/$name.BlazorServer/**/*.csproj)	
