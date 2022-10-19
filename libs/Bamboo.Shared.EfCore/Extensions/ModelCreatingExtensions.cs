@@ -8,10 +8,10 @@ public static class DbContextModelCreatingExtensions
 
         base.OnModelCreating(builder);
 
-        builder.ConfigureStarify();
+        builder.ConfigureBamboo();
 	*/
 	
-    public static void ConfigureStarify(this ModelBuilder builder)
+    public static void ConfigureBamboo(this ModelBuilder builder)
     {
         Check.NotNull(builder, nameof(builder));
 

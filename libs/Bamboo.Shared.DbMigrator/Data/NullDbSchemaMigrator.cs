@@ -2,7 +2,7 @@
 using Volo.Abp.DependencyInjection;
 
 /* This is used if database provider does't define
- * IStarifyDbSchemaMigrator implementation.
+ * IDbSchemaMigrator implementation.
  */
 public class NullDbSchemaMigrator : IDbSchemaMigrator, ITransientDependency
 {

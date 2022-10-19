@@ -10,8 +10,6 @@ using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Uow;
 
-namespace Starify.Shared.Hosting.Microservices.DbMigrations.EfCore;
-
 public abstract class PendingEfCoreMigrationsChecker<TDbContext> : PendingMigrationsCheckerBase
     where TDbContext : DbContext
 {
