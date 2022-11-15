@@ -129,7 +129,7 @@ public static partial class ModelBuilderExtensions
         builder.HasPostgresExtension("uuid-ossp");
         builder.HasPostgresExtension("postgis");
         //builder.HasPostgresExtension("hstore");  // Require super user
-        builder.SnakeCase();
+        //builder.SnakeCase();
         builder.PostgreSQLDataType();
         builder.StringSize();
         return builder;

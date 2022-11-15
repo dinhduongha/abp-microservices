@@ -24,10 +24,11 @@ public static class DbContextModelCreatingExtensions
         //    //...
         //});
 
+		builder.UseIdentityColumns();
         builder.UseSerialColumns();
         builder.StringSize();
         builder.PostgreSQLDataType();
-        builder.SnakeCase();
+        //builder.SnakeCase();
         // Change to lower case:
         // https://github.com/abpframework/abp/issues/2131
     }

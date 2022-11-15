@@ -1,0 +1,41 @@
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
+
+using Volo.Abp.Account;
+using Volo.Abp.DependencyInjection;
+using Volo.Abp.Identity;
+using Volo.Abp;
+using Volo.Abp.Application.Services;
+using Volo.Abp.AspNetCore.Mvc;
+using Google.Apis.Logging;
+
+namespace Bamboo.Authentication.Controllers;
+
+[Dependency(ReplaceServices = true)]
+[ExposeServices(typeof(AccountController))]
+public class BambooAccountController : AccountController
+{
+    public BambooAccountController(IAccountAppService accountAppService)
+        : base(accountAppService)
+    {
+
+    }
+
+    public async override Task<IdentityUserDto> RegisterAsync(RegisterDto input)
+    {
+        // return await AccountAppService.RegisterAsync(input);
+        await Task.CompletedTask;
+        throw new UserFriendlyException("New user must login by Google/Facebook to register!");
+    }
+
+    public async override Task SendPasswordResetCodeAsync(SendPasswordResetCodeDto input)
+    {
+        await AccountAppService.SendPasswordResetCodeAsync(input);
+    }
+
+    public async override Task ResetPasswordAsync(ResetPasswordDto input)
+    {
+        await AccountAppService.ResetPasswordAsync(input);
+    }
+}

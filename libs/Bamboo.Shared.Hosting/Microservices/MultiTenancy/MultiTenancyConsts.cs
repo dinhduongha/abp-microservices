@@ -4,4 +4,5 @@
      * to test your module with multi-tenancy.
      */
     public const bool IsEnabled = true;
+    public const string TenantKey = "tenant";
 }
