@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -22,16 +22,16 @@
     <None Remove="Volo.Abp.Account.HttpApi" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.AspNetCore.MultiTenancy" Version="6.0.0" />
+    <PackageReference Include="Volo.Abp.AspNetCore.MultiTenancy" Version="7.0.0" />
     <PackageReference Include="FirebaseAdmin" Version="2.3.0" />
     <PackageReference Include="Twilio.AspNet.Core" Version="6.0.0" />
-    <PackageReference Include="Volo.Abp.Sms" Version="6.0.0" />
-    <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="6.0.0" />
-    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="6.0.0" />
-    <PackageReference Include="Volo.Abp.Identity.AspNetCore" Version="6.0.0" />
-    <PackageReference Include="Volo.Abp.TenantManagement.HttpApi" Version="6.0.0" />
-    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="6.0.0" />
-    <PackageReference Include="Volo.Abp.Identity.Application" Version="6.0.0" />
-    <PackageReference Include="Volo.Abp.Account.HttpApi" Version="6.0.0" />
+    <PackageReference Include="Volo.Abp.Sms" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.Identity.AspNetCore" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.TenantManagement.HttpApi" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.Account.HttpApi" Version="7.0.0" />
   </ItemGroup>
 </Project>
