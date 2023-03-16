@@ -1,5 +1,5 @@
 $name = $args[0]
-$name = "Bamboo"
+#$name = "Bamboo"
 $abpver = "7.0.0"
 $msver = "7.0.0"
 $ntsver = "13.0.1"
@@ -124,7 +124,6 @@ function CreateCoreApp  {
 	Move-Item -Path "./$name/temp-sas/$name/src/$name.AuthServer" -Destination ./$name/$apps/$name/src/"$name.AuthServer" -Force
 	
 
-
 	## Angular
 	#abp new "$name" -t app --no-random-port -u angular -m none --separate-auth-server --database-provider ef -dbms PostgreSQL --create-solution-folder -o temp-angular --skip-installing-libs
 	#Move-Item -Path "./temp-angular/$name/angular/" -Destination ./web_apps/angular
@@ -161,7 +160,6 @@ function CreateCoreApp  {
 	Move-Item -Path ./$name/$apps/$name/src/"$name.HttpApi.Saas.Host/$name.HttpApi.Host.csproj" -Destination ./$name/$apps/$name/src/"$name.HttpApi.Saas.Host.csproj" -Force
 
 	dotnet remove ./$name/web_apps/$name.Blazor/$name.Blazor.csproj reference "..\..\src\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
-	
 	dotnet add ./$name/web_apps/$name.Blazor/$name.Blazor.csproj reference $name/$shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj	
 	
 	dotnet sln "./$name/web_apps/$sln_webs.Blazor.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
@@ -172,57 +170,59 @@ function CreateCoreApp  {
 
 
 	## Blazor Server
-	#abp new "$name" -t app --no-random-port -u blazor-server -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder -o $name/temp-blazor-server --skip-installing-libs
-	#Move-Item -Path "./$name/temp-blazor-server/$name/src/$name.Blazor" -Destination ./$name/web_apps/"$name.BlazorServer" -Force
-	#dotnet remove ./$name/web_apps/$name.BlazorServer/$name.Blazor.csproj reference "..\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
-	#dotnet add ./$name/web_apps/$name.BlazorServer/$name.Blazor.csproj reference $name/$shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj	
-	#Move-Item "./$name/web_apps/$name.BlazorServer/$name.Blazor.csproj" -Destination "./$name/web_apps/$name.BlazorServer/$name.BlazorServer.csproj" -Force
-	#dotnet sln "./$name/web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
-	#dotnet sln "./$name/web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.Domain.Shared/$name.Domain.Shared.csproj)
-	#dotnet sln "./$name/web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.Application.Contracts/$name.Application.Contracts.csproj)
-	#dotnet sln "./$name/web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj)
-	#dotnet sln "./$name/web_apps/$sln_webs.BlazorServer.sln" add (Get-ChildItem -r ./$name/web_apps/$name.BlazorServer/**/*.csproj)	
+	# abp new "Bamboo" -t app --no-random-port -u blazor-server -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder -o Bamboo/temp-blazor-server --skip-installing-libs
+	abp new "$name" -t app --no-random-port -u blazor-server -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder -o $name/temp-blazor-server --skip-installing-libs
+	Move-Item -Path "./$name/temp-blazor-server/$name/src/$name.Blazor" -Destination ./$name/web_apps/"$name.BlazorServer" -Force
+	dotnet remove ./$name/web_apps/$name.BlazorServer/$name.Blazor.csproj reference "..\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
+	dotnet add ./$name/web_apps/$name.BlazorServer/$name.Blazor.csproj reference $name/$shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj	
+	Move-Item "./$name/web_apps/$name.BlazorServer/$name.Blazor.csproj" -Destination "./$name/web_apps/$name.BlazorServer/$name.BlazorServer.csproj" -Force
+	dotnet sln "./$name/web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
+	dotnet sln "./$name/web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.Domain.Shared/$name.Domain.Shared.csproj)
+	dotnet sln "./$name/web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.Application.Contracts/$name.Application.Contracts.csproj)
+	dotnet sln "./$name/web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj)
+	dotnet sln "./$name/web_apps/$sln_webs.BlazorServer.sln" add (Get-ChildItem -r ./$name/web_apps/$name.BlazorServer/**/*.csproj)	
 
 	## MVC
-	#abp new "$name" -t app --no-random-port -u mvc -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder -o $name/temp-mvc --skip-installing-libs
-	#Move-Item -Path "./$name/temp-mvc/$name/src/$name.Web" -Destination ./$name/web_apps/ -Force
-	#dotnet remove ./$name/web_apps/$name.Web/$name.Web.csproj reference "..\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
-	#dotnet remove ./$name/web_apps/$name.Web/$name.Web.csproj reference "..\$name.HttpApi\$name.HttpApi.csproj"	
-	#dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference $name/$shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj
-	#dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference $name/$shared_app/$name.HttpApi/$name.HttpApi.csproj
-	##dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference ./$name/$apps/$name/src/$name.HttpApi/$name.HttpApi.csproj
-	#dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
-	#dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.Domain.Shared/$name.Domain.Shared.csproj)
-	#dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.Application.Contracts/$name.Application.Contracts.csproj)
-	#dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj)
-	#dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.HttpApi/$name.HttpApi.csproj)
-	#dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add (Get-ChildItem -r ./$name/web_apps/$name.Web/**/*.csproj)
+	# abp new "Bamboo" -t app --no-random-port -u mvc -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder -o Bamboo/temp-mvc --skip-installing-libs
+	abp new "$name" -t app --no-random-port -u mvc -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder -o $name/temp-mvc --skip-installing-libs
+	Move-Item -Path "./$name/temp-mvc/$name/src/$name.Web" -Destination ./$name/web_apps/ -Force
+	dotnet remove ./$name/web_apps/$name.Web/$name.Web.csproj reference "..\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
+	dotnet remove ./$name/web_apps/$name.Web/$name.Web.csproj reference "..\$name.HttpApi\$name.HttpApi.csproj"	
+	dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference $name/$shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj
+	dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference $name/$shared_app/$name.HttpApi/$name.HttpApi.csproj
+	#dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference ./$name/$apps/$name/src/$name.HttpApi/$name.HttpApi.csproj
+	dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
+	dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.Domain.Shared/$name.Domain.Shared.csproj)
+	dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.Application.Contracts/$name.Application.Contracts.csproj)
+	dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.HttpApi.Client/$name.HttpApi.Client.csproj)
+	dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.HttpApi/$name.HttpApi.csproj)
+	#dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r $name/$apps/$name/src/$name.HttpApi/$name.HttpApi.csproj)
+	dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add (Get-ChildItem -r ./$name/web_apps/$name.Web/**/*.csproj)
 	
 	#dotnet sln "./$name/web_apps/$sln_webs.sln" add (Get-ChildItem -r ./$apps/$name/src/$name.Domain/$name.Domain.csproj)
 	#dotnet sln "./$name/web_apps/$sln_webs.sln" add (Get-ChildItem -r ./$apps/$name/src/$name.Application/$name.Application.csproj)
-	#dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared (Get-ChildItem -r ./$apps/$name/src/$name.HttpApi/$name.HttpApi.csproj)
 	
 
 	## Un-comment to use Newtonsoft.Json and Volo.Abp.Guids at client side
 	#dotnet add ./$name/web_apps/$name.Blazor/$name.Blazor.csproj package Newtonsoft.Json -v $ntsver
 	#dotnet add ./$name/web_apps/$name.Blazor/$name.Blazor.csproj package Volo.Abp.Guids -v $abpver
 	#dotnet add ./$name/web_apps/$name.BlazorServer/$name.Blazor.csproj package Newtonsoft.Json -v $ntsver
-	#dotnet add ./$name/web_apps/$name.BlazorServer/$name.Blazor.csproj package Volo.Abp.Guids -v $abpver
-	#dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference Newtonsoft.Json -v $ntsver
-	#dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference Volo.Abp.Guids -v $abpver
+	#dotnet add ./$name/web_apps/$name.BlazorServer/$name.BlazorServer.csproj package Volo.Abp.Guids -v $abpver
+	#dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj package Newtonsoft.Json -v $ntsver
+	#dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj package Volo.Abp.Guids -v $abpver
 
-	#dotnet add ./$name/web_apps/$name.Blazor/$name.Blazor.csproj reference ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
-	#dotnet add ./$name/web_apps/$name.BlazorServer/$name.Blazor.csproj reference ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
-	#dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
-	#dotnet sln "./$name/web_apps/$sln_webs.Blazor.sln" add --solution-folder shared ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
-	#dotnet sln "./$name/web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
-	#dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
+	dotnet add ./$name/web_apps/$name.Blazor/$name.Blazor.csproj reference $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
+	dotnet add ./$name/web_apps/$name.BlazorServer/$name.BlazorServer.csproj reference $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
+	dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
+	dotnet sln "./$name/web_apps/$sln_webs.Blazor.sln" add --solution-folder shared $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
+	dotnet sln "./$name/web_apps/$sln_webs.BlazorServer.sln" add --solution-folder shared $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
+	dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder shared $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
 	
 	## ATTENTION: Remember to REMOVE un-use reference in Web projects
 	
-	Remove-Item -Recurse -Force ./$name/temp-sas/
-	Remove-Item -Recurse -Force ./$name/temp-blazor-server/
-	Remove-Item -Recurse -Force ./$name/temp-mvc/
+	#Remove-Item -Recurse -Force ./$name/temp-sas/
+	#Remove-Item -Recurse -Force ./$name/temp-blazor-server/
+	#Remove-Item -Recurse -Force ./$name/temp-mvc/
 
 	#cmd /c pause
 	#dotnet sln "./$name.sln" remove (Get-ChildItem -r **/*.Host.Shared.csproj)
