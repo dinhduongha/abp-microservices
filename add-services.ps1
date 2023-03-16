@@ -1,5 +1,5 @@
 $name = $args[0]
-#$name = "Bamboo"
+$name = "Bamboo"
 $abpver = "7.0.0"
 
 $sln_service = "$name.Services.All"
@@ -387,7 +387,7 @@ function CreateServices {
 				# MVC
 				dotnet sln "./$name/web_apps/$name.Web.MVC.sln" add --solution-folder "$folder/ui" (Get-ChildItem -r ./$name/web_apps/$folder/src/*.Web.csproj)
 				dotnet sln "./$name/web_apps/$name.Web.MVC.sln" add --solution-folder "$folder/shared" (Get-ChildItem -r $shared_folder/**/*.csproj)
-				dotnet sln "./$name/web_apps/$sln_webs.MVC.sln" add --solution-folder "$folder/shared" ./$name/services/$folder/src/$name.$service.HttpApi/$name.$service.HttpApi.csproj
+				dotnet sln "./$name/web_apps/$name.Web.MVC.sln" add --solution-folder "$folder/shared" ./$name/services/$folder/src/$name.$service.HttpApi/$name.$service.HttpApi.csproj
 				dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference ./$name/web_apps/$folder/src/$name.$service.Web/$name.$service.Web.csproj
 				dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference ./$name/services/$folder/src/$name.$service.HttpApi/$name.$service.HttpApi.csproj
 			}

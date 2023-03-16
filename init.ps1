@@ -1,5 +1,5 @@
 $name = $args[0]
-#$name = "Bamboo"
+$name = "Bamboo"
 $abpver = "7.0.0"
 $msver = "7.0.0"
 $ntsver = "13.0.1"
