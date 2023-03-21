@@ -1,6 +1,6 @@
 $name = $args[0]
 $name = "Bamboo"
-$abpver = "7.0.3"
+$abpver = "7.1.0"
 
 $sln_service = "$name.Services.All"
 $shared_common = "$name/shared/common"
@@ -175,6 +175,7 @@ function AccountServiceAddReference {
 	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.TenantManagement.HttpApi -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.FeatureManagement.HttpApi -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.SettingManagement.HttpApi -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.OpenIddict.AspNetCore -v $abpver
 
 	## HTTP API CLIENT
 	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.Account.HttpApi.Client -v $abpver
@@ -253,7 +254,8 @@ function AdminServiceAddReference {
 	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.PermissionManagement.HttpApi -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.FeatureManagement.HttpApi -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.SettingManagement.HttpApi -v $abpver
-
+	
+	
 	## HTTP API CLIENT
 	#dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.Account.HttpApi.Client -v $abpver
 	#dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.Identity.HttpApi.Client -v $abpver
@@ -356,6 +358,7 @@ function CreateServices {
 			#dotnet remove ./services/$folder/src/"$name.$service".Domain/"$name.$service".Domain.csproj reference ./services/$folder/"$name.$service".Domain.Shared/"$name.$service".Domain.Shared.csproj
 			dotnet remove ./$name/services/$folder/src/"$name.$service".Application/"$name.$service".Application.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
 			dotnet remove ./$name/services/$folder/src/"$name.$service".HttpApi/"$name.$service".HttpApi.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
+			#dotnet remove ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
 			if ($ui_enable -eq "True") {
 				dotnet remove ./$name/services/$folder/src/"$name.$service".Blazor/"$name.$service".Blazor.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
 				dotnet remove ./$name/services/$folder/src/"$name.$service".Blazor.WebAssembly/"$name.$service".Blazor.WebAssembly.csproj reference "..\$name.$service.HttpApi.Client\$name.$service.HttpApi.Client.csproj"
@@ -487,8 +490,12 @@ function CreateServices {
 			#dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "..\..\src\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "..\..\src\Bamboo.Authentication\Bamboo.Authentication.csproj"
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "..\..\src\Bamboo.LoginUi.Web\Bamboo.LoginUi.Web.csproj"
+			
+			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.OpenIddict.AspNetCore -v $abpver
+			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.BackgroundJobs.HangFire -v $abpver
 			dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference "..\..\src\Bamboo.Authentication\Bamboo.Authentication.csproj"
 			dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference "..\..\src\Bamboo.LoginUi.Web\Bamboo.LoginUi.Web.csproj"
+			
 			dotnet sln "./$name/services/$folder/$name.$service.sln" add (Get-ChildItem -r ./$name/services/$folder/src/**/*.csproj)
 		}
 		if ($service -eq 'Administration') {

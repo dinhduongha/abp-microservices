@@ -15,7 +15,7 @@ using Volo.Abp.MultiTenancy;
 //using AbpShared.Hosting.AspNetCore;
 
 [DependsOn(
-    typeof(AbpSharedHostingAspNetCoreModule),
+    //typeof(AbpSharedHostingAspNetCoreModule),
     typeof(AbpBackgroundJobsRabbitMqModule),
     typeof(AbpAspNetCoreMultiTenancyModule),
     typeof(AbpEventBusRabbitMqModule),
