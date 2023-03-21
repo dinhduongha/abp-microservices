@@ -1,6 +1,6 @@
 $name = $args[0]
 $name = "Bamboo"
-$abpver = "7.0.0"
+$abpver = "7.0.3"
 $msver = "7.0.0"
 $ntsver = "13.0.1"
 $apps = "account"
@@ -13,13 +13,19 @@ $sln_gateways = "$name.Gateways"
 $use_share = "True"	
 
 function CreateCoreLibs {
-	new-item "$name" -itemtype directory
+	if (Test-Path -Path "$name") {
+	} else {
+		new-item "$name" -itemtype directory
+	}
 	new-item "$name/$shared_common" -itemtype directory
 	new-item "$name/$apps" -itemtype directory
 	new-item "$name/services" -itemtype directory
 	new-item "$name/gateways" -itemtype directory
-	new-item "$name/web_apps" -itemtype directory
-
+	if (Test-Path -Path "$name") {
+	} else {
+		new-item "$name/web_apps" -itemtype directory
+	}
+	
 	dotnet new sln -n "$sln_account" -o ./$name/$apps
 	dotnet new sln -n "$sln_gateways" -o ./$name/gateways
 	dotnet new sln -n "$sln_service" -o ./$name/services
