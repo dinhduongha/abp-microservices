@@ -10,7 +10,7 @@ $admin_name = "Admin"
 
 $services = @{}
 $services.Add('Admin', 'admin')
-#$services.Add('Core', 'core')
+$services.Add('Core', 'core')
 #$services.Add('Crm', 'crm')
 #$services.Add('Sales', 'sales')
 #$services.Add('Shop', 'shop')
@@ -21,17 +21,17 @@ $services.Add('Admin', 'admin')
 #$services.Add('Administration', 'administration')
 #$services.Add('Logging', 'logging')
 #$services.Add('Notification', 'notification')
-$services.Add('CmsKit', 'cmskit')
+#$services.Add('CmsService', 'cmskit')
 
 function CmsKitAddReference {
-	# CmsKit SERVICES 
+	# CmsService SERVICES 
 	## Domain.Shared
 	if ($use_share -eq "True") {
 		$shared_folder = "./$name/shared/$folder"
 	} else {
 		$shared_folder = "./$name/services/$folder/src"		
 	}
-	$admin = "CmsKit"
+	$admin = "CmsService"
 	
 	#dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.Identity.Domain.Shared -v $abpver
 	#dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.BackgroundJobs.Domain.Shared -v $abpver
@@ -311,11 +311,11 @@ function CreateServices {
 			abp new "$name.$service" -t module --no-ui -o $name/services/$folder --skip-installing-libs			
 		}
 
+		dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference ./$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
 		dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql
 		#dotnet remove ./services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.SqlServer
 		
 		dotnet add ./$name/services/$folder/src/"$name.$service".EntityFrameworkCore/"$name.$service".EntityFrameworkCore.csproj reference ./$shared_common/$name.Shared.EfCore/$name.Shared.EfCore.csproj
-		dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference ./$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
 		#dotnet add ./services/$folder/src/"$name.$service".Domain/"$name.$service".Domain.csproj reference ./$shared_common/$name.Shared.Domain/$name.Shared.Domain.csproj
 
 		dotnet new console -n "$name.$service.DbMigrator" -o ./$name/services/$folder/host/$name.$service.DbMigrator
@@ -444,7 +444,7 @@ function CreateServices {
 		}
 		Write-Output "REMOVE UN-USE ITEMS" 
 		#Remove-Item -Recurse -Force (Get-ChildItem -r **/*.$service.Host.Shared)
-		Remove-Item -Recurse -Force ./$name/services/$folder/src/*.$service.MongoDB
+		#Remove-Item -Recurse -Force ./$name/services/$folder/src/*.$service.MongoDB
 		Remove-Item -Recurse -Force ./$name/services/$folder/test/*.$service.MongoDB.Tests
 		Remove-Item -Recurse -Force ./$name/services/$folder/src/*.$service.Installer
 		Remove-Item -Recurse -Force ./$name/services/$folder/angular*
@@ -482,26 +482,28 @@ function CreateServices {
 			}
 		}
 		if ($service -eq $admin_name) {
-			Copy-Item -Path "./libs/Bamboo.Authentication" -Destination ./$name/services/$folder/src/ -recurse -Force
-			Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination ./$name/services/$folder/src/ -recurse -Force
+			Copy-Item -Path "./libs/Bamboo.Authentication" -Destination ./$name/services/$folder/src/$name.Authentication -recurse -Force
+			Move-Item -Path "./$name/services/$folder/src/$name.Authentication/Bamboo.Authentication.csproj" -Destination "./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj" -Force
+			Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination ./$name/services/$folder/src/$name.LoginUi.Web -recurse -Force
+			Move-Item -Path "./$name/services/$folder/src/$name.LoginUi.Web/Bamboo.LoginUi.Web.csproj" -Destination "./$name/services/$folder/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj" -Force
 			AccountServiceAddReference
 			dotnet remove ./$name/services/$folder/host/"$name.$service".AuthServer/"$name.$service".AuthServer.csproj reference "..\..\src\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
 			#dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "..\..\src\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
-			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "..\..\src\Bamboo.Authentication\Bamboo.Authentication.csproj"
-			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "..\..\src\Bamboo.LoginUi.Web\Bamboo.LoginUi.Web.csproj"
+			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference ./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj
+			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference ./$name/services/$folder/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj
 			
 			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.OpenIddict.AspNetCore -v $abpver
 			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.BackgroundJobs.HangFire -v $abpver
-			dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference "..\..\src\Bamboo.Authentication\Bamboo.Authentication.csproj"
-			dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference "..\..\src\Bamboo.LoginUi.Web\Bamboo.LoginUi.Web.csproj"
+			dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference ./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj
+			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference ./$name/services/$folder/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj
 			
 			dotnet sln "./$name/services/$folder/$name.$service.sln" add (Get-ChildItem -r ./$name/services/$folder/src/**/*.csproj)
 		}
 		if ($service -eq 'Administration') {
 			AdminServiceAddReference
 		}
-		if ($service -eq 'CmsKit') {
+		if ($service -eq 'CmsService') {
 			dotnet add ./$name/web_apps/$folder/src/$name.$service.Web/$name.$service.Web.csproj package Volo.CmsKit.Public.Web -v $abpver
 			CmsKitAddReference
 		}

@@ -3,24 +3,36 @@ using Medallion.Threading.Redis;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.DependencyInjection;
+
 using StackExchange.Redis;
+
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.BackgroundJobs.RabbitMQ;
 using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.DistributedLocking;
 using Volo.Abp.EventBus.RabbitMq;
+using Volo.Abp.EventBus.RabbitMq;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.PostgreSql;
+
 //using AbpShared.Hosting.AspNetCore;
 
 [DependsOn(
-    //typeof(AbpSharedHostingAspNetCoreModule),
-    typeof(AbpBackgroundJobsRabbitMqModule),
+	typeof(AbpAutofacModule),
+    typeof(AbpDataModule),
+	typeof(AbpCachingStackExchangeRedisModule),
+    typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpAspNetCoreMultiTenancyModule),
-    typeof(AbpEventBusRabbitMqModule),
-    typeof(AbpCachingStackExchangeRedisModule),
-    typeof(AbpDistributedLockingModule)
+    typeof(AbpDistributedLockingModule),
+    typeof(AbpSwashbuckleModule),
+    //typeof(AbpEventBusRabbitMqModule),
+    //typeof(AbpBackgroundJobsRabbitMqModule),
+    //typeof(AbpSharedHostingAspNetCoreModule),
+	typeof(AbpEntityFrameworkCoreModule),
+    typeof(AbpEntityFrameworkCorePostgreSqlModule)
 )]
 public class AbpSharedHostingMicroservicesModule : AbpModule
 {
@@ -30,6 +42,11 @@ public class AbpSharedHostingMicroservicesModule : AbpModule
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         var configuration = context.Services.GetConfiguration();
 
+        Configure<AbpDbContextOptions>(options =>
+        {
+            options.UseNpgsql();
+        });
+
         Configure<AbpMultiTenancyOptions>(options =>
         {
             options.IsEnabled = true;
@@ -37,7 +54,7 @@ public class AbpSharedHostingMicroservicesModule : AbpModule
 
         Configure<AbpDistributedCacheOptions>(options =>
         {
-            options.KeyPrefix = "Starify:";
+            options.KeyPrefix = "Bamboo";
         });
 
         var redisOptions = ConfigurationOptions.Parse(configuration["Redis:Configuration"]);
@@ -64,5 +81,6 @@ public class AbpSharedHostingMicroservicesModule : AbpModule
             var connection = ConnectionMultiplexer.Connect(redisOptions);
             return new RedisDistributedSynchronizationProvider(connection.GetDatabase());
         });
+		
     }
 }

@@ -16,21 +16,19 @@ public class AbpSharedHostingModule : AbpModule
     {
         Configure<AbpDbConnectionOptions>(options =>
         {
-            options.Databases.Configure("AdministrationService", database =>
+            options.Databases.Configure("Admin", database =>
             {
+				database.MappedConnections.Add("AbpIdentity");
+                database.MappedConnections.Add("AbpOpenIddict");				
                 database.MappedConnections.Add("AbpAuditLogging");
                 database.MappedConnections.Add("AbpPermissionManagement");
                 database.MappedConnections.Add("AbpSettingManagement");
                 database.MappedConnections.Add("AbpFeatureManagement");
-                database.MappedConnections.Add("AbpBlobStoring");
+                database.MappedConnections.Add("AbpTenantManagement");
+                //database.MappedConnections.Add("AbpBlobStoring");
+                database.IsUsedByTenants = false;
             });
-            
-            options.Databases.Configure("IdentityService", database =>
-            {
-                database.MappedConnections.Add("AbpIdentity");
-                database.MappedConnections.Add("AbpIdentityServer");
-            });
-
+			
             options.Databases.Configure("CmskitService", database =>
             {
                 database.MappedConnections.Add("CmsKit");
