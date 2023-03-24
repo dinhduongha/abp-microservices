@@ -6,6 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 using StackExchange.Redis;
 
+using Volo.Abp.Autofac;
+using Volo.Abp.Data;
+using Volo.Abp.Swashbuckle;
+using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.BackgroundJobs.RabbitMQ;
 using Volo.Abp.Caching;

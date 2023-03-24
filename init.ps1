@@ -6,7 +6,7 @@ $ntsver = "13.0.1"
 $apps = "apps"
 $shared_common = "shared/common"
 $shared_app = "shared/app"
-$sln_account = "$name.Account"
+$sln_account = "$name.App.Host"
 $sln_service = "$name.Services.All"
 $sln_gateways = "$name.Gateways"
 $sln_webs = "$name.Web"
@@ -25,22 +25,20 @@ function CreateCoreLibs {
 	if (-not(Test-Path -Path "$name/services")){
 		new-item "$name/services" -itemtype directory
 	}
-	if (-not(Test-Path -Path "$name/gateways")){
-		new-item "$name/gateways" -itemtype directory
-	}
+
 	if (-not(Test-Path -Path "$name/mobile")){
 		new-item "$name/mobile" -itemtype directory
 	}
 	#if (-not(Test-Path -Path "$name/angular")){
 	#	new-item "$name/angular" -itemtype directory
 	#}
-	if (-not(Test-Path -Path "$name")){
+	if (-not(Test-Path -Path "$name/web_apps")){
 		new-item "$name/web_apps" -itemtype directory
-		new-item "$name/angular" -itemtype directory
+		new-item "$name/web_apps/angular" -itemtype directory
 	}
 	
 	dotnet new sln -n "$sln_account" -o ./$name/$apps
-	dotnet new sln -n "$sln_gateways" -o ./$name/gateways
+	
 	dotnet new sln -n "$sln_service" -o ./$name/services
 	dotnet new sln -n "$sln_webs.Blazor" -o ./$name/web_apps
 	dotnet new sln -n "$sln_webs.BlazorServer" -o ./$name/web_apps
@@ -74,14 +72,15 @@ function CreateCoreLibs {
 	dotnet add ./$name/$shared_common/$name.Shared.Hosting/$name.Shared.Hosting.csproj package Serilog.Extensions.Logging -v "3.1.0"
 	dotnet add ./$name/$shared_common/$name.Shared.Hosting/$name.Shared.Hosting.csproj package Serilog.Sinks.Async -v "1.5.0"
 	dotnet add ./$name/$shared_common/$name.Shared.Hosting/$name.Shared.Hosting.csproj package Serilog.Sinks.File -v "5.0.0"
-	dotnet add ./$name/$shared_common/$name.Shared.Hosting/$name.Shared.Hosting.csproj package Serilog.Sinks.Console -v "4.0.1"
+	#dotnet add ./$name/$shared_common/$name.Shared.Hosting/$name.Shared.Hosting.csproj package Serilog.Sinks.Console -v "4.0.1"
+	dotnet add ./$name/$shared_common/$name.Shared.Hosting/$name.Shared.Hosting.csproj package Serilog.Sinks.ColoredConsole -v "3.0.1"
 	dotnet add ./$name/$shared_common/$name.Shared.Hosting/$name.Shared.Hosting.csproj package Volo.Abp.Autofac -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.Hosting/$name.Shared.Hosting.csproj package Volo.Abp.Data -v $abpver
 	Copy-Item -Path "./libs/Bamboo.Shared.Hosting/Hosting/*" -Destination ./$name/$shared_common/$name.Shared.Hosting/ -recurse -Force
 	Remove-Item -Path ./$name/$shared_common/$name.Shared.Hosting/Class1.cs -Force 
 
 	dotnet new classlib -n "$name.Shared.AspNetCore" -o "./$name/$shared_common/$name.Shared.AspNetCore"
-	dotnet add ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj package Serilog.AspNetCore -v "6.1.0"
+	#dotnet add ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj package Serilog.AspNetCore -v "5.0.0"
 	dotnet add ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj package Volo.Abp.AspNetCore.Serilog -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj package Volo.Abp.Swashbuckle -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj reference ./$name/$shared_common/$name.Shared.Hosting/$name.Shared.Hosting.csproj
@@ -95,8 +94,8 @@ function CreateCoreLibs {
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Swashbuckle.AspNetCore #-v 6.4.0
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Hangfire.LiteDB
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package IdentityModel
-	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Serilog.Sinks.Async -v 1.5.0
-	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Serilog.AspNetCore -v 6.1.0
+	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Serilog.Sinks.Async -v 1.5.0
+	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Serilog.AspNetCore -v 5.0.0
 	
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.Autofac -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.AspNetCore.Serilog -v $abpver
@@ -134,6 +133,10 @@ function CreateCoreLibs {
 }
 
 function CreateGateways {
+	if (-not(Test-Path -Path "$name/gateways")){
+		new-item "$name/gateways" -itemtype directory
+	}
+	dotnet new sln -n "$sln_gateways" -o ./$name/gateways
 	dotnet new classlib -n "$name.Shared.Gateway" -o "./$name/gateways/shared/$name.Shared.Gateway"
 	dotnet add ./$name/gateways/shared/$name.Shared.Gateway/$name.Shared.Gateway.csproj package Yarp.ReverseProxy -v 2.0.0
 	dotnet add ./$name/gateways/shared/$name.Shared.Gateway/$name.Shared.Gateway.csproj reference ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj
@@ -157,6 +160,9 @@ function CreateCoreApp  {
 	} else {
 		$shared_app = "./$apps/$name/src"
 	}
+	# abp new "Bamboo.Account" -t app-nolayers --no-random-port --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -u none --skip-bundling -o Bamboo/apps
+	abp new "$name.Account" -t app-nolayers --no-random-port --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -u none --skip-bundling -o $name/$apps
+
 	## Blazor --separate-identity-server
 	abp new "$name" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -m none -o $name/$apps 
 	Move-Item -Path "./$name/$apps/$name/src/$name.Blazor" -Destination ./$name/web_apps/"$name.Blazor" -Force
@@ -165,13 +171,13 @@ function CreateCoreApp  {
 	#Move-Item -Path ./$name/$apps/$name/src/"$name.HttpApi.Saas.Host/$name.HttpApi.Host.csproj" -Destination ./$name/$apps/$name/src/"$name.HttpApi.Saas.Host.csproj" -Force
 
 	## Blazor
-	# abp new "Bamboo" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m react-native --skip-bundling -o Bamboo/apps
+	# abp new "Bamboo" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o Bamboo/apps
 	#abp new "$name" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o $name/$apps
 	#Move-Item -Path "./$name/$apps/$name/src/$name.Blazor" -Destination ./$name/web_apps/"$name.Blazor" -Force
 	
 	## Angular
 	abp new "$name" -t app --no-random-port -u angular --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server  --skip-installing-libs -m react-native -o temp/$name-angular
-	Move-Item -Path ./temp/$name-angular/$name/angular -Destination ./$name/web_apps/angular
+	Move-Item -Path ./temp/$name-angular/$name/angular -Destination ./$name/web_apps/angular/app -Force
 	Move-Item -Path ./temp/$name-angular/$name/react-native -Destination ./$name/mobile/ -Force
 	# MAUI
 	#abp new "Bamboo" -t maui --no-random-port --database-provider ef -dbms PostgreSQL --skip-installing-libs --skip-bundling -o temp/Bamboo-maui
@@ -206,7 +212,6 @@ function CreateCoreApp  {
 		# For MVC
 		Copy-Item -Path "./$name/$apps/$name/src/$name.HttpApi" -Destination "./$name/shared/app/$name.HttpApi" -recurse -Force
 	}
-
 	dotnet sln "./$name/$apps/$sln_account.sln" add (Get-ChildItem -r ./$name/$apps/**/*.csproj)	
 	
 	dotnet remove ./$name/web_apps/$name.Blazor/$name.Blazor.csproj reference "..\..\src\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
@@ -298,7 +303,7 @@ function AppAddSource {
 }
 
 CreateCoreLibs
-CreateGateways
+#CreateGateways
 CreateCoreApp
 
 cmd /c pause

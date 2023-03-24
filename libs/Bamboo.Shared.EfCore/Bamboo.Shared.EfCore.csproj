@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+  
+    <PackageReference Include="EFCore.NamingConventions"/>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.5" />
     <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="7.0.0" />
   </ItemGroup>

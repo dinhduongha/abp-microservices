@@ -3,6 +3,40 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+//using Volo.Abp.EntityFrameworkCore.PostgreSql;
+// <summary>
+/// Converts <see cref="DateOnly" /> to <see cref="DateTime"/> and vice versa.
+/// </summary>
+public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
+{
+    /// <summary>
+    /// Creates a new instance of this converter.
+    /// </summary>
+    public DateOnlyConverter() : base(
+            d => d.ToDateTime(TimeOnly.MinValue),
+            d => DateOnly.FromDateTime(d))
+    { }
+}
+
+public static partial class ModelConfigurationBuilderExtensions
+{
+    public override void ConfigureConventions(this ModelConfigurationBuilder builder)
+    {
+        builder.Properties<DateOnly>()
+            .HaveConversion<DateOnlyConverter>()
+            .HaveColumnType("date");
+    }
+}
+
+public static partial class DbContextOptionsBuilderExtensions
+{
+    public override void ConfigureConventions(this DbContextOptionsBuilder optionsBuilder)
+    {
+        // optionsBuilder
+        //     .UseNpgsql()
+        //     .UseSnakeCaseNamingConvention();
+    }
+}
 
 public static partial class ModelBuilderExtensions
 {

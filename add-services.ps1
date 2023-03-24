@@ -116,7 +116,6 @@ function CmsKitAddReference {
 
 function AccountServiceAddReference {
 	# ADMINISTRATION SERVICES 
-	## Domain.Shared
 	if ($use_share -eq "True") {
 		$shared_folder = "./$name/shared/$folder"
 	} else {
@@ -191,7 +190,6 @@ function AccountServiceAddReference {
 	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.TenantManagement.HttpApi.Client -v $abpver
 	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.FeatureManagement.HttpApi.Client -v $abpver
 	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.SettingManagement.HttpApi.Client -v $abpver
-
 }
 
 function AdminServiceAddReference {
@@ -324,24 +322,9 @@ function CreateServices {
 		
 		dotnet add ./$name/services/$folder/src/"$name.$service".EntityFrameworkCore/"$name.$service".EntityFrameworkCore.csproj reference ./$shared_common/$name.Shared.EfCore/$name.Shared.EfCore.csproj
 		#dotnet add ./services/$folder/src/"$name.$service".Domain/"$name.$service".Domain.csproj reference ./$shared_common/$name.Shared.Domain/$name.Shared.Domain.csproj
-
-		dotnet new console -n "$name.$service.DbMigrator" -o ./$name/services/$folder/host/$name.$service.DbMigrator
-		dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Microsoft.Extensions.Hosting -v "7.0.*"
-		dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Extensions.Logging -v "3.1.0"
-		dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.Async -v "1.5.0"
-		dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.File -v "5.0.0"
-		dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.Console -v "4.0.1"	
-		dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Autofac -v $abpver	
-		dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.BackgroundJobs -v $abpver
-		dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Identity.Domain -v $abpver
-		dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.TenantManagement.Domain -v $abpver	
-		dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj
-		Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination ./$name/services/$folder/host/$name.$service.DbMigrator/ -recurse -Force
 		
 		if ($service -ne $admin_name) {
-			dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj)
-			Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination ./$name/services/$folder/host/$name.$service.DbMigrator/ -recurse -Force
-
+			dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj)			
 		}
 		if ($use_share  -eq "True") {
 			dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Domain.Shared/$name.$service.Domain.Shared.csproj)
@@ -381,7 +364,8 @@ function CreateServices {
                 dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Host/"$name.$service".Web.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
                 dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Host/"$name.$service".Web.Host.csproj reference  "..\..\src\$name.$service.HttpApi.Client\$name.$service.HttpApi.Client.csproj"
                 dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Host/"$name.$service".Web.Host.csproj reference  "..\..\src\$name.$service.HttpApi\$name.$service.HttpApi.csproj"                                                				
-                dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Unified/"$name.$service".Web.Unified.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
+                
+				dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Unified/"$name.$service".Web.Unified.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
                 dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Unified/"$name.$service".Web.Unified.csproj reference  "..\..\src\$name.$service.Application\$name.$service.Application.csproj"
                 dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Unified/"$name.$service".Web.Unified.csproj reference  "..\..\src\$name.$service.EntityFrameworkCore\$name.$service.EntityFrameworkCore.csproj"
                 dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Unified/"$name.$service".Web.Unified.csproj reference  "..\..\src\$name.$service.HttpApi\$name.$service.HttpApi.csproj"
@@ -404,8 +388,16 @@ function CreateServices {
 				Move-Item -Path "./$name/services/$folder/host/$name.$service.Blazor.Host" -Destination "./$name/web_apps/$folder/host/$name.$service.Blazor.Host" -Force
 				Move-Item -Path "./$name/services/$folder/host/$name.$service.Blazor.Server.Host" -Destination "./$name/web_apps/$folder/host/$name.$service.Blazor.Server.Host" -Force
 				Move-Item -Path "./$name/services/$folder/host/$name.$service.Web.Host" -Destination "./$name/web_apps/$folder/host/$name.$service.Web.Host" -Force
-				Move-Item -Path "./$name/services/$folder/host/$name.$service.Web.Unified" -Destination "./$name/web_apps/$folder/host/$name.$service.Web.Unified" -Force				
+				Move-Item -Path "./$name/services/$folder/host/$name.$service.Web.Unified" -Destination "./$name/web_apps/$folder/host/$name.$service.Web.Unified" -Force
+
+				Move-Item -Path "./$name/services/$folder/angular" -Destination "./$name/web_apps/angular/$folder" -Force
+				#if (-not(Test-Path -Path "./$name/web_apps/angular/projects/dev-app")) {
+				#	Move-Item -Path "./$name/services/$folder/angular/projects/dev-app" -Destination "./$name/web_apps/angular/projects/" -Force
+				#}
+				#Remove-Item -Recurse -Force ./$name/services/$folder/angular*
 			}
+
+			## Add reference back to projects
 			dotnet add ./$name/services/$folder/src/$name.$service.Domain/$name.$service.Domain.csproj reference "$shared_folder/$name.$service.Domain.Shared/$name.$service.Domain.Shared.csproj"
 			dotnet add ./$name/services/$folder/src/$name.$service.Application/$name.$service.Application.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
 			dotnet add ./$name/services/$folder/src/$name.$service.HttpApi/$name.$service.HttpApi.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
@@ -433,16 +425,40 @@ function CreateServices {
 				dotnet add ./$name/services/$folder/test/$name.$service.HttpApi.Client.ConsoleTestApp/$name.$service.HttpApi.Client.ConsoleTestApp.csproj reference "$shared_folder/$name.$service.HttpApi.Client/$name.$service.HttpApi.Client.csproj"
 			
             }
-			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"			
-
-		} else {
-			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./$name/services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj			
 		}
+
+		# DBMigrator
+		if ($service -eq $admin_name) 
+		{
+			dotnet new console -n "$name.$service.DbMigrator" -o ./$name/services/$folder/host/$name.$service.DbMigrator
+			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Microsoft.Extensions.Hosting -v "7.0.*"
+			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Extensions.Logging -v "3.1.0"
+			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.Async -v "1.5.0"
+			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.File -v "5.0.0"
+			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.ColoredConsole -v "3.0.1"	
+			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Autofac -v $abpver	
+			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.BackgroundJobs -v $abpver
+			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Identity.Domain -v $abpver
+			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.TenantManagement.Domain -v $abpver	
+			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj
+			Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination ./$name/services/$folder/host/$name.$service.DbMigrator/ -recurse -Force
+			if ($service -ne $admin_name) {
+				Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination ./$name/services/$folder/host/$name.$service.DbMigrator/ -recurse -Force
+			}
+			if ($use_share  -eq "True") {
+				dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"			
+			} else {
+				dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./$name/services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj
+			}
+			dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder host ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj
+		}
+		# End DBMigrator
+
 		dotnet add $shared_folder/"$name.$service".Domain.Shared/"$name.$service".Domain.Shared.csproj reference ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
 
 		Write-Output "Solution remove ./$name/services/$folder/$name.$service.sln" 
 		#dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.Host.Shared/$name.$service.Host.Shared.csproj)		
-		dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.MongoDB/$name.$service.MongoDB.csproj)
+		#dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.MongoDB/$name.$service.MongoDB.csproj)
 		dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/test/$name.$service.MongoDB.Tests/$name.$service.MongoDB.Tests.csproj)
 		dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Installer/$name.$service.Installer.csproj)
 		
@@ -454,7 +470,7 @@ function CreateServices {
 		#Remove-Item -Recurse -Force ./$name/services/$folder/src/*.$service.MongoDB
 		Remove-Item -Recurse -Force ./$name/services/$folder/test/*.$service.MongoDB.Tests
 		Remove-Item -Recurse -Force ./$name/services/$folder/src/*.$service.Installer
-		Remove-Item -Recurse -Force ./$name/services/$folder/angular*
+		#Remove-Item -Recurse -Force ./$name/services/$folder/angular*
 
 		Write-Output "Solution add ./$name/services/$folder/$name.$service.sln" 
 		dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/**/*.csproj)
@@ -464,8 +480,7 @@ function CreateServices {
 			#dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder "ui/shared"(Get-ChildItem -r ./$name/web_apps/$folder/src/**/*.csproj)
 			#dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder "ui/host"(Get-ChildItem -r ./$name/web_apps/$folder/host/**/*.csproj)	
 		}		
-		dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder host ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj
-		
+				
 		dotnet sln "./$name/services/$sln_service.sln" add (Get-ChildItem -r ./$name/services/$folder/**/*.csproj)
 		if ($use_share  -eq "True") {
 			dotnet sln "./$name/services/$sln_service.sln" add --solution-folder "$name/modules_shared" (Get-ChildItem -r $shared_folder/**/*.csproj)
