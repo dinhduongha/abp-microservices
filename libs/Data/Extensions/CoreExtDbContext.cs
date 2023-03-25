@@ -27,12 +27,12 @@ public partial class CoreDbContext
             .HaveConversion<DateOnlyConverter>()
             .HaveColumnType("date");
     }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder
-            .UseNpgsql()
-            .UseSnakeCaseNamingConvention();
-    }
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    optionsBuilder
+    //        .UseNpgsql()
+    //        .UseSnakeCaseNamingConvention();
+    //}
     /*
     protected override void ConfigureConventions(ModelConfigurationBuilder builder)
     {

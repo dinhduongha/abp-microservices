@@ -307,7 +307,6 @@ public partial class ResPartner: IMultiTenant, IMayHaveCreator, IModificationAud
     [InverseProperty("ResPartnerWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
-/*
     [InverseProperty("Partner")]
     [NotMapped]
     public virtual ICollection<AccountAnalyticAccount> AccountAnalyticAccounts { get; } = new List<AccountAnalyticAccount>();
@@ -785,5 +784,5 @@ public partial class ResPartner: IMultiTenant, IMayHaveCreator, IModificationAud
     [InverseProperty("Partners")]
     [NotMapped]
     public virtual ICollection<MailComposeMessage> Wizards { get; } = new List<MailComposeMessage>();
-    */
+    
 }
