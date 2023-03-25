@@ -72,38 +72,39 @@ public partial class StockValuationLayer: IMultiTenant, IMayHaveCreator, IModifi
     public double? PriceDiffValue { get; set; }
 
     [ForeignKey("AccountMoveId")]
-    [InverseProperty("StockValuationLayers")]
+    //[InverseProperty("StockValuationLayers")]
     public virtual AccountMove? AccountMove { get; set; }
 
     [ForeignKey("AccountMoveLineId")]
-    [InverseProperty("StockValuationLayers")]
+    //[InverseProperty("StockValuationLayers")]
     public virtual AccountMoveLine? AccountMoveLine { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockValuationLayers")]
+    //[InverseProperty("StockValuationLayers")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockValuationLayerCreateUs")]
+    //[InverseProperty("StockValuationLayerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ProductId")]
+    //[InverseProperty("StockValuationLayers")]
+    public virtual ProductProduct? Product { get; set; }
+
+    [ForeignKey("StockMoveId")]
+    //[InverseProperty("StockValuationLayers")]
+    public virtual StockMove? StockMove { get; set; }
+
+    [ForeignKey("StockValuationLayerId")]
+    //[InverseProperty("InverseStockValuationLayerNavigation")]
+    public virtual StockValuationLayer? StockValuationLayerNavigation { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockValuationLayerWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("StockValuationLayerNavigation")]
     [NotMapped]
     public virtual ICollection<StockValuationLayer> InverseStockValuationLayerNavigation { get; } = new List<StockValuationLayer>();
 
-    [ForeignKey("ProductId")]
-    [InverseProperty("StockValuationLayers")]
-    public virtual ProductProduct? Product { get; set; }
-
-    [ForeignKey("StockMoveId")]
-    [InverseProperty("StockValuationLayers")]
-    public virtual StockMove? StockMove { get; set; }
-
-    [ForeignKey("StockValuationLayerId")]
-    [InverseProperty("InverseStockValuationLayerNavigation")]
-    public virtual StockValuationLayer? StockValuationLayerNavigation { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockValuationLayerWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

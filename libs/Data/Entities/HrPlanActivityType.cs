@@ -55,22 +55,22 @@ public partial class HrPlanActivityType: IMultiTenant, IMayHaveCreator, IModific
     public virtual MailActivityType? ActivityType { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("HrPlanActivityTypes")]
+    //[InverseProperty("HrPlanActivityTypes")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrPlanActivityTypeCreateUs")]
+    //[InverseProperty("HrPlanActivityTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PlanId")]
-    [InverseProperty("HrPlanActivityTypes")]
+    //[InverseProperty("HrPlanActivityTypes")]
     public virtual HrPlan? Plan { get; set; }
 
     [ForeignKey("ResponsibleId")]
-    [InverseProperty("HrPlanActivityTypeResponsibleNavigations")]
+    //[InverseProperty("HrPlanActivityTypeResponsibleNavigations")]
     public virtual ResUser? ResponsibleNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("HrPlanActivityTypeWriteUs")]
+    //[InverseProperty("HrPlanActivityTypeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

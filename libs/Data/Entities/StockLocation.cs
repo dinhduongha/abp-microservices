@@ -104,39 +104,39 @@ public partial class StockLocation: IMultiTenant, IMayHaveCreator, IModification
     public Guid? ValuationOutAccountId { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockLocations")]
+    //[InverseProperty("StockLocations")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockLocationCreateUs")]
+    //[InverseProperty("StockLocationCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
-    [InverseProperty("InverseLocation")]
+    //[InverseProperty("InverseLocation")]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("RemovalStrategyId")]
-    [InverseProperty("StockLocations")]
+    //[InverseProperty("StockLocations")]
     public virtual ProductRemoval? RemovalStrategy { get; set; }
 
     [ForeignKey("StorageCategoryId")]
-    [InverseProperty("StockLocations")]
+    //[InverseProperty("StockLocations")]
     public virtual StockStorageCategory? StorageCategory { get; set; }
 
     [ForeignKey("ValuationInAccountId")]
-    [InverseProperty("StockLocationValuationInAccounts")]
+    //[InverseProperty("StockLocationValuationInAccounts")]
     public virtual AccountAccount? ValuationInAccount { get; set; }
 
     [ForeignKey("ValuationOutAccountId")]
-    [InverseProperty("StockLocationValuationOutAccounts")]
+    //[InverseProperty("StockLocationValuationOutAccounts")]
     public virtual AccountAccount? ValuationOutAccount { get; set; }
 
     [ForeignKey("WarehouseId")]
-    [InverseProperty("StockLocations")]
+    //[InverseProperty("StockLocations")]
     public virtual StockWarehouse? Warehouse { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockLocationWriteUs")]
+    //[InverseProperty("StockLocationWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Location")]

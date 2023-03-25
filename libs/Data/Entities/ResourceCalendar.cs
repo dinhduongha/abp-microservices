@@ -48,15 +48,15 @@ public partial class ResourceCalendar: IMultiTenant, IMayHaveCreator, IModificat
     public double? HoursPerDay { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ResourceCalendars")]
+    //[InverseProperty("ResourceCalendars")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResourceCalendarCreateUs")]
+    //[InverseProperty("ResourceCalendarCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResourceCalendarWriteUs")]
+    //[InverseProperty("ResourceCalendarWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ResourceCalendar")]

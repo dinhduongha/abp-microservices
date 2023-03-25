@@ -89,34 +89,34 @@ public partial class ResUser: IMultiTenant, IMayHaveCreator, IModificationAudite
     public virtual BusPresence? BusPresence { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ResUsers")]
+    //[InverseProperty("ResUsers")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("InverseCreateU")]
+    //[InverseProperty("InverseCreateU")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastLunchLocationId")]
-    [InverseProperty("ResUsers")]
+    //[InverseProperty("ResUsers")]
     public virtual LunchLocation? LastLunchLocation { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("ResUsers")]
+    //[InverseProperty("ResUsers")]
     public virtual ResPartner? Partner { get; set; }
 
     [InverseProperty("User")]
     public virtual ResUsersSetting? ResUsersSettingUser { get; set; }
 
     [ForeignKey("SaleTeamId")]
-    [InverseProperty("ResUsers")]
+    //[InverseProperty("ResUsers")]
     public virtual CrmTeam? SaleTeam { get; set; }
 
     [ForeignKey("WebsiteId")]
-    [InverseProperty("ResUsers")]
+    //[InverseProperty("ResUsers")]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("InverseWriteU")]
+    //[InverseProperty("InverseWriteU")]
     public virtual ResUser? WriteU { get; set; }
 
 /*

@@ -54,27 +54,27 @@ public partial class SaleAdvancePaymentInv: IMultiTenant, IMayHaveCreator, IModi
     public double? Amount { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("SaleAdvancePaymentInvs")]
+    //[InverseProperty("SaleAdvancePaymentInvs")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SaleAdvancePaymentInvCreateUs")]
+    //[InverseProperty("SaleAdvancePaymentInvCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("SaleAdvancePaymentInvs")]
+    //[InverseProperty("SaleAdvancePaymentInvs")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("DepositAccountId")]
-    [InverseProperty("SaleAdvancePaymentInvs")]
+    //[InverseProperty("SaleAdvancePaymentInvs")]
     public virtual AccountAccount? DepositAccount { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("SaleAdvancePaymentInvs")]
+    //[InverseProperty("SaleAdvancePaymentInvs")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("SaleAdvancePaymentInvWriteUs")]
+    //[InverseProperty("SaleAdvancePaymentInvWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("SaleAdvancePaymentInvId")]

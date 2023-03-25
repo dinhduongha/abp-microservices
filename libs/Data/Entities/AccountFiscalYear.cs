@@ -42,14 +42,14 @@ public partial class AccountFiscalYear: IMultiTenant, IMayHaveCreator, IModifica
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountFiscalYears")]
+    //[InverseProperty("AccountFiscalYears")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountFiscalYearCreateUs")]
+    //[InverseProperty("AccountFiscalYearCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountFiscalYearWriteUs")]
+    //[InverseProperty("AccountFiscalYearWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

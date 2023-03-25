@@ -51,20 +51,24 @@ public partial class StockQuantPackage: IMultiTenant, IMayHaveCreator, IModifica
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockQuantPackages")]
+    //[InverseProperty("StockQuantPackages")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockQuantPackageCreateUs")]
+    //[InverseProperty("StockQuantPackageCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
-    [InverseProperty("StockQuantPackages")]
+    //[InverseProperty("StockQuantPackages")]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("PackageTypeId")]
-    [InverseProperty("StockQuantPackages")]
+    //[InverseProperty("StockQuantPackages")]
     public virtual StockPackageType? PackageType { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockQuantPackageWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Package")]
     [NotMapped]
@@ -86,7 +90,4 @@ public partial class StockQuantPackage: IMultiTenant, IMayHaveCreator, IModifica
     [NotMapped]
     public virtual ICollection<StockScrap> StockScraps { get; } = new List<StockScrap>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockQuantPackageWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

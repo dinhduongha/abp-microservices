@@ -48,15 +48,15 @@ public partial class AccountPrintJournal: IMultiTenant, IMayHaveCreator, IModifi
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountPrintJournals")]
+    //[InverseProperty("AccountPrintJournals")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountPrintJournalCreateUs")]
+    //[InverseProperty("AccountPrintJournalCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountPrintJournalWriteUs")]
+    //[InverseProperty("AccountPrintJournalWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountPrintJournalId")]

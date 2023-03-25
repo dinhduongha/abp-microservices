@@ -57,28 +57,28 @@ public partial class NoteNote: IMultiTenant, IMayHaveCreator, IModificationAudit
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("NoteNotes")]
+    //[InverseProperty("NoteNotes")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("NoteNoteCreateUs")]
+    //[InverseProperty("NoteNoteCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("NoteNotes")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("NoteNoteUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("NoteNoteWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("NoteNavigation")]
     [NotMapped]
     public virtual ICollection<MailActivity> MailActivities { get; } = new List<MailActivity>();
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("NoteNotes")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("NoteNoteUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("NoteNoteWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("NoteId")]
     [InverseProperty("Notes")]

@@ -64,43 +64,45 @@ public partial class AccountPartialReconcile: IMultiTenant, IMayHaveCreator, IMo
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("TenantId")]
+    //[InverseProperty("AccountPartialReconciles")]
+    public virtual ResCompany? Company { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("AccountPartialReconcileCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("CreditCurrencyId")]
+    //[InverseProperty("AccountPartialReconcileCreditCurrencies")]
+    public virtual ResCurrency? CreditCurrency { get; set; }
+
+    [ForeignKey("CreditMoveId")]
+    //[InverseProperty("AccountPartialReconcileCreditMoves")]
+    public virtual AccountMoveLine? CreditMove { get; set; }
+
+    [ForeignKey("DebitCurrencyId")]
+    //[InverseProperty("AccountPartialReconcileDebitCurrencies")]
+    public virtual ResCurrency? DebitCurrency { get; set; }
+
+    [ForeignKey("DebitMoveId")]
+    //[InverseProperty("AccountPartialReconcileDebitMoves")]
+    public virtual AccountMoveLine? DebitMove { get; set; }
+
+    [ForeignKey("ExchangeMoveId")]
+    //[InverseProperty("AccountPartialReconciles")]
+    public virtual AccountMove? ExchangeMove { get; set; }
+
+    [ForeignKey("FullReconcileId")]
+    //[InverseProperty("AccountPartialReconciles")]
+    public virtual AccountFullReconcile? FullReconcile { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountPartialReconcileWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("TaxCashBasisRec")]
     [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
-    [ForeignKey("TenantId")]
-    [InverseProperty("AccountPartialReconciles")]
-    public virtual ResCompany? Company { get; set; }
 
-    [ForeignKey("CreatorId")]
-    [InverseProperty("AccountPartialReconcileCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("CreditCurrencyId")]
-    [InverseProperty("AccountPartialReconcileCreditCurrencies")]
-    public virtual ResCurrency? CreditCurrency { get; set; }
-
-    [ForeignKey("CreditMoveId")]
-    [InverseProperty("AccountPartialReconcileCreditMoves")]
-    public virtual AccountMoveLine? CreditMove { get; set; }
-
-    [ForeignKey("DebitCurrencyId")]
-    [InverseProperty("AccountPartialReconcileDebitCurrencies")]
-    public virtual ResCurrency? DebitCurrency { get; set; }
-
-    [ForeignKey("DebitMoveId")]
-    [InverseProperty("AccountPartialReconcileDebitMoves")]
-    public virtual AccountMoveLine? DebitMove { get; set; }
-
-    [ForeignKey("ExchangeMoveId")]
-    [InverseProperty("AccountPartialReconciles")]
-    public virtual AccountMove? ExchangeMove { get; set; }
-
-    [ForeignKey("FullReconcileId")]
-    [InverseProperty("AccountPartialReconciles")]
-    public virtual AccountFullReconcile? FullReconcile { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountPartialReconcileWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

@@ -48,22 +48,22 @@ public partial class AccountAccruedOrdersWizard: IMultiTenant, IMayHaveCreator, 
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AccountId")]
-    [InverseProperty("AccountAccruedOrdersWizards")]
+    //[InverseProperty("AccountAccruedOrdersWizards")]
     public virtual AccountAccount? Account { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountAccruedOrdersWizards")]
+    //[InverseProperty("AccountAccruedOrdersWizards")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAccruedOrdersWizardCreateUs")]
+    //[InverseProperty("AccountAccruedOrdersWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("AccountAccruedOrdersWizards")]
+    //[InverseProperty("AccountAccruedOrdersWizards")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAccruedOrdersWizardWriteUs")]
+    //[InverseProperty("AccountAccruedOrdersWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

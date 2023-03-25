@@ -73,30 +73,30 @@ public partial class PosPayment: IMultiTenant, IMayHaveCreator, IModificationAud
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AccountMoveId")]
-    [InverseProperty("PosPayments")]
+    //[InverseProperty("PosPayments")]
     public virtual AccountMove? AccountMove { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("PosPayments")]
+    //[InverseProperty("PosPayments")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PosPaymentCreateUs")]
+    //[InverseProperty("PosPaymentCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PaymentMethodId")]
-    [InverseProperty("PosPayments")]
+    //[InverseProperty("PosPayments")]
     public virtual PosPaymentMethod? PaymentMethod { get; set; }
 
     [ForeignKey("PosOrderId")]
-    [InverseProperty("PosPayments")]
+    //[InverseProperty("PosPayments")]
     public virtual PosOrder? PosOrder { get; set; }
 
     [ForeignKey("SessionId")]
-    [InverseProperty("PosPayments")]
+    //[InverseProperty("PosPayments")]
     public virtual PosSession? Session { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PosPaymentWriteUs")]
+    //[InverseProperty("PosPaymentWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

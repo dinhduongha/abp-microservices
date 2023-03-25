@@ -224,52 +224,96 @@ public partial class HrEmployee: IMultiTenant, IMayHaveCreator, IModificationAud
     public string? MobilityCard { get; set; }
 
     [ForeignKey("AddressId")]
-    [InverseProperty("HrEmployeeAddresses")]
+    //[InverseProperty("HrEmployeeAddresses")]
     public virtual ResPartner? Address { get; set; }
 
     [ForeignKey("AddressHomeId")]
-    [InverseProperty("HrEmployeeAddressHomes")]
+    //[InverseProperty("HrEmployeeAddressHomes")]
     public virtual ResPartner? AddressHome { get; set; }
 
     [ForeignKey("BankAccountId")]
-    [InverseProperty("HrEmployees")]
+    //[InverseProperty("HrEmployees")]
     public virtual ResPartnerBank? BankAccount { get; set; }
 
     [ForeignKey("CoachId")]
-    [InverseProperty("InverseCoach")]
+    //[InverseProperty("InverseCoach")]
     public virtual HrEmployee? Coach { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("HrEmployees")]
+    //[InverseProperty("HrEmployees")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("ContractId")]
-    [InverseProperty("HrEmployees")]
+    //[InverseProperty("HrEmployees")]
     public virtual HrContract? Contract { get; set; }
 
     [ForeignKey("CountryId")]
-    [InverseProperty("HrEmployeeCountries")]
+    //[InverseProperty("HrEmployeeCountries")]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CountryOfBirth")]
-    [InverseProperty("HrEmployeeCountryOfBirthNavigations")]
+    //[InverseProperty("HrEmployeeCountryOfBirthNavigations")]
     public virtual ResCountry? CountryOfBirthNavigation { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrEmployeeCreateUs")]
+    //[InverseProperty("HrEmployeeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartmentId")]
-    [InverseProperty("HrEmployees")]
+    //[InverseProperty("HrEmployees")]
     public virtual HrDepartment? Department { get; set; }
 
     [ForeignKey("DepartureReasonId")]
-    [InverseProperty("HrEmployees")]
+    //[InverseProperty("HrEmployees")]
     public virtual HrDepartureReason? DepartureReason { get; set; }
 
     [ForeignKey("ExpenseManagerId")]
-    [InverseProperty("HrEmployeeExpenseManagers")]
+    //[InverseProperty("HrEmployeeExpenseManagers")]
     public virtual ResUser? ExpenseManager { get; set; }
+
+    [ForeignKey("JobId")]
+    //[InverseProperty("HrEmployees")]
+    public virtual HrJob? Job { get; set; }
+
+    [ForeignKey("LastAttendanceId")]
+    //[InverseProperty("HrEmployees")]
+    public virtual HrAttendance? LastAttendance { get; set; }
+
+    [ForeignKey("LeaveManagerId")]
+    //[InverseProperty("HrEmployeeLeaveManagers")]
+    public virtual ResUser? LeaveManager { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("HrEmployees")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual HrEmployee? Parent { get; set; }
+
+    [ForeignKey("ResourceId")]
+    //[InverseProperty("HrEmployees")]
+    public virtual ResourceResource? Resource { get; set; }
+
+    [ForeignKey("ResourceCalendarId")]
+    //[InverseProperty("HrEmployees")]
+    public virtual ResourceCalendar? ResourceCalendar { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("HrEmployeeUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("WorkContactId")]
+    //[InverseProperty("HrEmployeeWorkContacts")]
+    public virtual ResPartner? WorkContact { get; set; }
+
+    [ForeignKey("WorkLocationId")]
+    //[InverseProperty("HrEmployees")]
+    public virtual HrWorkLocation? WorkLocation { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrEmployeeWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("DriverEmployee")]
     [NotMapped]
@@ -375,18 +419,6 @@ public partial class HrEmployee: IMultiTenant, IMayHaveCreator, IModificationAud
     [NotMapped]
     public virtual ICollection<HrEmployee> InverseParent { get; } = new List<HrEmployee>();
 
-    [ForeignKey("JobId")]
-    [InverseProperty("HrEmployees")]
-    public virtual HrJob? Job { get; set; }
-
-    [ForeignKey("LastAttendanceId")]
-    [InverseProperty("HrEmployees")]
-    public virtual HrAttendance? LastAttendance { get; set; }
-
-    [ForeignKey("LeaveManagerId")]
-    [InverseProperty("HrEmployeeLeaveManagers")]
-    public virtual ResUser? LeaveManager { get; set; }
-
     [InverseProperty("Employee")]
     [NotMapped]
     public virtual ICollection<MaintenanceEquipment> MaintenanceEquipments { get; } = new List<MaintenanceEquipment>();
@@ -395,41 +427,9 @@ public partial class HrEmployee: IMultiTenant, IMayHaveCreator, IModificationAud
     [NotMapped]
     public virtual ICollection<MaintenanceRequest> MaintenanceRequests { get; } = new List<MaintenanceRequest>();
 
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("HrEmployees")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual HrEmployee? Parent { get; set; }
-
     [InverseProperty("Employee")]
     [NotMapped]
     public virtual ICollection<PosOrder> PosOrders { get; } = new List<PosOrder>();
-
-    [ForeignKey("ResourceId")]
-    [InverseProperty("HrEmployees")]
-    public virtual ResourceResource? Resource { get; set; }
-
-    [ForeignKey("ResourceCalendarId")]
-    [InverseProperty("HrEmployees")]
-    public virtual ResourceCalendar? ResourceCalendar { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("HrEmployeeUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("WorkContactId")]
-    [InverseProperty("HrEmployeeWorkContacts")]
-    public virtual ResPartner? WorkContact { get; set; }
-
-    [ForeignKey("WorkLocationId")]
-    [InverseProperty("HrEmployees")]
-    public virtual HrWorkLocation? WorkLocation { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrEmployeeWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("EmpId")]
     [InverseProperty("Emps")]

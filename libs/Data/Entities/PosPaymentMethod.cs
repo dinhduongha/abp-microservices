@@ -56,25 +56,33 @@ public partial class PosPaymentMethod: IMultiTenant, IMayHaveCreator, IModificat
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
-    [InverseProperty("PosPaymentMethod")]
-    [NotMapped]
-    public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
-
     [ForeignKey("TenantId")]
-    [InverseProperty("PosPaymentMethods")]
+    //[InverseProperty("PosPaymentMethods")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PosPaymentMethodCreateUs")]
+    //[InverseProperty("PosPaymentMethodCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
-    [InverseProperty("PosPaymentMethods")]
+    //[InverseProperty("PosPaymentMethods")]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("OutstandingAccountId")]
-    [InverseProperty("PosPaymentMethodOutstandingAccounts")]
+    //[InverseProperty("PosPaymentMethodOutstandingAccounts")]
     public virtual AccountAccount? OutstandingAccount { get; set; }
+
+    [ForeignKey("ReceivableAccountId")]
+    //[InverseProperty("PosPaymentMethodReceivableAccounts")]
+    public virtual AccountAccount? ReceivableAccount { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PosPaymentMethodWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("PosPaymentMethod")]
+    [NotMapped]
+    public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
 
     [InverseProperty("PaymentMethod")]
     [NotMapped]
@@ -83,14 +91,6 @@ public partial class PosPaymentMethod: IMultiTenant, IMayHaveCreator, IModificat
     [InverseProperty("PaymentMethod")]
     [NotMapped]
     public virtual ICollection<PosPayment> PosPayments { get; } = new List<PosPayment>();
-
-    [ForeignKey("ReceivableAccountId")]
-    [InverseProperty("PosPaymentMethodReceivableAccounts")]
-    public virtual AccountAccount? ReceivableAccount { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PosPaymentMethodWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PosPaymentMethodId")]
     [InverseProperty("PosPaymentMethods")]

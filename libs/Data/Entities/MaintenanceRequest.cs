@@ -94,46 +94,46 @@ public partial class MaintenanceRequest: IMultiTenant, IMayHaveCreator, IModific
     public Guid? EmployeeId { get; set; }
 
     [ForeignKey("CategoryId")]
-    [InverseProperty("MaintenanceRequests")]
+    //[InverseProperty("MaintenanceRequests")]
     public virtual MaintenanceEquipmentCategory? Category { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("MaintenanceRequests")]
+    //[InverseProperty("MaintenanceRequests")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MaintenanceRequestCreateUs")]
+    //[InverseProperty("MaintenanceRequestCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EmployeeId")]
-    [InverseProperty("MaintenanceRequests")]
+    //[InverseProperty("MaintenanceRequests")]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("EquipmentId")]
-    [InverseProperty("MaintenanceRequests")]
+    //[InverseProperty("MaintenanceRequests")]
     public virtual MaintenanceEquipment? Equipment { get; set; }
 
     [ForeignKey("MaintenanceTeamId")]
-    [InverseProperty("MaintenanceRequests")]
+    //[InverseProperty("MaintenanceRequests")]
     public virtual MaintenanceTeam? MaintenanceTeam { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("MaintenanceRequests")]
+    //[InverseProperty("MaintenanceRequests")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("OwnerUserId")]
-    [InverseProperty("MaintenanceRequestOwnerUsers")]
+    //[InverseProperty("MaintenanceRequestOwnerUsers")]
     public virtual ResUser? OwnerUser { get; set; }
 
     [ForeignKey("StageId")]
-    [InverseProperty("MaintenanceRequests")]
+    //[InverseProperty("MaintenanceRequests")]
     public virtual MaintenanceStage? Stage { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("MaintenanceRequestUsers")]
+    //[InverseProperty("MaintenanceRequestUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MaintenanceRequestWriteUs")]
+    //[InverseProperty("MaintenanceRequestWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

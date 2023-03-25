@@ -120,29 +120,45 @@ public partial class PaymentProvider: IMultiTenant, IMayHaveCreator, IModificati
     [Column("website_id")]
     public Guid? WebsiteId { get; set; }
 
-    [InverseProperty("PaymentProvider")]
-    [NotMapped]
-    public virtual ICollection<AccountPaymentMethodLine> AccountPaymentMethodLines { get; } = new List<AccountPaymentMethodLine>();
-
     [ForeignKey("TenantId")]
-    [InverseProperty("PaymentProviders")]
+    //[InverseProperty("PaymentProviders")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PaymentProviderCreateUs")]
+    //[InverseProperty("PaymentProviderCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ExpressCheckoutFormViewId")]
-    [InverseProperty("PaymentProviderExpressCheckoutFormViews")]
+    //[InverseProperty("PaymentProviderExpressCheckoutFormViews")]
     public virtual IrUiView? ExpressCheckoutFormView { get; set; }
 
     [ForeignKey("InlineFormViewId")]
-    [InverseProperty("PaymentProviderInlineFormViews")]
+    //[InverseProperty("PaymentProviderInlineFormViews")]
     public virtual IrUiView? InlineFormView { get; set; }
 
     [ForeignKey("ModuleId")]
-    [InverseProperty("PaymentProviders")]
+    //[InverseProperty("PaymentProviders")]
     public virtual IrModuleModule? Module { get; set; }
+
+    [ForeignKey("RedirectFormViewId")]
+    //[InverseProperty("PaymentProviderRedirectFormViews")]
+    public virtual IrUiView? RedirectFormView { get; set; }
+
+    [ForeignKey("TokenInlineFormViewId")]
+    //[InverseProperty("PaymentProviderTokenInlineFormViews")]
+    public virtual IrUiView? TokenInlineFormView { get; set; }
+
+    [ForeignKey("WebsiteId")]
+    //[InverseProperty("PaymentProviders")]
+    public virtual Website? Website { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PaymentProviderWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("PaymentProvider")]
+    [NotMapped]
+    public virtual ICollection<AccountPaymentMethodLine> AccountPaymentMethodLines { get; } = new List<AccountPaymentMethodLine>();
 
     [InverseProperty("Provider")]
     [NotMapped]
@@ -151,22 +167,6 @@ public partial class PaymentProvider: IMultiTenant, IMayHaveCreator, IModificati
     [InverseProperty("Provider")]
     [NotMapped]
     public virtual ICollection<PaymentTransaction> PaymentTransactions { get; } = new List<PaymentTransaction>();
-
-    [ForeignKey("RedirectFormViewId")]
-    [InverseProperty("PaymentProviderRedirectFormViews")]
-    public virtual IrUiView? RedirectFormView { get; set; }
-
-    [ForeignKey("TokenInlineFormViewId")]
-    [InverseProperty("PaymentProviderTokenInlineFormViews")]
-    public virtual IrUiView? TokenInlineFormView { get; set; }
-
-    [ForeignKey("WebsiteId")]
-    [InverseProperty("PaymentProviders")]
-    public virtual Website? Website { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PaymentProviderWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PaymentId")]
     [InverseProperty("Payments")]

@@ -117,6 +117,22 @@ public partial class AccountReconcileModel: IMultiTenant, IMayHaveCreator, IModi
     [Column("payment_tolerance_param")]
     public double? PaymentToleranceParam { get; set; }
 
+    [ForeignKey("TenantId")]
+    //[InverseProperty("AccountReconcileModels")]
+    public virtual ResCompany? Company { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("AccountReconcileModelCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("AccountReconcileModels")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountReconcileModelWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("ReconcileModel")]
     [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
@@ -128,22 +144,6 @@ public partial class AccountReconcileModel: IMultiTenant, IMayHaveCreator, IModi
     [InverseProperty("Model")]
     [NotMapped]
     public virtual ICollection<AccountReconcileModelPartnerMapping> AccountReconcileModelPartnerMappings { get; } = new List<AccountReconcileModelPartnerMapping>();
-
-    [ForeignKey("TenantId")]
-    [InverseProperty("AccountReconcileModels")]
-    public virtual ResCompany? Company { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("AccountReconcileModelCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("AccountReconcileModels")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountReconcileModelWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountReconcileModelId")]
     [InverseProperty("AccountReconcileModels")]

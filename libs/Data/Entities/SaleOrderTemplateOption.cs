@@ -50,26 +50,26 @@ public partial class SaleOrderTemplateOption: IMultiTenant, IMayHaveCreator, IMo
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("SaleOrderTemplateOptions")]
+    //[InverseProperty("SaleOrderTemplateOptions")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SaleOrderTemplateOptionCreateUs")]
+    //[InverseProperty("SaleOrderTemplateOptionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("SaleOrderTemplateOptions")]
+    //[InverseProperty("SaleOrderTemplateOptions")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("SaleOrderTemplateId")]
-    [InverseProperty("SaleOrderTemplateOptions")]
+    //[InverseProperty("SaleOrderTemplateOptions")]
     public virtual SaleOrderTemplate? SaleOrderTemplate { get; set; }
 
     [ForeignKey("UomId")]
-    [InverseProperty("SaleOrderTemplateOptions")]
+    //[InverseProperty("SaleOrderTemplateOptions")]
     public virtual UomUom? Uom { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("SaleOrderTemplateOptionWriteUs")]
+    //[InverseProperty("SaleOrderTemplateOptionWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

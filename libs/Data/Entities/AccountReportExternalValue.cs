@@ -54,26 +54,26 @@ public partial class AccountReportExternalValue: IMultiTenant, IMayHaveCreator, 
     public double? Value { get; set; }
 
     [ForeignKey("CarryoverOriginReportLineId")]
-    [InverseProperty("AccountReportExternalValues")]
+    //[InverseProperty("AccountReportExternalValues")]
     public virtual AccountReportLine? CarryoverOriginReportLine { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountReportExternalValues")]
+    //[InverseProperty("AccountReportExternalValues")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountReportExternalValueCreateUs")]
+    //[InverseProperty("AccountReportExternalValueCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ForeignVatFiscalPositionId")]
-    [InverseProperty("AccountReportExternalValues")]
+    //[InverseProperty("AccountReportExternalValues")]
     public virtual AccountFiscalPosition? ForeignVatFiscalPosition { get; set; }
 
     [ForeignKey("TargetReportExpressionId")]
-    [InverseProperty("AccountReportExternalValues")]
+    //[InverseProperty("AccountReportExternalValues")]
     public virtual AccountReportExpression? TargetReportExpression { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountReportExternalValueWriteUs")]
+    //[InverseProperty("AccountReportExternalValueWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

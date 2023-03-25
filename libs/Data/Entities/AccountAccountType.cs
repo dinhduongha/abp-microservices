@@ -36,11 +36,11 @@ public partial class AccountAccountType
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAccountTypeCreateUs")]
+    //[InverseProperty("AccountAccountTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAccountTypeWriteUs")]
+    //[InverseProperty("AccountAccountTypeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountTypeId")]

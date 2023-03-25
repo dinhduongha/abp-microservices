@@ -45,15 +45,15 @@ public partial class AccountCommonAccountReport: IMultiTenant, IMayHaveCreator, 
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountCommonAccountReports")]
+    //[InverseProperty("AccountCommonAccountReports")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountCommonAccountReportCreateUs")]
+    //[InverseProperty("AccountCommonAccountReportCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountCommonAccountReportWriteUs")]
+    //[InverseProperty("AccountCommonAccountReportWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountCommonAccountReportId")]

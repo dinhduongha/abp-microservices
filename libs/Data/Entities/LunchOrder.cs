@@ -81,39 +81,39 @@ public partial class LunchOrder: IMultiTenant, IMayHaveCreator, IModificationAud
     public double? Quantity { get; set; }
 
     [ForeignKey("CategoryId")]
-    [InverseProperty("LunchOrders")]
+    //[InverseProperty("LunchOrders")]
     public virtual LunchProductCategory? Category { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("LunchOrders")]
+    //[InverseProperty("LunchOrders")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("LunchOrderCreateUs")]
+    //[InverseProperty("LunchOrderCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("LunchOrders")]
+    //[InverseProperty("LunchOrders")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("LunchLocationId")]
-    [InverseProperty("LunchOrders")]
+    //[InverseProperty("LunchOrders")]
     public virtual LunchLocation? LunchLocation { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("LunchOrders")]
+    //[InverseProperty("LunchOrders")]
     public virtual LunchProduct? Product { get; set; }
 
     [ForeignKey("SupplierId")]
-    [InverseProperty("LunchOrders")]
+    //[InverseProperty("LunchOrders")]
     public virtual LunchSupplier? Supplier { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("LunchOrderUsers")]
+    //[InverseProperty("LunchOrderUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("LunchOrderWriteUs")]
+    //[InverseProperty("LunchOrderWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("OrderId")]

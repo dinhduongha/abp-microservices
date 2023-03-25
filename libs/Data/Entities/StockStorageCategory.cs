@@ -42,12 +42,16 @@ public partial class StockStorageCategory: IMultiTenant, IMayHaveCreator, IModif
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockStorageCategories")]
+    //[InverseProperty("StockStorageCategories")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockStorageCategoryCreateUs")]
+    //[InverseProperty("StockStorageCategoryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockStorageCategoryWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("StorageCategory")]
     [NotMapped]
@@ -64,8 +68,4 @@ public partial class StockStorageCategory: IMultiTenant, IMayHaveCreator, IModif
     [InverseProperty("StorageCategory")]
     [NotMapped]
     public virtual ICollection<StockStorageCategoryCapacity> StockStorageCategoryCapacities { get; } = new List<StockStorageCategoryCapacity>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockStorageCategoryWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

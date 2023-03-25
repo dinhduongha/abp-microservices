@@ -17,11 +17,11 @@ public partial class HrLeaveType: IMultiTenant, IMayHaveCreator, IModificationAu
     [Column("id")]
     public long Id { get; set; }
 
-    [Column("sequence")]
-    public Guid? Sequence { get; set; }
+    [Column("sequence", TypeName = "bigserial")]
+    public long Sequence { get; set; }
 
     [Column("color")]
-    public Guid? Color { get; set; }
+    public long? Color { get; set; }
 
     [Column("icon_id")]
     public Guid? IconId { get; set; }
@@ -90,42 +90,46 @@ public partial class HrLeaveType: IMultiTenant, IMayHaveCreator, IModificationAu
     public bool? OvertimeDeductible { get; set; }
 
     [ForeignKey("AllocationNotifSubtypeId")]
-    [InverseProperty("HrLeaveTypeAllocationNotifSubtypes")]
+    //[InverseProperty("HrLeaveTypeAllocationNotifSubtypes")]
     public virtual MailMessageSubtype? AllocationNotifSubtype { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("HrLeaveTypes")]
+    //[InverseProperty("HrLeaveTypes")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrLeaveTypeCreateUs")]
+    //[InverseProperty("HrLeaveTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
+    [ForeignKey("IconId")]
+    //[InverseProperty("HrLeaveTypes")]
+    public virtual IrAttachment? Icon { get; set; }
+
+    [ForeignKey("LeaveNotifSubtypeId")]
+    //[InverseProperty("HrLeaveTypeLeaveNotifSubtypes")]
+    public virtual MailMessageSubtype? LeaveNotifSubtype { get; set; }
+
+    [ForeignKey("ResponsibleId")]
+    //[InverseProperty("HrLeaveTypeResponsibles")]
+    public virtual ResUser? Responsible { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrLeaveTypeWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    // ForeignKey???
     [InverseProperty("TimeOffType")]
     [NotMapped]
     public virtual ICollection<HrLeaveAccrualPlan> HrLeaveAccrualPlans { get; } = new List<HrLeaveAccrualPlan>();
 
+    // ForeignKey???
     [InverseProperty("HolidayStatus")]
     [NotMapped]
     public virtual ICollection<HrLeaveAllocation> HrLeaveAllocations { get; } = new List<HrLeaveAllocation>();
 
+    // ForeignKey???
     [InverseProperty("HolidayStatus")]
     [NotMapped]
     public virtual ICollection<HrLeave> HrLeaves { get; } = new List<HrLeave>();
 
-    [ForeignKey("IconId")]
-    [InverseProperty("HrLeaveTypes")]
-    public virtual IrAttachment? Icon { get; set; }
-
-    [ForeignKey("LeaveNotifSubtypeId")]
-    [InverseProperty("HrLeaveTypeLeaveNotifSubtypes")]
-    public virtual MailMessageSubtype? LeaveNotifSubtype { get; set; }
-
-    [ForeignKey("ResponsibleId")]
-    [InverseProperty("HrLeaveTypeResponsibles")]
-    public virtual ResUser? Responsible { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrLeaveTypeWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

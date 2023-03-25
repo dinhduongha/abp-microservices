@@ -158,33 +158,61 @@ public partial class FleetVehicle: IMultiTenant, IMayHaveCreator, IModificationA
     [Column("mobility_card")]
     public string? MobilityCard { get; set; }
 
-    [InverseProperty("Vehicle")]
-    [NotMapped]
-    public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
-
     [ForeignKey("BrandId")]
-    [InverseProperty("FleetVehicles")]
+    //[InverseProperty("FleetVehicles")]
     public virtual FleetVehicleModelBrand? Brand { get; set; }
 
     [ForeignKey("CategoryId")]
-    [InverseProperty("FleetVehicles")]
+    //[InverseProperty("FleetVehicles")]
     public virtual FleetVehicleModelCategory? Category { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("FleetVehicles")]
+    //[InverseProperty("FleetVehicles")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("FleetVehicleCreateUs")]
+    //[InverseProperty("FleetVehicleCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DriverId")]
-    [InverseProperty("FleetVehicleDrivers")]
+    //[InverseProperty("FleetVehicleDrivers")]
     public virtual ResPartner? Driver { get; set; }
 
     [ForeignKey("DriverEmployeeId")]
-    [InverseProperty("FleetVehicleDriverEmployees")]
+    //[InverseProperty("FleetVehicleDriverEmployees")]
     public virtual HrEmployee? DriverEmployee { get; set; }
+
+    [ForeignKey("FutureDriverId")]
+    //[InverseProperty("FleetVehicleFutureDrivers")]
+    public virtual ResPartner? FutureDriver { get; set; }
+
+    [ForeignKey("FutureDriverEmployeeId")]
+    //[InverseProperty("FleetVehicleFutureDriverEmployees")]
+    public virtual HrEmployee? FutureDriverEmployee { get; set; }
+
+    [ForeignKey("ManagerId")]
+    //[InverseProperty("FleetVehicleManagers")]
+    public virtual ResUser? Manager { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("FleetVehicles")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("ModelId")]
+    //[InverseProperty("FleetVehicles")]
+    public virtual FleetVehicleModel? Model { get; set; }
+
+    [ForeignKey("StateId")]
+    //[InverseProperty("FleetVehicles")]
+    public virtual FleetVehicleState? State { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("FleetVehicleWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("Vehicle")]
+    [NotMapped]
+    public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [InverseProperty("Vehicle")]
     [NotMapped]
@@ -201,34 +229,6 @@ public partial class FleetVehicle: IMultiTenant, IMayHaveCreator, IModificationA
     [InverseProperty("Vehicle")]
     [NotMapped]
     public virtual ICollection<FleetVehicleOdometer> FleetVehicleOdometers { get; } = new List<FleetVehicleOdometer>();
-
-    [ForeignKey("FutureDriverId")]
-    [InverseProperty("FleetVehicleFutureDrivers")]
-    public virtual ResPartner? FutureDriver { get; set; }
-
-    [ForeignKey("FutureDriverEmployeeId")]
-    [InverseProperty("FleetVehicleFutureDriverEmployees")]
-    public virtual HrEmployee? FutureDriverEmployee { get; set; }
-
-    [ForeignKey("ManagerId")]
-    [InverseProperty("FleetVehicleManagers")]
-    public virtual ResUser? Manager { get; set; }
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("FleetVehicles")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("ModelId")]
-    [InverseProperty("FleetVehicles")]
-    public virtual FleetVehicleModel? Model { get; set; }
-
-    [ForeignKey("StateId")]
-    [InverseProperty("FleetVehicles")]
-    public virtual FleetVehicleState? State { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("FleetVehicleWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("VehicleTagId")]
     [InverseProperty("VehicleTags")]

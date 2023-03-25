@@ -125,60 +125,72 @@ public partial class RepairOrder
     public double? AmountTotal { get; set; }
 
     [ForeignKey("AddressId")]
-    [InverseProperty("RepairOrderAddresses")]
+    //[InverseProperty("RepairOrderAddresses")]
     public virtual ResPartner? Address { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("RepairOrders")]
+    //[InverseProperty("RepairOrders")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("RepairOrderCreateUs")]
+    //[InverseProperty("RepairOrderCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InvoiceId")]
-    [InverseProperty("RepairOrders")]
+    //[InverseProperty("RepairOrders")]
     public virtual AccountMove? Invoice { get; set; }
 
     [ForeignKey("LocationId")]
-    [InverseProperty("RepairOrders")]
+    //[InverseProperty("RepairOrders")]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("LotId")]
-    [InverseProperty("RepairOrders")]
+    //[InverseProperty("RepairOrders")]
     public virtual StockLot? Lot { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("RepairOrders")]
+    //[InverseProperty("RepairOrders")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("MoveId")]
-    [InverseProperty("RepairOrders")]
+    //[InverseProperty("RepairOrders")]
     public virtual StockMove? Move { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("RepairOrderPartners")]
+    //[InverseProperty("RepairOrderPartners")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PartnerInvoiceId")]
-    [InverseProperty("RepairOrderPartnerInvoices")]
+    //[InverseProperty("RepairOrderPartnerInvoices")]
     public virtual ResPartner? PartnerInvoice { get; set; }
 
     [ForeignKey("PickingId")]
-    [InverseProperty("RepairOrders")]
+    //[InverseProperty("RepairOrders")]
     public virtual StockPicking? Picking { get; set; }
 
     [ForeignKey("PricelistId")]
-    [InverseProperty("RepairOrders")]
+    //[InverseProperty("RepairOrders")]
     public virtual ProductPricelist? Pricelist { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("RepairOrders")]
+    //[InverseProperty("RepairOrders")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUom")]
-    [InverseProperty("RepairOrders")]
+    //[InverseProperty("RepairOrders")]
     public virtual UomUom? ProductUomNavigation { get; set; }
+
+    [ForeignKey("SaleOrderId")]
+    //[InverseProperty("RepairOrders")]
+    public virtual SaleOrder? SaleOrder { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("RepairOrderUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("RepairOrderWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Repair")]
     [NotMapped]
@@ -188,10 +200,6 @@ public partial class RepairOrder
     [NotMapped]
     public virtual ICollection<RepairLine> RepairLines { get; } = new List<RepairLine>();
 
-    [ForeignKey("SaleOrderId")]
-    [InverseProperty("RepairOrders")]
-    public virtual SaleOrder? SaleOrder { get; set; }
-
     [InverseProperty("Repair")]
     [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
@@ -199,14 +207,6 @@ public partial class RepairOrder
     [InverseProperty("Repair")]
     [NotMapped]
     public virtual ICollection<StockWarnInsufficientQtyRepair> StockWarnInsufficientQtyRepairs { get; } = new List<StockWarnInsufficientQtyRepair>();
-
-    [ForeignKey("UserId")]
-    [InverseProperty("RepairOrderUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("RepairOrderWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("RepairOrderId")]
     [InverseProperty("RepairOrders")]

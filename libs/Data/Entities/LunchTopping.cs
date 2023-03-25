@@ -45,19 +45,19 @@ public partial class LunchTopping: IMultiTenant, IMayHaveCreator, IModificationA
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("LunchToppings")]
+    //[InverseProperty("LunchToppings")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("LunchToppingCreateUs")]
+    //[InverseProperty("LunchToppingCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("SupplierId")]
-    [InverseProperty("LunchToppings")]
+    //[InverseProperty("LunchToppings")]
     public virtual LunchSupplier? Supplier { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("LunchToppingWriteUs")]
+    //[InverseProperty("LunchToppingWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ToppingId")]

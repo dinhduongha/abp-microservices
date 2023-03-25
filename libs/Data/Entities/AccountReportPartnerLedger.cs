@@ -51,15 +51,15 @@ public partial class AccountReportPartnerLedger: IMultiTenant, IMayHaveCreator, 
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountReportPartnerLedgers")]
+    //[InverseProperty("AccountReportPartnerLedgers")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountReportPartnerLedgerCreateUs")]
+    //[InverseProperty("AccountReportPartnerLedgerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountReportPartnerLedgerWriteUs")]
+    //[InverseProperty("AccountReportPartnerLedgerWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountReportPartnerLedgerId")]

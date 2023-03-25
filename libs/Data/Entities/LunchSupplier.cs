@@ -105,16 +105,32 @@ public partial class LunchSupplier: IMultiTenant, IMayHaveCreator, IModification
     public double? AutomaticEmailTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("LunchSuppliers")]
+    //[InverseProperty("LunchSuppliers")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("LunchSupplierCreateUs")]
+    //[InverseProperty("LunchSupplierCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CronId")]
-    [InverseProperty("LunchSuppliers")]
+    //[InverseProperty("LunchSuppliers")]
     public virtual IrCron? Cron { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("LunchSuppliers")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("PartnerId")]
+    //[InverseProperty("LunchSuppliers")]
+    public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("ResponsibleId")]
+    //[InverseProperty("LunchSupplierResponsibles")]
+    public virtual ResUser? Responsible { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("LunchSupplierWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Supplier")]
     [NotMapped]
@@ -127,22 +143,6 @@ public partial class LunchSupplier: IMultiTenant, IMayHaveCreator, IModification
     [InverseProperty("Supplier")]
     [NotMapped]
     public virtual ICollection<LunchTopping> LunchToppings { get; } = new List<LunchTopping>();
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("LunchSuppliers")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("PartnerId")]
-    [InverseProperty("LunchSuppliers")]
-    public virtual ResPartner? Partner { get; set; }
-
-    [ForeignKey("ResponsibleId")]
-    [InverseProperty("LunchSupplierResponsibles")]
-    public virtual ResUser? Responsible { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("LunchSupplierWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("LunchSupplierId")]
     [InverseProperty("LunchSuppliers")]

@@ -117,28 +117,52 @@ public partial class HrJob: IMultiTenant, IMayHaveCreator, IModificationAuditedO
     public bool? IsPublished { get; set; }
 
     [ForeignKey("AddressId")]
-    [InverseProperty("HrJobs")]
+    //[InverseProperty("HrJobs")]
     public virtual ResPartner? Address { get; set; }
 
     [ForeignKey("AliasId")]
-    [InverseProperty("HrJobs")]
+    //[InverseProperty("HrJobs")]
     public virtual MailAlias? Alias { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("HrJobs")]
+    //[InverseProperty("HrJobs")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("ContractTypeId")]
-    [InverseProperty("HrJobs")]
+    //[InverseProperty("HrJobs")]
     public virtual HrContractType? ContractType { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrJobCreateUs")]
+    //[InverseProperty("HrJobCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartmentId")]
-    [InverseProperty("HrJobs")]
+    //[InverseProperty("HrJobs")]
     public virtual HrDepartment? Department { get; set; }
+
+    [ForeignKey("HrResponsibleId")]
+    //[InverseProperty("HrJobHrResponsibles")]
+    public virtual ResUser? HrResponsible { get; set; }
+
+    [ForeignKey("ManagerId")]
+    //[InverseProperty("HrJobs")]
+    public virtual HrEmployee? Manager { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("HrJobs")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("HrJobUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("WebsiteId")]
+    //[InverseProperty("HrJobs")]
+    public virtual Website? Website { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrJobWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Job")]
     [NotMapped]
@@ -155,30 +179,6 @@ public partial class HrJob: IMultiTenant, IMayHaveCreator, IModificationAuditedO
     [InverseProperty("Job")]
     [NotMapped]
     public virtual ICollection<HrRecruitmentSource> HrRecruitmentSources { get; } = new List<HrRecruitmentSource>();
-
-    [ForeignKey("HrResponsibleId")]
-    [InverseProperty("HrJobHrResponsibles")]
-    public virtual ResUser? HrResponsible { get; set; }
-
-    [ForeignKey("ManagerId")]
-    [InverseProperty("HrJobs")]
-    public virtual HrEmployee? Manager { get; set; }
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("HrJobs")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("HrJobUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("WebsiteId")]
-    [InverseProperty("HrJobs")]
-    public virtual Website? Website { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrJobWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrJobId")]
     [InverseProperty("HrJobs")]

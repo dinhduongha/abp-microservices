@@ -42,14 +42,14 @@ public partial class ChangeLockDate: IMultiTenant, IMayHaveCreator, IModificatio
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ChangeLockDates")]
+    //[InverseProperty("ChangeLockDates")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ChangeLockDateCreateUs")]
+    //[InverseProperty("ChangeLockDateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ChangeLockDateWriteUs")]
+    //[InverseProperty("ChangeLockDateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

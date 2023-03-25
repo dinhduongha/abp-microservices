@@ -48,19 +48,19 @@ public partial class AccountMoveReversal: IMultiTenant, IMayHaveCreator, IModifi
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountMoveReversals")]
+    //[InverseProperty("AccountMoveReversals")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountMoveReversalCreateUs")]
+    //[InverseProperty("AccountMoveReversalCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
-    [InverseProperty("AccountMoveReversals")]
+    //[InverseProperty("AccountMoveReversals")]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountMoveReversalWriteUs")]
+    //[InverseProperty("AccountMoveReversalWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ReversalId")]

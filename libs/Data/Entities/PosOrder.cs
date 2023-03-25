@@ -120,33 +120,57 @@ public partial class PosOrder: IMultiTenant, IMayHaveCreator, IModificationAudit
     public string? Cashier { get; set; }
 
     [ForeignKey("AccountMove")]
-    [InverseProperty("PosOrders")]
+    //[InverseProperty("PosOrders")]
     public virtual AccountMove? AccountMoveNavigation { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("PosOrders")]
+    //[InverseProperty("PosOrders")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PosOrderCreateUs")]
+    //[InverseProperty("PosOrderCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrmTeamId")]
-    [InverseProperty("PosOrders")]
+    //[InverseProperty("PosOrders")]
     public virtual CrmTeam? CrmTeam { get; set; }
 
     [ForeignKey("EmployeeId")]
-    [InverseProperty("PosOrders")]
+    //[InverseProperty("PosOrders")]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("FiscalPositionId")]
-    [InverseProperty("PosOrders")]
+    //[InverseProperty("PosOrders")]
     public virtual AccountFiscalPosition? FiscalPosition { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("PosOrders")]
+    //[InverseProperty("PosOrders")]
     public virtual ResPartner? Partner { get; set; }
 
+    [ForeignKey("PricelistId")]
+    //[InverseProperty("PosOrders")]
+    public virtual ProductPricelist? Pricelist { get; set; }
+
+    [ForeignKey("ProcurementGroupId")]
+    //[InverseProperty("PosOrders")]
+    public virtual ProcurementGroup? ProcurementGroup { get; set; }
+
+    [ForeignKey("SaleJournal")]
+    //[InverseProperty("PosOrders")]
+    public virtual AccountJournal? SaleJournalNavigation { get; set; }
+
+    [ForeignKey("SessionId")]
+    //[InverseProperty("PosOrders")]
+    public virtual PosSession? Session { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("PosOrderUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PosOrderWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+    
     [InverseProperty("Order")]
     [NotMapped]
     public virtual ICollection<PosOrderLine> PosOrderLines { get; } = new List<PosOrderLine>();
@@ -155,35 +179,12 @@ public partial class PosOrder: IMultiTenant, IMayHaveCreator, IModificationAudit
     [NotMapped]
     public virtual ICollection<PosPayment> PosPayments { get; } = new List<PosPayment>();
 
-    [ForeignKey("PricelistId")]
-    [InverseProperty("PosOrders")]
-    public virtual ProductPricelist? Pricelist { get; set; }
-
-    [ForeignKey("ProcurementGroupId")]
-    [InverseProperty("PosOrders")]
-    public virtual ProcurementGroup? ProcurementGroup { get; set; }
-
     [InverseProperty("PosOrder")]
     [NotMapped]
     public virtual ICollection<ProcurementGroup> ProcurementGroups { get; } = new List<ProcurementGroup>();
-
-    [ForeignKey("SaleJournal")]
-    [InverseProperty("PosOrders")]
-    public virtual AccountJournal? SaleJournalNavigation { get; set; }
-
-    [ForeignKey("SessionId")]
-    [InverseProperty("PosOrders")]
-    public virtual PosSession? Session { get; set; }
 
     [InverseProperty("PosOrder")]
     [NotMapped]
     public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
 
-    [ForeignKey("UserId")]
-    [InverseProperty("PosOrderUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PosOrderWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

@@ -55,19 +55,19 @@ public partial class AccountAnalyticPlan: IMultiTenant, IMayHaveCreator, IModifi
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountAnalyticPlans")]
+    //[InverseProperty("AccountAnalyticPlans")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAnalyticPlanCreateUs")]
+    //[InverseProperty("AccountAnalyticPlanCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
+    //[InverseProperty("InverseParent")]
     public virtual AccountAnalyticPlan? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAnalyticPlanWriteUs")]
+    //[InverseProperty("AccountAnalyticPlanWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Plan")]

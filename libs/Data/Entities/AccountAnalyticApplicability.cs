@@ -49,7 +49,7 @@ public partial class AccountAnalyticApplicability
     public virtual AccountAnalyticPlan? AnalyticPlan { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAnalyticApplicabilityCreateUs")]
+    //[InverseProperty("AccountAnalyticApplicabilityCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductCategId")]
@@ -57,6 +57,6 @@ public partial class AccountAnalyticApplicability
     public virtual ProductCategory? ProductCateg { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAnalyticApplicabilityWriteUs")]
+    //[InverseProperty("AccountAnalyticApplicabilityWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

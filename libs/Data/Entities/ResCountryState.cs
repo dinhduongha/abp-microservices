@@ -51,7 +51,7 @@ public partial class ResCountryState
     [InverseProperty("ResCountryStateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
-/*
+
     [InverseProperty("State")]
     [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
@@ -90,5 +90,5 @@ public partial class ResCountryState
     [InverseProperty("ResCountryStates")]
     [NotMapped]
     public virtual ICollection<CrmIapLeadMiningRequest> CrmIapLeadMiningRequests { get; } = new List<CrmIapLeadMiningRequest>();
-*/
+
 }

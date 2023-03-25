@@ -113,59 +113,59 @@ public partial class AccountJournal: IMultiTenant, IMayHaveCreator, IModificatio
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AliasId")]
-    [InverseProperty("AccountJournals")]
+    //[InverseProperty("AccountJournals")]
     public virtual MailAlias? Alias { get; set; }
 
     [ForeignKey("BankAccountId")]
-    [InverseProperty("AccountJournals")]
+    //[InverseProperty("AccountJournals")]
     public virtual ResPartnerBank? BankAccount { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountJournals")]
+    //[InverseProperty("AccountJournals")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountJournalCreateUs")]
+    //[InverseProperty("AccountJournalCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("AccountJournals")]
+    //[InverseProperty("AccountJournals")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("DefaultAccountId")]
-    [InverseProperty("AccountJournalDefaultAccounts")]
+    //[InverseProperty("AccountJournalDefaultAccounts")]
     public virtual AccountAccount? DefaultAccount { get; set; }
 
     [ForeignKey("LossAccountId")]
-    [InverseProperty("AccountJournalLossAccounts")]
+    //[InverseProperty("AccountJournalLossAccounts")]
     public virtual AccountAccount? LossAccount { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("AccountJournals")]
+    //[InverseProperty("AccountJournals")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ProfitAccountId")]
-    [InverseProperty("AccountJournalProfitAccounts")]
+    //[InverseProperty("AccountJournalProfitAccounts")]
     public virtual AccountAccount? ProfitAccount { get; set; }
 
     [ForeignKey("SaleActivityTypeId")]
-    [InverseProperty("AccountJournals")]
+    //[InverseProperty("AccountJournals")]
     public virtual MailActivityType? SaleActivityType { get; set; }
 
     [ForeignKey("SaleActivityUserId")]
-    [InverseProperty("AccountJournalSaleActivityUsers")]
+    //[InverseProperty("AccountJournalSaleActivityUsers")]
     public virtual ResUser? SaleActivityUser { get; set; }
 
     [ForeignKey("SecureSequenceId")]
-    [InverseProperty("AccountJournals")]
+    //[InverseProperty("AccountJournals")]
     public virtual IrSequence? SecureSequence { get; set; }
 
     [ForeignKey("SuspenseAccountId")]
-    [InverseProperty("AccountJournalSuspenseAccounts")]
+    //[InverseProperty("AccountJournalSuspenseAccounts")]
     public virtual AccountAccount? SuspenseAccount { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountJournalWriteUs")]
+    //[InverseProperty("AccountJournalWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Journal")]

@@ -180,28 +180,100 @@ public partial class SaleOrder: IMultiTenant, IMayHaveCreator, IModificationAudi
     public bool? CartRecoveryEmailSent { get; set; }
 
     [ForeignKey("AnalyticAccountId")]
-    [InverseProperty("SaleOrders")]
+    //[InverseProperty("SaleOrders")]
     public virtual AccountAnalyticAccount? AnalyticAccount { get; set; }
 
     [ForeignKey("CampaignId")]
-    [InverseProperty("SaleOrders")]
+    //[InverseProperty("SaleOrders")]
     public virtual UtmCampaign? Campaign { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("SaleOrders")]
+    //[InverseProperty("SaleOrders")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SaleOrderCreateUs")]
+    //[InverseProperty("SaleOrderCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("SaleOrders")]
+    //[InverseProperty("SaleOrders")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("FiscalPositionId")]
-    [InverseProperty("SaleOrders")]
+    //[InverseProperty("SaleOrders")]
     public virtual AccountFiscalPosition? FiscalPosition { get; set; }
+
+    [ForeignKey("Incoterm")]
+    //[InverseProperty("SaleOrders")]
+    public virtual AccountIncoterm? IncotermNavigation { get; set; }
+
+    [ForeignKey("MediumId")]
+    //[InverseProperty("SaleOrders")]
+    public virtual UtmMedium? Medium { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("SaleOrders")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("OpportunityId")]
+    //[InverseProperty("SaleOrders")]
+    public virtual CrmLead? Opportunity { get; set; }
+
+    [ForeignKey("PartnerId")]
+    //[InverseProperty("SaleOrderPartners")]
+    public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("PartnerInvoiceId")]
+    //[InverseProperty("SaleOrderPartnerInvoices")]
+    public virtual ResPartner? PartnerInvoice { get; set; }
+
+    [ForeignKey("PartnerShippingId")]
+    //[InverseProperty("SaleOrderPartnerShippings")]
+    public virtual ResPartner? PartnerShipping { get; set; }
+
+    [ForeignKey("PaymentTermId")]
+    //[InverseProperty("SaleOrders")]
+    public virtual AccountPaymentTerm? PaymentTerm { get; set; }
+
+    [ForeignKey("PricelistId")]
+    //[InverseProperty("SaleOrders")]
+    public virtual ProductPricelist? Pricelist { get; set; }
+
+    [ForeignKey("ProcurementGroupId")]
+    //[InverseProperty("SaleOrders")]
+    public virtual ProcurementGroup? ProcurementGroup { get; set; }
+
+    [ForeignKey("ProjectId")]
+    //[InverseProperty("SaleOrders")]
+    public virtual ProjectProject? Project { get; set; }
+
+    [ForeignKey("SaleOrderTemplateId")]
+    //[InverseProperty("SaleOrders")]
+    public virtual SaleOrderTemplate? SaleOrderTemplate { get; set; }
+
+    [ForeignKey("SourceId")]
+    //[InverseProperty("SaleOrders")]
+    public virtual UtmSource? Source { get; set; }
+
+    [ForeignKey("TeamId")]
+    //[InverseProperty("SaleOrders")]
+    public virtual CrmTeam? Team { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("SaleOrderUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("WarehouseId")]
+    //[InverseProperty("SaleOrders")]
+    public virtual StockWarehouse? Warehouse { get; set; }
+
+    [ForeignKey("WebsiteId")]
+    //[InverseProperty("SaleOrders")]
+    public virtual Website? Website { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("SaleOrderWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("SaleOrder")]
     [NotMapped]
@@ -211,57 +283,13 @@ public partial class SaleOrder: IMultiTenant, IMayHaveCreator, IModificationAudi
     [NotMapped]
     public virtual ICollection<HrExpense> HrExpenses { get; } = new List<HrExpense>();
 
-    [ForeignKey("Incoterm")]
-    [InverseProperty("SaleOrders")]
-    public virtual AccountIncoterm? IncotermNavigation { get; set; }
-
-    [ForeignKey("MediumId")]
-    [InverseProperty("SaleOrders")]
-    public virtual UtmMedium? Medium { get; set; }
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("SaleOrders")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("OpportunityId")]
-    [InverseProperty("SaleOrders")]
-    public virtual CrmLead? Opportunity { get; set; }
-
-    [ForeignKey("PartnerId")]
-    [InverseProperty("SaleOrderPartners")]
-    public virtual ResPartner? Partner { get; set; }
-
-    [ForeignKey("PartnerInvoiceId")]
-    [InverseProperty("SaleOrderPartnerInvoices")]
-    public virtual ResPartner? PartnerInvoice { get; set; }
-
-    [ForeignKey("PartnerShippingId")]
-    [InverseProperty("SaleOrderPartnerShippings")]
-    public virtual ResPartner? PartnerShipping { get; set; }
-
-    [ForeignKey("PaymentTermId")]
-    [InverseProperty("SaleOrders")]
-    public virtual AccountPaymentTerm? PaymentTerm { get; set; }
-
     [InverseProperty("SaleOrderOrigin")]
     [NotMapped]
     public virtual ICollection<PosOrderLine> PosOrderLines { get; } = new List<PosOrderLine>();
 
-    [ForeignKey("PricelistId")]
-    [InverseProperty("SaleOrders")]
-    public virtual ProductPricelist? Pricelist { get; set; }
-
-    [ForeignKey("ProcurementGroupId")]
-    [InverseProperty("SaleOrders")]
-    public virtual ProcurementGroup? ProcurementGroup { get; set; }
-
     [InverseProperty("Sale")]
     [NotMapped]
     public virtual ICollection<ProcurementGroup> ProcurementGroups { get; } = new List<ProcurementGroup>();
-
-    [ForeignKey("ProjectId")]
-    [InverseProperty("SaleOrders")]
-    public virtual ProjectProject? Project { get; set; }
 
     [InverseProperty("SaleOrder")]
     [NotMapped]
@@ -287,37 +315,9 @@ public partial class SaleOrder: IMultiTenant, IMayHaveCreator, IModificationAudi
     [NotMapped]
     public virtual ICollection<SaleOrderOption> SaleOrderOptions { get; } = new List<SaleOrderOption>();
 
-    [ForeignKey("SaleOrderTemplateId")]
-    [InverseProperty("SaleOrders")]
-    public virtual SaleOrderTemplate? SaleOrderTemplate { get; set; }
-
-    [ForeignKey("SourceId")]
-    [InverseProperty("SaleOrders")]
-    public virtual UtmSource? Source { get; set; }
-
     [InverseProperty("Sale")]
     [NotMapped]
     public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
-
-    [ForeignKey("TeamId")]
-    [InverseProperty("SaleOrders")]
-    public virtual CrmTeam? Team { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("SaleOrderUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("WarehouseId")]
-    [InverseProperty("SaleOrders")]
-    public virtual StockWarehouse? Warehouse { get; set; }
-
-    [ForeignKey("WebsiteId")]
-    [InverseProperty("SaleOrders")]
-    public virtual Website? Website { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("SaleOrderWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("SaleOrderId")]
     [InverseProperty("SaleOrders")]

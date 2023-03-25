@@ -53,16 +53,28 @@ public partial class StockLot: IMultiTenant, IMayHaveCreator, IModificationAudit
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockLots")]
+    //[InverseProperty("StockLots")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockLotCreateUs")]
+    //[InverseProperty("StockLotCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("StockLots")]
+    //[InverseProperty("StockLots")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("ProductId")]
+    //[InverseProperty("StockLots")]
+    public virtual ProductProduct? Product { get; set; }
+
+    [ForeignKey("ProductUomId")]
+    //[InverseProperty("StockLots")]
+    public virtual UomUom? ProductUom { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockLotWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("LotProducing")]
     [NotMapped]
@@ -71,14 +83,6 @@ public partial class StockLot: IMultiTenant, IMayHaveCreator, IModificationAudit
     [InverseProperty("Lot")]
     [NotMapped]
     public virtual ICollection<MrpUnbuild> MrpUnbuilds { get; } = new List<MrpUnbuild>();
-
-    [ForeignKey("ProductId")]
-    [InverseProperty("StockLots")]
-    public virtual ProductProduct? Product { get; set; }
-
-    [ForeignKey("ProductUomId")]
-    [InverseProperty("StockLots")]
-    public virtual UomUom? ProductUom { get; set; }
 
     [InverseProperty("Lot")]
     [NotMapped]
@@ -104,7 +108,4 @@ public partial class StockLot: IMultiTenant, IMayHaveCreator, IModificationAudit
     [NotMapped]
     public virtual ICollection<StockScrap> StockScraps { get; } = new List<StockScrap>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockLotWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

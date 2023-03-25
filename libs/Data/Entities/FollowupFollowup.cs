@@ -34,13 +34,17 @@ public partial class FollowupFollowup: IMultiTenant, IMayHaveCreator, IModificat
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("FollowupFollowup")]
+    //[InverseProperty("FollowupFollowup")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("FollowupFollowupCreateUs")]
+    //[InverseProperty("FollowupFollowupCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("FollowupFollowupWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+    
     [InverseProperty("Followup")]
     [NotMapped]
     public virtual ICollection<FollowupLine> FollowupLines { get; } = new List<FollowupLine>();
@@ -49,7 +53,4 @@ public partial class FollowupFollowup: IMultiTenant, IMayHaveCreator, IModificat
     [NotMapped]
     public virtual ICollection<FollowupPrint> FollowupPrints { get; } = new List<FollowupPrint>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("FollowupFollowupWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

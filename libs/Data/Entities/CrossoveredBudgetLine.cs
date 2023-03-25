@@ -58,26 +58,26 @@ public partial class CrossoveredBudgetLine: IMultiTenant, IMayHaveCreator, IModi
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AnalyticAccountId")]
-    [InverseProperty("CrossoveredBudgetLines")]
+    //[InverseProperty("CrossoveredBudgetLines")]
     public virtual AccountAnalyticAccount? AnalyticAccount { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("CrossoveredBudgetLines")]
+    //[InverseProperty("CrossoveredBudgetLines")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrossoveredBudgetLineCreateUs")]
+    //[InverseProperty("CrossoveredBudgetLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrossoveredBudgetId")]
-    [InverseProperty("CrossoveredBudgetLines")]
+    //[InverseProperty("CrossoveredBudgetLines")]
     public virtual CrossoveredBudget? CrossoveredBudget { get; set; }
 
     [ForeignKey("GeneralBudgetId")]
-    [InverseProperty("CrossoveredBudgetLines")]
+    //[InverseProperty("CrossoveredBudgetLines")]
     public virtual AccountBudgetPost? GeneralBudget { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CrossoveredBudgetLineWriteUs")]
+    //[InverseProperty("CrossoveredBudgetLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

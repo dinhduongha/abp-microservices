@@ -213,117 +213,145 @@ public partial class StockMove: IMultiTenant, IMayHaveCreator, IModificationAudi
     [Column("manual_consumption")]
     public bool? ManualConsumption { get; set; }
 
+    [ForeignKey("AnalyticAccountLineId")]
+    //[InverseProperty("StockMoves")]
+    public virtual AccountAnalyticLine? AnalyticAccountLine { get; set; }
+
+    [ForeignKey("BomLineId")]
+    //[InverseProperty("StockMoves")]
+    public virtual MrpBomLine? BomLine { get; set; }
+
+    [ForeignKey("ByproductId")]
+    //[InverseProperty("StockMoves")]
+    public virtual MrpBomByproduct? Byproduct { get; set; }
+
+    [ForeignKey("TenantId")]
+    //[InverseProperty("StockMoves")]
+    public virtual ResCompany? Company { get; set; }
+
+    [ForeignKey("ConsumeUnbuildId")]
+    //[InverseProperty("StockMoveConsumeUnbuilds")]
+    public virtual MrpUnbuild? ConsumeUnbuild { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("StockMoveCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("CreatedProductionId")]
+    //[InverseProperty("StockMoveCreatedProductions")]
+    public virtual MrpProduction? CreatedProduction { get; set; }
+
+    [ForeignKey("CreatedPurchaseLineId")]
+    //[InverseProperty("StockMoveCreatedPurchaseLines")]
+    public virtual PurchaseOrderLine? CreatedPurchaseLine { get; set; }
+
+    [ForeignKey("GroupId")]
+    //[InverseProperty("StockMoves")]
+    public virtual ProcurementGroup? Group { get; set; }
+
+    [ForeignKey("LocationId")]
+    //[InverseProperty("StockMoveLocations")]
+    public virtual StockLocation? Location { get; set; }
+
+    [ForeignKey("LocationDestId")]
+    //[InverseProperty("StockMoveLocationDests")]
+    public virtual StockLocation? LocationDest { get; set; }
+
+    [ForeignKey("OperationId")]
+    //[InverseProperty("StockMoves")]
+    public virtual MrpRoutingWorkcenter? Operation { get; set; }
+
+    [ForeignKey("OrderFinishedLotId")]
+    //[InverseProperty("StockMoves")]
+    public virtual StockLot? OrderFinishedLot { get; set; }
+
+    [ForeignKey("OrderpointId")]
+    //[InverseProperty("StockMoves")]
+    public virtual StockWarehouseOrderpoint? Orderpoint { get; set; }
+
+    [ForeignKey("OriginReturnedMoveId")]
+    //[InverseProperty("InverseOriginReturnedMove")]
+    public virtual StockMove? OriginReturnedMove { get; set; }
+
+    [ForeignKey("PackageLevelId")]
+    //[InverseProperty("StockMoves")]
+    public virtual StockPackageLevel? PackageLevel { get; set; }
+
+    [ForeignKey("PartnerId")]
+    //[InverseProperty("StockMovePartners")]
+    public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("PickingId")]
+    //[InverseProperty("StockMoves")]
+    public virtual StockPicking? Picking { get; set; }
+
+    [ForeignKey("PickingTypeId")]
+    //[InverseProperty("StockMoves")]
+    public virtual StockPickingType? PickingType { get; set; }
+
+    [ForeignKey("ProductId")]
+    //[InverseProperty("StockMoves")]
+    public virtual ProductProduct? Product { get; set; }
+
+    [ForeignKey("ProductPackagingId")]
+    //[InverseProperty("StockMoves")]
+    public virtual ProductPackaging? ProductPackaging { get; set; }
+
+    [ForeignKey("ProductUom")]
+    //[InverseProperty("StockMoves")]
+    public virtual UomUom? ProductUomNavigation { get; set; }
+
+    [ForeignKey("ProductionId")]
+    //[InverseProperty("StockMoveProductions")]
+    public virtual MrpProduction? Production { get; set; }
+
+    [ForeignKey("PurchaseLineId")]
+    //[InverseProperty("StockMovePurchaseLines")]
+    public virtual PurchaseOrderLine? PurchaseLine { get; set; }
+
+    [ForeignKey("RawMaterialProductionId")]
+    //[InverseProperty("StockMoveRawMaterialProductions")]
+    public virtual MrpProduction? RawMaterialProduction { get; set; }
+
+    [ForeignKey("RepairId")]
+    //[InverseProperty("StockMoves")]
+    public virtual RepairOrder? Repair { get; set; }
+
+    [ForeignKey("RestrictPartnerId")]
+    //[InverseProperty("StockMoveRestrictPartners")]
+    public virtual ResPartner? RestrictPartner { get; set; }
+
+    [ForeignKey("RuleId")]
+    //[InverseProperty("StockMoves")]
+    public virtual StockRule? Rule { get; set; }
+
+    [ForeignKey("SaleLineId")]
+    //[InverseProperty("StockMoves")]
+    public virtual SaleOrderLine? SaleLine { get; set; }
+
+    [ForeignKey("UnbuildId")]
+    //[InverseProperty("StockMoveUnbuilds")]
+    public virtual MrpUnbuild? Unbuild { get; set; }
+
+    [ForeignKey("WarehouseId")]
+    //[InverseProperty("StockMoves")]
+    public virtual StockWarehouse? Warehouse { get; set; }
+
+    [ForeignKey("WorkorderId")]
+    //[InverseProperty("StockMoves")]
+    public virtual MrpWorkorder? Workorder { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockMoveWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("StockMove")]
     [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
-    [ForeignKey("AnalyticAccountLineId")]
-    [InverseProperty("StockMoves")]
-    public virtual AccountAnalyticLine? AnalyticAccountLine { get; set; }
-
-    [ForeignKey("BomLineId")]
-    [InverseProperty("StockMoves")]
-    public virtual MrpBomLine? BomLine { get; set; }
-
-    [ForeignKey("ByproductId")]
-    [InverseProperty("StockMoves")]
-    public virtual MrpBomByproduct? Byproduct { get; set; }
-
-    [ForeignKey("TenantId")]
-    [InverseProperty("StockMoves")]
-    public virtual ResCompany? Company { get; set; }
-
-    [ForeignKey("ConsumeUnbuildId")]
-    [InverseProperty("StockMoveConsumeUnbuilds")]
-    public virtual MrpUnbuild? ConsumeUnbuild { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("StockMoveCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("CreatedProductionId")]
-    [InverseProperty("StockMoveCreatedProductions")]
-    public virtual MrpProduction? CreatedProduction { get; set; }
-
-    [ForeignKey("CreatedPurchaseLineId")]
-    [InverseProperty("StockMoveCreatedPurchaseLines")]
-    public virtual PurchaseOrderLine? CreatedPurchaseLine { get; set; }
-
-    [ForeignKey("GroupId")]
-    [InverseProperty("StockMoves")]
-    public virtual ProcurementGroup? Group { get; set; }
-
     [InverseProperty("OriginReturnedMove")]
     [NotMapped]
     public virtual ICollection<StockMove> InverseOriginReturnedMove { get; } = new List<StockMove>();
-
-    [ForeignKey("LocationId")]
-    [InverseProperty("StockMoveLocations")]
-    public virtual StockLocation? Location { get; set; }
-
-    [ForeignKey("LocationDestId")]
-    [InverseProperty("StockMoveLocationDests")]
-    public virtual StockLocation? LocationDest { get; set; }
-
-    [ForeignKey("OperationId")]
-    [InverseProperty("StockMoves")]
-    public virtual MrpRoutingWorkcenter? Operation { get; set; }
-
-    [ForeignKey("OrderFinishedLotId")]
-    [InverseProperty("StockMoves")]
-    public virtual StockLot? OrderFinishedLot { get; set; }
-
-    [ForeignKey("OrderpointId")]
-    [InverseProperty("StockMoves")]
-    public virtual StockWarehouseOrderpoint? Orderpoint { get; set; }
-
-    [ForeignKey("OriginReturnedMoveId")]
-    [InverseProperty("InverseOriginReturnedMove")]
-    public virtual StockMove? OriginReturnedMove { get; set; }
-
-    [ForeignKey("PackageLevelId")]
-    [InverseProperty("StockMoves")]
-    public virtual StockPackageLevel? PackageLevel { get; set; }
-
-    [ForeignKey("PartnerId")]
-    [InverseProperty("StockMovePartners")]
-    public virtual ResPartner? Partner { get; set; }
-
-    [ForeignKey("PickingId")]
-    [InverseProperty("StockMoves")]
-    public virtual StockPicking? Picking { get; set; }
-
-    [ForeignKey("PickingTypeId")]
-    [InverseProperty("StockMoves")]
-    public virtual StockPickingType? PickingType { get; set; }
-
-    [ForeignKey("ProductId")]
-    [InverseProperty("StockMoves")]
-    public virtual ProductProduct? Product { get; set; }
-
-    [ForeignKey("ProductPackagingId")]
-    [InverseProperty("StockMoves")]
-    public virtual ProductPackaging? ProductPackaging { get; set; }
-
-    [ForeignKey("ProductUom")]
-    [InverseProperty("StockMoves")]
-    public virtual UomUom? ProductUomNavigation { get; set; }
-
-    [ForeignKey("ProductionId")]
-    [InverseProperty("StockMoveProductions")]
-    public virtual MrpProduction? Production { get; set; }
-
-    [ForeignKey("PurchaseLineId")]
-    [InverseProperty("StockMovePurchaseLines")]
-    public virtual PurchaseOrderLine? PurchaseLine { get; set; }
-
-    [ForeignKey("RawMaterialProductionId")]
-    [InverseProperty("StockMoveRawMaterialProductions")]
-    public virtual MrpProduction? RawMaterialProduction { get; set; }
-
-    [ForeignKey("RepairId")]
-    [InverseProperty("StockMoves")]
-    public virtual RepairOrder? Repair { get; set; }
 
     [InverseProperty("Move")]
     [NotMapped]
@@ -332,18 +360,6 @@ public partial class StockMove: IMultiTenant, IMayHaveCreator, IModificationAudi
     [InverseProperty("Move")]
     [NotMapped]
     public virtual ICollection<RepairOrder> RepairOrders { get; } = new List<RepairOrder>();
-
-    [ForeignKey("RestrictPartnerId")]
-    [InverseProperty("StockMoveRestrictPartners")]
-    public virtual ResPartner? RestrictPartner { get; set; }
-
-    [ForeignKey("RuleId")]
-    [InverseProperty("StockMoves")]
-    public virtual StockRule? Rule { get; set; }
-
-    [ForeignKey("SaleLineId")]
-    [InverseProperty("StockMoves")]
-    public virtual SaleOrderLine? SaleLine { get; set; }
 
     [InverseProperty("Move")]
     [NotMapped]
@@ -364,22 +380,6 @@ public partial class StockMove: IMultiTenant, IMayHaveCreator, IModificationAudi
     [InverseProperty("StockMove")]
     [NotMapped]
     public virtual ICollection<StockValuationLayer> StockValuationLayers { get; } = new List<StockValuationLayer>();
-
-    [ForeignKey("UnbuildId")]
-    [InverseProperty("StockMoveUnbuilds")]
-    public virtual MrpUnbuild? Unbuild { get; set; }
-
-    [ForeignKey("WarehouseId")]
-    [InverseProperty("StockMoves")]
-    public virtual StockWarehouse? Warehouse { get; set; }
-
-    [ForeignKey("WorkorderId")]
-    [InverseProperty("StockMoves")]
-    public virtual MrpWorkorder? Workorder { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockMoveWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MoveOrigId")]
     [InverseProperty("MoveOrigs")]

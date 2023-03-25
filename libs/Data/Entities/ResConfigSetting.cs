@@ -726,59 +726,59 @@ public partial class ResConfigSetting: IMultiTenant, IMayHaveCreator, IModificat
     public Guid? DelayAlertContract { get; set; }
 
     [ForeignKey("AuthSignupTemplateUserId")]
-    [InverseProperty("ResConfigSettingAuthSignupTemplateUsers")]
+    //[InverseProperty("ResConfigSettingAuthSignupTemplateUsers")]
     public virtual ResUser? AuthSignupTemplateUser { get; set; }
 
     [ForeignKey("ChartTemplateId")]
-    [InverseProperty("ResConfigSettings")]
+    //[InverseProperty("ResConfigSettings")]
     public virtual AccountChartTemplate? ChartTemplate { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ResConfigSettings")]
+    //[InverseProperty("ResConfigSettings")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResConfigSettingCreateUs")]
+    //[InverseProperty("ResConfigSettingCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepositDefaultProductId")]
-    [InverseProperty("ResConfigSettingDepositDefaultProducts")]
+    //[InverseProperty("ResConfigSettingDepositDefaultProducts")]
     public virtual ProductProduct? DepositDefaultProduct { get; set; }
 
     [ForeignKey("DigestId")]
-    [InverseProperty("ResConfigSettings")]
+    //[InverseProperty("ResConfigSettings")]
     public virtual DigestDigest? Digest { get; set; }
 
     [ForeignKey("InvoiceMailTemplateId")]
-    [InverseProperty("ResConfigSettings")]
+    //[InverseProperty("ResConfigSettings")]
     public virtual MailTemplate? InvoiceMailTemplate { get; set; }
 
     [ForeignKey("PosConfigId")]
-    [InverseProperty("ResConfigSettings")]
+    //[InverseProperty("ResConfigSettings")]
     public virtual PosConfig? PosConfig { get; set; }
 
     [ForeignKey("PosDefaultFiscalPositionId")]
-    [InverseProperty("ResConfigSettingsNavigation")]
+    //[InverseProperty("ResConfigSettingsNavigation")]
     public virtual AccountFiscalPosition? PosDefaultFiscalPosition { get; set; }
 
     [ForeignKey("PosIfaceStartCategId")]
-    [InverseProperty("ResConfigSettingsNavigation")]
+    //[InverseProperty("ResConfigSettingsNavigation")]
     public virtual PosCategory? PosIfaceStartCateg { get; set; }
 
     [ForeignKey("PosPricelistId")]
-    [InverseProperty("ResConfigSettingsNavigation")]
+    //[InverseProperty("ResConfigSettingsNavigation")]
     public virtual ProductPricelist? PosPricelist { get; set; }
 
     [ForeignKey("PosTipProductId")]
-    [InverseProperty("ResConfigSettingPosTipProducts")]
+    //[InverseProperty("ResConfigSettingPosTipProducts")]
     public virtual ProductProduct? PosTipProduct { get; set; }
 
     [ForeignKey("WebsiteId")]
-    [InverseProperty("ResConfigSettings")]
+    //[InverseProperty("ResConfigSettings")]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResConfigSettingWriteUs")]
+    //[InverseProperty("ResConfigSettingWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ResConfigSettingsId")]

@@ -36,18 +36,18 @@ public partial class BaseDocumentLayout: IMultiTenant, IMayHaveCreator, IModific
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("BaseDocumentLayouts")]
+    //[InverseProperty("BaseDocumentLayouts")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseDocumentLayoutCreateUs")]
+    //[InverseProperty("BaseDocumentLayoutCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ReportLayoutId")]
-    [InverseProperty("BaseDocumentLayouts")]
+    //[InverseProperty("BaseDocumentLayouts")]
     public virtual ReportLayout? ReportLayout { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseDocumentLayoutWriteUs")]
+    //[InverseProperty("BaseDocumentLayoutWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

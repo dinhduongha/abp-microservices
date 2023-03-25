@@ -44,18 +44,18 @@ public partial class ResCurrencyRate: IMultiTenant, IMayHaveCreator, IModificati
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ResCurrencyRates")]
+    //[InverseProperty("ResCurrencyRates")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResCurrencyRateCreateUs")]
+    //[InverseProperty("ResCurrencyRateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("ResCurrencyRates")]
+    //[InverseProperty("ResCurrencyRates")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResCurrencyRateWriteUs")]
+    //[InverseProperty("ResCurrencyRateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -54,30 +54,30 @@ public partial class RecurringPaymentLine: IMultiTenant, IMayHaveCreator, IModif
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("RecurringPaymentLines")]
+    //[InverseProperty("RecurringPaymentLines")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("RecurringPaymentLineCreateUs")]
+    //[InverseProperty("RecurringPaymentLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
-    [InverseProperty("RecurringPaymentLines")]
+    //[InverseProperty("RecurringPaymentLines")]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("RecurringPaymentLines")]
+    //[InverseProperty("RecurringPaymentLines")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PaymentId")]
-    [InverseProperty("RecurringPaymentLines")]
+    //[InverseProperty("RecurringPaymentLines")]
     public virtual AccountPayment? Payment { get; set; }
 
     [ForeignKey("RecurringPaymentId")]
-    [InverseProperty("RecurringPaymentLines")]
+    //[InverseProperty("RecurringPaymentLines")]
     public virtual RecurringPayment? RecurringPayment { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("RecurringPaymentLineWriteUs")]
+    //[InverseProperty("RecurringPaymentLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

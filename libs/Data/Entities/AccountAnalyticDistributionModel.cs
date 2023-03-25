@@ -51,30 +51,30 @@ public partial class AccountAnalyticDistributionModel: IMultiTenant, IMayHaveCre
     public string? AccountPrefix { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountAnalyticDistributionModels")]
+    //[InverseProperty("AccountAnalyticDistributionModels")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAnalyticDistributionModelCreateUs")]
+    //[InverseProperty("AccountAnalyticDistributionModelCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("AccountAnalyticDistributionModels")]
+    //[InverseProperty("AccountAnalyticDistributionModels")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PartnerCategoryId")]
-    [InverseProperty("AccountAnalyticDistributionModels")]
+    //[InverseProperty("AccountAnalyticDistributionModels")]
     public virtual ResPartnerCategory? PartnerCategory { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("AccountAnalyticDistributionModels")]
+    //[InverseProperty("AccountAnalyticDistributionModels")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductCategId")]
-    [InverseProperty("AccountAnalyticDistributionModels")]
+    //[InverseProperty("AccountAnalyticDistributionModels")]
     public virtual ProductCategory? ProductCateg { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAnalyticDistributionModelWriteUs")]
+    //[InverseProperty("AccountAnalyticDistributionModelWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

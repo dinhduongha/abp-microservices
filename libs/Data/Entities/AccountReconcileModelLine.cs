@@ -63,27 +63,27 @@ public partial class AccountReconcileModelLine: IMultiTenant, IMayHaveCreator, I
     public double? Amount { get; set; }
 
     [ForeignKey("AccountId")]
-    [InverseProperty("AccountReconcileModelLines")]
+    //[InverseProperty("AccountReconcileModelLines")]
     public virtual AccountAccount? Account { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountReconcileModelLines")]
+    //[InverseProperty("AccountReconcileModelLines")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountReconcileModelLineCreateUs")]
+    //[InverseProperty("AccountReconcileModelLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
-    [InverseProperty("AccountReconcileModelLines")]
+    //[InverseProperty("AccountReconcileModelLines")]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("ModelId")]
-    [InverseProperty("AccountReconcileModelLines")]
+    //[InverseProperty("AccountReconcileModelLines")]
     public virtual AccountReconcileModel? Model { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountReconcileModelLineWriteUs")]
+    //[InverseProperty("AccountReconcileModelLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountReconcileModelLineId")]

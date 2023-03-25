@@ -247,64 +247,63 @@ public partial class ResPartner: IMultiTenant, IMayHaveCreator, IModificationAud
     public bool? PlanToChangeBike { get; set; }
 
     [ForeignKey("CommercialPartnerId")]
-    [InverseProperty("InverseCommercialPartner")]
+    //[InverseProperty("InverseCommercialPartner")]
     public virtual ResPartner? CommercialPartner { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ResPartners")]
+    //[InverseProperty("ResPartners")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CountryId")]
-    [InverseProperty("ResPartners")]
+    //[InverseProperty("ResPartners")]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResPartnerCreateUs")]
+    //[InverseProperty("ResPartnerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("IndustryId")]
-    [InverseProperty("ResPartners")]
+    //[InverseProperty("ResPartners")]
     public virtual ResPartnerIndustry? Industry { get; set; }
 
     [ForeignKey("LatestFollowupLevelIdWithoutLit")]
-    [InverseProperty("ResPartners")]
+    //[InverseProperty("ResPartners")]
     public virtual FollowupLine? LatestFollowupLevelIdWithoutLitNavigation { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("ResPartners")]
+    //[InverseProperty("ResPartners")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
+    //[InverseProperty("InverseParent")]
     public virtual ResPartner? Parent { get; set; }
 
     [ForeignKey("PaymentResponsibleId")]
-    [InverseProperty("ResPartnerPaymentResponsibles")]
+    //[InverseProperty("ResPartnerPaymentResponsibles")]
     public virtual ResUser? PaymentResponsible { get; set; }
 
     [ForeignKey("StateId")]
-    [InverseProperty("ResPartners")]
+    //[InverseProperty("ResPartners")]
     public virtual ResCountryState? State { get; set; }
 
     [ForeignKey("TeamId")]
-    [InverseProperty("ResPartners")]
+    //[InverseProperty("ResPartners")]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("Title")]
-    [InverseProperty("ResPartners")]
+    //[InverseProperty("ResPartners")]
     public virtual ResPartnerTitle? TitleNavigation { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("ResPartnerUsers")]
+    //[InverseProperty("ResPartnerUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("WebsiteId")]
-    [InverseProperty("ResPartners")]
+    //[InverseProperty("ResPartners")]
     public virtual Website? WebsiteNavigation { get; set; }
 
-
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResPartnerWriteUs")]
+    //[InverseProperty("ResPartnerWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Partner")]

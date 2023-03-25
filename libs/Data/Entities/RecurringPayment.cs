@@ -60,26 +60,26 @@ public partial class RecurringPayment: IMultiTenant, IMayHaveCreator, IModificat
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("RecurringPayments")]
+    //[InverseProperty("RecurringPayments")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("RecurringPaymentCreateUs")]
+    //[InverseProperty("RecurringPaymentCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("RecurringPayments")]
+    //[InverseProperty("RecurringPayments")]
     public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("TemplateId")]
+    //[InverseProperty("RecurringPayments")]
+    public virtual AccountRecurringTemplate? Template { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("RecurringPaymentWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("RecurringPayment")]
     [NotMapped]
     public virtual ICollection<RecurringPaymentLine> RecurringPaymentLines { get; } = new List<RecurringPaymentLine>();
-
-    [ForeignKey("TemplateId")]
-    [InverseProperty("RecurringPayments")]
-    public virtual AccountRecurringTemplate? Template { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("RecurringPaymentWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

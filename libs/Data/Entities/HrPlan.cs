@@ -42,17 +42,21 @@ public partial class HrPlan: IMultiTenant, IMayHaveCreator, IModificationAudited
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("HrPlans")]
+    //[InverseProperty("HrPlans")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrPlanCreateUs")]
+    //[InverseProperty("HrPlanCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartmentId")]
-    [InverseProperty("HrPlans")]
+    //[InverseProperty("HrPlans")]
     public virtual HrDepartment? Department { get; set; }
 
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrPlanWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+    
     [InverseProperty("Plan")]
     [NotMapped]
     public virtual ICollection<HrPlanActivityType> HrPlanActivityTypes { get; } = new List<HrPlanActivityType>();
@@ -61,7 +65,4 @@ public partial class HrPlan: IMultiTenant, IMayHaveCreator, IModificationAudited
     [NotMapped]
     public virtual ICollection<HrPlanWizard> HrPlanWizards { get; } = new List<HrPlanWizard>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrPlanWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

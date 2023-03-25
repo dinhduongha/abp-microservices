@@ -90,50 +90,52 @@ public partial class SnailmailLetter: IMultiTenant, IMayHaveCreator, IModificati
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AttachmentId")]
-    [InverseProperty("SnailmailLetters")]
+    //[InverseProperty("SnailmailLetters")]
     public virtual IrAttachment? Attachment { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("SnailmailLetters")]
+    //[InverseProperty("SnailmailLetters")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CountryId")]
-    [InverseProperty("SnailmailLetters")]
+    //[InverseProperty("SnailmailLetters")]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SnailmailLetterCreateUs")]
+    //[InverseProperty("SnailmailLetterCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("MessageId")]
+    //[InverseProperty("SnailmailLetters")]
+    public virtual MailMessage? Message { get; set; }
+
+    [ForeignKey("PartnerId")]
+    //[InverseProperty("SnailmailLetters")]
+    public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("ReportTemplate")]
+    //[InverseProperty("SnailmailLetters")]
+    public virtual IrActReportXml? ReportTemplateNavigation { get; set; }
+
+    [ForeignKey("StateId")]
+    //[InverseProperty("SnailmailLetters")]
+    public virtual ResCountryState? StateNavigation { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("SnailmailLetterUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("SnailmailLetterWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Letter")]
     [NotMapped]
     public virtual ICollection<MailNotification> MailNotifications { get; } = new List<MailNotification>();
 
-    [ForeignKey("MessageId")]
-    [InverseProperty("SnailmailLetters")]
-    public virtual MailMessage? Message { get; set; }
-
-    [ForeignKey("PartnerId")]
-    [InverseProperty("SnailmailLetters")]
-    public virtual ResPartner? Partner { get; set; }
-
-    [ForeignKey("ReportTemplate")]
-    [InverseProperty("SnailmailLetters")]
-    public virtual IrActReportXml? ReportTemplateNavigation { get; set; }
-
     [InverseProperty("Letter")]
     [NotMapped]
     public virtual ICollection<SnailmailLetterMissingRequiredField> SnailmailLetterMissingRequiredFields { get; } = new List<SnailmailLetterMissingRequiredField>();
 
-    [ForeignKey("StateId")]
-    [InverseProperty("SnailmailLetters")]
-    public virtual ResCountryState? StateNavigation { get; set; }
 
-    [ForeignKey("UserId")]
-    [InverseProperty("SnailmailLetterUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("SnailmailLetterWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

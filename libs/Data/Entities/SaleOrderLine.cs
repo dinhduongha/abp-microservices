@@ -152,61 +152,77 @@ public partial class SaleOrderLine: IMultiTenant, IMayHaveCreator, IModification
     [Column("shop_warning")]
     public string? ShopWarning { get; set; }
 
-    [InverseProperty("SoLineNavigation")]
-    [NotMapped]
-    public virtual ICollection<AccountAnalyticLine> AccountAnalyticLines { get; } = new List<AccountAnalyticLine>();
-
     [ForeignKey("TenantId")]
-    [InverseProperty("SaleOrderLines")]
+    //[InverseProperty("SaleOrderLines")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SaleOrderLineCreateUs")]
+    //[InverseProperty("SaleOrderLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("SaleOrderLines")]
+    //[InverseProperty("SaleOrderLines")]
     public virtual ResCurrency? Currency { get; set; }
+
+    [ForeignKey("LinkedLineId")]
+    //[InverseProperty("InverseLinkedLine")]
+    public virtual SaleOrderLine? LinkedLine { get; set; }
+
+    [ForeignKey("OrderId")]
+    //[InverseProperty("SaleOrderLines")]
+    public virtual SaleOrder? Order { get; set; }
+
+    [ForeignKey("OrderPartnerId")]
+    //[InverseProperty("SaleOrderLines")]
+    public virtual ResPartner? OrderPartner { get; set; }
+
+    [ForeignKey("ProductId")]
+    //[InverseProperty("SaleOrderLines")]
+    public virtual ProductProduct? Product { get; set; }
+
+    [ForeignKey("ProductPackagingId")]
+    //[InverseProperty("SaleOrderLines")]
+    public virtual ProductPackaging? ProductPackaging { get; set; }
+
+    [ForeignKey("ProductUom")]
+    //[InverseProperty("SaleOrderLines")]
+    public virtual UomUom? ProductUomNavigation { get; set; }
+
+    [ForeignKey("ProjectId")]
+    //[InverseProperty("SaleOrderLines")]
+    public virtual ProjectProject? Project { get; set; }
+
+    [ForeignKey("RouteId")]
+    //[InverseProperty("SaleOrderLines")]
+    public virtual StockRoute? Route { get; set; }
+
+    [ForeignKey("SalesmanId")]
+    //[InverseProperty("SaleOrderLineSalesmen")]
+    public virtual ResUser? Salesman { get; set; }
+
+    [ForeignKey("TaskId")]
+    //[InverseProperty("SaleOrderLines")]
+    public virtual ProjectTask? Task { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("SaleOrderLineWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("SoLineNavigation")]
+    [NotMapped]
+    public virtual ICollection<AccountAnalyticLine> AccountAnalyticLines { get; } = new List<AccountAnalyticLine>();
 
     [InverseProperty("LinkedLine")]
     [NotMapped]
     public virtual ICollection<SaleOrderLine> InverseLinkedLine { get; } = new List<SaleOrderLine>();
 
-    [ForeignKey("LinkedLineId")]
-    [InverseProperty("InverseLinkedLine")]
-    public virtual SaleOrderLine? LinkedLine { get; set; }
-
-    [ForeignKey("OrderId")]
-    [InverseProperty("SaleOrderLines")]
-    public virtual SaleOrder? Order { get; set; }
-
-    [ForeignKey("OrderPartnerId")]
-    [InverseProperty("SaleOrderLines")]
-    public virtual ResPartner? OrderPartner { get; set; }
-
     [InverseProperty("SaleOrderLine")]
     [NotMapped]
     public virtual ICollection<PosOrderLine> PosOrderLines { get; } = new List<PosOrderLine>();
 
-    [ForeignKey("ProductId")]
-    [InverseProperty("SaleOrderLines")]
-    public virtual ProductProduct? Product { get; set; }
-
     [InverseProperty("SaleOrderLine")]
     [NotMapped]
     public virtual ICollection<ProductAttributeCustomValue> ProductAttributeCustomValues { get; } = new List<ProductAttributeCustomValue>();
-
-    [ForeignKey("ProductPackagingId")]
-    [InverseProperty("SaleOrderLines")]
-    public virtual ProductPackaging? ProductPackaging { get; set; }
-
-    [ForeignKey("ProductUom")]
-    [InverseProperty("SaleOrderLines")]
-    public virtual UomUom? ProductUomNavigation { get; set; }
-
-    [ForeignKey("ProjectId")]
-    [InverseProperty("SaleOrderLines")]
-    public virtual ProjectProject? Project { get; set; }
 
     [InverseProperty("SaleLine")]
     [NotMapped]
@@ -224,29 +240,13 @@ public partial class SaleOrderLine: IMultiTenant, IMayHaveCreator, IModification
     [NotMapped]
     public virtual ICollection<PurchaseOrderLine> PurchaseOrderLines { get; } = new List<PurchaseOrderLine>();
 
-    [ForeignKey("RouteId")]
-    [InverseProperty("SaleOrderLines")]
-    public virtual StockRoute? Route { get; set; }
-
     [InverseProperty("Line")]
     [NotMapped]
     public virtual ICollection<SaleOrderOption> SaleOrderOptions { get; } = new List<SaleOrderOption>();
 
-    [ForeignKey("SalesmanId")]
-    [InverseProperty("SaleOrderLineSalesmen")]
-    public virtual ResUser? Salesman { get; set; }
-
     [InverseProperty("SaleLine")]
     [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
-
-    [ForeignKey("TaskId")]
-    [InverseProperty("SaleOrderLines")]
-    public virtual ProjectTask? Task { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("SaleOrderLineWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("SaleOrderLineId")]
     [InverseProperty("SaleOrderLines")]

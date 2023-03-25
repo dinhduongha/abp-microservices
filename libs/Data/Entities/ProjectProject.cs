@@ -128,32 +128,48 @@ public partial class ProjectProject: IMultiTenant, IMayHaveCreator, IModificatio
     public bool? AllowBillable { get; set; }
 
     [ForeignKey("AliasId")]
-    [InverseProperty("ProjectProjects")]
+    //[InverseProperty("ProjectProjects")]
     public virtual MailAlias? Alias { get; set; }
 
     [ForeignKey("AnalyticAccountId")]
-    [InverseProperty("ProjectProjects")]
+    //[InverseProperty("ProjectProjects")]
     public virtual AccountAnalyticAccount? AnalyticAccount { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ProjectProjects")]
+    //[InverseProperty("ProjectProjects")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProjectProjectCreateUs")]
+    //[InverseProperty("ProjectProjectCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastUpdateId")]
-    [InverseProperty("ProjectProjects")]
+    //[InverseProperty("ProjectProjects")]
     public virtual ProjectUpdate? LastUpdate { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("ProjectProjects")]
+    //[InverseProperty("ProjectProjects")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("ProjectProjects")]
+    //[InverseProperty("ProjectProjects")]
     public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("SaleLineId")]
+    //[InverseProperty("ProjectProjects")]
+    public virtual SaleOrderLine? SaleLine { get; set; }
+
+    [ForeignKey("StageId")]
+    //[InverseProperty("ProjectProjects")]
+    public virtual ProjectProjectStage? Stage { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("ProjectProjectUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProjectProjectWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Project")]
     [NotMapped]
@@ -175,10 +191,6 @@ public partial class ProjectProject: IMultiTenant, IMayHaveCreator, IModificatio
     [NotMapped]
     public virtual ICollection<ProjectUpdate> ProjectUpdates { get; } = new List<ProjectUpdate>();
 
-    [ForeignKey("SaleLineId")]
-    [InverseProperty("ProjectProjects")]
-    public virtual SaleOrderLine? SaleLine { get; set; }
-
     [InverseProperty("Project")]
     [NotMapped]
     public virtual ICollection<SaleOrderLine> SaleOrderLines { get; } = new List<SaleOrderLine>();
@@ -186,18 +198,6 @@ public partial class ProjectProject: IMultiTenant, IMayHaveCreator, IModificatio
     [InverseProperty("Project")]
     [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
-
-    [ForeignKey("StageId")]
-    [InverseProperty("ProjectProjects")]
-    public virtual ProjectProjectStage? Stage { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("ProjectProjectUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProjectProjectWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProjectProjectId")]
     [InverseProperty("ProjectProjects")]

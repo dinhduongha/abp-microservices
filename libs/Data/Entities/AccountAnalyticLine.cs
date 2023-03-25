@@ -91,59 +91,59 @@ public partial class AccountAnalyticLine: IMultiTenant, IMayHaveCreator, IModifi
     public Guid? SoLine { get; set; }
 
     [ForeignKey("AccountId")]
-    [InverseProperty("AccountAnalyticLines")]
+    //[InverseProperty("AccountAnalyticLines")]
     public virtual AccountAnalyticAccount? Account { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountAnalyticLines")]
+    //[InverseProperty("AccountAnalyticLines")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAnalyticLineCreateUs")]
+    //[InverseProperty("AccountAnalyticLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("AccountAnalyticLines")]
+    //[InverseProperty("AccountAnalyticLines")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("GeneralAccountId")]
-    [InverseProperty("AccountAnalyticLines")]
+    //[InverseProperty("AccountAnalyticLines")]
     public virtual AccountAccount? GeneralAccount { get; set; }
 
     [ForeignKey("JournalId")]
-    [InverseProperty("AccountAnalyticLines")]
+    //[InverseProperty("AccountAnalyticLines")]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("MoveLineId")]
-    [InverseProperty("AccountAnalyticLines")]
+    //[InverseProperty("AccountAnalyticLines")]
     public virtual AccountMoveLine? MoveLine { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("AccountAnalyticLines")]
+    //[InverseProperty("AccountAnalyticLines")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PlanId")]
-    [InverseProperty("AccountAnalyticLines")]
+    //[InverseProperty("AccountAnalyticLines")]
     public virtual AccountAnalyticPlan? Plan { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("AccountAnalyticLines")]
+    //[InverseProperty("AccountAnalyticLines")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
-    [InverseProperty("AccountAnalyticLines")]
+    //[InverseProperty("AccountAnalyticLines")]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("SoLine")]
-    [InverseProperty("AccountAnalyticLines")]
+    //[InverseProperty("AccountAnalyticLines")]
     public virtual SaleOrderLine? SoLineNavigation { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("AccountAnalyticLineUsers")]
+    //[InverseProperty("AccountAnalyticLineUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAnalyticLineWriteUs")]
+    //[InverseProperty("AccountAnalyticLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("MoAnalyticAccountLine")]

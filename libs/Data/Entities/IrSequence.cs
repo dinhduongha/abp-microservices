@@ -62,17 +62,21 @@ public partial class IrSequence: IMultiTenant, IMayHaveCreator, IModificationAud
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
-    [InverseProperty("SecureSequence")]
-    [NotMapped]
-    public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
-
     [ForeignKey("TenantId")]
-    [InverseProperty("IrSequences")]
+    //[InverseProperty("IrSequences")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrSequenceCreateUs")]
+    //[InverseProperty("IrSequenceCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("IrSequenceWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("SecureSequence")]
+    [NotMapped]
+    public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 
     [InverseProperty("Sequence")]
     [NotMapped]
@@ -90,7 +94,4 @@ public partial class IrSequence: IMultiTenant, IMayHaveCreator, IModificationAud
     [NotMapped]
     public virtual ICollection<StockPickingType> StockPickingTypes { get; } = new List<StockPickingType>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("IrSequenceWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

@@ -85,47 +85,47 @@ public partial class RepairLine
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("RepairLines")]
+    //[InverseProperty("RepairLines")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("RepairLineCreateUs")]
+    //[InverseProperty("RepairLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InvoiceLineId")]
-    [InverseProperty("RepairLines")]
+    //[InverseProperty("RepairLines")]
     public virtual AccountMoveLine? InvoiceLine { get; set; }
 
     [ForeignKey("LocationId")]
-    [InverseProperty("RepairLineLocations")]
+    //[InverseProperty("RepairLineLocations")]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("LocationDestId")]
-    [InverseProperty("RepairLineLocationDests")]
+    //[InverseProperty("RepairLineLocationDests")]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("LotId")]
-    [InverseProperty("RepairLines")]
+    //[InverseProperty("RepairLines")]
     public virtual StockLot? Lot { get; set; }
 
     [ForeignKey("MoveId")]
-    [InverseProperty("RepairLines")]
+    //[InverseProperty("RepairLines")]
     public virtual StockMove? Move { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("RepairLines")]
+    //[InverseProperty("RepairLines")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUom")]
-    [InverseProperty("RepairLines")]
+    //[InverseProperty("RepairLines")]
     public virtual UomUom? ProductUomNavigation { get; set; }
 
     [ForeignKey("RepairId")]
-    [InverseProperty("RepairLines")]
+    //[InverseProperty("RepairLines")]
     public virtual RepairOrder? Repair { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("RepairLineWriteUs")]
+    //[InverseProperty("RepairLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("RepairOperationLineId")]

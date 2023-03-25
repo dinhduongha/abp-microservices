@@ -222,23 +222,23 @@ public partial class ProductTemplate: IMultiTenant, IMayHaveCreator, IModificati
     public double? AvailableThreshold { get; set; }
 
     [ForeignKey("BaseUnitId")]
-    [InverseProperty("ProductTemplates")]
+    //[InverseProperty("ProductTemplates")]
     public virtual WebsiteBaseUnit? BaseUnit { get; set; }
 
     [ForeignKey("CategId")]
-    [InverseProperty("ProductTemplates")]
+    //[InverseProperty("ProductTemplates")]
     public virtual ProductCategory? Categ { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ProductTemplates")]
+    //[InverseProperty("ProductTemplates")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductTemplateCreateUs")]
+    //[InverseProperty("ProductTemplateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("ProductTemplates")]
+    //[InverseProperty("ProductTemplates")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [InverseProperty("ProductTmpl")]
@@ -252,6 +252,26 @@ public partial class ProductTemplate: IMultiTenant, IMayHaveCreator, IModificati
     [ForeignKey("PosCategId")]
     [InverseProperty("ProductTemplates")]
     public virtual PosCategory? PosCateg { get; set; }
+
+    [ForeignKey("UomId")]
+    [InverseProperty("ProductTemplateUoms")]
+    public virtual UomUom? Uom { get; set; }
+
+    [ForeignKey("UomPoId")]
+    [InverseProperty("ProductTemplateUomPos")]
+    public virtual UomUom? UomPo { get; set; }
+
+    [ForeignKey("WebsiteId")]
+    [InverseProperty("ProductTemplates")]
+    public virtual Website? Website { get; set; }
+
+    [ForeignKey("WebsiteRibbonId")]
+    [InverseProperty("ProductTemplates")]
+    public virtual ProductRibbon? WebsiteRibbon { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    [InverseProperty("ProductTemplateWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ProductTmpl")]
     [NotMapped]
@@ -292,26 +312,6 @@ public partial class ProductTemplate: IMultiTenant, IMayHaveCreator, IModificati
     [InverseProperty("ProductTmpl")]
     [NotMapped]
     public virtual ICollection<StockRulesReport> StockRulesReports { get; } = new List<StockRulesReport>();
-
-    [ForeignKey("UomId")]
-    [InverseProperty("ProductTemplateUoms")]
-    public virtual UomUom? Uom { get; set; }
-
-    [ForeignKey("UomPoId")]
-    [InverseProperty("ProductTemplateUomPos")]
-    public virtual UomUom? UomPo { get; set; }
-
-    [ForeignKey("WebsiteId")]
-    [InverseProperty("ProductTemplates")]
-    public virtual Website? Website { get; set; }
-
-    [ForeignKey("WebsiteRibbonId")]
-    [InverseProperty("ProductTemplates")]
-    public virtual ProductRibbon? WebsiteRibbon { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductTemplateWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductTemplateId")]
     [InverseProperty("ProductTemplates")]

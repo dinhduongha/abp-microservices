@@ -54,22 +54,23 @@ public partial class AccountRecurringTemplate: IMultiTenant, IMayHaveCreator, IM
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountRecurringTemplates")]
+    //[InverseProperty("AccountRecurringTemplates")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountRecurringTemplateCreateUs")]
+    //[InverseProperty("AccountRecurringTemplateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
-    [InverseProperty("AccountRecurringTemplates")]
+    //[InverseProperty("AccountRecurringTemplates")]
     public virtual AccountJournal? Journal { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountRecurringTemplateWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Template")]
     [NotMapped]
     public virtual ICollection<RecurringPayment> RecurringPayments { get; } = new List<RecurringPayment>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountRecurringTemplateWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

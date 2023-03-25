@@ -95,38 +95,38 @@ public partial class ProductPricelistItem: IMultiTenant, IMayHaveCreator, IModif
     public double? PercentPrice { get; set; }
 
     [ForeignKey("BasePricelistId")]
-    [InverseProperty("ProductPricelistItemBasePricelists")]
+    //[InverseProperty("ProductPricelistItemBasePricelists")]
     public virtual ProductPricelist? BasePricelist { get; set; }
 
     [ForeignKey("CategId")]
-    [InverseProperty("ProductPricelistItems")]
+    //[InverseProperty("ProductPricelistItems")]
     public virtual ProductCategory? Categ { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ProductPricelistItems")]
+    //[InverseProperty("ProductPricelistItems")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductPricelistItemCreateUs")]
+    //[InverseProperty("ProductPricelistItemCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("ProductPricelistItems")]
+    //[InverseProperty("ProductPricelistItems")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("PricelistId")]
-    [InverseProperty("ProductPricelistItemPricelists")]
+    //[InverseProperty("ProductPricelistItemPricelists")]
     public virtual ProductPricelist? Pricelist { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("ProductPricelistItems")]
+    //[InverseProperty("ProductPricelistItems")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductTmplId")]
-    [InverseProperty("ProductPricelistItems")]
+    //[InverseProperty("ProductPricelistItems")]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductPricelistItemWriteUs")]
+    //[InverseProperty("ProductPricelistItemWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

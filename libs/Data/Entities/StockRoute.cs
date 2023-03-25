@@ -64,12 +64,24 @@ public partial class StockRoute: IMultiTenant, IMayHaveCreator, IModificationAud
     public bool? SaleSelectable { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockRoutes")]
+    //[InverseProperty("StockRoutes")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockRouteCreateUs")]
+    //[InverseProperty("StockRouteCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("SuppliedWhId")]
+    //[InverseProperty("StockRouteSuppliedWhs")]
+    public virtual StockWarehouse? SuppliedWh { get; set; }
+
+    [ForeignKey("SupplierWhId")]
+    //[InverseProperty("StockRouteSupplierWhs")]
+    public virtual StockWarehouse? SupplierWh { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockRouteWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Route")]
     [NotMapped]
@@ -106,18 +118,6 @@ public partial class StockRoute: IMultiTenant, IMayHaveCreator, IModificationAud
     [InverseProperty("ReceptionRoute")]
     [NotMapped]
     public virtual ICollection<StockWarehouse> StockWarehouseReceptionRoutes { get; } = new List<StockWarehouse>();
-
-    [ForeignKey("SuppliedWhId")]
-    [InverseProperty("StockRouteSuppliedWhs")]
-    public virtual StockWarehouse? SuppliedWh { get; set; }
-
-    [ForeignKey("SupplierWhId")]
-    [InverseProperty("StockRouteSupplierWhs")]
-    public virtual StockWarehouse? SupplierWh { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockRouteWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("RouteId")]
     [InverseProperty("Routes")]

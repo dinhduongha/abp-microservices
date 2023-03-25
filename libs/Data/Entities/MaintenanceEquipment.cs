@@ -115,50 +115,52 @@ public partial class MaintenanceEquipment: IMultiTenant, IMayHaveCreator, IModif
     public string? EquipmentAssignTo { get; set; }
 
     [ForeignKey("CategoryId")]
-    [InverseProperty("MaintenanceEquipments")]
+    //[InverseProperty("MaintenanceEquipments")]
     public virtual MaintenanceEquipmentCategory? Category { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("MaintenanceEquipments")]
+    //[InverseProperty("MaintenanceEquipments")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MaintenanceEquipmentCreateUs")]
+    //[InverseProperty("MaintenanceEquipmentCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartmentId")]
-    [InverseProperty("MaintenanceEquipments")]
+    //[InverseProperty("MaintenanceEquipments")]
     public virtual HrDepartment? Department { get; set; }
 
     [ForeignKey("EmployeeId")]
-    [InverseProperty("MaintenanceEquipments")]
+    //[InverseProperty("MaintenanceEquipments")]
     public virtual HrEmployee? Employee { get; set; }
+
+    [ForeignKey("MaintenanceTeamId")]
+    //[InverseProperty("MaintenanceEquipments")]
+    public virtual MaintenanceTeam? MaintenanceTeam { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("MaintenanceEquipments")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("OwnerUserId")]
+    //[InverseProperty("MaintenanceEquipmentOwnerUsers")]
+    public virtual ResUser? OwnerUser { get; set; }
+
+    [ForeignKey("PartnerId")]
+    //[InverseProperty("MaintenanceEquipments")]
+    public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("TechnicianUserId")]
+    //[InverseProperty("MaintenanceEquipmentTechnicianUsers")]
+    public virtual ResUser? TechnicianUser { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MaintenanceEquipmentWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Equipment")]
     [NotMapped]
     public virtual ICollection<MaintenanceRequest> MaintenanceRequests { get; } = new List<MaintenanceRequest>();
 
-    [ForeignKey("MaintenanceTeamId")]
-    [InverseProperty("MaintenanceEquipments")]
-    public virtual MaintenanceTeam? MaintenanceTeam { get; set; }
 
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("MaintenanceEquipments")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("OwnerUserId")]
-    [InverseProperty("MaintenanceEquipmentOwnerUsers")]
-    public virtual ResUser? OwnerUser { get; set; }
-
-    [ForeignKey("PartnerId")]
-    [InverseProperty("MaintenanceEquipments")]
-    public virtual ResPartner? Partner { get; set; }
-
-    [ForeignKey("TechnicianUserId")]
-    [InverseProperty("MaintenanceEquipmentTechnicianUsers")]
-    public virtual ResUser? TechnicianUser { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MaintenanceEquipmentWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

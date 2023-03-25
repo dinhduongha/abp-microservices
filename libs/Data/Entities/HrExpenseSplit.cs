@@ -63,39 +63,39 @@ public partial class HrExpenseSplit: IMultiTenant, IMayHaveCreator, IModificatio
     public Guid? SaleOrderId { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("HrExpenseSplits")]
+    //[InverseProperty("HrExpenseSplits")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrExpenseSplitCreateUs")]
+    //[InverseProperty("HrExpenseSplitCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("HrExpenseSplits")]
+    //[InverseProperty("HrExpenseSplits")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("EmployeeId")]
-    [InverseProperty("HrExpenseSplits")]
+    //[InverseProperty("HrExpenseSplits")]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("ExpenseId")]
-    [InverseProperty("HrExpenseSplits")]
+    //[InverseProperty("HrExpenseSplits")]
     public virtual HrExpense? Expense { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("HrExpenseSplits")]
+    //[InverseProperty("HrExpenseSplits")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("SaleOrderId")]
-    [InverseProperty("HrExpenseSplits")]
+    //[InverseProperty("HrExpenseSplits")]
     public virtual SaleOrder? SaleOrder { get; set; }
 
     [ForeignKey("WizardId")]
-    [InverseProperty("HrExpenseSplits")]
+    //[InverseProperty("HrExpenseSplits")]
     public virtual HrExpenseSplitWizard? Wizard { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("HrExpenseSplitWriteUs")]
+    //[InverseProperty("HrExpenseSplitWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrExpenseSplitId")]

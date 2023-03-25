@@ -75,20 +75,20 @@ public partial class DigestDigest: IMultiTenant, IMayHaveCreator, IModificationA
     public bool? KpiWebsiteSaleTotal { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("DigestDigests")]
+    //[InverseProperty("DigestDigests")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("DigestDigestCreateUs")]
+    //[InverseProperty("DigestDigestCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("DigestDigestWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Digest")]
     [NotMapped]
     public virtual ICollection<ResConfigSetting> ResConfigSettings { get; } = new List<ResConfigSetting>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("DigestDigestWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("DigestDigestId")]
     [InverseProperty("DigestDigests")]

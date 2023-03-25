@@ -55,31 +55,31 @@ public partial class AccountAnalyticAccount: IMultiTenant, IMayHaveCreator, IMod
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountAnalyticAccounts")]
+    //[InverseProperty("AccountAnalyticAccounts")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAnalyticAccountCreateUs")]
+    //[InverseProperty("AccountAnalyticAccountCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("AccountAnalyticAccounts")]
+    //[InverseProperty("AccountAnalyticAccounts")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("AccountAnalyticAccounts")]
+    //[InverseProperty("AccountAnalyticAccounts")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PlanId")]
-    [InverseProperty("AccountAnalyticAccountPlans")]
+    //[InverseProperty("AccountAnalyticAccountPlans")]
     public virtual AccountAnalyticPlan? Plan { get; set; }
 
     [ForeignKey("RootPlanId")]
-    [InverseProperty("AccountAnalyticAccountRootPlans")]
+    //[InverseProperty("AccountAnalyticAccountRootPlans")]
     public virtual AccountAnalyticPlan? RootPlan { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAnalyticAccountWriteUs")]
+    //[InverseProperty("AccountAnalyticAccountWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("AnalyticAccount")]

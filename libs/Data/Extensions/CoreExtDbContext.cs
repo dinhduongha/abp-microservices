@@ -21,12 +21,12 @@ public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
 }
 public partial class CoreDbContext
 {
-    protected override void ConfigureConventions(ModelConfigurationBuilder builder)
-    {
-        builder.Properties<DateOnly>()
-            .HaveConversion<DateOnlyConverter>()
-            .HaveColumnType("date");
-    }
+    //protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+    //{
+    //    builder.Properties<DateOnly>()
+    //        .HaveConversion<DateOnlyConverter>()
+    //        .HaveColumnType("date");
+    //}
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //{
     //    optionsBuilder

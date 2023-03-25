@@ -19,7 +19,7 @@ public partial class StockPickingType: IMultiTenant, IMayHaveCreator, IModificat
     public Guid Id { get; set; }
 
     [Column("color")]
-    public Guid? Color { get; set; }
+    public long? Color { get; set; }
 
     [Column("sequence")]
     public long Sequence { get; set; }
@@ -112,35 +112,35 @@ public partial class StockPickingType: IMultiTenant, IMayHaveCreator, IModificat
     public bool? UseAutoConsumeComponentsLots { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockPickingTypes")]
+    //[InverseProperty("StockPickingTypes")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockPickingTypeCreateUs")]
+    //[InverseProperty("StockPickingTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DefaultLocationDestId")]
-    [InverseProperty("StockPickingTypeDefaultLocationDests")]
+    //[InverseProperty("StockPickingTypeDefaultLocationDests")]
     public virtual StockLocation? DefaultLocationDest { get; set; }
 
     [ForeignKey("DefaultLocationSrcId")]
-    [InverseProperty("StockPickingTypeDefaultLocationSrcs")]
+    //[InverseProperty("StockPickingTypeDefaultLocationSrcs")]
     public virtual StockLocation? DefaultLocationSrc { get; set; }
 
     [ForeignKey("ReturnPickingTypeId")]
-    [InverseProperty("InverseReturnPickingType")]
+    //[InverseProperty("InverseReturnPickingType")]
     public virtual StockPickingType? ReturnPickingType { get; set; }
 
     [ForeignKey("SequenceId")]
-    [InverseProperty("StockPickingTypes")]
+    //[InverseProperty("StockPickingTypes")]
     public virtual IrSequence? SequenceNavigation { get; set; }
 
     [ForeignKey("WarehouseId")]
-    [InverseProperty("StockPickingTypes")]
+    //[InverseProperty("StockPickingTypes")]
     public virtual StockWarehouse? Warehouse { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockPickingTypeWriteUs")]
+    //[InverseProperty("StockPickingTypeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
 /*

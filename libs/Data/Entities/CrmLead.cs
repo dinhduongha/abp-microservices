@@ -214,25 +214,81 @@ public partial class CrmLead: IMultiTenant, IMayHaveCreator, IModificationAudite
     [Column("lead_mining_request_id")]
     public Guid? LeadMiningRequestId { get; set; }
 
-    [InverseProperty("Opportunity")]
-    [NotMapped]
-    public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
-
     [ForeignKey("CampaignId")]
-    [InverseProperty("CrmLeads")]
+    //[InverseProperty("CrmLeads")]
     public virtual UtmCampaign? Campaign { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("CrmLeads")]
+    //[InverseProperty("CrmLeads")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CountryId")]
-    [InverseProperty("CrmLeads")]
+    //[InverseProperty("CrmLeads")]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmLeadCreateUs")]
+    //[InverseProperty("CrmLeadCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LangId")]
+    //[InverseProperty("CrmLeads")]
+    public virtual ResLang? Lang { get; set; }
+
+    [ForeignKey("LeadMiningRequestId")]
+    //[InverseProperty("CrmLeads")]
+    public virtual CrmIapLeadMiningRequest? LeadMiningRequest { get; set; }
+
+    [ForeignKey("LostReasonId")]
+    //[InverseProperty("CrmLeads")]
+    public virtual CrmLostReason? LostReason { get; set; }
+
+    [ForeignKey("MediumId")]
+    //[InverseProperty("CrmLeads")]
+    public virtual UtmMedium? Medium { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("CrmLeads")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("PartnerId")]
+    //[InverseProperty("CrmLeads")]
+    public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("RecurringPlan")]
+    //[InverseProperty("CrmLeads")]
+    public virtual CrmRecurringPlan? RecurringPlanNavigation { get; set; }
+
+    [ForeignKey("SourceId")]
+    //[InverseProperty("CrmLeads")]
+    public virtual UtmSource? Source { get; set; }
+
+    [ForeignKey("StageId")]
+    //[InverseProperty("CrmLeads")]
+    public virtual CrmStage? Stage { get; set; }
+
+    [ForeignKey("StateId")]
+    //[InverseProperty("CrmLeads")]
+    public virtual ResCountryState? State { get; set; }
+
+    [ForeignKey("TeamId")]
+    //[InverseProperty("CrmLeads")]
+    public virtual CrmTeam? Team { get; set; }
+
+    [ForeignKey("Title")]
+    //[InverseProperty("CrmLeads")]
+    public virtual ResPartnerTitle? TitleNavigation { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("CrmLeadUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("CrmLeadWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("Opportunity")]
+    [NotMapped]
+    public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
 
     [InverseProperty("Lead")]
     [NotMapped]
@@ -246,65 +302,9 @@ public partial class CrmLead: IMultiTenant, IMayHaveCreator, IModificationAudite
     [NotMapped]
     public virtual ICollection<CrmQuotationPartner> CrmQuotationPartners { get; } = new List<CrmQuotationPartner>();
 
-    [ForeignKey("LangId")]
-    [InverseProperty("CrmLeads")]
-    public virtual ResLang? Lang { get; set; }
-
-    [ForeignKey("LeadMiningRequestId")]
-    [InverseProperty("CrmLeads")]
-    public virtual CrmIapLeadMiningRequest? LeadMiningRequest { get; set; }
-
-    [ForeignKey("LostReasonId")]
-    [InverseProperty("CrmLeads")]
-    public virtual CrmLostReason? LostReason { get; set; }
-
-    [ForeignKey("MediumId")]
-    [InverseProperty("CrmLeads")]
-    public virtual UtmMedium? Medium { get; set; }
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("CrmLeads")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("PartnerId")]
-    [InverseProperty("CrmLeads")]
-    public virtual ResPartner? Partner { get; set; }
-
-    [ForeignKey("RecurringPlan")]
-    [InverseProperty("CrmLeads")]
-    public virtual CrmRecurringPlan? RecurringPlanNavigation { get; set; }
-
     [InverseProperty("Opportunity")]
     [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
-
-    [ForeignKey("SourceId")]
-    [InverseProperty("CrmLeads")]
-    public virtual UtmSource? Source { get; set; }
-
-    [ForeignKey("StageId")]
-    [InverseProperty("CrmLeads")]
-    public virtual CrmStage? Stage { get; set; }
-
-    [ForeignKey("StateId")]
-    [InverseProperty("CrmLeads")]
-    public virtual ResCountryState? State { get; set; }
-
-    [ForeignKey("TeamId")]
-    [InverseProperty("CrmLeads")]
-    public virtual CrmTeam? Team { get; set; }
-
-    [ForeignKey("Title")]
-    [InverseProperty("CrmLeads")]
-    public virtual ResPartnerTitle? TitleNavigation { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("CrmLeadUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmLeadWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CrmLeadId")]
     [InverseProperty("CrmLeads")]

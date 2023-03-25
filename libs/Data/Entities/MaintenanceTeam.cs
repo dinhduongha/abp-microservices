@@ -42,12 +42,16 @@ public partial class MaintenanceTeam: IMultiTenant, IMayHaveCreator, IModificati
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("MaintenanceTeams")]
+    //[InverseProperty("MaintenanceTeams")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MaintenanceTeamCreateUs")]
+    //[InverseProperty("MaintenanceTeamCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MaintenanceTeamWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("MaintenanceTeam")]
     [NotMapped]
@@ -56,10 +60,6 @@ public partial class MaintenanceTeam: IMultiTenant, IMayHaveCreator, IModificati
     [InverseProperty("MaintenanceTeam")]
     [NotMapped]
     public virtual ICollection<MaintenanceRequest> MaintenanceRequests { get; } = new List<MaintenanceRequest>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MaintenanceTeamWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MaintenanceTeamId")]
     [InverseProperty("MaintenanceTeams")]

@@ -67,18 +67,18 @@ public partial class IrProperty: IMultiTenant, IMayHaveCreator, IModificationAud
     public byte[]? ValueBinary { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("IrProperties")]
+    //[InverseProperty("IrProperties")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrPropertyCreateUs")]
+    //[InverseProperty("IrPropertyCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FieldsId")]
-    [InverseProperty("IrProperties")]
+    //[InverseProperty("IrProperties")]
     public virtual IrModelField? Fields { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrPropertyWriteUs")]
+    //[InverseProperty("IrPropertyWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

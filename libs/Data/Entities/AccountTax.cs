@@ -84,6 +84,30 @@ public partial class AccountTax: IMultiTenant, IMayHaveCreator, IModificationAud
     [Column("real_amount")]
     public double? RealAmount { get; set; }
 
+    [ForeignKey("CashBasisTransitionAccountId")]
+    //[InverseProperty("AccountTaxes")]
+    public virtual AccountAccount? CashBasisTransitionAccount { get; set; }
+
+    [ForeignKey("TenantId")]
+    //[InverseProperty("AccountTaxes")]
+    public virtual ResCompany? Company { get; set; }
+
+    [ForeignKey("CountryId")]
+    //[InverseProperty("AccountTaxes")]
+    public virtual ResCountry? Country { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("AccountTaxCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("TaxGroupId")]
+    //[InverseProperty("AccountTaxes")]
+    public virtual AccountTaxGroup? TaxGroup { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountTaxWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("TaxDest")]
     [NotMapped]
     public virtual ICollection<AccountFiscalPositionTax> AccountFiscalPositionTaxTaxDests { get; } = new List<AccountFiscalPositionTax>();
@@ -108,22 +132,6 @@ public partial class AccountTax: IMultiTenant, IMayHaveCreator, IModificationAud
     [NotMapped]
     public virtual ICollection<AccountTaxRepartitionLine> AccountTaxRepartitionLineRefundTaxes { get; } = new List<AccountTaxRepartitionLine>();
 
-    [ForeignKey("CashBasisTransitionAccountId")]
-    [InverseProperty("AccountTaxes")]
-    public virtual AccountAccount? CashBasisTransitionAccount { get; set; }
-
-    [ForeignKey("TenantId")]
-    [InverseProperty("AccountTaxes")]
-    public virtual ResCompany? Company { get; set; }
-
-    [ForeignKey("CountryId")]
-    [InverseProperty("AccountTaxes")]
-    public virtual ResCountry? Country { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("AccountTaxCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
     [InverseProperty("AccountPurchaseTax")]
     [NotMapped]
     public virtual ICollection<ResCompany> ResCompanyAccountPurchaseTaxes { get; } = new List<ResCompany>();
@@ -131,14 +139,6 @@ public partial class AccountTax: IMultiTenant, IMayHaveCreator, IModificationAud
     [InverseProperty("AccountSaleTax")]
     [NotMapped]
     public virtual ICollection<ResCompany> ResCompanyAccountSaleTaxes { get; } = new List<ResCompany>();
-
-    [ForeignKey("TaxGroupId")]
-    [InverseProperty("AccountTaxes")]
-    public virtual AccountTaxGroup? TaxGroup { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountTaxWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountTaxId")]
     [InverseProperty("AccountTaxes")]

@@ -48,22 +48,22 @@ public partial class IrDefault: IMultiTenant, IMayHaveCreator, IModificationAudi
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("IrDefaults")]
+    //[InverseProperty("IrDefaults")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrDefaultCreateUs")]
+    //[InverseProperty("IrDefaultCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FieldId")]
-    [InverseProperty("IrDefaults")]
+    //[InverseProperty("IrDefaults")]
     public virtual IrModelField? Field { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("IrDefaultUsers")]
+    //[InverseProperty("IrDefaultUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrDefaultWriteUs")]
+    //[InverseProperty("IrDefaultWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

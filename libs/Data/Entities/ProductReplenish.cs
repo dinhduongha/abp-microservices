@@ -54,31 +54,31 @@ public partial class ProductReplenish: IMultiTenant, IMayHaveCreator, IModificat
     public double? Quantity { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ProductReplenishes")]
+    //[InverseProperty("ProductReplenishes")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductReplenishCreateUs")]
+    //[InverseProperty("ProductReplenishCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("ProductReplenishes")]
+    //[InverseProperty("ProductReplenishes")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductTmplId")]
-    [InverseProperty("ProductReplenishes")]
+    //[InverseProperty("ProductReplenishes")]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("ProductUomId")]
-    [InverseProperty("ProductReplenishes")]
+    //[InverseProperty("ProductReplenishes")]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("WarehouseId")]
-    [InverseProperty("ProductReplenishes")]
+    //[InverseProperty("ProductReplenishes")]
     public virtual StockWarehouse? Warehouse { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductReplenishWriteUs")]
+    //[InverseProperty("ProductReplenishWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductReplenishId")]

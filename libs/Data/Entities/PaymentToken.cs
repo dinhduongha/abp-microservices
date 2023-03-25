@@ -51,6 +51,26 @@ public partial class PaymentToken: IMultiTenant, IMayHaveCreator, IModificationA
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("TenantId")]
+    //[InverseProperty("PaymentTokens")]
+    public virtual ResCompany? Company { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("PaymentTokenCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("PartnerId")]
+    //[InverseProperty("PaymentTokens")]
+    public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("ProviderId")]
+    //[InverseProperty("PaymentTokens")]
+    public virtual PaymentProvider? Provider { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PaymentTokenWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("PaymentToken")]
     [NotMapped]
     public virtual ICollection<AccountPaymentRegister> AccountPaymentRegisters { get; } = new List<AccountPaymentRegister>();
@@ -59,27 +79,8 @@ public partial class PaymentToken: IMultiTenant, IMayHaveCreator, IModificationA
     [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
 
-    [ForeignKey("TenantId")]
-    [InverseProperty("PaymentTokens")]
-    public virtual ResCompany? Company { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("PaymentTokenCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("PartnerId")]
-    [InverseProperty("PaymentTokens")]
-    public virtual ResPartner? Partner { get; set; }
-
     [InverseProperty("Token")]
     [NotMapped]
     public virtual ICollection<PaymentTransaction> PaymentTransactions { get; } = new List<PaymentTransaction>();
 
-    [ForeignKey("ProviderId")]
-    [InverseProperty("PaymentTokens")]
-    public virtual PaymentProvider? Provider { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PaymentTokenWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

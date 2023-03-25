@@ -43,26 +43,26 @@ public partial class AccountFiscalPositionAccount: IMultiTenant, IMayHaveCreator
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AccountDestId")]
-    [InverseProperty("AccountFiscalPositionAccountAccountDests")]
+    //[InverseProperty("AccountFiscalPositionAccountAccountDests")]
     public virtual AccountAccount? AccountDest { get; set; }
 
     [ForeignKey("AccountSrcId")]
-    [InverseProperty("AccountFiscalPositionAccountAccountSrcs")]
+    //[InverseProperty("AccountFiscalPositionAccountAccountSrcs")]
     public virtual AccountAccount? AccountSrc { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountFiscalPositionAccounts")]
+    //[InverseProperty("AccountFiscalPositionAccounts")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountFiscalPositionAccountCreateUs")]
+    //[InverseProperty("AccountFiscalPositionAccountCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PositionId")]
-    [InverseProperty("AccountFiscalPositionAccounts")]
+    //[InverseProperty("AccountFiscalPositionAccounts")]
     public virtual AccountFiscalPosition? Position { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountFiscalPositionAccountWriteUs")]
+    //[InverseProperty("AccountFiscalPositionAccountWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

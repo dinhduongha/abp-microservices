@@ -48,15 +48,15 @@ public partial class AccountAccountTag
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CountryId")]
-    [InverseProperty("AccountAccountTags")]
+    //[InverseProperty("AccountAccountTags")]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAccountTagCreateUs")]
+    //[InverseProperty("AccountAccountTagCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAccountTagWriteUs")]
+    //[InverseProperty("AccountAccountTagWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountAccountTagId")]

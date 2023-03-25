@@ -93,28 +93,29 @@ public partial class IrAttachment: IMultiTenant, IMayHaveCreator, IModificationA
     public string? Key { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("IrAttachments")]
+    //[InverseProperty("IrAttachments")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrAttachmentCreateUs")]
+    //[InverseProperty("IrAttachmentCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("OriginalId")]
-    [InverseProperty("InverseOriginal")]
+    //[InverseProperty("InverseOriginal")]
     public virtual IrAttachment? Original { get; set; }
 
     [ForeignKey("ThemeTemplateId")]
-    [InverseProperty("IrAttachments")]
+    //[InverseProperty("IrAttachments")]
     public virtual ThemeIrAttachment? ThemeTemplate { get; set; }
 
     [ForeignKey("WebsiteId")]
-    [InverseProperty("IrAttachments")]
+    //[InverseProperty("IrAttachments")]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrAttachmentWriteUs")]
+    //[InverseProperty("IrAttachmentWriteUs")]
     public virtual ResUser? WriteU { get; set; }
+
 
     [InverseProperty("MessageMainAttachment")]
     [NotMapped]
@@ -381,4 +382,5 @@ public partial class IrAttachment: IMultiTenant, IMayHaveCreator, IModificationA
     [InverseProperty("Attachments")]
     [NotMapped]
     public virtual ICollection<MailComposeMessage> Wizards { get; } = new List<MailComposeMessage>();
+
 }

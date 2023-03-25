@@ -82,43 +82,43 @@ public partial class StockQuant: IMultiTenant, IMayHaveCreator, IModificationAud
     public DateOnly? AccountingDate { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockQuants")]
+    //[InverseProperty("StockQuants")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockQuantCreateUs")]
+    //[InverseProperty("StockQuantCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
-    [InverseProperty("StockQuants")]
+    //[InverseProperty("StockQuants")]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("LotId")]
-    [InverseProperty("StockQuants")]
+    //[InverseProperty("StockQuants")]
     public virtual StockLot? Lot { get; set; }
 
     [ForeignKey("OwnerId")]
-    [InverseProperty("StockQuants")]
+    //[InverseProperty("StockQuants")]
     public virtual ResPartner? Owner { get; set; }
 
     [ForeignKey("PackageId")]
-    [InverseProperty("StockQuants")]
+    //[InverseProperty("StockQuants")]
     public virtual StockQuantPackage? Package { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("StockQuants")]
+    //[InverseProperty("StockQuants")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("StorageCategoryId")]
-    [InverseProperty("StockQuants")]
+    //[InverseProperty("StockQuants")]
     public virtual StockStorageCategory? StorageCategory { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("StockQuantUsers")]
+    //[InverseProperty("StockQuantUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockQuantWriteUs")]
+    //[InverseProperty("StockQuantWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockQuantId")]

@@ -56,30 +56,32 @@ public partial class ResourceCalendarLeaf: IMultiTenant, IMayHaveCreator, IModif
     public Guid? HolidayId { get; set; }
 
     [ForeignKey("CalendarId")]
-    [InverseProperty("ResourceCalendarLeaves")]
+    //[InverseProperty("ResourceCalendarLeaves")]
     public virtual ResourceCalendar? Calendar { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ResourceCalendarLeaves")]
+    //[InverseProperty("ResourceCalendarLeaves")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResourceCalendarLeafCreateUs")]
+    //[InverseProperty("ResourceCalendarLeafCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("HolidayId")]
-    [InverseProperty("ResourceCalendarLeaves")]
+    //[InverseProperty("ResourceCalendarLeaves")]
     public virtual HrLeave? Holiday { get; set; }
+
+    [ForeignKey("ResourceId")]
+    //[InverseProperty("ResourceCalendarLeaves")]
+    public virtual ResourceResource? Resource { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ResourceCalendarLeafWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Leave")]
     [NotMapped]
     public virtual ICollection<MrpWorkorder> MrpWorkorders { get; } = new List<MrpWorkorder>();
 
-    [ForeignKey("ResourceId")]
-    [InverseProperty("ResourceCalendarLeaves")]
-    public virtual ResourceResource? Resource { get; set; }
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ResourceCalendarLeafWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

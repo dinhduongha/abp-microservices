@@ -47,6 +47,18 @@ public partial class AccountPaymentTerm: IMultiTenant, IMayHaveCreator, IModific
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("TenantId")]
+    //[InverseProperty("AccountPaymentTerms")]
+    public virtual ResCompany? Company { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("AccountPaymentTermCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountPaymentTermWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("InvoicePaymentTerm")]
     [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
@@ -54,14 +66,6 @@ public partial class AccountPaymentTerm: IMultiTenant, IMayHaveCreator, IModific
     [InverseProperty("Payment")]
     [NotMapped]
     public virtual ICollection<AccountPaymentTermLine> AccountPaymentTermLines { get; } = new List<AccountPaymentTermLine>();
-
-    [ForeignKey("TenantId")]
-    [InverseProperty("AccountPaymentTerms")]
-    public virtual ResCompany? Company { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("AccountPaymentTermCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("PaymentTerm")]
     [NotMapped]
@@ -71,7 +75,4 @@ public partial class AccountPaymentTerm: IMultiTenant, IMayHaveCreator, IModific
     [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountPaymentTermWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

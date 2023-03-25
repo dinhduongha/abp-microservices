@@ -149,120 +149,144 @@ public partial class StockWarehouse: IMultiTenant, IMayHaveCreator, IModificatio
     public bool? ManufactureToResupply { get; set; }
 
     [ForeignKey("BuyPullId")]
-    [InverseProperty("StockWarehouseBuyPulls")]
+    //[InverseProperty("StockWarehouseBuyPulls")]
     public virtual StockRule? BuyPull { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockWarehouses")]
+    //[InverseProperty("StockWarehouses")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockWarehouseCreateUs")]
+    //[InverseProperty("StockWarehouseCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrossdockRouteId")]
-    [InverseProperty("StockWarehouseCrossdockRoutes")]
+    //[InverseProperty("StockWarehouseCrossdockRoutes")]
     public virtual StockRoute? CrossdockRoute { get; set; }
 
     [ForeignKey("DeliveryRouteId")]
-    [InverseProperty("StockWarehouseDeliveryRoutes")]
+    //[InverseProperty("StockWarehouseDeliveryRoutes")]
     public virtual StockRoute? DeliveryRoute { get; set; }
 
     [ForeignKey("InTypeId")]
-    [InverseProperty("StockWarehouseInTypes")]
+    //[InverseProperty("StockWarehouseInTypes")]
     public virtual StockPickingType? InType { get; set; }
 
     [ForeignKey("IntTypeId")]
-    [InverseProperty("StockWarehouseIntTypes")]
+    //[InverseProperty("StockWarehouseIntTypes")]
     public virtual StockPickingType? IntType { get; set; }
 
     [ForeignKey("LotStockId")]
-    [InverseProperty("StockWarehouseLotStocks")]
+    //[InverseProperty("StockWarehouseLotStocks")]
     public virtual StockLocation? LotStock { get; set; }
 
     [ForeignKey("ManuTypeId")]
-    [InverseProperty("StockWarehouseManuTypes")]
+    //[InverseProperty("StockWarehouseManuTypes")]
     public virtual StockPickingType? ManuType { get; set; }
 
     [ForeignKey("ManufactureMtoPullId")]
-    [InverseProperty("StockWarehouseManufactureMtoPulls")]
+    //[InverseProperty("StockWarehouseManufactureMtoPulls")]
     public virtual StockRule? ManufactureMtoPull { get; set; }
 
     [ForeignKey("ManufacturePullId")]
-    [InverseProperty("StockWarehouseManufacturePulls")]
+    //[InverseProperty("StockWarehouseManufacturePulls")]
     public virtual StockRule? ManufacturePull { get; set; }
 
     [ForeignKey("MtoPullId")]
-    [InverseProperty("StockWarehouseMtoPulls")]
+    //[InverseProperty("StockWarehouseMtoPulls")]
     public virtual StockRule? MtoPull { get; set; }
 
     [ForeignKey("OutTypeId")]
-    [InverseProperty("StockWarehouseOutTypes")]
+    //[InverseProperty("StockWarehouseOutTypes")]
     public virtual StockPickingType? OutType { get; set; }
 
     [ForeignKey("PackTypeId")]
-    [InverseProperty("StockWarehousePackTypes")]
+    //[InverseProperty("StockWarehousePackTypes")]
     public virtual StockPickingType? PackType { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("StockWarehouses")]
+    //[InverseProperty("StockWarehouses")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PbmLocId")]
-    [InverseProperty("StockWarehousePbmLocs")]
+    //[InverseProperty("StockWarehousePbmLocs")]
     public virtual StockLocation? PbmLoc { get; set; }
 
     [ForeignKey("PbmMtoPullId")]
-    [InverseProperty("StockWarehousePbmMtoPulls")]
+    //[InverseProperty("StockWarehousePbmMtoPulls")]
     public virtual StockRule? PbmMtoPull { get; set; }
 
     [ForeignKey("PbmRouteId")]
-    [InverseProperty("StockWarehousePbmRoutes")]
+    //[InverseProperty("StockWarehousePbmRoutes")]
     public virtual StockRoute? PbmRoute { get; set; }
 
     [ForeignKey("PbmTypeId")]
-    [InverseProperty("StockWarehousePbmTypes")]
+    //[InverseProperty("StockWarehousePbmTypes")]
     public virtual StockPickingType? PbmType { get; set; }
 
     [ForeignKey("PickTypeId")]
-    [InverseProperty("StockWarehousePickTypes")]
+    //[InverseProperty("StockWarehousePickTypes")]
     public virtual StockPickingType? PickType { get; set; }
+
+    [ForeignKey("PosTypeId")]
+    //[InverseProperty("StockWarehousePosTypes")]
+    public virtual StockPickingType? PosType { get; set; }
+
+    [ForeignKey("ReceptionRouteId")]
+    //[InverseProperty("StockWarehouseReceptionRoutes")]
+    public virtual StockRoute? ReceptionRoute { get; set; }
+
+    [ForeignKey("ReturnTypeId")]
+    //[InverseProperty("StockWarehouseReturnTypes")]
+    public virtual StockPickingType? ReturnType { get; set; }
+
+    [ForeignKey("SamLocId")]
+    //[InverseProperty("StockWarehouseSamLocs")]
+    public virtual StockLocation? SamLoc { get; set; }
+
+    [ForeignKey("SamRuleId")]
+    //[InverseProperty("StockWarehouseSamRules")]
+    public virtual StockRule? SamRule { get; set; }
+
+    [ForeignKey("SamTypeId")]
+    //[InverseProperty("StockWarehouseSamTypes")]
+    public virtual StockPickingType? SamType { get; set; }
+
+    [ForeignKey("ViewLocationId")]
+    //[InverseProperty("StockWarehouseViewLocations")]
+    public virtual StockLocation? ViewLocation { get; set; }
+
+    [ForeignKey("WhInputStockLocId")]
+    //[InverseProperty("StockWarehouseWhInputStockLocs")]
+    public virtual StockLocation? WhInputStockLoc { get; set; }
+
+    [ForeignKey("WhOutputStockLocId")]
+    //[InverseProperty("StockWarehouseWhOutputStockLocs")]
+    public virtual StockLocation? WhOutputStockLoc { get; set; }
+
+    [ForeignKey("WhPackStockLocId")]
+    //[InverseProperty("StockWarehouseWhPackStockLocs")]
+    public virtual StockLocation? WhPackStockLoc { get; set; }
+
+    [ForeignKey("WhQcStockLocId")]
+    //[InverseProperty("StockWarehouseWhQcStockLocs")]
+    public virtual StockLocation? WhQcStockLoc { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockWarehouseWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Warehouse")]
     [NotMapped]
     public virtual ICollection<PosConfig> PosConfigs { get; } = new List<PosConfig>();
 
-    [ForeignKey("PosTypeId")]
-    [InverseProperty("StockWarehousePosTypes")]
-    public virtual StockPickingType? PosType { get; set; }
-
     [InverseProperty("Warehouse")]
     [NotMapped]
     public virtual ICollection<ProductReplenish> ProductReplenishes { get; } = new List<ProductReplenish>();
 
-    [ForeignKey("ReceptionRouteId")]
-    [InverseProperty("StockWarehouseReceptionRoutes")]
-    public virtual StockRoute? ReceptionRoute { get; set; }
-
-    [ForeignKey("ReturnTypeId")]
-    [InverseProperty("StockWarehouseReturnTypes")]
-    public virtual StockPickingType? ReturnType { get; set; }
-
     [InverseProperty("Warehouse")]
     [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
-
-    [ForeignKey("SamLocId")]
-    [InverseProperty("StockWarehouseSamLocs")]
-    public virtual StockLocation? SamLoc { get; set; }
-
-    [ForeignKey("SamRuleId")]
-    [InverseProperty("StockWarehouseSamRules")]
-    public virtual StockRule? SamRule { get; set; }
-
-    [ForeignKey("SamTypeId")]
-    [InverseProperty("StockWarehouseSamTypes")]
-    public virtual StockPickingType? SamType { get; set; }
 
     [InverseProperty("Warehouse")]
     [NotMapped]
@@ -296,33 +320,9 @@ public partial class StockWarehouse: IMultiTenant, IMayHaveCreator, IModificatio
     [NotMapped]
     public virtual ICollection<StockWarehouseOrderpoint> StockWarehouseOrderpoints { get; } = new List<StockWarehouseOrderpoint>();
 
-    [ForeignKey("ViewLocationId")]
-    [InverseProperty("StockWarehouseViewLocations")]
-    public virtual StockLocation? ViewLocation { get; set; }
-
     [InverseProperty("Warehouse")]
     [NotMapped]
     public virtual ICollection<Website> Websites { get; } = new List<Website>();
-
-    [ForeignKey("WhInputStockLocId")]
-    [InverseProperty("StockWarehouseWhInputStockLocs")]
-    public virtual StockLocation? WhInputStockLoc { get; set; }
-
-    [ForeignKey("WhOutputStockLocId")]
-    [InverseProperty("StockWarehouseWhOutputStockLocs")]
-    public virtual StockLocation? WhOutputStockLoc { get; set; }
-
-    [ForeignKey("WhPackStockLocId")]
-    [InverseProperty("StockWarehouseWhPackStockLocs")]
-    public virtual StockLocation? WhPackStockLoc { get; set; }
-
-    [ForeignKey("WhQcStockLocId")]
-    [InverseProperty("StockWarehouseWhQcStockLocs")]
-    public virtual StockLocation? WhQcStockLoc { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockWarehouseWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("WarehouseId")]
     [InverseProperty("Warehouses")]

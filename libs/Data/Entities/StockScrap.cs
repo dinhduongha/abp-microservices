@@ -84,66 +84,68 @@ public partial class StockScrap: IMultiTenant, IMayHaveCreator, IModificationAud
     public Guid? WorkorderId { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockScraps")]
+    //[InverseProperty("StockScraps")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockScrapCreateUs")]
+    //[InverseProperty("StockScrapCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
-    [InverseProperty("StockScrapLocations")]
+    //[InverseProperty("StockScrapLocations")]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("LotId")]
-    [InverseProperty("StockScraps")]
+    //[InverseProperty("StockScraps")]
     public virtual StockLot? Lot { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("StockScraps")]
+    //[InverseProperty("StockScraps")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("MoveId")]
-    [InverseProperty("StockScraps")]
+    //[InverseProperty("StockScraps")]
     public virtual StockMove? Move { get; set; }
 
     [ForeignKey("OwnerId")]
-    [InverseProperty("StockScraps")]
+    //[InverseProperty("StockScraps")]
     public virtual ResPartner? Owner { get; set; }
 
     [ForeignKey("PackageId")]
-    [InverseProperty("StockScraps")]
+    //[InverseProperty("StockScraps")]
     public virtual StockQuantPackage? Package { get; set; }
 
     [ForeignKey("PickingId")]
-    [InverseProperty("StockScraps")]
+    //[InverseProperty("StockScraps")]
     public virtual StockPicking? Picking { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("StockScraps")]
+    //[InverseProperty("StockScraps")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
-    [InverseProperty("StockScraps")]
+    //[InverseProperty("StockScraps")]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("ProductionId")]
-    [InverseProperty("StockScraps")]
+    //[InverseProperty("StockScraps")]
     public virtual MrpProduction? Production { get; set; }
 
     [ForeignKey("ScrapLocationId")]
-    [InverseProperty("StockScrapScrapLocations")]
+    //[InverseProperty("StockScrapScrapLocations")]
     public virtual StockLocation? ScrapLocation { get; set; }
+
+    [ForeignKey("WorkorderId")]
+    //[InverseProperty("StockScraps")]
+    public virtual MrpWorkorder? Workorder { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockScrapWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Scrap")]
     [NotMapped]
     public virtual ICollection<StockWarnInsufficientQtyScrap> StockWarnInsufficientQtyScraps { get; } = new List<StockWarnInsufficientQtyScrap>();
 
-    [ForeignKey("WorkorderId")]
-    [InverseProperty("StockScraps")]
-    public virtual MrpWorkorder? Workorder { get; set; }
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockScrapWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

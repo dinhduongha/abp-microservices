@@ -48,11 +48,11 @@ public partial class AccountBankbookReport
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountBankbookReportCreateUs")]
+    //[InverseProperty("AccountBankbookReportCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountBankbookReportWriteUs")]
+    //[InverseProperty("AccountBankbookReportWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountBankbookReportId")]

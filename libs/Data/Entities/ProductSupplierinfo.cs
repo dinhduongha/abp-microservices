@@ -71,36 +71,36 @@ public partial class ProductSupplierinfo: IMultiTenant, IMayHaveCreator, IModifi
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ProductSupplierinfos")]
+    //[InverseProperty("ProductSupplierinfos")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductSupplierinfoCreateUs")]
+    //[InverseProperty("ProductSupplierinfoCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("ProductSupplierinfos")]
+    //[InverseProperty("ProductSupplierinfos")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("ProductSupplierinfos")]
+    //[InverseProperty("ProductSupplierinfos")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("ProductSupplierinfos")]
+    //[InverseProperty("ProductSupplierinfos")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductTmplId")]
-    [InverseProperty("ProductSupplierinfos")]
+    //[InverseProperty("ProductSupplierinfos")]
     public virtual ProductTemplate? ProductTmpl { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProductSupplierinfoWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Supplier")]
     [NotMapped]
     public virtual ICollection<StockWarehouseOrderpoint> StockWarehouseOrderpoints { get; } = new List<StockWarehouseOrderpoint>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductSupplierinfoWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductSupplierinfoId")]
     [InverseProperty("ProductSupplierinfos")]

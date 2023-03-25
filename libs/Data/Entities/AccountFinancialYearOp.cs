@@ -33,14 +33,14 @@ public partial class AccountFinancialYearOp: IMultiTenant, IMayHaveCreator, IMod
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountFinancialYearOps")]
+    //[InverseProperty("AccountFinancialYearOps")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountFinancialYearOpCreateUs")]
+    //[InverseProperty("AccountFinancialYearOpCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountFinancialYearOpWriteUs")]
+    //[InverseProperty("AccountFinancialYearOpWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

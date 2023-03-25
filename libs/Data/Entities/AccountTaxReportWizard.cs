@@ -42,15 +42,15 @@ public partial class AccountTaxReportWizard: IMultiTenant, IMayHaveCreator, IMod
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountTaxReportWizards")]
+    //[InverseProperty("AccountTaxReportWizards")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountTaxReportWizardCreateUs")]
+    //[InverseProperty("AccountTaxReportWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountTaxReportWizardWriteUs")]
+    //[InverseProperty("AccountTaxReportWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountTaxReportWizardId")]

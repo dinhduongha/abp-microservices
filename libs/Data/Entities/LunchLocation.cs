@@ -39,12 +39,16 @@ public partial class LunchLocation: IMultiTenant, IMayHaveCreator, IModification
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("LunchLocations")]
+    //[InverseProperty("LunchLocations")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("LunchLocationCreateUs")]
+    //[InverseProperty("LunchLocationCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("LunchLocationWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("LunchLocation")]
     [NotMapped]
@@ -53,10 +57,6 @@ public partial class LunchLocation: IMultiTenant, IMayHaveCreator, IModification
     [InverseProperty("LastLunchLocation")]
     [NotMapped]
     public virtual ICollection<ResUser> ResUsers { get; } = new List<ResUser>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("LunchLocationWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("LunchLocationId")]
     [InverseProperty("LunchLocations")]

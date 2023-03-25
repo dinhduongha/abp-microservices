@@ -57,16 +57,24 @@ public partial class ProductPricelist: IMultiTenant, IMayHaveCreator, IModificat
     public bool? Selectable { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ProductPricelists")]
+    //[InverseProperty("ProductPricelists")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductPricelistCreateUs")]
+    //[InverseProperty("ProductPricelistCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("ProductPricelists")]
+    //[InverseProperty("ProductPricelists")]
     public virtual ResCurrency? Currency { get; set; }
+
+    [ForeignKey("WebsiteId")]
+    //[InverseProperty("ProductPricelists")]
+    public virtual Website? Website { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProductPricelistWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Pricelist")]
     [NotMapped]
@@ -95,14 +103,6 @@ public partial class ProductPricelist: IMultiTenant, IMayHaveCreator, IModificat
     [InverseProperty("Pricelist")]
     [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
-
-    [ForeignKey("WebsiteId")]
-    [InverseProperty("ProductPricelists")]
-    public virtual Website? Website { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductPricelistWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductPricelistId")]
     [InverseProperty("ProductPricelists")]

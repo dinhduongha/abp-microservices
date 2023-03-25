@@ -213,48 +213,80 @@ public partial class PosConfig: IMultiTenant, IMayHaveCreator, IModificationAudi
     public Guid? DownPaymentProductId { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("PosConfigs")]
+    //[InverseProperty("PosConfigs")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PosConfigCreateUs")]
+    //[InverseProperty("PosConfigCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrmTeamId")]
-    [InverseProperty("PosConfigs")]
+    //[InverseProperty("PosConfigs")]
     public virtual CrmTeam? CrmTeam { get; set; }
 
     [ForeignKey("DefaultFiscalPositionId")]
-    [InverseProperty("PosConfigsNavigation")]
+    //[InverseProperty("PosConfigsNavigation")]
     public virtual AccountFiscalPosition? DefaultFiscalPosition { get; set; }
 
     [ForeignKey("DownPaymentProductId")]
-    [InverseProperty("PosConfigDownPaymentProducts")]
+    //[InverseProperty("PosConfigDownPaymentProducts")]
     public virtual ProductProduct? DownPaymentProduct { get; set; }
 
     [ForeignKey("GroupPosManagerId")]
-    [InverseProperty("PosConfigGroupPosManagers")]
+    //[InverseProperty("PosConfigGroupPosManagers")]
     public virtual ResGroup? GroupPosManager { get; set; }
 
     [ForeignKey("GroupPosUserId")]
-    [InverseProperty("PosConfigGroupPosUsers")]
+    //[InverseProperty("PosConfigGroupPosUsers")]
     public virtual ResGroup? GroupPosUser { get; set; }
 
     [ForeignKey("IfaceStartCategId")]
-    [InverseProperty("PosConfigsNavigation")]
+    //[InverseProperty("PosConfigsNavigation")]
     public virtual PosCategory? IfaceStartCateg { get; set; }
 
     [ForeignKey("InvoiceJournalId")]
-    [InverseProperty("PosConfigInvoiceJournals")]
+    //[InverseProperty("PosConfigInvoiceJournals")]
     public virtual AccountJournal? InvoiceJournal { get; set; }
 
     [ForeignKey("JournalId")]
-    [InverseProperty("PosConfigJournals")]
+    //[InverseProperty("PosConfigJournals")]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("PickingTypeId")]
-    [InverseProperty("PosConfigs")]
+    //[InverseProperty("PosConfigs")]
     public virtual StockPickingType? PickingType { get; set; }
+
+    [ForeignKey("PricelistId")]
+    //[InverseProperty("PosConfigs")]
+    public virtual ProductPricelist? Pricelist { get; set; }
+
+    [ForeignKey("RoundingMethod")]
+    //[InverseProperty("PosConfigs")]
+    public virtual AccountCashRounding? RoundingMethodNavigation { get; set; }
+
+    [ForeignKey("RouteId")]
+    //[InverseProperty("PosConfigs")]
+    public virtual StockRoute? Route { get; set; }
+
+    [ForeignKey("SequenceId")]
+    //[InverseProperty("PosConfigSequences")]
+    public virtual IrSequence? Sequence { get; set; }
+
+    [ForeignKey("SequenceLineId")]
+    //[InverseProperty("PosConfigSequenceLines")]
+    public virtual IrSequence? SequenceLine { get; set; }
+
+    [ForeignKey("TipProductId")]
+    //[InverseProperty("PosConfigTipProducts")]
+    public virtual ProductProduct? TipProduct { get; set; }
+
+    [ForeignKey("WarehouseId")]
+    //[InverseProperty("PosConfigs")]
+    public virtual StockWarehouse? Warehouse { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PosConfigWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Config")]
     [NotMapped]
@@ -264,41 +296,9 @@ public partial class PosConfig: IMultiTenant, IMayHaveCreator, IModificationAudi
     [NotMapped]
     public virtual ICollection<PosSession> PosSessions { get; } = new List<PosSession>();
 
-    [ForeignKey("PricelistId")]
-    [InverseProperty("PosConfigs")]
-    public virtual ProductPricelist? Pricelist { get; set; }
-
     [InverseProperty("PosConfig")]
     [NotMapped]
     public virtual ICollection<ResConfigSetting> ResConfigSettings { get; } = new List<ResConfigSetting>();
-
-    [ForeignKey("RoundingMethod")]
-    [InverseProperty("PosConfigs")]
-    public virtual AccountCashRounding? RoundingMethodNavigation { get; set; }
-
-    [ForeignKey("RouteId")]
-    [InverseProperty("PosConfigs")]
-    public virtual StockRoute? Route { get; set; }
-
-    [ForeignKey("SequenceId")]
-    [InverseProperty("PosConfigSequences")]
-    public virtual IrSequence? Sequence { get; set; }
-
-    [ForeignKey("SequenceLineId")]
-    [InverseProperty("PosConfigSequenceLines")]
-    public virtual IrSequence? SequenceLine { get; set; }
-
-    [ForeignKey("TipProductId")]
-    [InverseProperty("PosConfigTipProducts")]
-    public virtual ProductProduct? TipProduct { get; set; }
-
-    [ForeignKey("WarehouseId")]
-    [InverseProperty("PosConfigs")]
-    public virtual StockWarehouse? Warehouse { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PosConfigWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PosConfigId")]
     [InverseProperty("PosConfigs")]

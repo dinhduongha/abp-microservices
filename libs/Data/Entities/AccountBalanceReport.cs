@@ -45,15 +45,15 @@ public partial class AccountBalanceReport: IMultiTenant, IMayHaveCreator, IModif
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountBalanceReports")]
+    //[InverseProperty("AccountBalanceReports")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountBalanceReportCreateUs")]
+    //[InverseProperty("AccountBalanceReportCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountBalanceReportWriteUs")]
+    //[InverseProperty("AccountBalanceReportWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountBalanceReportId")]

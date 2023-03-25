@@ -61,22 +61,22 @@ public partial class AccountBankStatement: IMultiTenant, IMayHaveCreator, IModif
     public DateTime? LastModificationTime { get; set; }
  
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountBankStatements")]
+    //[InverseProperty("AccountBankStatements")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountBankStatementCreateUs")]
+    //[InverseProperty("AccountBankStatementCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
-    [InverseProperty("AccountBankStatements")]
+    //[InverseProperty("AccountBankStatements")]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountBankStatementWriteUs")]
+    //[InverseProperty("AccountBankStatementWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
-   [InverseProperty("Statement")]
+    [InverseProperty("Statement")]
     [NotMapped]
     public virtual ICollection<AccountBankStatementLine> AccountBankStatementLines { get; } = new List<AccountBankStatementLine>();
 

@@ -51,26 +51,26 @@ public partial class StockValuationLayerRevaluation: IMultiTenant, IMayHaveCreat
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AccountId")]
-    [InverseProperty("StockValuationLayerRevaluations")]
+    //[InverseProperty("StockValuationLayerRevaluations")]
     public virtual AccountAccount? Account { get; set; }
 
     [ForeignKey("AccountJournalId")]
-    [InverseProperty("StockValuationLayerRevaluations")]
+    //[InverseProperty("StockValuationLayerRevaluations")]
     public virtual AccountJournal? AccountJournal { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockValuationLayerRevaluations")]
+    //[InverseProperty("StockValuationLayerRevaluations")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockValuationLayerRevaluationCreateUs")]
+    //[InverseProperty("StockValuationLayerRevaluationCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("StockValuationLayerRevaluations")]
+    //[InverseProperty("StockValuationLayerRevaluations")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockValuationLayerRevaluationWriteUs")]
+    //[InverseProperty("StockValuationLayerRevaluationWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

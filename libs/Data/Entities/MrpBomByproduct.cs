@@ -56,36 +56,36 @@ public partial class MrpBomByproduct: IMultiTenant, IMayHaveCreator, IModificati
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("BomId")]
-    [InverseProperty("MrpBomByproducts")]
+    //[InverseProperty("MrpBomByproducts")]
     public virtual MrpBom? Bom { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("MrpBomByproducts")]
+    //[InverseProperty("MrpBomByproducts")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpBomByproductCreateUs")]
+    //[InverseProperty("MrpBomByproductCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("OperationId")]
-    [InverseProperty("MrpBomByproducts")]
+    //[InverseProperty("MrpBomByproducts")]
     public virtual MrpRoutingWorkcenter? Operation { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("MrpBomByproducts")]
+    //[InverseProperty("MrpBomByproducts")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
-    [InverseProperty("MrpBomByproducts")]
+    //[InverseProperty("MrpBomByproducts")]
     public virtual UomUom? ProductUom { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MrpBomByproductWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Byproduct")]
     [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpBomByproductWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MrpBomByproductId")]
     [InverseProperty("MrpBomByproducts")]

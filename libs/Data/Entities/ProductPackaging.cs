@@ -59,20 +59,24 @@ public partial class ProductPackaging: IMultiTenant, IMayHaveCreator, IModificat
     public bool? Purchase { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ProductPackagings")]
+    //[InverseProperty("ProductPackagings")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductPackagingCreateUs")]
+    //[InverseProperty("ProductPackagingCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PackageTypeId")]
-    [InverseProperty("ProductPackagings")]
+    //[InverseProperty("ProductPackagings")]
     public virtual StockPackageType? PackageType { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("ProductPackagings")]
+    //[InverseProperty("ProductPackagings")]
     public virtual ProductProduct? Product { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProductPackagingWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ProductPackaging")]
     [NotMapped]
@@ -85,10 +89,6 @@ public partial class ProductPackaging: IMultiTenant, IMayHaveCreator, IModificat
     [InverseProperty("ProductPackaging")]
     [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductPackagingWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PackagingId")]
     [InverseProperty("Packagings")]

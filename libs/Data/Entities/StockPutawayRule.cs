@@ -56,35 +56,35 @@ public partial class StockPutawayRule: IMultiTenant, IMayHaveCreator, IModificat
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CategoryId")]
-    [InverseProperty("StockPutawayRules")]
+    //[InverseProperty("StockPutawayRules")]
     public virtual ProductCategory? Category { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockPutawayRules")]
+    //[InverseProperty("StockPutawayRules")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockPutawayRuleCreateUs")]
+    //[InverseProperty("StockPutawayRuleCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationInId")]
-    [InverseProperty("StockPutawayRuleLocationIns")]
+    //[InverseProperty("StockPutawayRuleLocationIns")]
     public virtual StockLocation? LocationIn { get; set; }
 
     [ForeignKey("LocationOutId")]
-    [InverseProperty("StockPutawayRuleLocationOuts")]
+    //[InverseProperty("StockPutawayRuleLocationOuts")]
     public virtual StockLocation? LocationOut { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("StockPutawayRules")]
+    //[InverseProperty("StockPutawayRules")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("StorageCategoryId")]
-    [InverseProperty("StockPutawayRules")]
+    //[InverseProperty("StockPutawayRules")]
     public virtual StockStorageCategory? StorageCategory { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockPutawayRuleWriteUs")]
+    //[InverseProperty("StockPutawayRuleWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockPutawayRuleId")]

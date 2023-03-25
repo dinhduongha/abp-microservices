@@ -132,61 +132,61 @@ public partial class PaymentTransaction: IMultiTenant, IMayHaveCreator, IModific
     [Column("is_donation")]
     public bool? IsDonation { get; set; }
 
+    [ForeignKey("CallbackModelId")]
+    //[InverseProperty("PaymentTransactions")]
+    public virtual IrModel? CallbackModel { get; set; }
+
+    [ForeignKey("TenantId")]
+    //[InverseProperty("PaymentTransactions")]
+    public virtual ResCompany? Company { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("PaymentTransactionCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("CurrencyId")]
+    //[InverseProperty("PaymentTransactions")]
+    public virtual ResCurrency? Currency { get; set; }
+
+    [ForeignKey("PartnerId")]
+    //[InverseProperty("PaymentTransactions")]
+    public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("PartnerCountryId")]
+    //[InverseProperty("PaymentTransactions")]
+    public virtual ResCountry? PartnerCountry { get; set; }
+
+    [ForeignKey("PartnerStateId")]
+    //[InverseProperty("PaymentTransactions")]
+    public virtual ResCountryState? PartnerState { get; set; }
+
+    [ForeignKey("PaymentId")]
+    //[InverseProperty("PaymentTransactions")]
+    public virtual AccountPayment? Payment { get; set; }
+
+    [ForeignKey("ProviderId")]
+    //[InverseProperty("PaymentTransactions")]
+    public virtual PaymentProvider? Provider { get; set; }
+
+    [ForeignKey("SourceTransactionId")]
+    //[InverseProperty("InverseSourceTransaction")]
+    public virtual PaymentTransaction? SourceTransaction { get; set; }
+
+    [ForeignKey("TokenId")]
+    //[InverseProperty("PaymentTransactions")]
+    public virtual PaymentToken? Token { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PaymentTransactionWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("PaymentTransaction")]
     [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
 
-    [ForeignKey("CallbackModelId")]
-    [InverseProperty("PaymentTransactions")]
-    public virtual IrModel? CallbackModel { get; set; }
-
-    [ForeignKey("TenantId")]
-    [InverseProperty("PaymentTransactions")]
-    public virtual ResCompany? Company { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("PaymentTransactionCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("CurrencyId")]
-    [InverseProperty("PaymentTransactions")]
-    public virtual ResCurrency? Currency { get; set; }
-
     [InverseProperty("SourceTransaction")]
     [NotMapped]
     public virtual ICollection<PaymentTransaction> InverseSourceTransaction { get; } = new List<PaymentTransaction>();
-
-    [ForeignKey("PartnerId")]
-    [InverseProperty("PaymentTransactions")]
-    public virtual ResPartner? Partner { get; set; }
-
-    [ForeignKey("PartnerCountryId")]
-    [InverseProperty("PaymentTransactions")]
-    public virtual ResCountry? PartnerCountry { get; set; }
-
-    [ForeignKey("PartnerStateId")]
-    [InverseProperty("PaymentTransactions")]
-    public virtual ResCountryState? PartnerState { get; set; }
-
-    [ForeignKey("PaymentId")]
-    [InverseProperty("PaymentTransactions")]
-    public virtual AccountPayment? Payment { get; set; }
-
-    [ForeignKey("ProviderId")]
-    [InverseProperty("PaymentTransactions")]
-    public virtual PaymentProvider? Provider { get; set; }
-
-    [ForeignKey("SourceTransactionId")]
-    [InverseProperty("InverseSourceTransaction")]
-    public virtual PaymentTransaction? SourceTransaction { get; set; }
-
-    [ForeignKey("TokenId")]
-    [InverseProperty("PaymentTransactions")]
-    public virtual PaymentToken? Token { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PaymentTransactionWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("TransactionId")]
     [InverseProperty("Transactions")]

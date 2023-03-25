@@ -93,44 +93,60 @@ public partial class StockWarehouseOrderpoint: IMultiTenant, IMayHaveCreator, IM
     public double? ManufacturingVisibilityDays { get; set; }
 
     [ForeignKey("BomId")]
-    [InverseProperty("StockWarehouseOrderpoints")]
+    //[InverseProperty("StockWarehouseOrderpoints")]
     public virtual MrpBom? Bom { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockWarehouseOrderpoints")]
+    //[InverseProperty("StockWarehouseOrderpoints")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockWarehouseOrderpointCreateUs")]
+    //[InverseProperty("StockWarehouseOrderpointCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GroupId")]
-    [InverseProperty("StockWarehouseOrderpoints")]
+    //[InverseProperty("StockWarehouseOrderpoints")]
     public virtual ProcurementGroup? Group { get; set; }
 
     [ForeignKey("LocationId")]
-    [InverseProperty("StockWarehouseOrderpoints")]
+    //[InverseProperty("StockWarehouseOrderpoints")]
     public virtual StockLocation? Location { get; set; }
+
+    [ForeignKey("ProductId")]
+    //[InverseProperty("StockWarehouseOrderpoints")]
+    public virtual ProductProduct? Product { get; set; }
+
+    [ForeignKey("ProductCategoryId")]
+    //[InverseProperty("StockWarehouseOrderpoints")]
+    public virtual ProductCategory? ProductCategory { get; set; }
+
+    [ForeignKey("RouteId")]
+    //[InverseProperty("StockWarehouseOrderpoints")]
+    public virtual StockRoute? Route { get; set; }
+
+    [ForeignKey("SupplierId")]
+    //[InverseProperty("StockWarehouseOrderpoints")]
+    public virtual ProductSupplierinfo? Supplier { get; set; }
+
+    [ForeignKey("VendorId")]
+    //[InverseProperty("StockWarehouseOrderpoints")]
+    public virtual ResPartner? Vendor { get; set; }
+
+    [ForeignKey("WarehouseId")]
+    //[InverseProperty("StockWarehouseOrderpoints")]
+    public virtual StockWarehouse? Warehouse { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockWarehouseOrderpointWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Orderpoint")]
     [NotMapped]
     public virtual ICollection<MrpProduction> MrpProductions { get; } = new List<MrpProduction>();
 
-    [ForeignKey("ProductId")]
-    [InverseProperty("StockWarehouseOrderpoints")]
-    public virtual ProductProduct? Product { get; set; }
-
-    [ForeignKey("ProductCategoryId")]
-    [InverseProperty("StockWarehouseOrderpoints")]
-    public virtual ProductCategory? ProductCategory { get; set; }
-
     [InverseProperty("Orderpoint")]
     [NotMapped]
     public virtual ICollection<PurchaseOrderLine> PurchaseOrderLines { get; } = new List<PurchaseOrderLine>();
-
-    [ForeignKey("RouteId")]
-    [InverseProperty("StockWarehouseOrderpoints")]
-    public virtual StockRoute? Route { get; set; }
 
     [InverseProperty("Orderpoint")]
     [NotMapped]
@@ -139,22 +155,6 @@ public partial class StockWarehouseOrderpoint: IMultiTenant, IMayHaveCreator, IM
     [InverseProperty("Orderpoint")]
     [NotMapped]
     public virtual ICollection<StockReplenishmentInfo> StockReplenishmentInfos { get; } = new List<StockReplenishmentInfo>();
-
-    [ForeignKey("SupplierId")]
-    [InverseProperty("StockWarehouseOrderpoints")]
-    public virtual ProductSupplierinfo? Supplier { get; set; }
-
-    [ForeignKey("VendorId")]
-    [InverseProperty("StockWarehouseOrderpoints")]
-    public virtual ResPartner? Vendor { get; set; }
-
-    [ForeignKey("WarehouseId")]
-    [InverseProperty("StockWarehouseOrderpoints")]
-    public virtual StockWarehouse? Warehouse { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockWarehouseOrderpointWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockWarehouseOrderpointId")]
     [InverseProperty("StockWarehouseOrderpoints")]

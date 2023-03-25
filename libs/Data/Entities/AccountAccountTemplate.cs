@@ -61,19 +61,19 @@ public partial class AccountAccountTemplate
     public virtual AccountChartTemplate? ChartTemplate { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAccountTemplateCreateUs")]
+    //[InverseProperty("AccountAccountTemplateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("AccountAccountTemplates")]
+    //[InverseProperty("AccountAccountTemplates")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("AccountAccountTemplates")]
+    //[InverseProperty("AccountAccountTemplates")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAccountTemplateWriteUs")]
+    //[InverseProperty("AccountAccountTemplateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("AccountJournalEarlyPayDiscountGainAccount")]

@@ -162,28 +162,68 @@ public partial class ProjectTask: IMultiTenant, IMayHaveCreator, IModificationAu
     public Guid? SaleLineId { get; set; }
 
     [ForeignKey("AnalyticAccountId")]
-    [InverseProperty("ProjectTasks")]
+    //[InverseProperty("ProjectTasks")]
     public virtual AccountAnalyticAccount? AnalyticAccount { get; set; }
 
     [ForeignKey("AncestorId")]
-    [InverseProperty("InverseAncestor")]
+    //[InverseProperty("InverseAncestor")]
     public virtual ProjectTask? Ancestor { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ProjectTasks")]
+    //[InverseProperty("ProjectTasks")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProjectTaskCreateUs")]
+    //[InverseProperty("ProjectTaskCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DisplayProjectId")]
-    [InverseProperty("ProjectTaskDisplayProjects")]
+    //[InverseProperty("ProjectTaskDisplayProjects")]
     public virtual ProjectProject? DisplayProject { get; set; }
 
     [ForeignKey("DisplayedImageId")]
-    [InverseProperty("ProjectTaskDisplayedImages")]
+    //[InverseProperty("ProjectTaskDisplayedImages")]
     public virtual IrAttachment? DisplayedImage { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("ProjectTaskMessageMainAttachments")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("MilestoneId")]
+    //[InverseProperty("ProjectTasks")]
+    public virtual ProjectMilestone? Milestone { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual ProjectTask? Parent { get; set; }
+
+    [ForeignKey("PartnerId")]
+    //[InverseProperty("ProjectTasks")]
+    public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("ProjectId")]
+    //[InverseProperty("ProjectTaskProjects")]
+    public virtual ProjectProject? Project { get; set; }
+
+    [ForeignKey("RecurrenceId")]
+    //[InverseProperty("ProjectTasks")]
+    public virtual ProjectTaskRecurrence? Recurrence { get; set; }
+
+    [ForeignKey("SaleLineId")]
+    //[InverseProperty("ProjectTasks")]
+    public virtual SaleOrderLine? SaleLine { get; set; }
+
+    [ForeignKey("SaleOrderId")]
+    //[InverseProperty("ProjectTasks")]
+    public virtual SaleOrder? SaleOrder { get; set; }
+
+    [ForeignKey("StageId")]
+    //[InverseProperty("ProjectTasks")]
+    public virtual ProjectTaskType? Stage { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProjectTaskWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Ancestor")]
     [NotMapped]
@@ -193,53 +233,13 @@ public partial class ProjectTask: IMultiTenant, IMayHaveCreator, IModificationAu
     [NotMapped]
     public virtual ICollection<ProjectTask> InverseParent { get; } = new List<ProjectTask>();
 
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("ProjectTaskMessageMainAttachments")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("MilestoneId")]
-    [InverseProperty("ProjectTasks")]
-    public virtual ProjectMilestone? Milestone { get; set; }
-
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual ProjectTask? Parent { get; set; }
-
-    [ForeignKey("PartnerId")]
-    [InverseProperty("ProjectTasks")]
-    public virtual ResPartner? Partner { get; set; }
-
-    [ForeignKey("ProjectId")]
-    [InverseProperty("ProjectTaskProjects")]
-    public virtual ProjectProject? Project { get; set; }
-
     [InverseProperty("Task")]
     [NotMapped]
     public virtual ICollection<ProjectTaskUserRel> ProjectTaskUserRels { get; } = new List<ProjectTaskUserRel>();
 
-    [ForeignKey("RecurrenceId")]
-    [InverseProperty("ProjectTasks")]
-    public virtual ProjectTaskRecurrence? Recurrence { get; set; }
-
-    [ForeignKey("SaleLineId")]
-    [InverseProperty("ProjectTasks")]
-    public virtual SaleOrderLine? SaleLine { get; set; }
-
-    [ForeignKey("SaleOrderId")]
-    [InverseProperty("ProjectTasks")]
-    public virtual SaleOrder? SaleOrder { get; set; }
-
     [InverseProperty("Task")]
     [NotMapped]
     public virtual ICollection<SaleOrderLine> SaleOrderLines { get; } = new List<SaleOrderLine>();
-
-    [ForeignKey("StageId")]
-    [InverseProperty("ProjectTasks")]
-    public virtual ProjectTaskType? Stage { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProjectTaskWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("TaskId")]
     [InverseProperty("Tasks")]

@@ -136,60 +136,60 @@ public partial class PurchaseOrder: IMultiTenant, IMayHaveCreator, IModification
     public DateTime? EffectiveDate { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("PurchaseOrders")]
+    //[InverseProperty("PurchaseOrders")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PurchaseOrderCreateUs")]
+    //[InverseProperty("PurchaseOrderCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("PurchaseOrders")]
+    //[InverseProperty("PurchaseOrders")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("DestAddressId")]
-    [InverseProperty("PurchaseOrderDestAddresses")]
+    //[InverseProperty("PurchaseOrderDestAddresses")]
     public virtual ResPartner? DestAddress { get; set; }
 
     [ForeignKey("FiscalPositionId")]
-    [InverseProperty("PurchaseOrders")]
+    //[InverseProperty("PurchaseOrders")]
     public virtual AccountFiscalPosition? FiscalPosition { get; set; }
 
     [ForeignKey("GroupId")]
-    [InverseProperty("PurchaseOrders")]
+    //[InverseProperty("PurchaseOrders")]
     public virtual ProcurementGroup? Group { get; set; }
 
     [ForeignKey("IncotermId")]
-    [InverseProperty("PurchaseOrders")]
+    //[InverseProperty("PurchaseOrders")]
     public virtual AccountIncoterm? Incoterm { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("PurchaseOrders")]
+    //[InverseProperty("PurchaseOrders")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("PurchaseOrderPartners")]
+    //[InverseProperty("PurchaseOrderPartners")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PaymentTermId")]
-    [InverseProperty("PurchaseOrders")]
+    //[InverseProperty("PurchaseOrders")]
     public virtual AccountPaymentTerm? PaymentTerm { get; set; }
 
     [ForeignKey("PickingTypeId")]
-    [InverseProperty("PurchaseOrders")]
+    //[InverseProperty("PurchaseOrders")]
     public virtual StockPickingType? PickingType { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("PurchaseOrderUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PurchaseOrderWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Order")]
     [NotMapped]
     public virtual ICollection<PurchaseOrderLine> PurchaseOrderLines { get; } = new List<PurchaseOrderLine>();
-
-    [ForeignKey("UserId")]
-    [InverseProperty("PurchaseOrderUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PurchaseOrderWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PurchaseOrderId")]
     [InverseProperty("PurchaseOrders")]

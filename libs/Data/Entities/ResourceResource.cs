@@ -54,16 +54,24 @@ public partial class ResourceResource: IMultiTenant, IMayHaveCreator, IModificat
     public double? TimeEfficiency { get; set; }
 
     [ForeignKey("CalendarId")]
-    [InverseProperty("ResourceResources")]
+    //[InverseProperty("ResourceResources")]
     public virtual ResourceCalendar? Calendar { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("ResourceResources")]
+    //[InverseProperty("ResourceResources")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResourceResourceCreateUs")]
+    //[InverseProperty("ResourceResourceCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("ResourceResourceUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ResourceResourceWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Resource")]
     [NotMapped]
@@ -81,11 +89,4 @@ public partial class ResourceResource: IMultiTenant, IMayHaveCreator, IModificat
     [NotMapped]
     public virtual ICollection<ResourceCalendarLeaf> ResourceCalendarLeaves { get; } = new List<ResourceCalendarLeaf>();
 
-    [ForeignKey("UserId")]
-    [InverseProperty("ResourceResourceUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ResourceResourceWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

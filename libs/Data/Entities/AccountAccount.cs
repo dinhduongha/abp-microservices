@@ -76,27 +76,27 @@ public partial class AccountAccount: IMultiTenant, IMayHaveCreator, IModificatio
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountAccounts")]
+    //[InverseProperty("AccountAccounts")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAccountCreateUs")]
+    //[InverseProperty("AccountAccountCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("AccountAccounts")]
+    //[InverseProperty("AccountAccounts")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("GroupId")]
-    [InverseProperty("AccountAccounts")]
+    //[InverseProperty("AccountAccounts")]
     public virtual AccountGroup? Group { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("AccountAccounts")]
+    //[InverseProperty("AccountAccounts")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAccountWriteUs")]
+    //[InverseProperty("AccountAccountWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Account")]

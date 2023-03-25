@@ -63,19 +63,19 @@ public partial class AccountingReport: IMultiTenant, IMayHaveCreator, IModificat
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AccountReportId")]
-    [InverseProperty("AccountingReports")]
+    //[InverseProperty("AccountingReports")]
     public virtual AccountFinancialReport? AccountReport { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountingReports")]
+    //[InverseProperty("AccountingReports")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountingReportCreateUs")]
+    //[InverseProperty("AccountingReportCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountingReportWriteUs")]
+    //[InverseProperty("AccountingReportWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountingReportId")]

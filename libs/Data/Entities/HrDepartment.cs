@@ -66,12 +66,32 @@ public partial class HrDepartment: IMultiTenant, IMayHaveCreator, IModificationA
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("HrDepartments")]
+    //[InverseProperty("HrDepartments")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrDepartmentCreateUs")]
+    //[InverseProperty("HrDepartmentCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ManagerId")]
+    //[InverseProperty("HrDepartments")]
+    public virtual HrEmployee? Manager { get; set; }
+
+    [ForeignKey("MasterDepartmentId")]
+    //[InverseProperty("InverseMasterDepartment")]
+    public virtual HrDepartment? MasterDepartment { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("HrDepartments")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual HrDepartment? Parent { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrDepartmentWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Department")]
     [NotMapped]
@@ -120,26 +140,6 @@ public partial class HrDepartment: IMultiTenant, IMayHaveCreator, IModificationA
     [InverseProperty("Department")]
     [NotMapped]
     public virtual ICollection<MaintenanceEquipment> MaintenanceEquipments { get; } = new List<MaintenanceEquipment>();
-
-    [ForeignKey("ManagerId")]
-    [InverseProperty("HrDepartments")]
-    public virtual HrEmployee? Manager { get; set; }
-
-    [ForeignKey("MasterDepartmentId")]
-    [InverseProperty("InverseMasterDepartment")]
-    public virtual HrDepartment? MasterDepartment { get; set; }
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("HrDepartments")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual HrDepartment? Parent { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrDepartmentWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrDepartmentId")]
     [InverseProperty("HrDepartments")]

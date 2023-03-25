@@ -93,47 +93,47 @@ public partial class AccountPaymentRegister: IMultiTenant, IMayHaveCreator, IMod
     public Guid? PaymentTokenId { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountPaymentRegisters")]
+    //[InverseProperty("AccountPaymentRegisters")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountPaymentRegisterCreateUs")]
+    //[InverseProperty("AccountPaymentRegisterCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("AccountPaymentRegisterCurrencies")]
+    //[InverseProperty("AccountPaymentRegisterCurrencies")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("JournalId")]
-    [InverseProperty("AccountPaymentRegisters")]
+    //[InverseProperty("AccountPaymentRegisters")]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("AccountPaymentRegisters")]
+    //[InverseProperty("AccountPaymentRegisters")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PartnerBankId")]
-    [InverseProperty("AccountPaymentRegisters")]
+    //[InverseProperty("AccountPaymentRegisters")]
     public virtual ResPartnerBank? PartnerBank { get; set; }
 
     [ForeignKey("PaymentMethodLineId")]
-    [InverseProperty("AccountPaymentRegisters")]
+    //[InverseProperty("AccountPaymentRegisters")]
     public virtual AccountPaymentMethodLine? PaymentMethodLine { get; set; }
 
     [ForeignKey("PaymentTokenId")]
-    [InverseProperty("AccountPaymentRegisters")]
+    //[InverseProperty("AccountPaymentRegisters")]
     public virtual PaymentToken? PaymentToken { get; set; }
 
     [ForeignKey("SourceCurrencyId")]
-    [InverseProperty("AccountPaymentRegisterSourceCurrencies")]
+    //[InverseProperty("AccountPaymentRegisterSourceCurrencies")]
     public virtual ResCurrency? SourceCurrency { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountPaymentRegisterWriteUs")]
+    //[InverseProperty("AccountPaymentRegisterWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("WriteoffAccountId")]
-    [InverseProperty("AccountPaymentRegisters")]
+    //[InverseProperty("AccountPaymentRegisters")]
     public virtual AccountAccount? WriteoffAccount { get; set; }
 
     [ForeignKey("WizardId")]

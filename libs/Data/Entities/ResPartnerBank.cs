@@ -64,6 +64,38 @@ public partial class ResPartnerBank: IMultiTenant, IMayHaveCreator, IModificatio
     [Column("message_main_attachment_id")]
     public Guid? MessageMainAttachmentId { get; set; }
 
+    [ForeignKey("BankId")]
+    //[InverseProperty("ResPartnerBanks")]
+    public virtual ResBank? Bank { get; set; }
+
+    [ForeignKey("TenantId")]
+    //[InverseProperty("ResPartnerBanks")]
+    public virtual ResCompany? Company { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("ResPartnerBankCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("CurrencyId")]
+    //[InverseProperty("ResPartnerBanks")]
+    public virtual ResCurrency? Currency { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("ResPartnerBanks")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("PartnerId")]
+    //[InverseProperty("ResPartnerBanks")]
+    public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ResPartnerBankWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("BankAccount")]
+    [NotMapped]
+    public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
+
     [InverseProperty("BankAccount")]
     [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
@@ -84,35 +116,4 @@ public partial class ResPartnerBank: IMultiTenant, IMayHaveCreator, IModificatio
     [NotMapped]
     public virtual ICollection<AccountSetupBankManualConfig> AccountSetupBankManualConfigs { get; } = new List<AccountSetupBankManualConfig>();
 
-    [ForeignKey("BankId")]
-    [InverseProperty("ResPartnerBanks")]
-    public virtual ResBank? Bank { get; set; }
-
-    [ForeignKey("TenantId")]
-    [InverseProperty("ResPartnerBanks")]
-    public virtual ResCompany? Company { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("ResPartnerBankCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("CurrencyId")]
-    [InverseProperty("ResPartnerBanks")]
-    public virtual ResCurrency? Currency { get; set; }
-
-    [InverseProperty("BankAccount")]
-    [NotMapped]
-    public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("ResPartnerBanks")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("PartnerId")]
-    [InverseProperty("ResPartnerBanks")]
-    public virtual ResPartner? Partner { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ResPartnerBankWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

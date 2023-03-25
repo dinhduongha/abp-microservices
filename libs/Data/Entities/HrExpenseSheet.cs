@@ -88,60 +88,60 @@ public partial class HrExpenseSheet: IMultiTenant, IMayHaveCreator, IModificatio
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AccountMoveId")]
-    [InverseProperty("HrExpenseSheets")]
+    //[InverseProperty("HrExpenseSheets")]
     public virtual AccountMove? AccountMove { get; set; }
 
     [ForeignKey("AddressId")]
-    [InverseProperty("HrExpenseSheets")]
+    //[InverseProperty("HrExpenseSheets")]
     public virtual ResPartner? Address { get; set; }
 
     [ForeignKey("BankJournalId")]
-    [InverseProperty("HrExpenseSheetBankJournals")]
+    //[InverseProperty("HrExpenseSheetBankJournals")]
     public virtual AccountJournal? BankJournal { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("HrExpenseSheets")]
+    //[InverseProperty("HrExpenseSheets")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrExpenseSheetCreateUs")]
+    //[InverseProperty("HrExpenseSheetCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("HrExpenseSheets")]
+    //[InverseProperty("HrExpenseSheets")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("DepartmentId")]
-    [InverseProperty("HrExpenseSheets")]
+    //[InverseProperty("HrExpenseSheets")]
     public virtual HrDepartment? Department { get; set; }
 
     [ForeignKey("EmployeeId")]
-    [InverseProperty("HrExpenseSheets")]
+    //[InverseProperty("HrExpenseSheets")]
     public virtual HrEmployee? Employee { get; set; }
 
-    [InverseProperty("HrExpenseSheet")]
-    [NotMapped]
-    public virtual ICollection<HrExpenseRefuseWizard> HrExpenseRefuseWizards { get; } = new List<HrExpenseRefuseWizard>();
+    [ForeignKey("JournalId")]
+    //[InverseProperty("HrExpenseSheetJournals")]
+    public virtual AccountJournal? Journal { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("HrExpenseSheets")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("HrExpenseSheetUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrExpenseSheetWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Sheet")]
     [NotMapped]
     public virtual ICollection<HrExpense> HrExpenses { get; } = new List<HrExpense>();
 
-    [ForeignKey("JournalId")]
-    [InverseProperty("HrExpenseSheetJournals")]
-    public virtual AccountJournal? Journal { get; set; }
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("HrExpenseSheets")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("HrExpenseSheetUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrExpenseSheetWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
+    [InverseProperty("HrExpenseSheet")]
+    [NotMapped]
+    public virtual ICollection<HrExpenseRefuseWizard> HrExpenseRefuseWizards { get; } = new List<HrExpenseRefuseWizard>();
 
     [ForeignKey("HrExpenseSheetId")]
     [InverseProperty("HrExpenseSheets")]

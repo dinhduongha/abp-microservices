@@ -43,24 +43,28 @@ public partial class StockPackageLevel: IMultiTenant, IMayHaveCreator, IModifica
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockPackageLevels")]
+    //[InverseProperty("StockPackageLevels")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockPackageLevelCreateUs")]
+    //[InverseProperty("StockPackageLevelCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationDestId")]
-    [InverseProperty("StockPackageLevels")]
+    //[InverseProperty("StockPackageLevels")]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("PackageId")]
-    [InverseProperty("StockPackageLevels")]
+    //[InverseProperty("StockPackageLevels")]
     public virtual StockQuantPackage? Package { get; set; }
 
     [ForeignKey("PickingId")]
-    [InverseProperty("StockPackageLevels")]
+    //[InverseProperty("StockPackageLevels")]
     public virtual StockPicking? Picking { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockPackageLevelWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("PackageLevel")]
     [NotMapped]
@@ -69,8 +73,4 @@ public partial class StockPackageLevel: IMultiTenant, IMayHaveCreator, IModifica
     [InverseProperty("PackageLevel")]
     [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockPackageLevelWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

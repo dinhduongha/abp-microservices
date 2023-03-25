@@ -52,26 +52,27 @@ public partial class CrossoveredBudget: IMultiTenant, IMayHaveCreator, IModifica
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("CrossoveredBudgets")]
+    //[InverseProperty("CrossoveredBudgets")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrossoveredBudgetCreateUs")]
+    //[InverseProperty("CrossoveredBudgetCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("CrossoveredBudgets")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("CrossoveredBudgetUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("CrossoveredBudgetWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("CrossoveredBudget")]
     [NotMapped]
     public virtual ICollection<CrossoveredBudgetLine> CrossoveredBudgetLines { get; } = new List<CrossoveredBudgetLine>();
 
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("CrossoveredBudgets")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("CrossoveredBudgetUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("CrossoveredBudgetWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

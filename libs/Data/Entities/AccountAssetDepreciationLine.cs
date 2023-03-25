@@ -62,18 +62,18 @@ public partial class AccountAssetDepreciationLine
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AssetId")]
-    [InverseProperty("AccountAssetDepreciationLines")]
+    //[InverseProperty("AccountAssetDepreciationLines")]
     public virtual AccountAssetAsset? Asset { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAssetDepreciationLineCreateUs")]
+    //[InverseProperty("AccountAssetDepreciationLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MoveId")]
-    [InverseProperty("AccountAssetDepreciationLines")]
+    //[InverseProperty("AccountAssetDepreciationLines")]
     public virtual AccountMove? Move { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAssetDepreciationLineWriteUs")]
+    //[InverseProperty("AccountAssetDepreciationLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -66,30 +66,30 @@ public partial class MrpWorkcenterProductivity: IMultiTenant, IMayHaveCreator, I
     public bool? CostAlreadyRecorded { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("MrpWorkcenterProductivities")]
+    //[InverseProperty("MrpWorkcenterProductivities")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpWorkcenterProductivityCreateUs")]
+    //[InverseProperty("MrpWorkcenterProductivityCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LossId")]
-    [InverseProperty("MrpWorkcenterProductivities")]
+    //[InverseProperty("MrpWorkcenterProductivities")]
     public virtual MrpWorkcenterProductivityLoss? Loss { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("MrpWorkcenterProductivityUsers")]
+    //[InverseProperty("MrpWorkcenterProductivityUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("WorkcenterId")]
-    [InverseProperty("MrpWorkcenterProductivities")]
+    //[InverseProperty("MrpWorkcenterProductivities")]
     public virtual MrpWorkcenter? Workcenter { get; set; }
 
     [ForeignKey("WorkorderId")]
-    [InverseProperty("MrpWorkcenterProductivities")]
+    //[InverseProperty("MrpWorkcenterProductivities")]
     public virtual MrpWorkorder? Workorder { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpWorkcenterProductivityWriteUs")]
+    //[InverseProperty("MrpWorkcenterProductivityWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

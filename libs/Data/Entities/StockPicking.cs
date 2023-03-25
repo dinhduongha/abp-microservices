@@ -119,67 +119,67 @@ public partial class StockPicking: IMultiTenant, IMayHaveCreator, IModificationA
     public Guid? WebsiteId { get; set; }
 
     [ForeignKey("BackorderId")]
-    [InverseProperty("InverseBackorder")]
+    //[InverseProperty("InverseBackorder")]
     public virtual StockPicking? Backorder { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockPickings")]
+    //[InverseProperty("StockPickings")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockPickingCreateUs")]
+    //[InverseProperty("StockPickingCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GroupId")]
-    [InverseProperty("StockPickings")]
+    //[InverseProperty("StockPickings")]
     public virtual ProcurementGroup? Group { get; set; }
 
     [ForeignKey("LocationId")]
-    [InverseProperty("StockPickingLocations")]
+    //[InverseProperty("StockPickingLocations")]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("LocationDestId")]
-    [InverseProperty("StockPickingLocationDests")]
+    //[InverseProperty("StockPickingLocationDests")]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("StockPickings")]
+    //[InverseProperty("StockPickings")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("OwnerId")]
-    [InverseProperty("StockPickingOwners")]
+    //[InverseProperty("StockPickingOwners")]
     public virtual ResPartner? Owner { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("StockPickingPartners")]
+    //[InverseProperty("StockPickingPartners")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PickingTypeId")]
-    [InverseProperty("StockPickings")]
+    //[InverseProperty("StockPickings")]
     public virtual StockPickingType? PickingType { get; set; }
 
     [ForeignKey("PosOrderId")]
-    [InverseProperty("StockPickings")]
+    //[InverseProperty("StockPickings")]
     public virtual PosOrder? PosOrder { get; set; }
 
     [ForeignKey("PosSessionId")]
-    [InverseProperty("StockPickings")]
+    //[InverseProperty("StockPickings")]
     public virtual PosSession? PosSession { get; set; }
 
     [ForeignKey("SaleId")]
-    [InverseProperty("StockPickings")]
+    //[InverseProperty("StockPickings")]
     public virtual SaleOrder? Sale { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("StockPickingUsers")]
+    //[InverseProperty("StockPickingUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("WebsiteId")]
-    [InverseProperty("StockPickings")]
+    //[InverseProperty("StockPickings")]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockPickingWriteUs")]
+    //[InverseProperty("StockPickingWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Backorder")]

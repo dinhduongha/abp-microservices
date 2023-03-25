@@ -66,23 +66,23 @@ public partial class AccountFiscalPosition: IMultiTenant, IMayHaveCreator, IModi
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountFiscalPositions")]
+    //[InverseProperty("AccountFiscalPositions")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CountryId")]
-    [InverseProperty("AccountFiscalPositions")]
+    //[InverseProperty("AccountFiscalPositions")]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CountryGroupId")]
-    [InverseProperty("AccountFiscalPositions")]
+    //[InverseProperty("AccountFiscalPositions")]
     public virtual ResCountryGroup? CountryGroup { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountFiscalPositionCreateUs")]
+    //[InverseProperty("AccountFiscalPositionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountFiscalPositionWriteUs")]
+    //[InverseProperty("AccountFiscalPositionWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Position")]

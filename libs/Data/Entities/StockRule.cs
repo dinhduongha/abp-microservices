@@ -90,40 +90,48 @@ public partial class StockRule: IMultiTenant, IMayHaveCreator, IModificationAudi
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockRules")]
+    //[InverseProperty("StockRules")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockRuleCreateUs")]
+    //[InverseProperty("StockRuleCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GroupId")]
-    [InverseProperty("StockRules")]
+    //[InverseProperty("StockRules")]
     public virtual ProcurementGroup? Group { get; set; }
 
     [ForeignKey("LocationDestId")]
-    [InverseProperty("StockRuleLocationDests")]
+    //[InverseProperty("StockRuleLocationDests")]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("LocationSrcId")]
-    [InverseProperty("StockRuleLocationSrcs")]
+    //[InverseProperty("StockRuleLocationSrcs")]
     public virtual StockLocation? LocationSrc { get; set; }
 
     [ForeignKey("PartnerAddressId")]
-    [InverseProperty("StockRules")]
+    //[InverseProperty("StockRules")]
     public virtual ResPartner? PartnerAddress { get; set; }
 
     [ForeignKey("PickingTypeId")]
-    [InverseProperty("StockRules")]
+    //[InverseProperty("StockRules")]
     public virtual StockPickingType? PickingType { get; set; }
 
     [ForeignKey("PropagateWarehouseId")]
-    [InverseProperty("StockRulePropagateWarehouses")]
+    //[InverseProperty("StockRulePropagateWarehouses")]
     public virtual StockWarehouse? PropagateWarehouse { get; set; }
 
     [ForeignKey("RouteId")]
-    [InverseProperty("StockRules")]
+    //[InverseProperty("StockRules")]
     public virtual StockRoute? Route { get; set; }
+
+    [ForeignKey("WarehouseId")]
+    //[InverseProperty("StockRuleWarehouses")]
+    public virtual StockWarehouse? Warehouse { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockRuleWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Rule")]
     [NotMapped]
@@ -153,11 +161,4 @@ public partial class StockRule: IMultiTenant, IMayHaveCreator, IModificationAudi
     [NotMapped]
     public virtual ICollection<StockWarehouse> StockWarehouseSamRules { get; } = new List<StockWarehouse>();
 
-    [ForeignKey("WarehouseId")]
-    [InverseProperty("StockRuleWarehouses")]
-    public virtual StockWarehouse? Warehouse { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockRuleWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

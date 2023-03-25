@@ -95,40 +95,40 @@ public partial class AccountAssetCategory: IMultiTenant, IMayHaveCreator, IModif
     public double? MethodProgressFactor { get; set; }
 
     [ForeignKey("AccountAnalyticId")]
-    [InverseProperty("AccountAssetCategories")]
+    //[InverseProperty("AccountAssetCategories")]
     public virtual AccountAnalyticAccount? AccountAnalytic { get; set; }
 
     [ForeignKey("AccountAssetId")]
-    [InverseProperty("AccountAssetCategoryAccountAssets")]
+    //[InverseProperty("AccountAssetCategoryAccountAssets")]
     public virtual AccountAccount? AccountAsset { get; set; }
 
 
     [ForeignKey("AccountDepreciationId")]
-    [InverseProperty("AccountAssetCategoryAccountDepreciations")]
+    //[InverseProperty("AccountAssetCategoryAccountDepreciations")]
     public virtual AccountAccount? AccountDepreciation { get; set; }
 
     [ForeignKey("AccountDepreciationExpenseId")]
-    [InverseProperty("AccountAssetCategoryAccountDepreciationExpenses")]
+    //[InverseProperty("AccountAssetCategoryAccountDepreciationExpenses")]
     public virtual AccountAccount? AccountDepreciationExpense { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountAssetCategories")]
+    //[InverseProperty("AccountAssetCategories")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAssetCategoryCreateUs")]
+    //[InverseProperty("AccountAssetCategoryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
-    [InverseProperty("AccountAssetCategories")]
+    //[InverseProperty("AccountAssetCategories")]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("AccountAssetCategories")]
+    //[InverseProperty("AccountAssetCategories")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAssetCategoryWriteUs")]
+    //[InverseProperty("AccountAssetCategoryWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Category")]

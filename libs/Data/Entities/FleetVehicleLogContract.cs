@@ -82,35 +82,35 @@ public partial class FleetVehicleLogContract: IMultiTenant, IMayHaveCreator, IMo
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("FleetVehicleLogContracts")]
+    //[InverseProperty("FleetVehicleLogContracts")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CostSubtypeId")]
-    [InverseProperty("FleetVehicleLogContractsNavigation")]
+    //[InverseProperty("FleetVehicleLogContractsNavigation")]
     public virtual FleetServiceType? CostSubtype { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("FleetVehicleLogContractCreateUs")]
+    //[InverseProperty("FleetVehicleLogContractCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InsurerId")]
-    [InverseProperty("FleetVehicleLogContracts")]
+    //[InverseProperty("FleetVehicleLogContracts")]
     public virtual ResPartner? Insurer { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("FleetVehicleLogContracts")]
+    //[InverseProperty("FleetVehicleLogContracts")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("FleetVehicleLogContractUsers")]
+    //[InverseProperty("FleetVehicleLogContractUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("VehicleId")]
-    [InverseProperty("FleetVehicleLogContracts")]
+    //[InverseProperty("FleetVehicleLogContracts")]
     public virtual FleetVehicle? Vehicle { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("FleetVehicleLogContractWriteUs")]
+    //[InverseProperty("FleetVehicleLogContractWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("FleetVehicleLogContractId")]

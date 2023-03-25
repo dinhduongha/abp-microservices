@@ -66,31 +66,31 @@ public partial class RepairFee: IMultiTenant, IMayHaveCreator, IModificationAudi
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("RepairFees")]
+    //[InverseProperty("RepairFees")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("RepairFeeCreateUs")]
+    //[InverseProperty("RepairFeeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InvoiceLineId")]
-    [InverseProperty("RepairFees")]
+    //[InverseProperty("RepairFees")]
     public virtual AccountMoveLine? InvoiceLine { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("RepairFees")]
+    //[InverseProperty("RepairFees")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUom")]
-    [InverseProperty("RepairFees")]
+    //[InverseProperty("RepairFees")]
     public virtual UomUom? ProductUomNavigation { get; set; }
 
     [ForeignKey("RepairId")]
-    [InverseProperty("RepairFees")]
+    //[InverseProperty("RepairFees")]
     public virtual RepairOrder? Repair { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("RepairFeeWriteUs")]
+    //[InverseProperty("RepairFeeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("RepairFeeLineId")]

@@ -67,44 +67,48 @@ public partial class MrpUnbuild: IMultiTenant, IMayHaveCreator, IModificationAud
     public double? ProductQty { get; set; }
 
     [ForeignKey("BomId")]
-    [InverseProperty("MrpUnbuilds")]
+    //[InverseProperty("MrpUnbuilds")]
     public virtual MrpBom? Bom { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("MrpUnbuilds")]
+    //[InverseProperty("MrpUnbuilds")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpUnbuildCreateUs")]
+    //[InverseProperty("MrpUnbuildCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
-    [InverseProperty("MrpUnbuildLocations")]
+    //[InverseProperty("MrpUnbuildLocations")]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("LocationDestId")]
-    [InverseProperty("MrpUnbuildLocationDests")]
+    //[InverseProperty("MrpUnbuildLocationDests")]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("LotId")]
-    [InverseProperty("MrpUnbuilds")]
+    //[InverseProperty("MrpUnbuilds")]
     public virtual StockLot? Lot { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("MrpUnbuilds")]
+    //[InverseProperty("MrpUnbuilds")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("MoId")]
-    [InverseProperty("MrpUnbuilds")]
+    //[InverseProperty("MrpUnbuilds")]
     public virtual MrpProduction? Mo { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("MrpUnbuilds")]
+    //[InverseProperty("MrpUnbuilds")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
-    [InverseProperty("MrpUnbuilds")]
+    //[InverseProperty("MrpUnbuilds")]
     public virtual UomUom? ProductUom { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MrpUnbuildWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ConsumeUnbuild")]
     [NotMapped]
@@ -118,7 +122,4 @@ public partial class MrpUnbuild: IMultiTenant, IMayHaveCreator, IModificationAud
     [NotMapped]
     public virtual ICollection<StockWarnInsufficientQtyUnbuild> StockWarnInsufficientQtyUnbuilds { get; } = new List<StockWarnInsufficientQtyUnbuild>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpUnbuildWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

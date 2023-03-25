@@ -105,39 +105,39 @@ public partial class AccountAssetAsset: IMultiTenant, IMayHaveCreator, IModifica
     public double? MethodProgressFactor { get; set; }
 
     [ForeignKey("AccountAnalyticId")]
-    [InverseProperty("AccountAssetAssets")]
+    //[InverseProperty("AccountAssetAssets")]
     public virtual AccountAnalyticAccount? AccountAnalytic { get; set; }
 
     [ForeignKey("CategoryId")]
-    [InverseProperty("AccountAssetAssets")]
+    //[InverseProperty("AccountAssetAssets")]
     public virtual AccountAssetCategory? Category { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountAssetAssets")]
+    //[InverseProperty("AccountAssetAssets")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAssetAssetCreateUs")]
+    //[InverseProperty("AccountAssetAssetCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("AccountAssetAssets")]
+    //[InverseProperty("AccountAssetAssets")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("InvoiceId")]
-    [InverseProperty("AccountAssetAssets")]
+    //[InverseProperty("AccountAssetAssets")]
     public virtual AccountMove? Invoice { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("AccountAssetAssets")]
+    //[InverseProperty("AccountAssetAssets")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("AccountAssetAssets")]
+    //[InverseProperty("AccountAssetAssets")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAssetAssetWriteUs")]
+    //[InverseProperty("AccountAssetAssetWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Asset")]

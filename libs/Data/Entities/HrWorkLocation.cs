@@ -45,22 +45,23 @@ public partial class HrWorkLocation: IMultiTenant, IMayHaveCreator, IModificatio
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AddressId")]
-    [InverseProperty("HrWorkLocations")]
+    //[InverseProperty("HrWorkLocations")]
     public virtual ResPartner? Address { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("HrWorkLocations")]
+    //[InverseProperty("HrWorkLocations")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrWorkLocationCreateUs")]
+    //[InverseProperty("HrWorkLocationCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrWorkLocationWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("WorkLocation")]
     [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrWorkLocationWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

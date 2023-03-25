@@ -187,51 +187,51 @@ public partial class Website: IMultiTenant, IMayHaveCreator, IModificationAudite
     public Guid? WarehouseId { get; set; }
 
     [ForeignKey("CartRecoveryMailTemplateId")]
-    [InverseProperty("Websites")]
+    //[InverseProperty("Websites")]
     public virtual MailTemplate? CartRecoveryMailTemplate { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("Websites")]
+    //[InverseProperty("Websites")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WebsiteCreateUs")]
+    //[InverseProperty("WebsiteCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrmDefaultTeamId")]
-    [InverseProperty("WebsiteCrmDefaultTeams")]
+    //[InverseProperty("WebsiteCrmDefaultTeams")]
     public virtual CrmTeam? CrmDefaultTeam { get; set; }
 
     [ForeignKey("CrmDefaultUserId")]
-    [InverseProperty("WebsiteCrmDefaultUsers")]
+    //[InverseProperty("WebsiteCrmDefaultUsers")]
     public virtual ResUser? CrmDefaultUser { get; set; }
 
     [ForeignKey("DefaultLangId")]
-    [InverseProperty("Websites")]
+    //[InverseProperty("Websites")]
     public virtual ResLang? DefaultLang { get; set; }
 
     [ForeignKey("SalespersonId")]
-    [InverseProperty("WebsiteSalespeople")]
+    //[InverseProperty("WebsiteSalespeople")]
     public virtual ResUser? Salesperson { get; set; }
 
     [ForeignKey("SalesteamId")]
-    [InverseProperty("WebsiteSalesteams")]
+    //[InverseProperty("WebsiteSalesteams")]
     public virtual CrmTeam? Salesteam { get; set; }
 
     [ForeignKey("ThemeId")]
-    [InverseProperty("Websites")]
+    //[InverseProperty("Websites")]
     public virtual IrModuleModule? Theme { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("WebsiteUsers")]
+    //[InverseProperty("WebsiteUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("WarehouseId")]
-    [InverseProperty("Websites")]
+    //[InverseProperty("Websites")]
     public virtual StockWarehouse? Warehouse { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("WebsiteWriteUs")]
+    //[InverseProperty("WebsiteWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Website")]

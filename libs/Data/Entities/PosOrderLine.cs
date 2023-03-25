@@ -88,44 +88,44 @@ public partial class PosOrderLine: IMultiTenant, IMayHaveCreator, IModificationA
     public string? DownPaymentDetails { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("PosOrderLines")]
+    //[InverseProperty("PosOrderLines")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PosOrderLineCreateUs")]
+    //[InverseProperty("PosOrderLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("OrderId")]
+    //[InverseProperty("PosOrderLines")]
+    public virtual PosOrder? Order { get; set; }
+
+    [ForeignKey("ProductId")]
+    //[InverseProperty("PosOrderLines")]
+    public virtual ProductProduct? Product { get; set; }
+
+    [ForeignKey("RefundedOrderlineId")]
+    //[InverseProperty("InverseRefundedOrderline")]
+    public virtual PosOrderLine? RefundedOrderline { get; set; }
+
+    [ForeignKey("SaleOrderLineId")]
+    //[InverseProperty("PosOrderLines")]
+    public virtual SaleOrderLine? SaleOrderLine { get; set; }
+
+    [ForeignKey("SaleOrderOriginId")]
+    //[InverseProperty("PosOrderLines")]
+    public virtual SaleOrder? SaleOrderOrigin { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PosOrderLineWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("RefundedOrderline")]
     [NotMapped]
     public virtual ICollection<PosOrderLine> InverseRefundedOrderline { get; } = new List<PosOrderLine>();
 
-    [ForeignKey("OrderId")]
-    [InverseProperty("PosOrderLines")]
-    public virtual PosOrder? Order { get; set; }
-
     [InverseProperty("PosOrderLine")]
     [NotMapped]
     public virtual ICollection<PosPackOperationLot> PosPackOperationLots { get; } = new List<PosPackOperationLot>();
-
-    [ForeignKey("ProductId")]
-    [InverseProperty("PosOrderLines")]
-    public virtual ProductProduct? Product { get; set; }
-
-    [ForeignKey("RefundedOrderlineId")]
-    [InverseProperty("InverseRefundedOrderline")]
-    public virtual PosOrderLine? RefundedOrderline { get; set; }
-
-    [ForeignKey("SaleOrderLineId")]
-    [InverseProperty("PosOrderLines")]
-    public virtual SaleOrderLine? SaleOrderLine { get; set; }
-
-    [ForeignKey("SaleOrderOriginId")]
-    [InverseProperty("PosOrderLines")]
-    public virtual SaleOrder? SaleOrderOrigin { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PosOrderLineWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PosOrderLineId")]
     [InverseProperty("PosOrderLines")]

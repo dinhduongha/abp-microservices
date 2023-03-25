@@ -54,16 +54,28 @@ public partial class MaintenanceEquipmentCategory: IMultiTenant, IMayHaveCreator
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AliasId")]
-    [InverseProperty("MaintenanceEquipmentCategories")]
+    //[InverseProperty("MaintenanceEquipmentCategories")]
     public virtual MailAlias? Alias { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("MaintenanceEquipmentCategories")]
+    //[InverseProperty("MaintenanceEquipmentCategories")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MaintenanceEquipmentCategoryCreateUs")]
+    //[InverseProperty("MaintenanceEquipmentCategoryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("MaintenanceEquipmentCategories")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("TechnicianUserId")]
+    //[InverseProperty("MaintenanceEquipmentCategoryTechnicianUsers")]
+    public virtual ResUser? TechnicianUser { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MaintenanceEquipmentCategoryWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Category")]
     [NotMapped]
@@ -73,15 +85,5 @@ public partial class MaintenanceEquipmentCategory: IMultiTenant, IMayHaveCreator
     [NotMapped]
     public virtual ICollection<MaintenanceRequest> MaintenanceRequests { get; } = new List<MaintenanceRequest>();
 
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("MaintenanceEquipmentCategories")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
 
-    [ForeignKey("TechnicianUserId")]
-    [InverseProperty("MaintenanceEquipmentCategoryTechnicianUsers")]
-    public virtual ResUser? TechnicianUser { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MaintenanceEquipmentCategoryWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

@@ -63,40 +63,40 @@ public partial class MrpBomLine: IMultiTenant, IMayHaveCreator, IModificationAud
     public decimal? CostShare { get; set; }
 
     [ForeignKey("BomId")]
-    [InverseProperty("MrpBomLines")]
+    //[InverseProperty("MrpBomLines")]
     public virtual MrpBom? Bom { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("MrpBomLines")]
+    //[InverseProperty("MrpBomLines")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpBomLineCreateUs")]
+    //[InverseProperty("MrpBomLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("OperationId")]
-    [InverseProperty("MrpBomLines")]
+    //[InverseProperty("MrpBomLines")]
     public virtual MrpRoutingWorkcenter? Operation { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("MrpBomLines")]
+    //[InverseProperty("MrpBomLines")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductTmplId")]
-    [InverseProperty("MrpBomLines")]
+    //[InverseProperty("MrpBomLines")]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("ProductUomId")]
-    [InverseProperty("MrpBomLines")]
+    //[InverseProperty("MrpBomLines")]
     public virtual UomUom? ProductUom { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MrpBomLineWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("BomLine")]
     [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpBomLineWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MrpBomLineId")]
     [InverseProperty("MrpBomLines")]

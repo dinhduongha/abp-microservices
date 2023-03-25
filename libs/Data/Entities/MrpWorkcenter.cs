@@ -84,16 +84,28 @@ public partial class MrpWorkcenter: IMultiTenant, IMayHaveCreator, IModification
     public Guid? CostsHourAccountId { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("MrpWorkcenters")]
+    //[InverseProperty("MrpWorkcenters")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CostsHourAccountId")]
-    [InverseProperty("MrpWorkcenters")]
+    //[InverseProperty("MrpWorkcenters")]
     public virtual AccountAnalyticAccount? CostsHourAccount { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpWorkcenterCreateUs")]
+    //[InverseProperty("MrpWorkcenterCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ResourceId")]
+    //[InverseProperty("MrpWorkcenters")]
+    public virtual ResourceResource? Resource { get; set; }
+
+    [ForeignKey("ResourceCalendarId")]
+    //[InverseProperty("MrpWorkcenters")]
+    public virtual ResourceCalendar? ResourceCalendar { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MrpWorkcenterWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Workcenter")]
     [NotMapped]
@@ -110,18 +122,6 @@ public partial class MrpWorkcenter: IMultiTenant, IMayHaveCreator, IModification
     [InverseProperty("Workcenter")]
     [NotMapped]
     public virtual ICollection<MrpWorkorder> MrpWorkorders { get; } = new List<MrpWorkorder>();
-
-    [ForeignKey("ResourceId")]
-    [InverseProperty("MrpWorkcenters")]
-    public virtual ResourceResource? Resource { get; set; }
-
-    [ForeignKey("ResourceCalendarId")]
-    [InverseProperty("MrpWorkcenters")]
-    public virtual ResourceCalendar? ResourceCalendar { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpWorkcenterWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("WorkcenterId")]
     [InverseProperty("Workcenters")]

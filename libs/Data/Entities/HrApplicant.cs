@@ -140,77 +140,77 @@ public partial class HrApplicant: IMultiTenant, IMayHaveCreator, IModificationAu
     [Column("delay_close")]
     public double? DelayClose { get; set; }
 
+    [ForeignKey("CampaignId")]
+    //[InverseProperty("HrApplicants")]
+    public virtual UtmCampaign? Campaign { get; set; }
+
+    [ForeignKey("TenantId")]
+    //[InverseProperty("HrApplicants")]
+    public virtual ResCompany? Company { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("HrApplicantCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("DepartmentId")]
+    //[InverseProperty("HrApplicants")]
+    public virtual HrDepartment? Department { get; set; }
+
+    [ForeignKey("EmpId")]
+    //[InverseProperty("HrApplicants")]
+    public virtual HrEmployee? Emp { get; set; }
+
+    [ForeignKey("JobId")]
+    //[InverseProperty("HrApplicants")]
+    public virtual HrJob? Job { get; set; }
+
+    [ForeignKey("LastStageId")]
+    //[InverseProperty("HrApplicantLastStages")]
+    public virtual HrRecruitmentStage? LastStage { get; set; }
+
+    [ForeignKey("MediumId")]
+    //[InverseProperty("HrApplicants")]
+    public virtual UtmMedium? Medium { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("HrApplicants")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("PartnerId")]
+    //[InverseProperty("HrApplicants")]
+    public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("RefuseReasonId")]
+    //[InverseProperty("HrApplicants")]
+    public virtual HrApplicantRefuseReason? RefuseReason { get; set; }
+
+    [ForeignKey("SourceId")]
+    //[InverseProperty("HrApplicants")]
+    public virtual UtmSource? Source { get; set; }
+
+    [ForeignKey("StageId")]
+    //[InverseProperty("HrApplicantStages")]
+    public virtual HrRecruitmentStage? Stage { get; set; }
+
+    [ForeignKey("TypeId")]
+    //[InverseProperty("HrApplicants")]
+    public virtual HrRecruitmentDegree? Type { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("HrApplicantUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrApplicantWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("Applicant")]
     [NotMapped]
     public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
 
-    [ForeignKey("CampaignId")]
-    [InverseProperty("HrApplicants")]
-    public virtual UtmCampaign? Campaign { get; set; }
-
-    [ForeignKey("TenantId")]
-    [InverseProperty("HrApplicants")]
-    public virtual ResCompany? Company { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("HrApplicantCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("DepartmentId")]
-    [InverseProperty("HrApplicants")]
-    public virtual HrDepartment? Department { get; set; }
-
-    [ForeignKey("EmpId")]
-    [InverseProperty("HrApplicants")]
-    public virtual HrEmployee? Emp { get; set; }
-
     [InverseProperty("Applicant")]
     [NotMapped]
     public virtual ICollection<HrApplicantSkill> HrApplicantSkills { get; } = new List<HrApplicantSkill>();
-
-    [ForeignKey("JobId")]
-    [InverseProperty("HrApplicants")]
-    public virtual HrJob? Job { get; set; }
-
-    [ForeignKey("LastStageId")]
-    [InverseProperty("HrApplicantLastStages")]
-    public virtual HrRecruitmentStage? LastStage { get; set; }
-
-    [ForeignKey("MediumId")]
-    [InverseProperty("HrApplicants")]
-    public virtual UtmMedium? Medium { get; set; }
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("HrApplicants")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("PartnerId")]
-    [InverseProperty("HrApplicants")]
-    public virtual ResPartner? Partner { get; set; }
-
-    [ForeignKey("RefuseReasonId")]
-    [InverseProperty("HrApplicants")]
-    public virtual HrApplicantRefuseReason? RefuseReason { get; set; }
-
-    [ForeignKey("SourceId")]
-    [InverseProperty("HrApplicants")]
-    public virtual UtmSource? Source { get; set; }
-
-    [ForeignKey("StageId")]
-    [InverseProperty("HrApplicantStages")]
-    public virtual HrRecruitmentStage? Stage { get; set; }
-
-    [ForeignKey("TypeId")]
-    [InverseProperty("HrApplicants")]
-    public virtual HrRecruitmentDegree? Type { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("HrApplicantUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrApplicantWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrApplicantId")]
     [InverseProperty("HrApplicants")]

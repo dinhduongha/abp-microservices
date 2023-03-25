@@ -78,46 +78,46 @@ public partial class FleetVehicleLogService: IMultiTenant, IMayHaveCreator, IMod
     public Guid? PurchaserEmployeeId { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("FleetVehicleLogServices")]
+    //[InverseProperty("FleetVehicleLogServices")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("FleetVehicleLogServiceCreateUs")]
+    //[InverseProperty("FleetVehicleLogServiceCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ManagerId")]
-    [InverseProperty("FleetVehicleLogServiceManagers")]
+    //[InverseProperty("FleetVehicleLogServiceManagers")]
     public virtual ResUser? Manager { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("FleetVehicleLogServices")]
+    //[InverseProperty("FleetVehicleLogServices")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("OdometerId")]
-    [InverseProperty("FleetVehicleLogServices")]
+    //[InverseProperty("FleetVehicleLogServices")]
     public virtual FleetVehicleOdometer? Odometer { get; set; }
 
     [ForeignKey("PurchaserId")]
-    [InverseProperty("FleetVehicleLogServicePurchasers")]
+    //[InverseProperty("FleetVehicleLogServicePurchasers")]
     public virtual ResPartner? Purchaser { get; set; }
 
     [ForeignKey("PurchaserEmployeeId")]
-    [InverseProperty("FleetVehicleLogServices")]
+    //[InverseProperty("FleetVehicleLogServices")]
     public virtual HrEmployee? PurchaserEmployee { get; set; }
 
     [ForeignKey("ServiceTypeId")]
-    [InverseProperty("FleetVehicleLogServices")]
+    //[InverseProperty("FleetVehicleLogServices")]
     public virtual FleetServiceType ServiceType { get; set; } = null!;
 
     [ForeignKey("VehicleId")]
-    [InverseProperty("FleetVehicleLogServices")]
+    //[InverseProperty("FleetVehicleLogServices")]
     public virtual FleetVehicle Vehicle { get; set; } = null!;
 
     [ForeignKey("VendorId")]
-    [InverseProperty("FleetVehicleLogServiceVendors")]
+    //[InverseProperty("FleetVehicleLogServiceVendors")]
     public virtual ResPartner? Vendor { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("FleetVehicleLogServiceWriteUs")]
+    //[InverseProperty("FleetVehicleLogServiceWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

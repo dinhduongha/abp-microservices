@@ -75,21 +75,33 @@ public partial class CrmTeam: IMultiTenant, IMayHaveCreator, IModificationAudite
     [Column("assignment_optout")]
     public bool? AssignmentOptout { get; set; }
 
-    [InverseProperty("Team")]
-    [NotMapped]
-    public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
-
     [ForeignKey("AliasId")]
-    [InverseProperty("CrmTeams")]
+    //[InverseProperty("CrmTeams")]
     public virtual MailAlias? Alias { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("CrmTeams")]
+    //[InverseProperty("CrmTeams")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmTeamCreateUs")]
+    //[InverseProperty("CrmTeamCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("CrmTeams")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("CrmTeamUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("CrmTeamWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("Team")]
+    [NotMapped]
+    public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [InverseProperty("Team")]
     [NotMapped]
@@ -123,10 +135,6 @@ public partial class CrmTeam: IMultiTenant, IMayHaveCreator, IModificationAudite
     [NotMapped]
     public virtual ICollection<CrmTeamMember> CrmTeamMembers { get; } = new List<CrmTeamMember>();
 
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("CrmTeams")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
     [InverseProperty("CrmTeam")]
     [NotMapped]
     public virtual ICollection<PosConfig> PosConfigs { get; } = new List<PosConfig>();
@@ -147,10 +155,6 @@ public partial class CrmTeam: IMultiTenant, IMayHaveCreator, IModificationAudite
     [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
-    [ForeignKey("UserId")]
-    [InverseProperty("CrmTeamUsers")]
-    public virtual ResUser? User { get; set; }
-
     [InverseProperty("CrmDefaultTeam")]
     [NotMapped]
     public virtual ICollection<Website> WebsiteCrmDefaultTeams { get; } = new List<Website>();
@@ -158,10 +162,6 @@ public partial class CrmTeam: IMultiTenant, IMayHaveCreator, IModificationAudite
     [InverseProperty("Salesteam")]
     [NotMapped]
     public virtual ICollection<Website> WebsiteSalesteams { get; } = new List<Website>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmTeamWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("TeamId")]
     [InverseProperty("Teams")]

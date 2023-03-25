@@ -59,15 +59,15 @@ public partial class StockPackageType: IMultiTenant, IMayHaveCreator, IModificat
     public double? MaxWeight { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("StockPackageTypes")]
+    //[InverseProperty("StockPackageTypes")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockPackageTypeCreateUs")]
+    //[InverseProperty("StockPackageTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockPackageTypeWriteUs")]
+    //[InverseProperty("StockPackageTypeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("PackageType")]

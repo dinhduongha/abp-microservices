@@ -36,16 +36,16 @@ public partial class AccountBudgetPost: IMultiTenant, IMayHaveCreator, IModifica
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountBudgetPosts")]
+    //[InverseProperty("AccountBudgetPosts")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountBudgetPostCreateUs")]
+    //[InverseProperty("AccountBudgetPostCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountBudgetPostWriteUs")]
+    //[InverseProperty("AccountBudgetPostWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("GeneralBudget")]

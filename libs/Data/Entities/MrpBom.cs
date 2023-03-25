@@ -75,16 +75,36 @@ public partial class MrpBom: IMultiTenant, IMayHaveCreator, IModificationAudited
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("MrpBoms")]
+    //[InverseProperty("MrpBoms")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpBomCreateUs")]
+    //[InverseProperty("MrpBomCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("MrpBoms")]
+    //[InverseProperty("MrpBoms")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("PickingTypeId")]
+    //[InverseProperty("MrpBoms")]
+    public virtual StockPickingType? PickingType { get; set; }
+
+    [ForeignKey("ProductId")]
+    //[InverseProperty("MrpBoms")]
+    public virtual ProductProduct? Product { get; set; }
+
+    [ForeignKey("ProductTmplId")]
+    //[InverseProperty("MrpBoms")]
+    public virtual ProductTemplate? ProductTmpl { get; set; }
+
+    [ForeignKey("ProductUomId")]
+    //[InverseProperty("MrpBoms")]
+    public virtual UomUom? ProductUom { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MrpBomWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Bom")]
     [NotMapped]
@@ -106,27 +126,8 @@ public partial class MrpBom: IMultiTenant, IMayHaveCreator, IModificationAudited
     [NotMapped]
     public virtual ICollection<MrpUnbuild> MrpUnbuilds { get; } = new List<MrpUnbuild>();
 
-    [ForeignKey("PickingTypeId")]
-    [InverseProperty("MrpBoms")]
-    public virtual StockPickingType? PickingType { get; set; }
-
-    [ForeignKey("ProductId")]
-    [InverseProperty("MrpBoms")]
-    public virtual ProductProduct? Product { get; set; }
-
-    [ForeignKey("ProductTmplId")]
-    [InverseProperty("MrpBoms")]
-    public virtual ProductTemplate? ProductTmpl { get; set; }
-
-    [ForeignKey("ProductUomId")]
-    [InverseProperty("MrpBoms")]
-    public virtual UomUom? ProductUom { get; set; }
-
     [InverseProperty("Bom")]
     [NotMapped]
     public virtual ICollection<StockWarehouseOrderpoint> StockWarehouseOrderpoints { get; } = new List<StockWarehouseOrderpoint>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpBomWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

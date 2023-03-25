@@ -48,24 +48,24 @@ public partial class AccountAgedTrialBalance: IMultiTenant, IMayHaveCreator, IMo
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountAgedTrialBalances")]
+    //[InverseProperty("AccountAgedTrialBalances")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAgedTrialBalanceCreateUs")]
+    //[InverseProperty("AccountAgedTrialBalanceCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAgedTrialBalanceWriteUs")]
+    //[InverseProperty("AccountAgedTrialBalanceWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountAgedTrialBalanceId")]
-    [InverseProperty("AccountAgedTrialBalances")]
+    //[InverseProperty("AccountAgedTrialBalances")]
     [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 
     [ForeignKey("AccountAgedTrialBalanceId")]
-    [InverseProperty("AccountAgedTrialBalances")]
+    //[InverseProperty("AccountAgedTrialBalances")]
     [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 }

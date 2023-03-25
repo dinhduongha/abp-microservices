@@ -49,27 +49,29 @@ public partial class AccountGroup: IMultiTenant, IMayHaveCreator, IModificationA
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
-    [InverseProperty("Group")]
-    [NotMapped]
-    public virtual ICollection<AccountAccount> AccountAccounts { get; } = new List<AccountAccount>();
-
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountGroups")]
+    //[InverseProperty("AccountGroups")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountGroupCreateUs")]
+    //[InverseProperty("AccountGroupCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual AccountGroup? Parent { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountGroupWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("Group")]
+    [NotMapped]
+    public virtual ICollection<AccountAccount> AccountAccounts { get; } = new List<AccountAccount>();
 
     [InverseProperty("Parent")]
     [NotMapped]
     public virtual ICollection<AccountGroup> InverseParent { get; } = new List<AccountGroup>();
 
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual AccountGroup? Parent { get; set; }
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountGroupWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

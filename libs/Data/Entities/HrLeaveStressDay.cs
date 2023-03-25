@@ -21,7 +21,7 @@ public partial class HrLeaveStressDay: IMultiTenant, IMayHaveCreator, IModificat
     public Guid? TenantId { get; set; }
 
     [Column("color")]
-    public Guid? Color { get; set; }
+    public long? Color { get; set; }
 
     [Column("resource_calendar_id")]
     public Guid? ResourceCalendarId { get; set; }
@@ -48,19 +48,19 @@ public partial class HrLeaveStressDay: IMultiTenant, IMayHaveCreator, IModificat
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("HrLeaveStressDays")]
+    //[InverseProperty("HrLeaveStressDays")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrLeaveStressDayCreateUs")]
+    //[InverseProperty("HrLeaveStressDayCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ResourceCalendarId")]
-    [InverseProperty("HrLeaveStressDays")]
+    //[InverseProperty("HrLeaveStressDays")]
     public virtual ResourceCalendar? ResourceCalendar { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("HrLeaveStressDayWriteUs")]
+    //[InverseProperty("HrLeaveStressDayWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrLeaveStressDayId")]

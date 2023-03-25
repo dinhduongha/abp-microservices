@@ -121,53 +121,57 @@ public partial class PurchaseOrderLine: IMultiTenant, IMayHaveCreator, IModifica
     [Column("sale_line_id")]
     public Guid? SaleLineId { get; set; }
 
-    [InverseProperty("PurchaseLine")]
-    [NotMapped]
-    public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
-
     [ForeignKey("TenantId")]
-    [InverseProperty("PurchaseOrderLines")]
+    //[InverseProperty("PurchaseOrderLines")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PurchaseOrderLineCreateUs")]
+    //[InverseProperty("PurchaseOrderLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("PurchaseOrderLines")]
+    //[InverseProperty("PurchaseOrderLines")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("OrderId")]
-    [InverseProperty("PurchaseOrderLines")]
+    //[InverseProperty("PurchaseOrderLines")]
     public virtual PurchaseOrder? Order { get; set; }
 
     [ForeignKey("OrderpointId")]
-    [InverseProperty("PurchaseOrderLines")]
+    //[InverseProperty("PurchaseOrderLines")]
     public virtual StockWarehouseOrderpoint? Orderpoint { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("PurchaseOrderLines")]
+    //[InverseProperty("PurchaseOrderLines")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("PurchaseOrderLines")]
+    //[InverseProperty("PurchaseOrderLines")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductPackagingId")]
-    [InverseProperty("PurchaseOrderLines")]
+    //[InverseProperty("PurchaseOrderLines")]
     public virtual ProductPackaging? ProductPackaging { get; set; }
 
     [ForeignKey("ProductUom")]
-    [InverseProperty("PurchaseOrderLines")]
+    //[InverseProperty("PurchaseOrderLines")]
     public virtual UomUom? ProductUomNavigation { get; set; }
 
     [ForeignKey("SaleLineId")]
-    [InverseProperty("PurchaseOrderLines")]
+    //[InverseProperty("PurchaseOrderLines")]
     public virtual SaleOrderLine? SaleLine { get; set; }
 
     [ForeignKey("SaleOrderId")]
-    [InverseProperty("PurchaseOrderLines")]
+    //[InverseProperty("PurchaseOrderLines")]
     public virtual SaleOrder? SaleOrder { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PurchaseOrderLineWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("PurchaseLine")]
+    [NotMapped]
+    public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [InverseProperty("CreatedPurchaseLine")]
     [NotMapped]
@@ -176,10 +180,6 @@ public partial class PurchaseOrderLine: IMultiTenant, IMayHaveCreator, IModifica
     [InverseProperty("PurchaseLine")]
     [NotMapped]
     public virtual ICollection<StockMove> StockMovePurchaseLines { get; } = new List<StockMove>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PurchaseOrderLineWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PurchaseOrderLineId")]
     [InverseProperty("PurchaseOrderLines")]

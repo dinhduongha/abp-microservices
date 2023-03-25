@@ -109,28 +109,52 @@ public partial class HrExpense: IMultiTenant, IMayHaveCreator, IModificationAudi
     public Guid? SaleOrderId { get; set; }
 
     [ForeignKey("AccountId")]
-    [InverseProperty("HrExpenses")]
+    //[InverseProperty("HrExpenses")]
     public virtual AccountAccount? Account { get; set; }
+
+    [ForeignKey("TenantId")]
+    //[InverseProperty("HrExpenses")]
+    public virtual ResCompany? Company { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("HrExpenseCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("CurrencyId")]
+    //[InverseProperty("HrExpenses")]
+    public virtual ResCurrency? Currency { get; set; }
+
+    [ForeignKey("EmployeeId")]
+    //[InverseProperty("HrExpenses")]
+    public virtual HrEmployee? Employee { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("HrExpenses")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("ProductId")]
+    //[InverseProperty("HrExpenses")]
+    public virtual ProductProduct? Product { get; set; }
+
+    [ForeignKey("ProductUomId")]
+    //[InverseProperty("HrExpenses")]
+    public virtual UomUom? ProductUom { get; set; }
+
+    [ForeignKey("SaleOrderId")]
+    //[InverseProperty("HrExpenses")]
+    public virtual SaleOrder? SaleOrder { get; set; }
+
+    [ForeignKey("SheetId")]
+    //[InverseProperty("HrExpenses")]
+    public virtual HrExpenseSheet? Sheet { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrExpenseWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Expense")]
     [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
-
-    [ForeignKey("TenantId")]
-    [InverseProperty("HrExpenses")]
-    public virtual ResCompany? Company { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("HrExpenseCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("CurrencyId")]
-    [InverseProperty("HrExpenses")]
-    public virtual ResCurrency? Currency { get; set; }
-
-    [ForeignKey("EmployeeId")]
-    [InverseProperty("HrExpenses")]
-    public virtual HrEmployee? Employee { get; set; }
 
     [InverseProperty("Expense")]
     [NotMapped]
@@ -139,30 +163,6 @@ public partial class HrExpense: IMultiTenant, IMayHaveCreator, IModificationAudi
     [InverseProperty("Expense")]
     [NotMapped]
     public virtual ICollection<HrExpenseSplit> HrExpenseSplits { get; } = new List<HrExpenseSplit>();
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("HrExpenses")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("ProductId")]
-    [InverseProperty("HrExpenses")]
-    public virtual ProductProduct? Product { get; set; }
-
-    [ForeignKey("ProductUomId")]
-    [InverseProperty("HrExpenses")]
-    public virtual UomUom? ProductUom { get; set; }
-
-    [ForeignKey("SaleOrderId")]
-    [InverseProperty("HrExpenses")]
-    public virtual SaleOrder? SaleOrder { get; set; }
-
-    [ForeignKey("SheetId")]
-    [InverseProperty("HrExpenses")]
-    public virtual HrExpenseSheet? Sheet { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrExpenseWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrExpenseId")]
     [InverseProperty("HrExpenses")]

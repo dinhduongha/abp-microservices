@@ -141,40 +141,72 @@ public partial class MrpProduction: IMultiTenant, IMayHaveCreator, IModification
     public double? ExtraCost { get; set; }
 
     [ForeignKey("AnalyticAccountId")]
-    [InverseProperty("MrpProductions")]
+    //[InverseProperty("MrpProductions")]
     public virtual AccountAnalyticAccount? AnalyticAccount { get; set; }
 
     [ForeignKey("BomId")]
-    [InverseProperty("MrpProductions")]
+    //[InverseProperty("MrpProductions")]
     public virtual MrpBom? Bom { get; set; }
+
+    [ForeignKey("TenantId")]
+    //[InverseProperty("MrpProductions")]
+    public virtual ResCompany? Company { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("MrpProductionCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LocationDestId")]
+    //[InverseProperty("MrpProductionLocationDests")]
+    public virtual StockLocation? LocationDest { get; set; }
+
+    [ForeignKey("LocationSrcId")]
+    //[InverseProperty("MrpProductionLocationSrcs")]
+    public virtual StockLocation? LocationSrc { get; set; }
+
+    [ForeignKey("LotProducingId")]
+    //[InverseProperty("MrpProductions")]
+    public virtual StockLot? LotProducing { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("MrpProductions")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("OrderpointId")]
+    //[InverseProperty("MrpProductions")]
+    public virtual StockWarehouseOrderpoint? Orderpoint { get; set; }
+
+    [ForeignKey("PickingTypeId")]
+    //[InverseProperty("MrpProductions")]
+    public virtual StockPickingType? PickingType { get; set; }
+
+    [ForeignKey("ProcurementGroupId")]
+    //[InverseProperty("MrpProductions")]
+    public virtual ProcurementGroup? ProcurementGroup { get; set; }
+
+    [ForeignKey("ProductId")]
+    //[InverseProperty("MrpProductions")]
+    public virtual ProductProduct? Product { get; set; }
+
+    [ForeignKey("ProductUomId")]
+    //[InverseProperty("MrpProductions")]
+    public virtual UomUom? ProductUom { get; set; }
+
+    [ForeignKey("ProductionLocationId")]
+    //[InverseProperty("MrpProductionProductionLocations")]
+    public virtual StockLocation? ProductionLocation { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("MrpProductionUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MrpProductionWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Mo")]
     [NotMapped]
     public virtual ICollection<ChangeProductionQty> ChangeProductionQties { get; } = new List<ChangeProductionQty>();
-
-    [ForeignKey("TenantId")]
-    [InverseProperty("MrpProductions")]
-    public virtual ResCompany? Company { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("MrpProductionCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("LocationDestId")]
-    [InverseProperty("MrpProductionLocationDests")]
-    public virtual StockLocation? LocationDest { get; set; }
-
-    [ForeignKey("LocationSrcId")]
-    [InverseProperty("MrpProductionLocationSrcs")]
-    public virtual StockLocation? LocationSrc { get; set; }
-
-    [ForeignKey("LotProducingId")]
-    [InverseProperty("MrpProductions")]
-    public virtual StockLot? LotProducing { get; set; }
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("MrpProductions")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [InverseProperty("MrpProduction")]
     [NotMapped]
@@ -200,30 +232,6 @@ public partial class MrpProduction: IMultiTenant, IMayHaveCreator, IModification
     [NotMapped]
     public virtual ICollection<MrpWorkorder> MrpWorkorders { get; } = new List<MrpWorkorder>();
 
-    [ForeignKey("OrderpointId")]
-    [InverseProperty("MrpProductions")]
-    public virtual StockWarehouseOrderpoint? Orderpoint { get; set; }
-
-    [ForeignKey("PickingTypeId")]
-    [InverseProperty("MrpProductions")]
-    public virtual StockPickingType? PickingType { get; set; }
-
-    [ForeignKey("ProcurementGroupId")]
-    [InverseProperty("MrpProductions")]
-    public virtual ProcurementGroup? ProcurementGroup { get; set; }
-
-    [ForeignKey("ProductId")]
-    [InverseProperty("MrpProductions")]
-    public virtual ProductProduct? Product { get; set; }
-
-    [ForeignKey("ProductUomId")]
-    [InverseProperty("MrpProductions")]
-    public virtual UomUom? ProductUom { get; set; }
-
-    [ForeignKey("ProductionLocationId")]
-    [InverseProperty("MrpProductionProductionLocations")]
-    public virtual StockLocation? ProductionLocation { get; set; }
-
     [InverseProperty("Production")]
     [NotMapped]
     public virtual ICollection<StockAssignSerial> StockAssignSerials { get; } = new List<StockAssignSerial>();
@@ -247,14 +255,6 @@ public partial class MrpProduction: IMultiTenant, IMayHaveCreator, IModification
     [InverseProperty("Production")]
     [NotMapped]
     public virtual ICollection<StockScrap> StockScraps { get; } = new List<StockScrap>();
-
-    [ForeignKey("UserId")]
-    [InverseProperty("MrpProductionUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpProductionWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MrpProductionId")]
     [InverseProperty("MrpProductions")]

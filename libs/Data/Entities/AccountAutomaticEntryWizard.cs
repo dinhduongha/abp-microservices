@@ -51,19 +51,19 @@ public partial class AccountAutomaticEntryWizard: IMultiTenant, IMayHaveCreator,
     public double? Percentage { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountAutomaticEntryWizards")]
+    //[InverseProperty("AccountAutomaticEntryWizards")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountAutomaticEntryWizardCreateUs")]
+    //[InverseProperty("AccountAutomaticEntryWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DestinationAccountId")]
-    [InverseProperty("AccountAutomaticEntryWizards")]
+    //[InverseProperty("AccountAutomaticEntryWizards")]
     public virtual AccountAccount? DestinationAccount { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountAutomaticEntryWizardWriteUs")]
+    //[InverseProperty("AccountAutomaticEntryWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountAutomaticEntryWizardId")]
