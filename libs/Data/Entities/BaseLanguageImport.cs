@@ -45,10 +45,10 @@ public partial class BaseLanguageImport
     public byte[]? Data { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseLanguageImportCreateUs")]
+    //[InverseProperty("BaseLanguageImportCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseLanguageImportWriteUs")]
+    //[InverseProperty("BaseLanguageImportWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -45,18 +45,18 @@ public partial class LunchCashmove
     public double? Amount { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("LunchCashmoveCreateUs")]
+    //[InverseProperty("LunchCashmoveCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("LunchCashmoves")]
+    //[InverseProperty("LunchCashmoves")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("LunchCashmoveUsers")]
+    //[InverseProperty("LunchCashmoveUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("LunchCashmoveWriteUs")]
+    //[InverseProperty("LunchCashmoveWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -54,18 +54,19 @@ public partial class FollowupPrint
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("FollowupPrintCreateUs")]
+    //[InverseProperty("FollowupPrintCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FollowupId")]
-    [InverseProperty("FollowupPrints")]
+    //[InverseProperty("FollowupPrints")]
     public virtual FollowupFollowup? Followup { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("FollowupPrintWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("OsvMemory")]
     [NotMapped]
     public virtual ICollection<PartnerStatRel> PartnerStatRels { get; } = new List<PartnerStatRel>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("FollowupPrintWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

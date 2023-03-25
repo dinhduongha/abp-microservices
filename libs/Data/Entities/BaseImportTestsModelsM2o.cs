@@ -33,14 +33,14 @@ public partial class BaseImportTestsModelsM2o
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseImportTestsModelsM2oCreateUs")]
+    //[InverseProperty("BaseImportTestsModelsM2oCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("Value")]
-    [InverseProperty("BaseImportTestsModelsM2os")]
+    //[InverseProperty("BaseImportTestsModelsM2os")]
     public virtual BaseImportTestsModelsM2oRelated? ValueNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseImportTestsModelsM2oWriteUs")]
+    //[InverseProperty("BaseImportTestsModelsM2oWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

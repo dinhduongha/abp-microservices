@@ -65,30 +65,31 @@ public partial class WebsiteMenu
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WebsiteMenuCreateUs")]
+    //[InverseProperty("WebsiteMenuCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("PageId")]
+    //[InverseProperty("WebsiteMenus")]
+    public virtual WebsitePage? Page { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual WebsiteMenu? Parent { get; set; }
+
+    [ForeignKey("ThemeTemplateId")]
+    //[InverseProperty("WebsiteMenus")]
+    public virtual ThemeWebsiteMenu? ThemeTemplate { get; set; }
+
+    [ForeignKey("WebsiteId")]
+    //[InverseProperty("WebsiteMenus")]
+    public virtual Website? Website { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("WebsiteMenuWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Parent")]
     [NotMapped]
     public virtual ICollection<WebsiteMenu> InverseParent { get; } = new List<WebsiteMenu>();
 
-    [ForeignKey("PageId")]
-    [InverseProperty("WebsiteMenus")]
-    public virtual WebsitePage? Page { get; set; }
-
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual WebsiteMenu? Parent { get; set; }
-
-    [ForeignKey("ThemeTemplateId")]
-    [InverseProperty("WebsiteMenus")]
-    public virtual ThemeWebsiteMenu? ThemeTemplate { get; set; }
-
-    [ForeignKey("WebsiteId")]
-    [InverseProperty("WebsiteMenus")]
-    public virtual Website? Website { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("WebsiteMenuWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

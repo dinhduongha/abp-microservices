@@ -36,10 +36,10 @@ public partial class BusBu
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BusBuCreateUs")]
+    //[InverseProperty("BusBuCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BusBuWriteUs")]
+    //[InverseProperty("BusBuWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

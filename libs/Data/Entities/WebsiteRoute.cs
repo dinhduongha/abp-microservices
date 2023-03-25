@@ -33,14 +33,15 @@ public partial class WebsiteRoute
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WebsiteRouteCreateUs")]
+    //[InverseProperty("WebsiteRouteCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("WebsiteRouteWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Route")]
     [NotMapped]
     public virtual ICollection<WebsiteRewrite> WebsiteRewrites { get; } = new List<WebsiteRewrite>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("WebsiteRouteWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

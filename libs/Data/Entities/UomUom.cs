@@ -48,15 +48,15 @@ public partial class UomUom
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CategoryId")]
-    [InverseProperty("UomUoms")]
+    //[InverseProperty("UomUoms")]
     public virtual UomCategory? Category { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("UomUomCreateUs")]
+    //[InverseProperty("UomUomCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("UomUomWriteUs")]
+    //[InverseProperty("UomUomWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ProductUom")]

@@ -46,25 +46,25 @@ public partial class ResPartnerCategory
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("ResPartnerCategoryCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual ResPartnerCategory? Parent { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ResPartnerCategoryWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("PartnerCategory")]
     [NotMapped]
     public virtual ICollection<AccountAnalyticDistributionModel> AccountAnalyticDistributionModels { get; } = new List<AccountAnalyticDistributionModel>();
 
-    [ForeignKey("CreatorId")]
-    [InverseProperty("ResPartnerCategoryCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
     [InverseProperty("Parent")]
     [NotMapped]
     public virtual ICollection<ResPartnerCategory> InverseParent { get; } = new List<ResPartnerCategory>();
-
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual ResPartnerCategory? Parent { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ResPartnerCategoryWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ResPartnerCategoryId")]
     [InverseProperty("ResPartnerCategories")]

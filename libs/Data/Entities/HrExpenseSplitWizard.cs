@@ -33,18 +33,19 @@ public partial class HrExpenseSplitWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrExpenseSplitWizardCreateUs")]
+    //[InverseProperty("HrExpenseSplitWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ExpenseId")]
-    [InverseProperty("HrExpenseSplitWizards")]
+    //[InverseProperty("HrExpenseSplitWizards")]
     public virtual HrExpense? Expense { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrExpenseSplitWizardWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Wizard")]
     [NotMapped]
     public virtual ICollection<HrExpenseSplit> HrExpenseSplits { get; } = new List<HrExpenseSplit>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrExpenseSplitWizardWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

@@ -33,10 +33,10 @@ public partial class StockQuantityHistory
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockQuantityHistoryCreateUs")]
+    //[InverseProperty("StockQuantityHistoryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockQuantityHistoryWriteUs")]
+    //[InverseProperty("StockQuantityHistoryWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -38,13 +38,17 @@ public partial class AccountIncoterm
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("AccountIncotermCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountIncotermWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("InvoiceIncoterm")]
     [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("AccountIncotermCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Incoterm")]
     [NotMapped]
@@ -58,7 +62,4 @@ public partial class AccountIncoterm
     [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountIncotermWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

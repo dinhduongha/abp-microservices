@@ -33,11 +33,11 @@ public partial class ResCountryGroup
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResCountryGroupCreateUs")]
+    //[InverseProperty("ResCountryGroupCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResCountryGroupWriteUs")]
+    //[InverseProperty("ResCountryGroupWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 /*
     [InverseProperty("CountryGroup")]

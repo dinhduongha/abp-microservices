@@ -30,11 +30,11 @@ public partial class SmsTemplateReset
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SmsTemplateResetCreateUs")]
+    //[InverseProperty("SmsTemplateResetCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("SmsTemplateResetWriteUs")]
+    //[InverseProperty("SmsTemplateResetWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("SmsTemplateResetId")]

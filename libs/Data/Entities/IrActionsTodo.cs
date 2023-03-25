@@ -43,10 +43,10 @@ public partial class IrActionsTodo
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrActionsTodoCreateUs")]
+    //[InverseProperty("IrActionsTodoCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrActionsTodoWriteUs")]
+    //[InverseProperty("IrActionsTodoWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

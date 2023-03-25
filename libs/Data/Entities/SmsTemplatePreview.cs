@@ -39,14 +39,14 @@ public partial class SmsTemplatePreview
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SmsTemplatePreviewCreateUs")]
+    //[InverseProperty("SmsTemplatePreviewCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("SmsTemplateId")]
-    [InverseProperty("SmsTemplatePreviews")]
+    //[InverseProperty("SmsTemplatePreviews")]
     public virtual SmsTemplate? SmsTemplate { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("SmsTemplatePreviewWriteUs")]
+    //[InverseProperty("SmsTemplatePreviewWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

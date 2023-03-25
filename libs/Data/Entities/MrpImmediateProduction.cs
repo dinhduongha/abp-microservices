@@ -30,16 +30,16 @@ public partial class MrpImmediateProduction
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpImmediateProductionCreateUs")]
+    //[InverseProperty("MrpImmediateProductionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MrpImmediateProductionWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ImmediateProduction")]
     [NotMapped]
     public virtual ICollection<MrpImmediateProductionLine> MrpImmediateProductionLines { get; } = new List<MrpImmediateProductionLine>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpImmediateProductionWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MrpImmediateProductionId")]
     [InverseProperty("MrpImmediateProductions")]

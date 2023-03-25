@@ -72,8 +72,12 @@ public partial class ReportPaperformat
     public double? MarginRight { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ReportPaperformatCreateUs")]
+    //[InverseProperty("ReportPaperformatCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ReportPaperformatWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Paperformat")]
     [NotMapped]
@@ -83,7 +87,4 @@ public partial class ReportPaperformat
     [NotMapped]
     public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ReportPaperformatWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

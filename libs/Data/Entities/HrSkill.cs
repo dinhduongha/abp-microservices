@@ -39,8 +39,16 @@ public partial class HrSkill
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrSkillCreateUs")]
+    //[InverseProperty("HrSkillCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("SkillTypeId")]
+    //[InverseProperty("HrSkills")]
+    public virtual HrSkillType? SkillType { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrSkillWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Skill")]
     [NotMapped]
@@ -53,14 +61,6 @@ public partial class HrSkill
     [InverseProperty("Skill")]
     [NotMapped]
     public virtual ICollection<HrEmployeeSkill> HrEmployeeSkills { get; } = new List<HrEmployeeSkill>();
-
-    [ForeignKey("SkillTypeId")]
-    [InverseProperty("HrSkills")]
-    public virtual HrSkillType? SkillType { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrSkillWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrSkillId")]
     [InverseProperty("HrSkills")]

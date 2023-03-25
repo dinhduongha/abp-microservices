@@ -30,10 +30,10 @@ public partial class StockSchedulerCompute
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockSchedulerComputeCreateUs")]
+    //[InverseProperty("StockSchedulerComputeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockSchedulerComputeWriteUs")]
+    //[InverseProperty("StockSchedulerComputeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -45,22 +45,22 @@ public partial class FleetVehicleAssignationLog
     public Guid? DriverEmployeeId { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("FleetVehicleAssignationLogCreateUs")]
+    //[InverseProperty("FleetVehicleAssignationLogCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DriverId")]
-    [InverseProperty("FleetVehicleAssignationLogs")]
+    //[InverseProperty("FleetVehicleAssignationLogs")]
     public virtual ResPartner? Driver { get; set; }
 
     [ForeignKey("DriverEmployeeId")]
-    [InverseProperty("FleetVehicleAssignationLogs")]
+    //[InverseProperty("FleetVehicleAssignationLogs")]
     public virtual HrEmployee? DriverEmployee { get; set; }
 
     [ForeignKey("VehicleId")]
-    [InverseProperty("FleetVehicleAssignationLogs")]
+    //[InverseProperty("FleetVehicleAssignationLogs")]
     public virtual FleetVehicle? Vehicle { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("FleetVehicleAssignationLogWriteUs")]
+    //[InverseProperty("FleetVehicleAssignationLogWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -54,18 +54,18 @@ public partial class PaymentLinkWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PaymentLinkWizardCreateUs")]
+    //[InverseProperty("PaymentLinkWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("PaymentLinkWizards")]
+    //[InverseProperty("PaymentLinkWizards")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("PaymentLinkWizards")]
+    //[InverseProperty("PaymentLinkWizards")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PaymentLinkWizardWriteUs")]
+    //[InverseProperty("PaymentLinkWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

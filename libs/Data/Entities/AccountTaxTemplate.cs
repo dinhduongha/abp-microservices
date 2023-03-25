@@ -78,6 +78,26 @@ public partial class AccountTaxTemplate
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CashBasisTransitionAccountId")]
+    //[InverseProperty("AccountTaxTemplates")]
+    public virtual AccountAccountTemplate? CashBasisTransitionAccount { get; set; }
+
+    [ForeignKey("ChartTemplateId")]
+    //[InverseProperty("AccountTaxTemplates")]
+    public virtual AccountChartTemplate? ChartTemplate { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("AccountTaxTemplateCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("TaxGroupId")]
+    //[InverseProperty("AccountTaxTemplates")]
+    public virtual AccountTaxGroup? TaxGroup { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountTaxTemplateWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("TaxDest")]
     [NotMapped]
     public virtual ICollection<AccountFiscalPositionTaxTemplate> AccountFiscalPositionTaxTemplateTaxDests { get; } = new List<AccountFiscalPositionTaxTemplate>();
@@ -93,26 +113,6 @@ public partial class AccountTaxTemplate
     [InverseProperty("RefundTax")]
     [NotMapped]
     public virtual ICollection<AccountTaxRepartitionLineTemplate> AccountTaxRepartitionLineTemplateRefundTaxes { get; } = new List<AccountTaxRepartitionLineTemplate>();
-
-    [ForeignKey("CashBasisTransitionAccountId")]
-    [InverseProperty("AccountTaxTemplates")]
-    public virtual AccountAccountTemplate? CashBasisTransitionAccount { get; set; }
-
-    [ForeignKey("ChartTemplateId")]
-    [InverseProperty("AccountTaxTemplates")]
-    public virtual AccountChartTemplate? ChartTemplate { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("AccountTaxTemplateCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("TaxGroupId")]
-    [InverseProperty("AccountTaxTemplates")]
-    public virtual AccountTaxGroup? TaxGroup { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountTaxTemplateWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountTaxTemplateId")]
     [InverseProperty("AccountTaxTemplates")]

@@ -52,22 +52,22 @@ public partial class SaleOrderCancel
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AuthorId")]
-    [InverseProperty("SaleOrderCancels")]
+    //[InverseProperty("SaleOrderCancels")]
     public virtual ResPartner? Author { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SaleOrderCancelCreateUs")]
+    //[InverseProperty("SaleOrderCancelCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("OrderId")]
-    [InverseProperty("SaleOrderCancels")]
+    //[InverseProperty("SaleOrderCancels")]
     public virtual SaleOrder? Order { get; set; }
 
     [ForeignKey("TemplateId")]
-    [InverseProperty("SaleOrderCancels")]
+    //[InverseProperty("SaleOrderCancels")]
     public virtual MailTemplate? Template { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("SaleOrderCancelWriteUs")]
+    //[InverseProperty("SaleOrderCancelWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

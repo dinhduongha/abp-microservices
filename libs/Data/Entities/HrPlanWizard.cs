@@ -33,15 +33,15 @@ public partial class HrPlanWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrPlanWizardCreateUs")]
+    //[InverseProperty("HrPlanWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PlanId")]
-    [InverseProperty("HrPlanWizards")]
+    //[InverseProperty("HrPlanWizards")]
     public virtual HrPlan? Plan { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("HrPlanWizardWriteUs")]
+    //[InverseProperty("HrPlanWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("EmployeeId")]

@@ -42,15 +42,15 @@ public partial class StockRequestCount
     public DateOnly? AccountingDate { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockRequestCountCreateUs")]
+    //[InverseProperty("StockRequestCountCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("StockRequestCountUsers")]
+    //[InverseProperty("StockRequestCountUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockRequestCountWriteUs")]
+    //[InverseProperty("StockRequestCountWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockRequestCountId")]

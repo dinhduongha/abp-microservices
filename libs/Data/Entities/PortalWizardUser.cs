@@ -39,18 +39,18 @@ public partial class PortalWizardUser
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PortalWizardUserCreateUs")]
+    //[InverseProperty("PortalWizardUserCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("PortalWizardUsers")]
+    //[InverseProperty("PortalWizardUsers")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("WizardId")]
-    [InverseProperty("PortalWizardUsers")]
+    //[InverseProperty("PortalWizardUsers")]
     public virtual PortalWizard? Wizard { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PortalWizardUserWriteUs")]
+    //[InverseProperty("PortalWizardUserWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

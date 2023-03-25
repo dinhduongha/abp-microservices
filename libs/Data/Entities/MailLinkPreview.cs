@@ -56,14 +56,14 @@ public partial class MailLinkPreview
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailLinkPreviewCreateUs")]
+    //[InverseProperty("MailLinkPreviewCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageId")]
-    [InverseProperty("MailLinkPreviews")]
+    //[InverseProperty("MailLinkPreviews")]
     public virtual MailMessage? Message { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailLinkPreviewWriteUs")]
+    //[InverseProperty("MailLinkPreviewWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

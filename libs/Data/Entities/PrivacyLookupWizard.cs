@@ -42,18 +42,19 @@ public partial class PrivacyLookupWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PrivacyLookupWizardCreateUs")]
+    //[InverseProperty("PrivacyLookupWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LogId")]
-    [InverseProperty("PrivacyLookupWizards")]
+    //[InverseProperty("PrivacyLookupWizards")]
     public virtual PrivacyLog? Log { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PrivacyLookupWizardWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Wizard")]
     [NotMapped]
     public virtual ICollection<PrivacyLookupWizardLine> PrivacyLookupWizardLines { get; } = new List<PrivacyLookupWizardLine>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PrivacyLookupWizardWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

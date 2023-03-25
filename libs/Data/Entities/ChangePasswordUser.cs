@@ -42,18 +42,18 @@ public partial class ChangePasswordUser
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ChangePasswordUserCreateUs")]
+    //[InverseProperty("ChangePasswordUserCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("ChangePasswordUserUsers")]
+    //[InverseProperty("ChangePasswordUserUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("WizardId")]
-    [InverseProperty("ChangePasswordUsers")]
+    //[InverseProperty("ChangePasswordUsers")]
     public virtual ChangePasswordWizard? Wizard { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ChangePasswordUserWriteUs")]
+    //[InverseProperty("ChangePasswordUserWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

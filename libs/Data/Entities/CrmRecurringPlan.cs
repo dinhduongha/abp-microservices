@@ -42,14 +42,15 @@ public partial class CrmRecurringPlan
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmRecurringPlanCreateUs")]
+    //[InverseProperty("CrmRecurringPlanCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("CrmRecurringPlanWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("RecurringPlanNavigation")]
     [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmRecurringPlanWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

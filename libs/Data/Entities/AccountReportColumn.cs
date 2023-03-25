@@ -54,18 +54,18 @@ public partial class AccountReportColumn
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountReportColumnCreateUs")]
+    //[InverseProperty("AccountReportColumnCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CustomAuditActionId")]
-    [InverseProperty("AccountReportColumns")]
+    //[InverseProperty("AccountReportColumns")]
     public virtual IrActWindow? CustomAuditAction { get; set; }
 
     [ForeignKey("ReportId")]
-    [InverseProperty("AccountReportColumns")]
+    //[InverseProperty("AccountReportColumns")]
     public virtual AccountReport? Report { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountReportColumnWriteUs")]
+    //[InverseProperty("AccountReportColumnWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

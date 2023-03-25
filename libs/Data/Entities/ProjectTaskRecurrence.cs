@@ -90,14 +90,15 @@ public partial class ProjectTaskRecurrence
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProjectTaskRecurrenceCreateUs")]
+    //[InverseProperty("ProjectTaskRecurrenceCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProjectTaskRecurrenceWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Recurrence")]
     [NotMapped]
     public virtual ICollection<ProjectTask> ProjectTasks { get; } = new List<ProjectTask>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProjectTaskRecurrenceWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

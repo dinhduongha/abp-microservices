@@ -48,18 +48,18 @@ public partial class CalendarAttendee
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CalendarAttendeeCreateUs")]
+    //[InverseProperty("CalendarAttendeeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EventId")]
-    [InverseProperty("CalendarAttendees")]
+    //[InverseProperty("CalendarAttendees")]
     public virtual CalendarEvent? Event { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("CalendarAttendees")]
+    //[InverseProperty("CalendarAttendees")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CalendarAttendeeWriteUs")]
+    //[InverseProperty("CalendarAttendeeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

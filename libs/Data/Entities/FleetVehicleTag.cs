@@ -37,11 +37,11 @@ public partial class FleetVehicleTag
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("FleetVehicleTagCreateUs")]
+    //[InverseProperty("FleetVehicleTagCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("FleetVehicleTagWriteUs")]
+    //[InverseProperty("FleetVehicleTagWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("TagId")]

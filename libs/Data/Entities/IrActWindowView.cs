@@ -46,18 +46,18 @@ public partial class IrActWindowView
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("ActWindowId")]
-    [InverseProperty("IrActWindowViews")]
+    //[InverseProperty("IrActWindowViews")]
     public virtual IrActWindow? ActWindow { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrActWindowViewCreateUs")]
+    //[InverseProperty("IrActWindowViewCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ViewId")]
-    [InverseProperty("IrActWindowViewsNavigation")]
+    //[InverseProperty("IrActWindowViewsNavigation")]
     public virtual IrUiView? View { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrActWindowViewWriteUs")]
+    //[InverseProperty("IrActWindowViewWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

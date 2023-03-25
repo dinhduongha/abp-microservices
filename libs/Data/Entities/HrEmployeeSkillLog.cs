@@ -52,30 +52,30 @@ public partial class HrEmployeeSkillLog
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrEmployeeSkillLogCreateUs")]
+    //[InverseProperty("HrEmployeeSkillLogCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartmentId")]
-    [InverseProperty("HrEmployeeSkillLogs")]
+    //[InverseProperty("HrEmployeeSkillLogs")]
     public virtual HrDepartment? Department { get; set; }
 
     [ForeignKey("EmployeeId")]
-    [InverseProperty("HrEmployeeSkillLogs")]
+    //[InverseProperty("HrEmployeeSkillLogs")]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("SkillId")]
-    [InverseProperty("HrEmployeeSkillLogs")]
+    //[InverseProperty("HrEmployeeSkillLogs")]
     public virtual HrSkill? Skill { get; set; }
 
     [ForeignKey("SkillLevelId")]
-    [InverseProperty("HrEmployeeSkillLogs")]
+    //[InverseProperty("HrEmployeeSkillLogs")]
     public virtual HrSkillLevel? SkillLevel { get; set; }
 
     [ForeignKey("SkillTypeId")]
-    [InverseProperty("HrEmployeeSkillLogs")]
+    //[InverseProperty("HrEmployeeSkillLogs")]
     public virtual HrSkillType? SkillType { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("HrEmployeeSkillLogWriteUs")]
+    //[InverseProperty("HrEmployeeSkillLogWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

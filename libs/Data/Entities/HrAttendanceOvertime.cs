@@ -46,12 +46,16 @@ public partial class HrAttendanceOvertime
     public double? DurationReal { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrAttendanceOvertimeCreateUs")]
+    //[InverseProperty("HrAttendanceOvertimeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EmployeeId")]
-    [InverseProperty("HrAttendanceOvertimes")]
+    //[InverseProperty("HrAttendanceOvertimes")]
     public virtual HrEmployee? Employee { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrAttendanceOvertimeWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Overtime")]
     [NotMapped]
@@ -61,7 +65,4 @@ public partial class HrAttendanceOvertime
     [NotMapped]
     public virtual ICollection<HrLeave> HrLeaves { get; } = new List<HrLeave>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrAttendanceOvertimeWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

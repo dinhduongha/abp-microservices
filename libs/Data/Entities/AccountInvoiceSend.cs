@@ -48,24 +48,24 @@ public partial class AccountInvoiceSend
     public bool? SnailmailIsLetter { get; set; }
 
     [ForeignKey("ComposerId")]
-    [InverseProperty("AccountInvoiceSends")]
+    //[InverseProperty("AccountInvoiceSends")]
     public virtual MailComposeMessage? Composer { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountInvoiceSendCreateUs")]
+    //[InverseProperty("AccountInvoiceSendCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("TemplateId")]
+    //[InverseProperty("AccountInvoiceSends")]
+    public virtual MailTemplate? Template { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountInvoiceSendWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("InvoiceSend")]
     [NotMapped]
     public virtual ICollection<SnailmailConfirmInvoice> SnailmailConfirmInvoices { get; } = new List<SnailmailConfirmInvoice>();
-
-    [ForeignKey("TemplateId")]
-    [InverseProperty("AccountInvoiceSends")]
-    public virtual MailTemplate? Template { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountInvoiceSendWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountInvoiceSendId")]
     [InverseProperty("AccountInvoiceSends")]

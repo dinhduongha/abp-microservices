@@ -30,11 +30,11 @@ public partial class ConfirmStockSm
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ConfirmStockSmCreateUs")]
+    //[InverseProperty("ConfirmStockSmCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ConfirmStockSmWriteUs")]
+    //[InverseProperty("ConfirmStockSmWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ConfirmStockSmsId")]

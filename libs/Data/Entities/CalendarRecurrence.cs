@@ -90,7 +90,7 @@ public partial class CalendarRecurrence
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("BaseEventId")]
-    [InverseProperty("CalendarRecurrences")]
+    //[InverseProperty("CalendarRecurrences")]
     public virtual CalendarEvent? BaseEvent { get; set; }
 
     [InverseProperty("Recurrence")]
@@ -98,10 +98,10 @@ public partial class CalendarRecurrence
     public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CalendarRecurrenceCreateUs")]
+    //[InverseProperty("CalendarRecurrenceCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CalendarRecurrenceWriteUs")]
+    //[InverseProperty("CalendarRecurrenceWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

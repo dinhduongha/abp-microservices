@@ -48,14 +48,14 @@ public partial class IrAction
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("BindingModelId")]
-    [InverseProperty("IrActions")]
+    //[InverseProperty("IrActions")]
     public virtual IrModel? BindingModel { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrActionCreateUs")]
+    //[InverseProperty("IrActionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrActionWriteUs")]
+    //[InverseProperty("IrActionWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

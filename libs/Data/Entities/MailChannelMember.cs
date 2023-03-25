@@ -69,37 +69,37 @@ public partial class MailChannelMember
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("ChannelId")]
-    [InverseProperty("MailChannelMembers")]
+    //[InverseProperty("MailChannelMembers")]
     public virtual MailChannel? Channel { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailChannelMemberCreateUs")]
+    //[InverseProperty("MailChannelMemberCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FetchedMessageId")]
-    [InverseProperty("MailChannelMemberFetchedMessages")]
+    //[InverseProperty("MailChannelMemberFetchedMessages")]
     public virtual MailMessage? FetchedMessage { get; set; }
 
     [ForeignKey("GuestId")]
-    [InverseProperty("MailChannelMembers")]
+    //[InverseProperty("MailChannelMembers")]
     public virtual MailGuest? Guest { get; set; }
 
     [InverseProperty("ChannelMember")]
     public virtual MailChannelRtcSession? MailChannelRtcSession { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("MailChannelMembers")]
+    //[InverseProperty("MailChannelMembers")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("RtcInvitingSessionId")]
-    [InverseProperty("MailChannelMembers")]
+    //[InverseProperty("MailChannelMembers")]
     public virtual MailChannelRtcSession? RtcInvitingSession { get; set; }
 
     [ForeignKey("SeenMessageId")]
-    [InverseProperty("MailChannelMemberSeenMessages")]
+    //[InverseProperty("MailChannelMemberSeenMessages")]
     public virtual MailMessage? SeenMessage { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailChannelMemberWriteUs")]
+    //[InverseProperty("MailChannelMemberWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

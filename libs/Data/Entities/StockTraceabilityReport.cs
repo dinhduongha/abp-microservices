@@ -30,10 +30,10 @@ public partial class StockTraceabilityReport
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockTraceabilityReportCreateUs")]
+    //[InverseProperty("StockTraceabilityReportCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockTraceabilityReportWriteUs")]
+    //[InverseProperty("StockTraceabilityReportWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

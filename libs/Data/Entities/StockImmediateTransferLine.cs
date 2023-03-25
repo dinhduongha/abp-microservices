@@ -39,18 +39,18 @@ public partial class StockImmediateTransferLine
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockImmediateTransferLineCreateUs")]
+    //[InverseProperty("StockImmediateTransferLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ImmediateTransferId")]
-    [InverseProperty("StockImmediateTransferLines")]
+    //[InverseProperty("StockImmediateTransferLines")]
     public virtual StockImmediateTransfer? ImmediateTransfer { get; set; }
 
     [ForeignKey("PickingId")]
-    [InverseProperty("StockImmediateTransferLines")]
+    //[InverseProperty("StockImmediateTransferLines")]
     public virtual StockPicking? Picking { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockImmediateTransferLineWriteUs")]
+    //[InverseProperty("StockImmediateTransferLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

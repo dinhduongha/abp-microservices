@@ -33,15 +33,15 @@ public partial class CrmLeadScoringFrequencyField
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmLeadScoringFrequencyFieldCreateUs")]
+    //[InverseProperty("CrmLeadScoringFrequencyFieldCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FieldId")]
-    [InverseProperty("CrmLeadScoringFrequencyFields")]
+    //[InverseProperty("CrmLeadScoringFrequencyFields")]
     public virtual IrModelField? Field { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmLeadScoringFrequencyFieldWriteUs")]
+    //[InverseProperty("CrmLeadScoringFrequencyFieldWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CrmLeadScoringFrequencyFieldId")]

@@ -46,18 +46,18 @@ public partial class MrpWorkcenterCapacity
     public double? TimeStop { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpWorkcenterCapacityCreateUs")]
+    //[InverseProperty("MrpWorkcenterCapacityCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("MrpWorkcenterCapacities")]
+    //[InverseProperty("MrpWorkcenterCapacities")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("WorkcenterId")]
-    [InverseProperty("MrpWorkcenterCapacities")]
+    //[InverseProperty("MrpWorkcenterCapacities")]
     public virtual MrpWorkcenter? Workcenter { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpWorkcenterCapacityWriteUs")]
+    //[InverseProperty("MrpWorkcenterCapacityWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

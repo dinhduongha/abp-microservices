@@ -36,10 +36,10 @@ public partial class ChangePasswordOwn
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ChangePasswordOwnCreateUs")]
+    //[InverseProperty("ChangePasswordOwnCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ChangePasswordOwnWriteUs")]
+    //[InverseProperty("ChangePasswordOwnWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

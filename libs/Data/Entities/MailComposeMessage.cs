@@ -104,41 +104,41 @@ public partial class MailComposeMessage
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
-    [InverseProperty("Composer")]
-    [NotMapped]
-    public virtual ICollection<AccountInvoiceSend> AccountInvoiceSends { get; } = new List<AccountInvoiceSend>();
-
     [ForeignKey("AuthorId")]
-    [InverseProperty("MailComposeMessages")]
+    //[InverseProperty("MailComposeMessages")]
     public virtual ResPartner? Author { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailComposeMessageCreateUs")]
+    //[InverseProperty("MailComposeMessageCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailActivityTypeId")]
-    [InverseProperty("MailComposeMessages")]
+    //[InverseProperty("MailComposeMessages")]
     public virtual MailActivityType? MailActivityType { get; set; }
 
     [ForeignKey("MailServerId")]
-    [InverseProperty("MailComposeMessages")]
+    //[InverseProperty("MailComposeMessages")]
     public virtual IrMailServer? MailServer { get; set; }
 
     [ForeignKey("ParentId")]
-    [InverseProperty("MailComposeMessages")]
+    //[InverseProperty("MailComposeMessages")]
     public virtual MailMessage? Parent { get; set; }
 
     [ForeignKey("SubtypeId")]
-    [InverseProperty("MailComposeMessages")]
+    //[InverseProperty("MailComposeMessages")]
     public virtual MailMessageSubtype? Subtype { get; set; }
 
     [ForeignKey("TemplateId")]
-    [InverseProperty("MailComposeMessages")]
+    //[InverseProperty("MailComposeMessages")]
     public virtual MailTemplate? Template { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailComposeMessageWriteUs")]
+    //[InverseProperty("MailComposeMessageWriteUs")]
     public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("Composer")]
+    [NotMapped]
+    public virtual ICollection<AccountInvoiceSend> AccountInvoiceSends { get; } = new List<AccountInvoiceSend>();
 
     [ForeignKey("WizardId")]
     [InverseProperty("Wizards")]

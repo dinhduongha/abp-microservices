@@ -33,10 +33,10 @@ public partial class BusPresence
     public Guid? GuestId { get; set; }
 
     [ForeignKey("GuestId")]
-    [InverseProperty("BusPresence")]
+    //[InverseProperty("BusPresence")]
     public virtual MailGuest? Guest { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("BusPresence")]
+    //[InverseProperty("BusPresence")]
     public virtual ResUser? User { get; set; }
 }

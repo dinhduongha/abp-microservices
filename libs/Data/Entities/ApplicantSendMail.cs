@@ -45,19 +45,19 @@ public partial class ApplicantSendMail
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AuthorId")]
-    [InverseProperty("ApplicantSendMails")]
+    //[InverseProperty("ApplicantSendMails")]
     public virtual ResPartner? Author { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ApplicantSendMailCreateUs")]
+    //[InverseProperty("ApplicantSendMailCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TemplateId")]
-    [InverseProperty("ApplicantSendMails")]
+    //[InverseProperty("ApplicantSendMails")]
     public virtual MailTemplate? Template { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ApplicantSendMailWriteUs")]
+    //[InverseProperty("ApplicantSendMailWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ApplicantSendMailId")]

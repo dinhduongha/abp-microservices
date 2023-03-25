@@ -39,14 +39,14 @@ public partial class MailMessageSchedule
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailMessageScheduleCreateUs")]
+    //[InverseProperty("MailMessageScheduleCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailMessageId")]
-    [InverseProperty("MailMessageSchedules")]
+    //[InverseProperty("MailMessageSchedules")]
     public virtual MailMessage? MailMessage { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailMessageScheduleWriteUs")]
+    //[InverseProperty("MailMessageScheduleWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

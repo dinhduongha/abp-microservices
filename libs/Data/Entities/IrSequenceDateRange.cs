@@ -42,14 +42,14 @@ public partial class IrSequenceDateRange
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrSequenceDateRangeCreateUs")]
+    //[InverseProperty("IrSequenceDateRangeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("SequenceId")]
-    [InverseProperty("IrSequenceDateRanges")]
+    //[InverseProperty("IrSequenceDateRanges")]
     public virtual IrSequence? Sequence { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrSequenceDateRangeWriteUs")]
+    //[InverseProperty("IrSequenceDateRangeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

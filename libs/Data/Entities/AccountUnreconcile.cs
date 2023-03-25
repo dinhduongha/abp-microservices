@@ -30,10 +30,10 @@ public partial class AccountUnreconcile
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountUnreconcileCreateUs")]
+    //[InverseProperty("AccountUnreconcileCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountUnreconcileWriteUs")]
+    //[InverseProperty("AccountUnreconcileWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

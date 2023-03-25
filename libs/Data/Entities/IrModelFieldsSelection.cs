@@ -44,14 +44,14 @@ public partial class IrModelFieldsSelection
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrModelFieldsSelectionCreateUs")]
+    //[InverseProperty("IrModelFieldsSelectionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FieldId")]
-    [InverseProperty("IrModelFieldsSelections")]
+    //[InverseProperty("IrModelFieldsSelections")]
     public virtual IrModelField? Field { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrModelFieldsSelectionWriteUs")]
+    //[InverseProperty("IrModelFieldsSelectionWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

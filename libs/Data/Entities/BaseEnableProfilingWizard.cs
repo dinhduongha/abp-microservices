@@ -36,10 +36,10 @@ public partial class BaseEnableProfilingWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseEnableProfilingWizardCreateUs")]
+    //[InverseProperty("BaseEnableProfilingWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseEnableProfilingWizardWriteUs")]
+    //[InverseProperty("BaseEnableProfilingWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

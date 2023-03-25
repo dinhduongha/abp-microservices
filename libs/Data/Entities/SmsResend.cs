@@ -33,18 +33,19 @@ public partial class SmsResend
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SmsResendCreateUs")]
+    //[InverseProperty("SmsResendCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailMessageId")]
-    [InverseProperty("SmsResends")]
+    //[InverseProperty("SmsResends")]
     public virtual MailMessage? MailMessage { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("SmsResendWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("SmsResend")]
     [NotMapped]
     public virtual ICollection<SmsResendRecipient> SmsResendRecipients { get; } = new List<SmsResendRecipient>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("SmsResendWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

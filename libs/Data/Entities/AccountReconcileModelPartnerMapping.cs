@@ -42,18 +42,18 @@ public partial class AccountReconcileModelPartnerMapping
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountReconcileModelPartnerMappingCreateUs")]
+    //[InverseProperty("AccountReconcileModelPartnerMappingCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModelId")]
-    [InverseProperty("AccountReconcileModelPartnerMappings")]
+    //[InverseProperty("AccountReconcileModelPartnerMappings")]
     public virtual AccountReconcileModel? Model { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("AccountReconcileModelPartnerMappings")]
+    //[InverseProperty("AccountReconcileModelPartnerMappings")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountReconcileModelPartnerMappingWriteUs")]
+    //[InverseProperty("AccountReconcileModelPartnerMappingWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

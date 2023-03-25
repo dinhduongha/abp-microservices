@@ -39,14 +39,14 @@ public partial class AccountSetupBankManualConfig
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountSetupBankManualConfigCreateUs")]
+    //[InverseProperty("AccountSetupBankManualConfigCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ResPartnerBankId")]
-    [InverseProperty("AccountSetupBankManualConfigs")]
+    //[InverseProperty("AccountSetupBankManualConfigs")]
     public virtual ResPartnerBank? ResPartnerBank { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountSetupBankManualConfigWriteUs")]
+    //[InverseProperty("AccountSetupBankManualConfigWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

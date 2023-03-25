@@ -82,8 +82,12 @@ public partial class IrMailServer
     public string? GoogleGmailAccessToken { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrMailServerCreateUs")]
+    //[InverseProperty("IrMailServerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("IrMailServerWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("MailServer")]
     [NotMapped]
@@ -97,7 +101,4 @@ public partial class IrMailServer
     [NotMapped]
     public virtual ICollection<MailTemplate> MailTemplates { get; } = new List<MailTemplate>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("IrMailServerWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

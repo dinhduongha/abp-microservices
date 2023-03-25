@@ -37,18 +37,18 @@ public partial class ProjectCollaborator
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProjectCollaboratorCreateUs")]
+    //[InverseProperty("ProjectCollaboratorCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("ProjectCollaborators")]
+    //[InverseProperty("ProjectCollaborators")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("ProjectId")]
-    [InverseProperty("ProjectCollaborators")]
+    //[InverseProperty("ProjectCollaborators")]
     public virtual ProjectProject? Project { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ProjectCollaboratorWriteUs")]
+    //[InverseProperty("ProjectCollaboratorWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -45,22 +45,22 @@ public partial class ResUsersSettingsVolume
     public double? Volume { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResUsersSettingsVolumeCreateUs")]
+    //[InverseProperty("ResUsersSettingsVolumeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GuestId")]
-    [InverseProperty("ResUsersSettingsVolumeGuests")]
+    //[InverseProperty("ResUsersSettingsVolumeGuests")]
     public virtual ResPartner? Guest { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("ResUsersSettingsVolumePartners")]
+    //[InverseProperty("ResUsersSettingsVolumePartners")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("UserSettingId")]
-    [InverseProperty("ResUsersSettingsVolumes")]
+    //[InverseProperty("ResUsersSettingsVolumes")]
     public virtual ResUsersSetting? UserSetting { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResUsersSettingsVolumeWriteUs")]
+    //[InverseProperty("ResUsersSettingsVolumeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -155,15 +155,15 @@ public partial class AccountChartTemplate
     public virtual AccountAccountTemplate? AccountJournalSuspenseAccount { get; set; }
 
     [ForeignKey("CountryId")]
-    [InverseProperty("AccountChartTemplates")]
+    //[InverseProperty("AccountChartTemplates")]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountChartTemplateCreateUs")]
+    //[InverseProperty("AccountChartTemplateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("AccountChartTemplates")]
+    //[InverseProperty("AccountChartTemplates")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("DefaultCashDifferenceExpenseAccountId")]
@@ -243,7 +243,7 @@ public partial class AccountChartTemplate
     public virtual AccountAccountTemplate? PropertyTaxReceivableAccount { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountChartTemplateWriteUs")]
+    //[InverseProperty("AccountChartTemplateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ChartTemplate")]

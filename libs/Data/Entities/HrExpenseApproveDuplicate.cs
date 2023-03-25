@@ -30,11 +30,11 @@ public partial class HrExpenseApproveDuplicate
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrExpenseApproveDuplicateCreateUs")]
+    //[InverseProperty("HrExpenseApproveDuplicateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("HrExpenseApproveDuplicateWriteUs")]
+    //[InverseProperty("HrExpenseApproveDuplicateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrExpenseApproveDuplicateId")]

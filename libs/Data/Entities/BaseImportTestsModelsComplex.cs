@@ -48,14 +48,14 @@ public partial class BaseImportTestsModelsComplex
     public double? F { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseImportTestsModelsComplexCreateUs")]
+    //[InverseProperty("BaseImportTestsModelsComplexCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("BaseImportTestsModelsComplexes")]
+    //[InverseProperty("BaseImportTestsModelsComplexes")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseImportTestsModelsComplexWriteUs")]
+    //[InverseProperty("BaseImportTestsModelsComplexWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

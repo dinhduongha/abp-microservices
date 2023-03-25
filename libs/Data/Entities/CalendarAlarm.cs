@@ -54,19 +54,19 @@ public partial class CalendarAlarm
     public Guid? SmsTemplateId { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CalendarAlarmCreateUs")]
+    //[InverseProperty("CalendarAlarmCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailTemplateId")]
-    [InverseProperty("CalendarAlarms")]
+    //[InverseProperty("CalendarAlarms")]
     public virtual MailTemplate? MailTemplate { get; set; }
 
     [ForeignKey("SmsTemplateId")]
-    [InverseProperty("CalendarAlarms")]
+    //[InverseProperty("CalendarAlarms")]
     public virtual SmsTemplate? SmsTemplate { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CalendarAlarmWriteUs")]
+    //[InverseProperty("CalendarAlarmWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CalendarAlarmId")]

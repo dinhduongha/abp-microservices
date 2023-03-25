@@ -80,42 +80,42 @@ public partial class MailActivity
     public Guid? NoteId { get; set; }
 
     [ForeignKey("ActivityTypeId")]
-    [InverseProperty("MailActivityActivityTypes")]
+    //[InverseProperty("MailActivityActivityTypes")]
     public virtual MailActivityType? ActivityType { get; set; }
 
     [ForeignKey("CalendarEventId")]
-    [InverseProperty("MailActivities")]
+    //[InverseProperty("MailActivities")]
     public virtual CalendarEvent? CalendarEvent { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailActivityCreateUs")]
+    //[InverseProperty("MailActivityCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("NoteId")]
-    [InverseProperty("MailActivities")]
+    //[InverseProperty("MailActivities")]
     public virtual NoteNote? NoteNavigation { get; set; }
 
     [ForeignKey("PreviousActivityTypeId")]
-    [InverseProperty("MailActivityPreviousActivityTypes")]
+    //[InverseProperty("MailActivityPreviousActivityTypes")]
     public virtual MailActivityType? PreviousActivityType { get; set; }
 
     [ForeignKey("RecommendedActivityTypeId")]
-    [InverseProperty("MailActivityRecommendedActivityTypes")]
+    //[InverseProperty("MailActivityRecommendedActivityTypes")]
     public virtual MailActivityType? RecommendedActivityType { get; set; }
 
     [ForeignKey("RequestPartnerId")]
-    [InverseProperty("MailActivities")]
+    //[InverseProperty("MailActivities")]
     public virtual ResPartner? RequestPartner { get; set; }
 
     [ForeignKey("ResModelId")]
-    [InverseProperty("MailActivities")]
+    //[InverseProperty("MailActivities")]
     public virtual IrModel? ResModelNavigation { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("MailActivityUsers")]
+    //[InverseProperty("MailActivityUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailActivityWriteUs")]
+    //[InverseProperty("MailActivityWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

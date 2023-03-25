@@ -75,17 +75,25 @@ public partial class MailActivityType
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
-    [InverseProperty("SaleActivityType")]
-    [NotMapped]
-    public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
-
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailActivityTypeCreateUs")]
+    //[InverseProperty("MailActivityTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DefaultUserId")]
-    [InverseProperty("MailActivityTypeDefaultUsers")]
+    //[InverseProperty("MailActivityTypeDefaultUsers")]
     public virtual ResUser? DefaultUser { get; set; }
+
+    [ForeignKey("TriggeredNextTypeId")]
+    //[InverseProperty("InverseTriggeredNextType")]
+    public virtual MailActivityType? TriggeredNextType { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MailActivityTypeWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("SaleActivityType")]
+    [NotMapped]
+    public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 
     [InverseProperty("ActivityType")]
     [NotMapped]
@@ -118,14 +126,6 @@ public partial class MailActivityType
     [InverseProperty("MailActivityType")]
     [NotMapped]
     public virtual ICollection<MailMessage> MailMessages { get; } = new List<MailMessage>();
-
-    [ForeignKey("TriggeredNextTypeId")]
-    [InverseProperty("InverseTriggeredNextType")]
-    public virtual MailActivityType? TriggeredNextType { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MailActivityTypeWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("RecommendedId")]
     [InverseProperty("Recommendeds")]

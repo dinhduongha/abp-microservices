@@ -58,18 +58,19 @@ public partial class IrFilter
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrFilterCreateUs")]
+    //[InverseProperty("IrFilterCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("IrFilterUsers")]
+    //[InverseProperty("IrFilterUsers")]
     public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("IrFilterWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Filter")]
     [NotMapped]
     public virtual ICollection<WebsiteSnippetFilter> WebsiteSnippetFilters { get; } = new List<WebsiteSnippetFilter>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("IrFilterWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

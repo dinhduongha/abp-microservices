@@ -30,14 +30,15 @@ public partial class IrDemoFailureWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrDemoFailureWizardCreateUs")]
+    //[InverseProperty("IrDemoFailureWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("IrDemoFailureWizardWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Wizard")]
     [NotMapped]
     public virtual ICollection<IrDemoFailure> IrDemoFailures { get; } = new List<IrDemoFailure>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("IrDemoFailureWizardWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

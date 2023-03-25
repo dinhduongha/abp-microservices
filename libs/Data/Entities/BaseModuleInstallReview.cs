@@ -33,14 +33,14 @@ public partial class BaseModuleInstallReview
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseModuleInstallReviewCreateUs")]
+    //[InverseProperty("BaseModuleInstallReviewCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModuleId")]
-    [InverseProperty("BaseModuleInstallReviews")]
+    //[InverseProperty("BaseModuleInstallReviews")]
     public virtual IrModuleModule? Module { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseModuleInstallReviewWriteUs")]
+    //[InverseProperty("BaseModuleInstallReviewWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

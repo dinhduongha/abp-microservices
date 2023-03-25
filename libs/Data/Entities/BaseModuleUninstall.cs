@@ -36,14 +36,14 @@ public partial class BaseModuleUninstall
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseModuleUninstallCreateUs")]
+    //[InverseProperty("BaseModuleUninstallCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModuleId")]
-    [InverseProperty("BaseModuleUninstalls")]
+    //[InverseProperty("BaseModuleUninstalls")]
     public virtual IrModuleModule? Module { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseModuleUninstallWriteUs")]
+    //[InverseProperty("BaseModuleUninstallWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

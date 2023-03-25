@@ -39,22 +39,22 @@ public partial class AccountFiscalPositionTaxTemplate
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountFiscalPositionTaxTemplateCreateUs")]
+    //[InverseProperty("AccountFiscalPositionTaxTemplateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PositionId")]
-    [InverseProperty("AccountFiscalPositionTaxTemplates")]
+    //[InverseProperty("AccountFiscalPositionTaxTemplates")]
     public virtual AccountFiscalPositionTemplate? Position { get; set; }
 
     [ForeignKey("TaxDestId")]
-    [InverseProperty("AccountFiscalPositionTaxTemplateTaxDests")]
+    //[InverseProperty("AccountFiscalPositionTaxTemplateTaxDests")]
     public virtual AccountTaxTemplate? TaxDest { get; set; }
 
     [ForeignKey("TaxSrcId")]
-    [InverseProperty("AccountFiscalPositionTaxTemplateTaxSrcs")]
+    //[InverseProperty("AccountFiscalPositionTaxTemplateTaxSrcs")]
     public virtual AccountTaxTemplate? TaxSrc { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountFiscalPositionTaxTemplateWriteUs")]
+    //[InverseProperty("AccountFiscalPositionTaxTemplateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

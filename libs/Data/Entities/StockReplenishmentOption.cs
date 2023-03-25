@@ -39,22 +39,22 @@ public partial class StockReplenishmentOption
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockReplenishmentOptionCreateUs")]
+    //[InverseProperty("StockReplenishmentOptionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("StockReplenishmentOptions")]
+    //[InverseProperty("StockReplenishmentOptions")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ReplenishmentInfoId")]
-    [InverseProperty("StockReplenishmentOptions")]
+    //[InverseProperty("StockReplenishmentOptions")]
     public virtual StockReplenishmentInfo? ReplenishmentInfo { get; set; }
 
     [ForeignKey("RouteId")]
-    [InverseProperty("StockReplenishmentOptions")]
+    //[InverseProperty("StockReplenishmentOptions")]
     public virtual StockRoute? Route { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockReplenishmentOptionWriteUs")]
+    //[InverseProperty("StockReplenishmentOptionWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

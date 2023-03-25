@@ -45,22 +45,22 @@ public partial class MrpConsumptionWarningLine
     public double? ProductExpectedQtyUom { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpConsumptionWarningLineCreateUs")]
+    //[InverseProperty("MrpConsumptionWarningLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MrpConsumptionWarningId")]
-    [InverseProperty("MrpConsumptionWarningLines")]
+    //[InverseProperty("MrpConsumptionWarningLines")]
     public virtual MrpConsumptionWarning? MrpConsumptionWarning { get; set; }
 
     [ForeignKey("MrpProductionId")]
-    [InverseProperty("MrpConsumptionWarningLines")]
+    //[InverseProperty("MrpConsumptionWarningLines")]
     public virtual MrpProduction? MrpProduction { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("MrpConsumptionWarningLines")]
+    //[InverseProperty("MrpConsumptionWarningLines")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpConsumptionWarningLineWriteUs")]
+    //[InverseProperty("MrpConsumptionWarningLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

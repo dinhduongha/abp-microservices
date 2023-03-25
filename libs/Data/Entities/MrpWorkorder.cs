@@ -99,36 +99,48 @@ public partial class MrpWorkorder
     public Guid? WcAnalyticAccountLineId { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpWorkorderCreateUs")]
+    //[InverseProperty("MrpWorkorderCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LeaveId")]
-    [InverseProperty("MrpWorkorders")]
+    //[InverseProperty("MrpWorkorders")]
     public virtual ResourceCalendarLeaf? Leave { get; set; }
 
     [ForeignKey("MoAnalyticAccountLineId")]
-    [InverseProperty("MrpWorkorderMoAnalyticAccountLines")]
+    //[InverseProperty("MrpWorkorderMoAnalyticAccountLines")]
     public virtual AccountAnalyticLine? MoAnalyticAccountLine { get; set; }
+
+    [ForeignKey("OperationId")]
+    //[InverseProperty("MrpWorkorders")]
+    public virtual MrpRoutingWorkcenter? Operation { get; set; }
+
+    [ForeignKey("ProductId")]
+    //[InverseProperty("MrpWorkorders")]
+    public virtual ProductProduct? Product { get; set; }
+
+    [ForeignKey("ProductUomId")]
+    //[InverseProperty("MrpWorkorders")]
+    public virtual UomUom? ProductUom { get; set; }
+
+    [ForeignKey("ProductionId")]
+    //[InverseProperty("MrpWorkorders")]
+    public virtual MrpProduction? Production { get; set; }
+
+    [ForeignKey("WcAnalyticAccountLineId")]
+    //[InverseProperty("MrpWorkorderWcAnalyticAccountLines")]
+    public virtual AccountAnalyticLine? WcAnalyticAccountLine { get; set; }
+
+    [ForeignKey("WorkcenterId")]
+    //[InverseProperty("MrpWorkorders")]
+    public virtual MrpWorkcenter? Workcenter { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MrpWorkorderWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Workorder")]
     [NotMapped]
     public virtual ICollection<MrpWorkcenterProductivity> MrpWorkcenterProductivities { get; } = new List<MrpWorkcenterProductivity>();
-
-    [ForeignKey("OperationId")]
-    [InverseProperty("MrpWorkorders")]
-    public virtual MrpRoutingWorkcenter? Operation { get; set; }
-
-    [ForeignKey("ProductId")]
-    [InverseProperty("MrpWorkorders")]
-    public virtual ProductProduct? Product { get; set; }
-
-    [ForeignKey("ProductUomId")]
-    [InverseProperty("MrpWorkorders")]
-    public virtual UomUom? ProductUom { get; set; }
-
-    [ForeignKey("ProductionId")]
-    [InverseProperty("MrpWorkorders")]
-    public virtual MrpProduction? Production { get; set; }
 
     [InverseProperty("Workorder")]
     [NotMapped]
@@ -141,18 +153,6 @@ public partial class MrpWorkorder
     [InverseProperty("Workorder")]
     [NotMapped]
     public virtual ICollection<StockScrap> StockScraps { get; } = new List<StockScrap>();
-
-    [ForeignKey("WcAnalyticAccountLineId")]
-    [InverseProperty("MrpWorkorderWcAnalyticAccountLines")]
-    public virtual AccountAnalyticLine? WcAnalyticAccountLine { get; set; }
-
-    [ForeignKey("WorkcenterId")]
-    [InverseProperty("MrpWorkorders")]
-    public virtual MrpWorkcenter? Workcenter { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpWorkorderWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("WorkorderId")]
     [InverseProperty("Workorders")]

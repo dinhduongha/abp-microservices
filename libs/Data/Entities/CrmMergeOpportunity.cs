@@ -36,19 +36,19 @@ public partial class CrmMergeOpportunity
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmMergeOpportunityCreateUs")]
+    //[InverseProperty("CrmMergeOpportunityCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TeamId")]
-    [InverseProperty("CrmMergeOpportunities")]
+    //[InverseProperty("CrmMergeOpportunities")]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("CrmMergeOpportunityUsers")]
+    //[InverseProperty("CrmMergeOpportunityUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmMergeOpportunityWriteUs")]
+    //[InverseProperty("CrmMergeOpportunityWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MergeId")]

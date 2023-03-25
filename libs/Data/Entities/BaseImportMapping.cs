@@ -40,10 +40,10 @@ public partial class BaseImportMapping
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseImportMappingCreateUs")]
+    //[InverseProperty("BaseImportMappingCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseImportMappingWriteUs")]
+    //[InverseProperty("BaseImportMappingWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

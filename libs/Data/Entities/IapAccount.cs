@@ -36,11 +36,11 @@ public partial class IapAccount
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IapAccountCreateUs")]
+    //[InverseProperty("IapAccountCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IapAccountWriteUs")]
+    //[InverseProperty("IapAccountWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("IapAccountId")]

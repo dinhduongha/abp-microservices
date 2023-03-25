@@ -37,6 +37,6 @@ public partial class AuthTotpDevice
     public DateTime? CreationTime { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("AuthTotpDevices")]
+    //[InverseProperty("AuthTotpDevices")]
     public virtual ResUser? User { get; set; }
 }

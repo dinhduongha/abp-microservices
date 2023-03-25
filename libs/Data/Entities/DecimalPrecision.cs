@@ -37,10 +37,10 @@ public partial class DecimalPrecision
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("DecimalPrecisionCreateUs")]
+    //[InverseProperty("DecimalPrecisionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("DecimalPrecisionWriteUs")]
+    //[InverseProperty("DecimalPrecisionWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

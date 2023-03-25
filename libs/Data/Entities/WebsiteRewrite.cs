@@ -56,18 +56,18 @@ public partial class WebsiteRewrite
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WebsiteRewriteCreateUs")]
+    //[InverseProperty("WebsiteRewriteCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("RouteId")]
-    [InverseProperty("WebsiteRewrites")]
+    //[InverseProperty("WebsiteRewrites")]
     public virtual WebsiteRoute? Route { get; set; }
 
     [ForeignKey("WebsiteId")]
-    [InverseProperty("WebsiteRewrites")]
+    //[InverseProperty("WebsiteRewrites")]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("WebsiteRewriteWriteUs")]
+    //[InverseProperty("WebsiteRewriteWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

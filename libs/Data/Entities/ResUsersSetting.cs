@@ -49,15 +49,15 @@ public partial class ResUsersSetting
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResUsersSettingCreateUs")]
+    //[InverseProperty("ResUsersSettingCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("ResUsersSettingUser")]
+    //[InverseProperty("ResUsersSettingUser")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResUsersSettingWriteUs")]
+    //[InverseProperty("ResUsersSettingWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("UserSetting")]

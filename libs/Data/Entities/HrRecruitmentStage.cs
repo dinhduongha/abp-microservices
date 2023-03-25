@@ -57,8 +57,16 @@ public partial class HrRecruitmentStage
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrRecruitmentStageCreateUs")]
+    //[InverseProperty("HrRecruitmentStageCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("TemplateId")]
+    //[InverseProperty("HrRecruitmentStages")]
+    public virtual MailTemplate? Template { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrRecruitmentStageWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("LastStage")]
     [NotMapped]
@@ -67,14 +75,6 @@ public partial class HrRecruitmentStage
     [InverseProperty("Stage")]
     [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicantStages { get; } = new List<HrApplicant>();
-
-    [ForeignKey("TemplateId")]
-    [InverseProperty("HrRecruitmentStages")]
-    public virtual MailTemplate? Template { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrRecruitmentStageWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrRecruitmentStageId")]
     [InverseProperty("HrRecruitmentStages")]

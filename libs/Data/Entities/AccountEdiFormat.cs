@@ -37,11 +37,11 @@ public partial class AccountEdiFormat
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountEdiFormatCreateUs")]
+    //[InverseProperty("AccountEdiFormatCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountEdiFormatWriteUs")]
+    //[InverseProperty("AccountEdiFormatWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("EdiFormat")]

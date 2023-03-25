@@ -37,11 +37,11 @@ public partial class HrApplicantCategory
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrApplicantCategoryCreateUs")]
+    //[InverseProperty("HrApplicantCategoryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("HrApplicantCategoryWriteUs")]
+    //[InverseProperty("HrApplicantCategoryWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrApplicantCategoryId")]

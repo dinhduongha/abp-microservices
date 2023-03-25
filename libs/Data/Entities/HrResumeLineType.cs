@@ -36,14 +36,15 @@ public partial class HrResumeLineType
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrResumeLineTypeCreateUs")]
+    //[InverseProperty("HrResumeLineTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrResumeLineTypeWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("LineType")]
     [NotMapped]
     public virtual ICollection<HrResumeLine> HrResumeLines { get; } = new List<HrResumeLine>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrResumeLineTypeWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

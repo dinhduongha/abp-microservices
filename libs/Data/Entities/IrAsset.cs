@@ -60,18 +60,18 @@ public partial class IrAsset
     public string? Key { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrAssetCreateUs")]
+    //[InverseProperty("IrAssetCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ThemeTemplateId")]
-    [InverseProperty("IrAssets")]
+    //[InverseProperty("IrAssets")]
     public virtual ThemeIrAsset? ThemeTemplate { get; set; }
 
     [ForeignKey("WebsiteId")]
-    [InverseProperty("IrAssets")]
+    //[InverseProperty("IrAssets")]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrAssetWriteUs")]
+    //[InverseProperty("IrAssetWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

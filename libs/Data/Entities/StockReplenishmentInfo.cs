@@ -33,20 +33,20 @@ public partial class StockReplenishmentInfo
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockReplenishmentInfoCreateUs")]
+    //[InverseProperty("StockReplenishmentInfoCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("OrderpointId")]
-    [InverseProperty("StockReplenishmentInfos")]
+    //[InverseProperty("StockReplenishmentInfos")]
     public virtual StockWarehouseOrderpoint? Orderpoint { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockReplenishmentInfoWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ReplenishmentInfo")]
     [NotMapped]
     public virtual ICollection<StockReplenishmentOption> StockReplenishmentOptions { get; } = new List<StockReplenishmentOption>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockReplenishmentInfoWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockReplenishmentInfoId")]
     [InverseProperty("StockReplenishmentInfos")]

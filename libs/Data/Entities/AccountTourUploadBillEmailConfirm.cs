@@ -33,10 +33,10 @@ public partial class AccountTourUploadBillEmailConfirm
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountTourUploadBillEmailConfirmCreateUs")]
+    //[InverseProperty("AccountTourUploadBillEmailConfirmCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountTourUploadBillEmailConfirmWriteUs")]
+    //[InverseProperty("AccountTourUploadBillEmailConfirmWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

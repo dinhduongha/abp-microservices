@@ -40,18 +40,18 @@ public partial class ProductAttributeCustomValue
     public Guid? SaleOrderLineId { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductAttributeCustomValueCreateUs")]
+    //[InverseProperty("ProductAttributeCustomValueCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CustomProductTemplateAttributeValueId")]
-    [InverseProperty("ProductAttributeCustomValues")]
+    //[InverseProperty("ProductAttributeCustomValues")]
     public virtual ProductTemplateAttributeValue? CustomProductTemplateAttributeValue { get; set; }
 
     [ForeignKey("SaleOrderLineId")]
-    [InverseProperty("ProductAttributeCustomValues")]
+    //[InverseProperty("ProductAttributeCustomValues")]
     public virtual SaleOrderLine? SaleOrderLine { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductAttributeCustomValueWriteUs")]
+    //[InverseProperty("ProductAttributeCustomValueWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

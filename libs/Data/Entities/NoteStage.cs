@@ -42,15 +42,15 @@ public partial class NoteStage
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("NoteStageCreateUs")]
+    //[InverseProperty("NoteStageCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("NoteStageUsers")]
+    //[InverseProperty("NoteStageUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("NoteStageWriteUs")]
+    //[InverseProperty("NoteStageWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StageId")]

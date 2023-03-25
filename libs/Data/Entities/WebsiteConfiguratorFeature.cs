@@ -63,18 +63,18 @@ public partial class WebsiteConfiguratorFeature
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WebsiteConfiguratorFeatureCreateUs")]
+    //[InverseProperty("WebsiteConfiguratorFeatureCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModuleId")]
-    [InverseProperty("WebsiteConfiguratorFeatures")]
+    //[InverseProperty("WebsiteConfiguratorFeatures")]
     public virtual IrModuleModule? Module { get; set; }
 
     [ForeignKey("PageViewId")]
-    [InverseProperty("WebsiteConfiguratorFeatures")]
+    //[InverseProperty("WebsiteConfiguratorFeatures")]
     public virtual IrUiView? PageView { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("WebsiteConfiguratorFeatureWriteUs")]
+    //[InverseProperty("WebsiteConfiguratorFeatureWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

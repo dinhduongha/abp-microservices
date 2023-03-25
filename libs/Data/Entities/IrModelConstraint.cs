@@ -53,18 +53,18 @@ public partial class IrModelConstraint
     public DateTime? CreationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrModelConstraintCreateUs")]
+    //[InverseProperty("IrModelConstraintCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("Model")]
-    [InverseProperty("IrModelConstraints")]
+    //[InverseProperty("IrModelConstraints")]
     public virtual IrModel? ModelNavigation { get; set; }
 
     [ForeignKey("Module")]
-    [InverseProperty("IrModelConstraints")]
+    //[InverseProperty("IrModelConstraints")]
     public virtual IrModuleModule? ModuleNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrModelConstraintWriteUs")]
+    //[InverseProperty("IrModelConstraintWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

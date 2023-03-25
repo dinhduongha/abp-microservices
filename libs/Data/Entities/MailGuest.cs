@@ -48,12 +48,16 @@ public partial class MailGuest
     public virtual BusPresence? BusPresence { get; set; }
 
     [ForeignKey("CountryId")]
-    [InverseProperty("MailGuests")]
+    //[InverseProperty("MailGuests")]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailGuestCreateUs")]
+    //[InverseProperty("MailGuestCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MailGuestWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Guest")]
     [NotMapped]
@@ -67,7 +71,4 @@ public partial class MailGuest
     [NotMapped]
     public virtual ICollection<MailMessage> MailMessages { get; } = new List<MailMessage>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MailGuestWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

@@ -42,18 +42,18 @@ public partial class MailResendPartner
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailResendPartnerCreateUs")]
+    //[InverseProperty("MailResendPartnerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("MailResendPartners")]
+    //[InverseProperty("MailResendPartners")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("ResendWizardId")]
-    [InverseProperty("MailResendPartners")]
+    //[InverseProperty("MailResendPartners")]
     public virtual MailResendMessage? ResendWizard { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailResendPartnerWriteUs")]
+    //[InverseProperty("MailResendPartnerWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

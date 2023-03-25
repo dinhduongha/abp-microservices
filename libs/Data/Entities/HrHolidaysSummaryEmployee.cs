@@ -36,11 +36,11 @@ public partial class HrHolidaysSummaryEmployee
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrHolidaysSummaryEmployeeCreateUs")]
+    //[InverseProperty("HrHolidaysSummaryEmployeeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("HrHolidaysSummaryEmployeeWriteUs")]
+    //[InverseProperty("HrHolidaysSummaryEmployeeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("SumId")]

@@ -36,11 +36,11 @@ public partial class PosBill
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PosBillCreateUs")]
+    //[InverseProperty("PosBillCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PosBillWriteUs")]
+    //[InverseProperty("PosBillWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PosBillId")]

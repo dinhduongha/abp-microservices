@@ -39,14 +39,14 @@ public partial class ResUsersDeletion
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResUsersDeletionCreateUs")]
+    //[InverseProperty("ResUsersDeletionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("ResUsersDeletionUsers")]
+    //[InverseProperty("ResUsersDeletionUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResUsersDeletionWriteUs")]
+    //[InverseProperty("ResUsersDeletionWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -33,10 +33,10 @@ public partial class AssetDepreciationConfirmationWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AssetDepreciationConfirmationWizardCreateUs")]
+    //[InverseProperty("AssetDepreciationConfirmationWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AssetDepreciationConfirmationWizardWriteUs")]
+    //[InverseProperty("AssetDepreciationConfirmationWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

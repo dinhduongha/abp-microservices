@@ -45,10 +45,10 @@ public partial class CalendarProviderConfig
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CalendarProviderConfigCreateUs")]
+    //[InverseProperty("CalendarProviderConfigCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CalendarProviderConfigWriteUs")]
+    //[InverseProperty("CalendarProviderConfigWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

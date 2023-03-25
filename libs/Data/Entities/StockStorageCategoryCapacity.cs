@@ -45,22 +45,22 @@ public partial class StockStorageCategoryCapacity
     public double? Quantity { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockStorageCategoryCapacityCreateUs")]
+    //[InverseProperty("StockStorageCategoryCapacityCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PackageTypeId")]
-    [InverseProperty("StockStorageCategoryCapacities")]
+    //[InverseProperty("StockStorageCategoryCapacities")]
     public virtual StockPackageType? PackageType { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("StockStorageCategoryCapacities")]
+    //[InverseProperty("StockStorageCategoryCapacities")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("StorageCategoryId")]
-    [InverseProperty("StockStorageCategoryCapacities")]
+    //[InverseProperty("StockStorageCategoryCapacities")]
     public virtual StockStorageCategory? StorageCategory { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockStorageCategoryCapacityWriteUs")]
+    //[InverseProperty("StockStorageCategoryCapacityWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

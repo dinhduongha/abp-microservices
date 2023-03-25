@@ -117,24 +117,44 @@ public partial class IrActServer
     public bool? WebsitePublished { get; set; }
 
     [ForeignKey("ActivityTypeId")]
-    [InverseProperty("IrActServers")]
+    //[InverseProperty("IrActServers")]
     public virtual MailActivityType? ActivityType { get; set; }
 
     [ForeignKey("ActivityUserId")]
-    [InverseProperty("IrActServerActivityUsers")]
+    //[InverseProperty("IrActServerActivityUsers")]
     public virtual ResUser? ActivityUser { get; set; }
 
     [ForeignKey("BindingModelId")]
-    [InverseProperty("IrActServerBindingModels")]
+    //[InverseProperty("IrActServerBindingModels")]
     public virtual IrModel? BindingModel { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrActServerCreateUs")]
+    //[InverseProperty("IrActServerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrudModelId")]
-    [InverseProperty("IrActServerCrudModels")]
+    //[InverseProperty("IrActServerCrudModels")]
     public virtual IrModel? CrudModel { get; set; }
+
+    [ForeignKey("LinkFieldId")]
+    //[InverseProperty("IrActServers")]
+    public virtual IrModelField? LinkField { get; set; }
+
+    [ForeignKey("ModelId")]
+    //[InverseProperty("IrActServerModels")]
+    public virtual IrModel? Model { get; set; }
+
+    [ForeignKey("SmsTemplateId")]
+    //[InverseProperty("IrActServers")]
+    public virtual SmsTemplate? SmsTemplate { get; set; }
+
+    [ForeignKey("TemplateId")]
+    //[InverseProperty("IrActServers")]
+    public virtual MailTemplate? Template { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("IrActServerWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("IrActionsServer")]
     [NotMapped]
@@ -144,29 +164,9 @@ public partial class IrActServer
     [NotMapped]
     public virtual ICollection<IrServerObjectLine> IrServerObjectLines { get; } = new List<IrServerObjectLine>();
 
-    [ForeignKey("LinkFieldId")]
-    [InverseProperty("IrActServers")]
-    public virtual IrModelField? LinkField { get; set; }
-
-    [ForeignKey("ModelId")]
-    [InverseProperty("IrActServerModels")]
-    public virtual IrModel? Model { get; set; }
-
-    [ForeignKey("SmsTemplateId")]
-    [InverseProperty("IrActServers")]
-    public virtual SmsTemplate? SmsTemplate { get; set; }
-
-    [ForeignKey("TemplateId")]
-    [InverseProperty("IrActServers")]
-    public virtual MailTemplate? Template { get; set; }
-
     [InverseProperty("ActionServer")]
     [NotMapped]
     public virtual ICollection<WebsiteSnippetFilter> WebsiteSnippetFilters { get; } = new List<WebsiteSnippetFilter>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("IrActServerWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ServerId")]
     [InverseProperty("Servers")]

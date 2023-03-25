@@ -30,10 +30,10 @@ public partial class ResUsersLog
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResUsersLogCreateUs")]
+    //[InverseProperty("ResUsersLogCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResUsersLogWriteUs")]
+    //[InverseProperty("ResUsersLogWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

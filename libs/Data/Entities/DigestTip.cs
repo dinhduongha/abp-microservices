@@ -42,15 +42,15 @@ public partial class DigestTip
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("DigestTipCreateUs")]
+    //[InverseProperty("DigestTipCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GroupId")]
-    [InverseProperty("DigestTips")]
+    //[InverseProperty("DigestTips")]
     public virtual ResGroup? Group { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("DigestTipWriteUs")]
+    //[InverseProperty("DigestTipWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("DigestTipId")]

@@ -30,10 +30,10 @@ public partial class PosSessionCheckProductWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PosSessionCheckProductWizardCreateUs")]
+    //[InverseProperty("PosSessionCheckProductWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PosSessionCheckProductWizardWriteUs")]
+    //[InverseProperty("PosSessionCheckProductWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

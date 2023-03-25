@@ -36,11 +36,11 @@ public partial class StockInventoryAdjustmentName
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockInventoryAdjustmentNameCreateUs")]
+    //[InverseProperty("StockInventoryAdjustmentNameCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockInventoryAdjustmentNameWriteUs")]
+    //[InverseProperty("StockInventoryAdjustmentNameWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockInventoryAdjustmentNameId")]

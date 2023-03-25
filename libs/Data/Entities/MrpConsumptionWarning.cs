@@ -30,16 +30,16 @@ public partial class MrpConsumptionWarning
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpConsumptionWarningCreateUs")]
+    //[InverseProperty("MrpConsumptionWarningCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MrpConsumptionWarningWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("MrpConsumptionWarning")]
     [NotMapped]
     public virtual ICollection<MrpConsumptionWarningLine> MrpConsumptionWarningLines { get; } = new List<MrpConsumptionWarningLine>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpConsumptionWarningWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MrpConsumptionWarningId")]
     [InverseProperty("MrpConsumptionWarnings")]

@@ -46,8 +46,12 @@ public partial class ProductAttribute
     public string? Visibility { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductAttributeCreateUs")]
+    //[InverseProperty("ProductAttributeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProductAttributeWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Attribute")]
     [NotMapped]
@@ -60,10 +64,6 @@ public partial class ProductAttribute
     [InverseProperty("Attribute")]
     [NotMapped]
     public virtual ICollection<ProductTemplateAttributeValue> ProductTemplateAttributeValues { get; } = new List<ProductTemplateAttributeValue>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductAttributeWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductAttributeId")]
     [InverseProperty("ProductAttributes")]

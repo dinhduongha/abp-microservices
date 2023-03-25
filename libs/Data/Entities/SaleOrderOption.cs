@@ -58,26 +58,26 @@ public partial class SaleOrderOption
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SaleOrderOptionCreateUs")]
+    //[InverseProperty("SaleOrderOptionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LineId")]
-    [InverseProperty("SaleOrderOptions")]
+    //[InverseProperty("SaleOrderOptions")]
     public virtual SaleOrderLine? Line { get; set; }
 
     [ForeignKey("OrderId")]
-    [InverseProperty("SaleOrderOptions")]
+    //[InverseProperty("SaleOrderOptions")]
     public virtual SaleOrder? Order { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("SaleOrderOptions")]
+    //[InverseProperty("SaleOrderOptions")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("UomId")]
-    [InverseProperty("SaleOrderOptions")]
+    //[InverseProperty("SaleOrderOptions")]
     public virtual UomUom? Uom { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("SaleOrderOptionWriteUs")]
+    //[InverseProperty("SaleOrderOptionWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

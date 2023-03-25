@@ -37,10 +37,10 @@ public partial class MailGatewayAllowed
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailGatewayAllowedCreateUs")]
+    //[InverseProperty("MailGatewayAllowedCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailGatewayAllowedWriteUs")]
+    //[InverseProperty("MailGatewayAllowedWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

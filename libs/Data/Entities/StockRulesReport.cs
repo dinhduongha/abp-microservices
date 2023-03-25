@@ -39,19 +39,19 @@ public partial class StockRulesReport
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockRulesReportCreateUs")]
+    //[InverseProperty("StockRulesReportCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("StockRulesReports")]
+    //[InverseProperty("StockRulesReports")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductTmplId")]
-    [InverseProperty("StockRulesReports")]
+    //[InverseProperty("StockRulesReports")]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockRulesReportWriteUs")]
+    //[InverseProperty("StockRulesReportWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockRulesReportId")]

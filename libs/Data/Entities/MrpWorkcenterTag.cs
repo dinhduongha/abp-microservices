@@ -37,11 +37,11 @@ public partial class MrpWorkcenterTag
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpWorkcenterTagCreateUs")]
+    //[InverseProperty("MrpWorkcenterTagCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpWorkcenterTagWriteUs")]
+    //[InverseProperty("MrpWorkcenterTagWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MrpWorkcenterTagId")]

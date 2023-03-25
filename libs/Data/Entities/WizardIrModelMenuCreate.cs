@@ -36,14 +36,14 @@ public partial class WizardIrModelMenuCreate
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WizardIrModelMenuCreateCreateUs")]
+    //[InverseProperty("WizardIrModelMenuCreateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MenuId")]
-    [InverseProperty("WizardIrModelMenuCreates")]
+    //[InverseProperty("WizardIrModelMenuCreates")]
     public virtual IrUiMenu? Menu { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("WizardIrModelMenuCreateWriteUs")]
+    //[InverseProperty("WizardIrModelMenuCreateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -75,32 +75,32 @@ public partial class CrmIapLeadMiningRequest
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmIapLeadMiningRequestCreateUs")]
+    //[InverseProperty("CrmIapLeadMiningRequestCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("PreferredRoleId")]
+    //[InverseProperty("CrmIapLeadMiningRequests")]
+    public virtual CrmIapLeadRole? PreferredRole { get; set; }
+
+    [ForeignKey("SeniorityId")]
+    //[InverseProperty("CrmIapLeadMiningRequests")]
+    public virtual CrmIapLeadSeniority? Seniority { get; set; }
+
+    [ForeignKey("TeamId")]
+    //[InverseProperty("CrmIapLeadMiningRequests")]
+    public virtual CrmTeam? Team { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("CrmIapLeadMiningRequestUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("CrmIapLeadMiningRequestWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("LeadMiningRequest")]
     [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
-
-    [ForeignKey("PreferredRoleId")]
-    [InverseProperty("CrmIapLeadMiningRequests")]
-    public virtual CrmIapLeadRole? PreferredRole { get; set; }
-
-    [ForeignKey("SeniorityId")]
-    [InverseProperty("CrmIapLeadMiningRequests")]
-    public virtual CrmIapLeadSeniority? Seniority { get; set; }
-
-    [ForeignKey("TeamId")]
-    [InverseProperty("CrmIapLeadMiningRequests")]
-    public virtual CrmTeam? Team { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("CrmIapLeadMiningRequestUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmIapLeadMiningRequestWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CrmIapLeadMiningRequestId")]
     [InverseProperty("CrmIapLeadMiningRequests")]

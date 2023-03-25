@@ -42,14 +42,15 @@ public partial class MaintenanceStage
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MaintenanceStageCreateUs")]
+    //[InverseProperty("MaintenanceStageCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MaintenanceStageWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Stage")]
     [NotMapped]
     public virtual ICollection<MaintenanceRequest> MaintenanceRequests { get; } = new List<MaintenanceRequest>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MaintenanceStageWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

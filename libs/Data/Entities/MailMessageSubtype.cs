@@ -60,8 +60,16 @@ public partial class MailMessageSubtype
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailMessageSubtypeCreateUs")]
+    //[InverseProperty("MailMessageSubtypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual MailMessageSubtype? Parent { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MailMessageSubtypeWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("AllocationNotifSubtype")]
     [NotMapped]
@@ -82,14 +90,6 @@ public partial class MailMessageSubtype
     [InverseProperty("Subtype")]
     [NotMapped]
     public virtual ICollection<MailMessage> MailMessages { get; } = new List<MailMessage>();
-
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual MailMessageSubtype? Parent { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MailMessageSubtypeWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MailMessageSubtypeId")]
     [InverseProperty("MailMessageSubtypes")]

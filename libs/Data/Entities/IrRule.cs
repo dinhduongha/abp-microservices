@@ -59,15 +59,15 @@ public partial class IrRule
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrRuleCreateUs")]
+    //[InverseProperty("IrRuleCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModelId")]
-    [InverseProperty("IrRules")]
+    //[InverseProperty("IrRules")]
     public virtual IrModel? Model { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrRuleWriteUs")]
+    //[InverseProperty("IrRuleWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("RuleGroupId")]

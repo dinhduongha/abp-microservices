@@ -36,8 +36,12 @@ public partial class ResPartnerTitle
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResPartnerTitleCreateUs")]
+    //[InverseProperty("ResPartnerTitleCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ResPartnerTitleWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("TitleNavigation")]
     [NotMapped]
@@ -47,7 +51,4 @@ public partial class ResPartnerTitle
     [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ResPartnerTitleWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

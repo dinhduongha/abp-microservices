@@ -60,19 +60,19 @@ public partial class AccountFinancialReport
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AccountReportId")]
-    [InverseProperty("InverseAccountReport")]
+    //[InverseProperty("InverseAccountReport")]
     public virtual AccountFinancialReport? AccountReport { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountFinancialReportCreateUs")]
+    //[InverseProperty("AccountFinancialReportCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
+    //[InverseProperty("InverseParent")]
     public virtual AccountFinancialReport? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountFinancialReportWriteUs")]
+    //[InverseProperty("AccountFinancialReportWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("AccountReport")]

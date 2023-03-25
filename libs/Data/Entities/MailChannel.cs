@@ -54,17 +54,25 @@ public partial class MailChannel
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
-    [InverseProperty("VideocallChannel")]
-    [NotMapped]
-    public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
-
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailChannelCreateUs")]
+    //[InverseProperty("MailChannelCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GroupPublicId")]
-    [InverseProperty("MailChannels")]
+    //[InverseProperty("MailChannels")]
     public virtual ResGroup? GroupPublic { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("MailChannels")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MailChannelWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("VideocallChannel")]
+    [NotMapped]
+    public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
 
     [InverseProperty("Channel")]
     [NotMapped]
@@ -73,14 +81,6 @@ public partial class MailChannel
     [InverseProperty("Channel")]
     [NotMapped]
     public virtual ICollection<MailChannelRtcSession> MailChannelRtcSessions { get; } = new List<MailChannelRtcSession>();
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("MailChannels")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MailChannelWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MailChannelId")]
     [InverseProperty("MailChannels")]

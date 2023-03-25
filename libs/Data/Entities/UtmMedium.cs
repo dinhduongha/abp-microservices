@@ -36,13 +36,17 @@ public partial class UtmMedium
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("UtmMediumCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("UtmMediumWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("Medium")]
     [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("UtmMediumCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Medium")]
     [NotMapped]
@@ -60,7 +64,4 @@ public partial class UtmMedium
     [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("UtmMediumWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

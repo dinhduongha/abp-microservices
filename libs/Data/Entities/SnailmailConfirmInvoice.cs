@@ -36,14 +36,14 @@ public partial class SnailmailConfirmInvoice
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SnailmailConfirmInvoiceCreateUs")]
+    //[InverseProperty("SnailmailConfirmInvoiceCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InvoiceSendId")]
-    [InverseProperty("SnailmailConfirmInvoices")]
+    //[InverseProperty("SnailmailConfirmInvoices")]
     public virtual AccountInvoiceSend? InvoiceSend { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("SnailmailConfirmInvoiceWriteUs")]
+    //[InverseProperty("SnailmailConfirmInvoiceWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

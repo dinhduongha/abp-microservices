@@ -47,6 +47,30 @@ public partial class AccountPaymentMethodLine
     [Column("payment_provider_id")]
     public Guid? PaymentProviderId { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("AccountPaymentMethodLineCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("JournalId")]
+    //[InverseProperty("AccountPaymentMethodLines")]
+    public virtual AccountJournal? Journal { get; set; }
+
+    [ForeignKey("PaymentAccountId")]
+    //[InverseProperty("AccountPaymentMethodLines")]
+    public virtual AccountAccount? PaymentAccount { get; set; }
+
+    [ForeignKey("PaymentMethodId")]
+    //[InverseProperty("AccountPaymentMethodLines")]
+    public virtual AccountPaymentMethod? PaymentMethod { get; set; }
+
+    [ForeignKey("PaymentProviderId")]
+    //[InverseProperty("AccountPaymentMethodLines")]
+    public virtual PaymentProvider? PaymentProvider { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountPaymentMethodLineWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("PaymentMethodLine")]
     [NotMapped]
     public virtual ICollection<AccountPaymentRegister> AccountPaymentRegisters { get; } = new List<AccountPaymentRegister>();
@@ -55,27 +79,4 @@ public partial class AccountPaymentMethodLine
     [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
 
-    [ForeignKey("CreatorId")]
-    [InverseProperty("AccountPaymentMethodLineCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("JournalId")]
-    [InverseProperty("AccountPaymentMethodLines")]
-    public virtual AccountJournal? Journal { get; set; }
-
-    [ForeignKey("PaymentAccountId")]
-    [InverseProperty("AccountPaymentMethodLines")]
-    public virtual AccountAccount? PaymentAccount { get; set; }
-
-    [ForeignKey("PaymentMethodId")]
-    [InverseProperty("AccountPaymentMethodLines")]
-    public virtual AccountPaymentMethod? PaymentMethod { get; set; }
-
-    [ForeignKey("PaymentProviderId")]
-    [InverseProperty("AccountPaymentMethodLines")]
-    public virtual PaymentProvider? PaymentProvider { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountPaymentMethodLineWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

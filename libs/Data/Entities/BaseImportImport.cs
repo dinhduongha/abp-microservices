@@ -42,10 +42,10 @@ public partial class BaseImportImport
     public byte[]? File { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseImportImportCreateUs")]
+    //[InverseProperty("BaseImportImportCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseImportImportWriteUs")]
+    //[InverseProperty("BaseImportImportWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

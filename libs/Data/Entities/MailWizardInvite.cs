@@ -42,11 +42,11 @@ public partial class MailWizardInvite
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailWizardInviteCreateUs")]
+    //[InverseProperty("MailWizardInviteCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailWizardInviteWriteUs")]
+    //[InverseProperty("MailWizardInviteWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MailWizardInviteId")]

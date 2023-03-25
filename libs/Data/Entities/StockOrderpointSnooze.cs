@@ -36,11 +36,11 @@ public partial class StockOrderpointSnooze
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockOrderpointSnoozeCreateUs")]
+    //[InverseProperty("StockOrderpointSnoozeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockOrderpointSnoozeWriteUs")]
+    //[InverseProperty("StockOrderpointSnoozeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockOrderpointSnoozeId")]

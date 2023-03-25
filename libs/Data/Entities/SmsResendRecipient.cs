@@ -45,18 +45,18 @@ public partial class SmsResendRecipient
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SmsResendRecipientCreateUs")]
+    //[InverseProperty("SmsResendRecipientCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("NotificationId")]
-    [InverseProperty("SmsResendRecipients")]
+    //[InverseProperty("SmsResendRecipients")]
     public virtual MailNotification? Notification { get; set; }
 
     [ForeignKey("SmsResendId")]
-    [InverseProperty("SmsResendRecipients")]
+    //[InverseProperty("SmsResendRecipients")]
     public virtual SmsResend? SmsResend { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("SmsResendRecipientWriteUs")]
+    //[InverseProperty("SmsResendRecipientWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

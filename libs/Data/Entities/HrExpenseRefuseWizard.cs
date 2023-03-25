@@ -36,15 +36,15 @@ public partial class HrExpenseRefuseWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrExpenseRefuseWizardCreateUs")]
+    //[InverseProperty("HrExpenseRefuseWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("HrExpenseSheetId")]
-    [InverseProperty("HrExpenseRefuseWizards")]
+    //[InverseProperty("HrExpenseRefuseWizards")]
     public virtual HrExpenseSheet? HrExpenseSheet { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("HrExpenseRefuseWizardWriteUs")]
+    //[InverseProperty("HrExpenseRefuseWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrExpenseRefuseWizardId")]

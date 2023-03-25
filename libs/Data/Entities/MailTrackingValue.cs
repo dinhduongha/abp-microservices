@@ -86,22 +86,22 @@ public partial class MailTrackingValue
     public double? NewValueMonetary { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailTrackingValueCreateUs")]
+    //[InverseProperty("MailTrackingValueCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("MailTrackingValues")]
+    //[InverseProperty("MailTrackingValues")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("Field")]
-    [InverseProperty("MailTrackingValues")]
+    //[InverseProperty("MailTrackingValues")]
     public virtual IrModelField? FieldNavigation { get; set; }
 
     [ForeignKey("MailMessageId")]
-    [InverseProperty("MailTrackingValues")]
+    //[InverseProperty("MailTrackingValues")]
     public virtual MailMessage? MailMessage { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailTrackingValueWriteUs")]
+    //[InverseProperty("MailTrackingValueWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

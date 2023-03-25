@@ -42,18 +42,18 @@ public partial class IrModelRelation
     public DateTime? CreationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrModelRelationCreateUs")]
+    //[InverseProperty("IrModelRelationCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("Model")]
-    [InverseProperty("IrModelRelations")]
+    //[InverseProperty("IrModelRelations")]
     public virtual IrModel? ModelNavigation { get; set; }
 
     [ForeignKey("Module")]
-    [InverseProperty("IrModelRelations")]
+    //[InverseProperty("IrModelRelations")]
     public virtual IrModuleModule? ModuleNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrModelRelationWriteUs")]
+    //[InverseProperty("IrModelRelationWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

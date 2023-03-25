@@ -45,30 +45,31 @@ public partial class StockReturnPicking
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockReturnPickingCreateUs")]
+    //[InverseProperty("StockReturnPickingCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
-    [InverseProperty("StockReturnPickingLocations")]
+    //[InverseProperty("StockReturnPickingLocations")]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("OriginalLocationId")]
-    [InverseProperty("StockReturnPickingOriginalLocations")]
+    //[InverseProperty("StockReturnPickingOriginalLocations")]
     public virtual StockLocation? OriginalLocation { get; set; }
 
     [ForeignKey("ParentLocationId")]
-    [InverseProperty("StockReturnPickingParentLocations")]
+    //[InverseProperty("StockReturnPickingParentLocations")]
     public virtual StockLocation? ParentLocation { get; set; }
 
     [ForeignKey("PickingId")]
-    [InverseProperty("StockReturnPickings")]
+    //[InverseProperty("StockReturnPickings")]
     public virtual StockPicking? Picking { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockReturnPickingWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Wizard")]
     [NotMapped]
     public virtual ICollection<StockReturnPickingLine> StockReturnPickingLines { get; } = new List<StockReturnPickingLine>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockReturnPickingWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

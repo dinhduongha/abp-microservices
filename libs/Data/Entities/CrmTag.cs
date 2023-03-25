@@ -37,11 +37,11 @@ public partial class CrmTag
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmTagCreateUs")]
+    //[InverseProperty("CrmTagCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmTagWriteUs")]
+    //[InverseProperty("CrmTagWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CrmTagId")]

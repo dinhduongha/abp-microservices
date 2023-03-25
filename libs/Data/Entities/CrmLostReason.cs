@@ -36,8 +36,12 @@ public partial class CrmLostReason
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmLostReasonCreateUs")]
+    //[InverseProperty("CrmLostReasonCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("CrmLostReasonWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("LostReason")]
     [NotMapped]
@@ -47,7 +51,4 @@ public partial class CrmLostReason
     [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmLostReasonWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

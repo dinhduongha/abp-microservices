@@ -37,11 +37,11 @@ public partial class RepairTag
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("RepairTagCreateUs")]
+    //[InverseProperty("RepairTagCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("RepairTagWriteUs")]
+    //[InverseProperty("RepairTagWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("RepairTagsId")]

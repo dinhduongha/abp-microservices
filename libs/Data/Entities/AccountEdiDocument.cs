@@ -49,22 +49,22 @@ public partial class AccountEdiDocument
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AttachmentId")]
-    [InverseProperty("AccountEdiDocuments")]
+    //[InverseProperty("AccountEdiDocuments")]
     public virtual IrAttachment? Attachment { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountEdiDocumentCreateUs")]
+    //[InverseProperty("AccountEdiDocumentCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EdiFormatId")]
-    [InverseProperty("AccountEdiDocuments")]
+    //[InverseProperty("AccountEdiDocuments")]
     public virtual AccountEdiFormat? EdiFormat { get; set; }
 
     [ForeignKey("MoveId")]
-    [InverseProperty("AccountEdiDocuments")]
+    //[InverseProperty("AccountEdiDocuments")]
     public virtual AccountMove? Move { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountEdiDocumentWriteUs")]
+    //[InverseProperty("AccountEdiDocumentWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

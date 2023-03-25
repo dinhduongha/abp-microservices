@@ -54,27 +54,27 @@ public partial class CrmLead2opportunityPartnerMass
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmLead2opportunityPartnerMassCreateUs")]
+    //[InverseProperty("CrmLead2opportunityPartnerMassCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LeadId")]
-    [InverseProperty("CrmLead2opportunityPartnerMassesNavigation")]
+    //[InverseProperty("CrmLead2opportunityPartnerMassesNavigation")]
     public virtual CrmLead? Lead { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("CrmLead2opportunityPartnerMasses")]
+    //[InverseProperty("CrmLead2opportunityPartnerMasses")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("TeamId")]
-    [InverseProperty("CrmLead2opportunityPartnerMasses")]
+    //[InverseProperty("CrmLead2opportunityPartnerMasses")]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("CrmLead2opportunityPartnerMassUsers")]
+    //[InverseProperty("CrmLead2opportunityPartnerMassUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmLead2opportunityPartnerMassWriteUs")]
+    //[InverseProperty("CrmLead2opportunityPartnerMassWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CrmLead2opportunityPartnerMassId")]

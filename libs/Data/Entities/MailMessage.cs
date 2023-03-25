@@ -96,24 +96,40 @@ public partial class MailMessage
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AuthorId")]
-    [InverseProperty("MailMessages")]
+    //[InverseProperty("MailMessages")]
     public virtual ResPartner? Author { get; set; }
 
     [ForeignKey("AuthorGuestId")]
-    [InverseProperty("MailMessages")]
+    //[InverseProperty("MailMessages")]
     public virtual MailGuest? AuthorGuest { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailMessageCreateUs")]
+    //[InverseProperty("MailMessageCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("MailActivityTypeId")]
+    //[InverseProperty("MailMessages")]
+    public virtual MailActivityType? MailActivityType { get; set; }
+
+    [ForeignKey("MailServerId")]
+    //[InverseProperty("MailMessages")]
+    public virtual IrMailServer? MailServer { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual MailMessage? Parent { get; set; }
+
+    [ForeignKey("SubtypeId")]
+    //[InverseProperty("MailMessages")]
+    public virtual MailMessageSubtype? Subtype { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MailMessageWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Parent")]
     [NotMapped]
     public virtual ICollection<MailMessage> InverseParent { get; } = new List<MailMessage>();
-
-    [ForeignKey("MailActivityTypeId")]
-    [InverseProperty("MailMessages")]
-    public virtual MailActivityType? MailActivityType { get; set; }
 
     [InverseProperty("FetchedMessage")]
     [NotMapped]
@@ -151,17 +167,9 @@ public partial class MailMessage
     [NotMapped]
     public virtual ICollection<MailResendMessage> MailResendMessages { get; } = new List<MailResendMessage>();
 
-    [ForeignKey("MailServerId")]
-    [InverseProperty("MailMessages")]
-    public virtual IrMailServer? MailServer { get; set; }
-
     [InverseProperty("MailMessage")]
     [NotMapped]
     public virtual ICollection<MailTrackingValue> MailTrackingValues { get; } = new List<MailTrackingValue>();
-
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual MailMessage? Parent { get; set; }
 
     [InverseProperty("Message")]
     [NotMapped]
@@ -182,14 +190,6 @@ public partial class MailMessage
     [InverseProperty("Message")]
     [NotMapped]
     public virtual ICollection<SnailmailLetter> SnailmailLetters { get; } = new List<SnailmailLetter>();
-
-    [ForeignKey("SubtypeId")]
-    [InverseProperty("MailMessages")]
-    public virtual MailMessageSubtype? Subtype { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MailMessageWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MessageId")]
     [InverseProperty("Messages")]

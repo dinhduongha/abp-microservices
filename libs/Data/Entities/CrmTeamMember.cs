@@ -53,22 +53,22 @@ public partial class CrmTeamMember
     public bool? AssignmentOptout { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmTeamMemberCreateUs")]
+    //[InverseProperty("CrmTeamMemberCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrmTeamId")]
-    [InverseProperty("CrmTeamMembers")]
+    //[InverseProperty("CrmTeamMembers")]
     public virtual CrmTeam? CrmTeam { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("CrmTeamMembers")]
+    //[InverseProperty("CrmTeamMembers")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("CrmTeamMemberUsers")]
+    //[InverseProperty("CrmTeamMemberUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmTeamMemberWriteUs")]
+    //[InverseProperty("CrmTeamMemberWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

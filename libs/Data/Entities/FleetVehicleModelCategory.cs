@@ -37,8 +37,12 @@ public partial class FleetVehicleModelCategory
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("FleetVehicleModelCategoryCreateUs")]
+    //[InverseProperty("FleetVehicleModelCategoryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("FleetVehicleModelCategoryWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Category")]
     [NotMapped]
@@ -48,7 +52,4 @@ public partial class FleetVehicleModelCategory
     [NotMapped]
     public virtual ICollection<FleetVehicle> FleetVehicles { get; } = new List<FleetVehicle>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("FleetVehicleModelCategoryWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

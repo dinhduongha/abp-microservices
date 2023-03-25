@@ -36,14 +36,15 @@ public partial class UomCategory
     public bool? IsPosGroupable { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("UomCategoryCreateUs")]
+    //[InverseProperty("UomCategoryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("UomCategoryWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Category")]
     [NotMapped]
     public virtual ICollection<UomUom> UomUoms { get; } = new List<UomUom>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("UomCategoryWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

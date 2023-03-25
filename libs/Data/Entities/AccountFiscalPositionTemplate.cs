@@ -60,23 +60,23 @@ public partial class AccountFiscalPositionTemplate
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("ChartTemplateId")]
-    [InverseProperty("AccountFiscalPositionTemplates")]
+    //[InverseProperty("AccountFiscalPositionTemplates")]
     public virtual AccountChartTemplate? ChartTemplate { get; set; }
 
     [ForeignKey("CountryId")]
-    [InverseProperty("AccountFiscalPositionTemplates")]
+    //[InverseProperty("AccountFiscalPositionTemplates")]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CountryGroupId")]
-    [InverseProperty("AccountFiscalPositionTemplates")]
+    //[InverseProperty("AccountFiscalPositionTemplates")]
     public virtual ResCountryGroup? CountryGroup { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountFiscalPositionTemplateCreateUs")]
+    //[InverseProperty("AccountFiscalPositionTemplateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountFiscalPositionTemplateWriteUs")]
+    //[InverseProperty("AccountFiscalPositionTemplateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Position")]

@@ -42,18 +42,18 @@ public partial class IrUiViewCustom
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrUiViewCustomCreateUs")]
+    //[InverseProperty("IrUiViewCustomCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("RefId")]
-    [InverseProperty("IrUiViewCustoms")]
+    //[InverseProperty("IrUiViewCustoms")]
     public virtual IrUiView? Ref { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("IrUiViewCustomUsers")]
+    //[InverseProperty("IrUiViewCustomUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrUiViewCustomWriteUs")]
+    //[InverseProperty("IrUiViewCustomWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

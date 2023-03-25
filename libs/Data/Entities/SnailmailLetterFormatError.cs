@@ -36,14 +36,14 @@ public partial class SnailmailLetterFormatError
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SnailmailLetterFormatErrorCreateUs")]
+    //[InverseProperty("SnailmailLetterFormatErrorCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageId")]
-    [InverseProperty("SnailmailLetterFormatErrors")]
+    //[InverseProperty("SnailmailLetterFormatErrors")]
     public virtual MailMessage? Message { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("SnailmailLetterFormatErrorWriteUs")]
+    //[InverseProperty("SnailmailLetterFormatErrorWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

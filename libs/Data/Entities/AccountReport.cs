@@ -95,6 +95,26 @@ public partial class AccountReport
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("ChartTemplateId")]
+    //[InverseProperty("AccountReports")]
+    public virtual AccountChartTemplate? ChartTemplate { get; set; }
+
+    [ForeignKey("CountryId")]
+    //[InverseProperty("AccountReports")]
+    public virtual ResCountry? Country { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("AccountReportCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("RootReportId")]
+    //[InverseProperty("InverseRootReport")]
+    public virtual AccountReport? RootReport { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountReportWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("Report")]
     [NotMapped]
     public virtual ICollection<AccountReportColumn> AccountReportColumns { get; } = new List<AccountReportColumn>();
@@ -103,27 +123,8 @@ public partial class AccountReport
     [NotMapped]
     public virtual ICollection<AccountReportLine> AccountReportLines { get; } = new List<AccountReportLine>();
 
-    [ForeignKey("ChartTemplateId")]
-    [InverseProperty("AccountReports")]
-    public virtual AccountChartTemplate? ChartTemplate { get; set; }
-
-    [ForeignKey("CountryId")]
-    [InverseProperty("AccountReports")]
-    public virtual ResCountry? Country { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("AccountReportCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
     [InverseProperty("RootReport")]
     [NotMapped]
     public virtual ICollection<AccountReport> InverseRootReport { get; } = new List<AccountReport>();
 
-    [ForeignKey("RootReportId")]
-    [InverseProperty("InverseRootReport")]
-    public virtual AccountReport? RootReport { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountReportWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

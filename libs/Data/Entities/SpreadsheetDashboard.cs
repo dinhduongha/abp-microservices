@@ -39,15 +39,15 @@ public partial class SpreadsheetDashboard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SpreadsheetDashboardCreateUs")]
+    //[InverseProperty("SpreadsheetDashboardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DashboardGroupId")]
-    [InverseProperty("SpreadsheetDashboards")]
+    //[InverseProperty("SpreadsheetDashboards")]
     public virtual SpreadsheetDashboardGroup? DashboardGroup { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("SpreadsheetDashboardWriteUs")]
+    //[InverseProperty("SpreadsheetDashboardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("SpreadsheetDashboardId")]

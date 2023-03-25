@@ -104,6 +104,18 @@ public partial class IrModuleModule
     [Column("views_by_module")]
     public string? ViewsByModule { get; set; }
 
+    [ForeignKey("CategoryId")]
+    //[InverseProperty("IrModuleModules")]
+    public virtual IrModuleCategory? Category { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("IrModuleModuleCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("IrModuleModuleWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("Module")]
     [NotMapped]
     public virtual ICollection<BaseModuleInstallRequest> BaseModuleInstallRequests { get; } = new List<BaseModuleInstallRequest>();
@@ -115,14 +127,6 @@ public partial class IrModuleModule
     [InverseProperty("Module")]
     [NotMapped]
     public virtual ICollection<BaseModuleUninstall> BaseModuleUninstalls { get; } = new List<BaseModuleUninstall>();
-
-    [ForeignKey("CategoryId")]
-    [InverseProperty("IrModuleModules")]
-    public virtual IrModuleCategory? Category { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("IrModuleModuleCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Module")]
     [NotMapped]
@@ -155,10 +159,6 @@ public partial class IrModuleModule
     [InverseProperty("Theme")]
     [NotMapped]
     public virtual ICollection<Website> Websites { get; } = new List<Website>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("IrModuleModuleWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ModuleId")]
     [InverseProperty("Modules")]

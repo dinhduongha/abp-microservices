@@ -39,18 +39,18 @@ public partial class CrmQuotationPartner
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmQuotationPartnerCreateUs")]
+    //[InverseProperty("CrmQuotationPartnerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LeadId")]
-    [InverseProperty("CrmQuotationPartners")]
+    //[InverseProperty("CrmQuotationPartners")]
     public virtual CrmLead? Lead { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("CrmQuotationPartners")]
+    //[InverseProperty("CrmQuotationPartners")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmQuotationPartnerWriteUs")]
+    //[InverseProperty("CrmQuotationPartnerWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

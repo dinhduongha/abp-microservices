@@ -40,14 +40,14 @@ public partial class PhoneBlacklist
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PhoneBlacklistCreateUs")]
+    //[InverseProperty("PhoneBlacklistCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("PhoneBlacklists")]
+    //[InverseProperty("PhoneBlacklists")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PhoneBlacklistWriteUs")]
+    //[InverseProperty("PhoneBlacklistWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

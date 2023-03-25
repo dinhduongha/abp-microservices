@@ -37,6 +37,6 @@ public partial class ResUsersApikey
     public DateTime? CreationTime { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("ResUsersApikeys")]
+    //[InverseProperty("ResUsersApikeys")]
     public virtual ResUser? User { get; set; }
 }

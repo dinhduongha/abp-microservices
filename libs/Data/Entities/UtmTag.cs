@@ -37,11 +37,11 @@ public partial class UtmTag
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("UtmTagCreateUs")]
+    //[InverseProperty("UtmTagCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("UtmTagWriteUs")]
+    //[InverseProperty("UtmTagWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CampaignId")]

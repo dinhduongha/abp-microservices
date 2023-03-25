@@ -33,14 +33,15 @@ public partial class WebEditorConverterTestSub
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WebEditorConverterTestSubCreateUs")]
+    //[InverseProperty("WebEditorConverterTestSubCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("WebEditorConverterTestSubWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Many2oneNavigation")]
     [NotMapped]
     public virtual ICollection<WebEditorConverterTest> WebEditorConverterTests { get; } = new List<WebEditorConverterTest>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("WebEditorConverterTestSubWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

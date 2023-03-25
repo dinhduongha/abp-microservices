@@ -45,22 +45,22 @@ public partial class StockWarnInsufficientQtyRepair
     public double? Quantity { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockWarnInsufficientQtyRepairCreateUs")]
+    //[InverseProperty("StockWarnInsufficientQtyRepairCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
-    [InverseProperty("StockWarnInsufficientQtyRepairs")]
+    //[InverseProperty("StockWarnInsufficientQtyRepairs")]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("StockWarnInsufficientQtyRepairs")]
+    //[InverseProperty("StockWarnInsufficientQtyRepairs")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("RepairId")]
-    [InverseProperty("StockWarnInsufficientQtyRepairs")]
+    //[InverseProperty("StockWarnInsufficientQtyRepairs")]
     public virtual RepairOrder? Repair { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockWarnInsufficientQtyRepairWriteUs")]
+    //[InverseProperty("StockWarnInsufficientQtyRepairWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

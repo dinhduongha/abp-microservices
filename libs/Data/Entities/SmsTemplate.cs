@@ -51,21 +51,29 @@ public partial class SmsTemplate
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("SmsTemplateCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ModelId")]
+    //[InverseProperty("SmsTemplates")]
+    public virtual IrModel? ModelNavigation { get; set; }
+
+    [ForeignKey("SidebarActionId")]
+    //[InverseProperty("SmsTemplates")]
+    public virtual IrActWindow? SidebarAction { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("SmsTemplateWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("SmsTemplate")]
     [NotMapped]
     public virtual ICollection<CalendarAlarm> CalendarAlarms { get; } = new List<CalendarAlarm>();
 
-    [ForeignKey("CreatorId")]
-    [InverseProperty("SmsTemplateCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
     [InverseProperty("SmsTemplate")]
     [NotMapped]
     public virtual ICollection<IrActServer> IrActServers { get; } = new List<IrActServer>();
-
-    [ForeignKey("ModelId")]
-    [InverseProperty("SmsTemplates")]
-    public virtual IrModel? ModelNavigation { get; set; }
 
     [InverseProperty("SmsTemplate")]
     [NotMapped]
@@ -79,10 +87,6 @@ public partial class SmsTemplate
     [NotMapped]
     public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
 
-    [ForeignKey("SidebarActionId")]
-    [InverseProperty("SmsTemplates")]
-    public virtual IrActWindow? SidebarAction { get; set; }
-
     [InverseProperty("Template")]
     [NotMapped]
     public virtual ICollection<SmsComposer> SmsComposers { get; } = new List<SmsComposer>();
@@ -90,10 +94,6 @@ public partial class SmsTemplate
     [InverseProperty("SmsTemplate")]
     [NotMapped]
     public virtual ICollection<SmsTemplatePreview> SmsTemplatePreviews { get; } = new List<SmsTemplatePreview>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("SmsTemplateWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("SmsTemplateId")]
     [InverseProperty("SmsTemplates")]

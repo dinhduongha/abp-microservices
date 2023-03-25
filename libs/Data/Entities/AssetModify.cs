@@ -42,10 +42,10 @@ public partial class AssetModify
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AssetModifyCreateUs")]
+    //[InverseProperty("AssetModifyCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AssetModifyWriteUs")]
+    //[InverseProperty("AssetModifyWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

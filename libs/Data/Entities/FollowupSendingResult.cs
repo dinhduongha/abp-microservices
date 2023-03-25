@@ -36,10 +36,10 @@ public partial class FollowupSendingResult
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("FollowupSendingResultCreateUs")]
+    //[InverseProperty("FollowupSendingResultCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("FollowupSendingResultWriteUs")]
+    //[InverseProperty("FollowupSendingResultWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

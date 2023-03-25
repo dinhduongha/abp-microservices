@@ -32,15 +32,16 @@ public partial class BaseImportTestsModelsM2oRelated
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("BaseImportTestsModelsM2oRelatedCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("BaseImportTestsModelsM2oRelatedWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("ValueNavigation")]
     [NotMapped]
     public virtual ICollection<BaseImportTestsModelsM2o> BaseImportTestsModelsM2os { get; } = new List<BaseImportTestsModelsM2o>();
 
-    [ForeignKey("CreatorId")]
-    [InverseProperty("BaseImportTestsModelsM2oRelatedCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseImportTestsModelsM2oRelatedWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

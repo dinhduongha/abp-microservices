@@ -62,21 +62,21 @@ public partial class AccountReportExpression
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
-    [InverseProperty("TargetReportExpression")]
-    [NotMapped]
-    public virtual ICollection<AccountReportExternalValue> AccountReportExternalValues { get; } = new List<AccountReportExternalValue>();
-
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountReportExpressionCreateUs")]
+    //[InverseProperty("AccountReportExpressionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ReportLineId")]
-    [InverseProperty("AccountReportExpressions")]
+    //[InverseProperty("AccountReportExpressions")]
     public virtual AccountReportLine? ReportLine { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountReportExpressionWriteUs")]
+    //[InverseProperty("AccountReportExpressionWriteUs")]
     public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("TargetReportExpression")]
+    [NotMapped]
+    public virtual ICollection<AccountReportExternalValue> AccountReportExternalValues { get; } = new List<AccountReportExternalValue>();
 
     [ForeignKey("AccountReportExpressionId")]
     [InverseProperty("AccountReportExpressions")]

@@ -36,11 +36,11 @@ public partial class PaymentIcon
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PaymentIconCreateUs")]
+    //[InverseProperty("PaymentIconCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PaymentIconWriteUs")]
+    //[InverseProperty("PaymentIconWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PaymentIconId")]

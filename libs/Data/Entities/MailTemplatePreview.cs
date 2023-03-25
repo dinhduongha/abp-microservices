@@ -42,14 +42,14 @@ public partial class MailTemplatePreview
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailTemplatePreviewCreateUs")]
+    //[InverseProperty("MailTemplatePreviewCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailTemplateId")]
-    [InverseProperty("MailTemplatePreviews")]
+    //[InverseProperty("MailTemplatePreviews")]
     public virtual MailTemplate? MailTemplate { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailTemplatePreviewWriteUs")]
+    //[InverseProperty("MailTemplatePreviewWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

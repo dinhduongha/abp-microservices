@@ -62,19 +62,19 @@ public partial class ResCountry
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AddressViewId")]
-    [InverseProperty("ResCountries")]
+    //[InverseProperty("ResCountries")]
     public virtual IrUiView? AddressView { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResCountryCreateUs")]
+    //[InverseProperty("ResCountryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("ResCountries")]
+    //[InverseProperty("ResCountries")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResCountryWriteUs")]
+    //[InverseProperty("ResCountryWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
 

@@ -37,10 +37,10 @@ public partial class IrConfigParameter
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrConfigParameterCreateUs")]
+    //[InverseProperty("IrConfigParameterCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrConfigParameterWriteUs")]
+    //[InverseProperty("IrConfigParameterWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

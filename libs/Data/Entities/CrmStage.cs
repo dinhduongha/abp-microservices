@@ -48,18 +48,19 @@ public partial class CrmStage
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmStageCreateUs")]
+    //[InverseProperty("CrmStageCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("TeamId")]
+    //[InverseProperty("CrmStages")]
+    public virtual CrmTeam? Team { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("CrmStageWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Stage")]
     [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
 
-    [ForeignKey("TeamId")]
-    [InverseProperty("CrmStages")]
-    public virtual CrmTeam? Team { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmStageWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

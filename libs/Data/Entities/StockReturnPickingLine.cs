@@ -45,22 +45,22 @@ public partial class StockReturnPickingLine
     public bool? ToRefund { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockReturnPickingLineCreateUs")]
+    //[InverseProperty("StockReturnPickingLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MoveId")]
-    [InverseProperty("StockReturnPickingLines")]
+    //[InverseProperty("StockReturnPickingLines")]
     public virtual StockMove? Move { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("StockReturnPickingLines")]
+    //[InverseProperty("StockReturnPickingLines")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("WizardId")]
-    [InverseProperty("StockReturnPickingLines")]
+    //[InverseProperty("StockReturnPickingLines")]
     public virtual StockReturnPicking? Wizard { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockReturnPickingLineWriteUs")]
+    //[InverseProperty("StockReturnPickingLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

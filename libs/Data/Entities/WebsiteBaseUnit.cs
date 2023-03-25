@@ -33,8 +33,12 @@ public partial class WebsiteBaseUnit
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WebsiteBaseUnitCreateUs")]
+    //[InverseProperty("WebsiteBaseUnitCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("WebsiteBaseUnitWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("BaseUnit")]
     [NotMapped]
@@ -44,7 +48,4 @@ public partial class WebsiteBaseUnit
     [NotMapped]
     public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("WebsiteBaseUnitWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

@@ -49,8 +49,16 @@ public partial class IrModuleCategory
     public bool? Exclusive { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrModuleCategoryCreateUs")]
+    //[InverseProperty("IrModuleCategoryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual IrModuleCategory? Parent { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("IrModuleCategoryWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Parent")]
     [NotMapped]
@@ -60,15 +68,8 @@ public partial class IrModuleCategory
     [NotMapped]
     public virtual ICollection<IrModuleModule> IrModuleModules { get; } = new List<IrModuleModule>();
 
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual IrModuleCategory? Parent { get; set; }
-
     [InverseProperty("Category")]
     [NotMapped]
     public virtual ICollection<ResGroup> ResGroups { get; } = new List<ResGroup>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("IrModuleCategoryWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

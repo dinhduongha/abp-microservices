@@ -51,18 +51,19 @@ public partial class PrivacyLog
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PrivacyLogCreateUs")]
+    //[InverseProperty("PrivacyLogCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("PrivacyLogUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PrivacyLogWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Log")]
     [NotMapped]
     public virtual ICollection<PrivacyLookupWizard> PrivacyLookupWizards { get; } = new List<PrivacyLookupWizard>();
 
-    [ForeignKey("UserId")]
-    [InverseProperty("PrivacyLogUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PrivacyLogWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

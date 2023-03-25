@@ -60,18 +60,18 @@ public partial class BarcodeRule
     public bool? Gs1DecimalUsage { get; set; }
 
     [ForeignKey("AssociatedUomId")]
-    [InverseProperty("BarcodeRules")]
+    //[InverseProperty("BarcodeRules")]
     public virtual UomUom? AssociatedUom { get; set; }
 
     [ForeignKey("BarcodeNomenclatureId")]
-    [InverseProperty("BarcodeRules")]
+    //[InverseProperty("BarcodeRules")]
     public virtual BarcodeNomenclature? BarcodeNomenclature { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BarcodeRuleCreateUs")]
+    //[InverseProperty("BarcodeRuleCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BarcodeRuleWriteUs")]
+    //[InverseProperty("BarcodeRuleWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

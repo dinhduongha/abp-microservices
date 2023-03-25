@@ -42,14 +42,14 @@ public partial class PosCloseSessionWizard
     public double? AmountToBalance { get; set; }
 
     [ForeignKey("AccountId")]
-    [InverseProperty("PosCloseSessionWizards")]
+    //[InverseProperty("PosCloseSessionWizards")]
     public virtual AccountAccount? Account { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PosCloseSessionWizardCreateUs")]
+    //[InverseProperty("PosCloseSessionWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PosCloseSessionWizardWriteUs")]
+    //[InverseProperty("PosCloseSessionWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

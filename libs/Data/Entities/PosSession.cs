@@ -85,6 +85,34 @@ public partial class PosSession
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CashJournalId")]
+    //[InverseProperty("PosSessions")]
+    public virtual AccountJournal? CashJournal { get; set; }
+
+    [ForeignKey("ConfigId")]
+    //[InverseProperty("PosSessions")]
+    public virtual PosConfig? Config { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("PosSessionCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("PosSessions")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("MoveId")]
+    //[InverseProperty("PosSessions")]
+    public virtual AccountMove? Move { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("PosSessionUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PosSessionWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+    
     [InverseProperty("PosSession")]
     [NotMapped]
     public virtual ICollection<AccountBankStatementLine> AccountBankStatementLines { get; } = new List<AccountBankStatementLine>();
@@ -92,26 +120,6 @@ public partial class PosSession
     [InverseProperty("PosSession")]
     [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
-
-    [ForeignKey("CashJournalId")]
-    [InverseProperty("PosSessions")]
-    public virtual AccountJournal? CashJournal { get; set; }
-
-    [ForeignKey("ConfigId")]
-    [InverseProperty("PosSessions")]
-    public virtual PosConfig? Config { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("PosSessionCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("PosSessions")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("MoveId")]
-    [InverseProperty("PosSessions")]
-    public virtual AccountMove? Move { get; set; }
 
     [InverseProperty("Session")]
     [NotMapped]
@@ -125,11 +133,4 @@ public partial class PosSession
     [NotMapped]
     public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
 
-    [ForeignKey("UserId")]
-    [InverseProperty("PosSessionUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PosSessionWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

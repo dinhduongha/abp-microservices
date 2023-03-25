@@ -30,16 +30,16 @@ public partial class StockTrackConfirmation
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockTrackConfirmationCreateUs")]
+    //[InverseProperty("StockTrackConfirmationCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("StockTrackConfirmationWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Wizard")]
     [NotMapped]
     public virtual ICollection<StockTrackLine> StockTrackLines { get; } = new List<StockTrackLine>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("StockTrackConfirmationWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockTrackConfirmationId")]
     [InverseProperty("StockTrackConfirmations")]

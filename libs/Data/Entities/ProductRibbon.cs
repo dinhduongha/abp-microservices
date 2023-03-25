@@ -42,8 +42,12 @@ public partial class ProductRibbon
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductRibbonCreateUs")]
+    //[InverseProperty("ProductRibbonCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProductRibbonWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Ribbon")]
     [NotMapped]
@@ -53,7 +57,4 @@ public partial class ProductRibbon
     [NotMapped]
     public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductRibbonWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

@@ -40,16 +40,20 @@ public partial class PosCategory
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PosCategoryCreateUs")]
+    //[InverseProperty("PosCategoryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual PosCategory? Parent { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PosCategoryWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Parent")]
     [NotMapped]
     public virtual ICollection<PosCategory> InverseParent { get; } = new List<PosCategory>();
-
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual PosCategory? Parent { get; set; }
 
     [InverseProperty("IfaceStartCateg")]
     [NotMapped]
@@ -62,10 +66,6 @@ public partial class PosCategory
     [InverseProperty("PosIfaceStartCateg")]
     [NotMapped]
     public virtual ICollection<ResConfigSetting> ResConfigSettingsNavigation { get; } = new List<ResConfigSetting>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PosCategoryWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PosCategoryId")]
     [InverseProperty("PosCategories")]

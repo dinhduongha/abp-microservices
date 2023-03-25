@@ -33,14 +33,14 @@ public partial class AccountBankStatementImportJournalCreation
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountBankStatementImportJournalCreationCreateUs")]
+    //[InverseProperty("AccountBankStatementImportJournalCreationCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
-    [InverseProperty("AccountBankStatementImportJournalCreations")]
+    //[InverseProperty("AccountBankStatementImportJournalCreations")]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountBankStatementImportJournalCreationWriteUs")]
+    //[InverseProperty("AccountBankStatementImportJournalCreationWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

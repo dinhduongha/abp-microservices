@@ -36,15 +36,15 @@ public partial class AccountFullReconcile
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountFullReconcileCreateUs")]
+    //[InverseProperty("AccountFullReconcileCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ExchangeMoveId")]
-    [InverseProperty("AccountFullReconciles")]
+    //[InverseProperty("AccountFullReconciles")]
     public virtual AccountMove? ExchangeMove { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountFullReconcileWriteUs")]
+    //[InverseProperty("AccountFullReconcileWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("FullReconcile")]

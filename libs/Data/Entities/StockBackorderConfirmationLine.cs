@@ -39,18 +39,18 @@ public partial class StockBackorderConfirmationLine
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("BackorderConfirmationId")]
-    [InverseProperty("StockBackorderConfirmationLines")]
+    //[InverseProperty("StockBackorderConfirmationLines")]
     public virtual StockBackorderConfirmation? BackorderConfirmation { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockBackorderConfirmationLineCreateUs")]
+    //[InverseProperty("StockBackorderConfirmationLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PickingId")]
-    [InverseProperty("StockBackorderConfirmationLines")]
+    //[InverseProperty("StockBackorderConfirmationLines")]
     public virtual StockPicking? Picking { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockBackorderConfirmationLineWriteUs")]
+    //[InverseProperty("StockBackorderConfirmationLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

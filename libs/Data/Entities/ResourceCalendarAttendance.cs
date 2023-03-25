@@ -68,18 +68,18 @@ public partial class ResourceCalendarAttendance
     public double? HourTo { get; set; }
 
     [ForeignKey("CalendarId")]
-    [InverseProperty("ResourceCalendarAttendances")]
+    //[InverseProperty("ResourceCalendarAttendances")]
     public virtual ResourceCalendar? Calendar { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResourceCalendarAttendanceCreateUs")]
+    //[InverseProperty("ResourceCalendarAttendanceCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ResourceId")]
-    [InverseProperty("ResourceCalendarAttendances")]
+    //[InverseProperty("ResourceCalendarAttendances")]
     public virtual ResourceResource? Resource { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResourceCalendarAttendanceWriteUs")]
+    //[InverseProperty("ResourceCalendarAttendanceWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

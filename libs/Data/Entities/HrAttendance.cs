@@ -43,18 +43,19 @@ public partial class HrAttendance
     public double? WorkedHours { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrAttendanceCreateUs")]
+    //[InverseProperty("HrAttendanceCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EmployeeId")]
-    [InverseProperty("HrAttendances")]
+    //[InverseProperty("HrAttendances")]
     public virtual HrEmployee? Employee { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrAttendanceWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("LastAttendance")]
     [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrAttendanceWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

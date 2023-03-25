@@ -70,19 +70,19 @@ public partial class ProductProduct
     public virtual WebsiteBaseUnit? BaseUnit { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductProductCreateUs")]
+    //[InverseProperty("ProductProductCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("ProductProducts")]
+    //[InverseProperty("ProductProducts")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ProductTmplId")]
-    [InverseProperty("ProductProducts")]
+    //[InverseProperty("ProductProducts")]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductProductWriteUs")]
+    //[InverseProperty("ProductProductWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Product")]

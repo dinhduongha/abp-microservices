@@ -39,10 +39,10 @@ public partial class MailShortcode
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailShortcodeCreateUs")]
+    //[InverseProperty("MailShortcodeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailShortcodeWriteUs")]
+    //[InverseProperty("MailShortcodeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

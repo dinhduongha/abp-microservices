@@ -97,34 +97,34 @@ public partial class RatingRating
     public DateTime? PublisherDatetime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("RatingRatingCreateUs")]
+    //[InverseProperty("RatingRatingCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageId")]
-    [InverseProperty("RatingRatings")]
+    //[InverseProperty("RatingRatings")]
     public virtual MailMessage? Message { get; set; }
 
     [ForeignKey("ParentResModelId")]
-    [InverseProperty("RatingRatingParentResModelNavigations")]
+    //[InverseProperty("RatingRatingParentResModelNavigations")]
     public virtual IrModel? ParentResModelNavigation { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("RatingRatingPartners")]
+    //[InverseProperty("RatingRatingPartners")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PublisherId")]
-    [InverseProperty("RatingRatingPublishers")]
+    //[InverseProperty("RatingRatingPublishers")]
     public virtual ResPartner? Publisher { get; set; }
 
     [ForeignKey("RatedPartnerId")]
-    [InverseProperty("RatingRatingRatedPartners")]
+    //[InverseProperty("RatingRatingRatedPartners")]
     public virtual ResPartner? RatedPartner { get; set; }
 
     [ForeignKey("ResModelId")]
-    [InverseProperty("RatingRatingResModelNavigations")]
+    //[InverseProperty("RatingRatingResModelNavigations")]
     public virtual IrModel? ResModelNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("RatingRatingWriteUs")]
+    //[InverseProperty("RatingRatingWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

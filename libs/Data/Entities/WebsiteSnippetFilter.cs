@@ -56,22 +56,22 @@ public partial class WebsiteSnippetFilter
     public bool? ProductCrossSelling { get; set; }
 
     [ForeignKey("ActionServerId")]
-    [InverseProperty("WebsiteSnippetFilters")]
+    //[InverseProperty("WebsiteSnippetFilters")]
     public virtual IrActServer? ActionServer { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WebsiteSnippetFilterCreateUs")]
+    //[InverseProperty("WebsiteSnippetFilterCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FilterId")]
-    [InverseProperty("WebsiteSnippetFilters")]
+    //[InverseProperty("WebsiteSnippetFilters")]
     public virtual IrFilter? Filter { get; set; }
 
     [ForeignKey("WebsiteId")]
-    [InverseProperty("WebsiteSnippetFilters")]
+    //[InverseProperty("WebsiteSnippetFilters")]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("WebsiteSnippetFilterWriteUs")]
+    //[InverseProperty("WebsiteSnippetFilterWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

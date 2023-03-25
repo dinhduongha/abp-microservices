@@ -36,14 +36,14 @@ public partial class BaseImportTestsModelsO2mChild
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseImportTestsModelsO2mChildCreateUs")]
+    //[InverseProperty("BaseImportTestsModelsO2mChildCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
-    [InverseProperty("BaseImportTestsModelsO2mChildren")]
+    //[InverseProperty("BaseImportTestsModelsO2mChildren")]
     public virtual BaseImportTestsModelsO2m? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseImportTestsModelsO2mChildWriteUs")]
+    //[InverseProperty("BaseImportTestsModelsO2mChildWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

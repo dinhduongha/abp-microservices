@@ -33,11 +33,11 @@ public partial class PickingLabelType
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PickingLabelTypeCreateUs")]
+    //[InverseProperty("PickingLabelTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PickingLabelTypeWriteUs")]
+    //[InverseProperty("PickingLabelTypeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PickingLabelTypeId")]

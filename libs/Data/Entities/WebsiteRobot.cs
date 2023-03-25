@@ -33,10 +33,10 @@ public partial class WebsiteRobot
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WebsiteRobotCreateUs")]
+    //[InverseProperty("WebsiteRobotCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("WebsiteRobotWriteUs")]
+    //[InverseProperty("WebsiteRobotWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

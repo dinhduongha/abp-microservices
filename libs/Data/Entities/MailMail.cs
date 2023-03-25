@@ -73,24 +73,24 @@ public partial class MailMail
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailMailCreateUs")]
+    //[InverseProperty("MailMailCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FetchmailServerId")]
-    [InverseProperty("MailMails")]
+    //[InverseProperty("MailMails")]
     public virtual FetchmailServer? FetchmailServer { get; set; }
 
     [ForeignKey("MailMessageId")]
-    [InverseProperty("MailMails")]
+    //[InverseProperty("MailMails")]
     public virtual MailMessage? MailMessage { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MailMailWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("MailMail")]
     [NotMapped]
     public virtual ICollection<MailNotification> MailNotifications { get; } = new List<MailNotification>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MailMailWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MailMailId")]
     [InverseProperty("MailMails")]

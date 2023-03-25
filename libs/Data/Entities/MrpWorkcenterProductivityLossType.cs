@@ -33,14 +33,15 @@ public partial class MrpWorkcenterProductivityLossType
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpWorkcenterProductivityLossTypeCreateUs")]
+    //[InverseProperty("MrpWorkcenterProductivityLossTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MrpWorkcenterProductivityLossTypeWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Loss")]
     [NotMapped]
     public virtual ICollection<MrpWorkcenterProductivityLoss> MrpWorkcenterProductivityLosses { get; } = new List<MrpWorkcenterProductivityLoss>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpWorkcenterProductivityLossTypeWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

@@ -42,18 +42,18 @@ public partial class IrServerObjectLine
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("Col1")]
-    [InverseProperty("IrServerObjectLines")]
+    //[InverseProperty("IrServerObjectLines")]
     public virtual IrModelField? Col1Navigation { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrServerObjectLineCreateUs")]
+    //[InverseProperty("IrServerObjectLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ServerId")]
-    [InverseProperty("IrServerObjectLines")]
+    //[InverseProperty("IrServerObjectLines")]
     public virtual IrActServer? Server { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrServerObjectLineWriteUs")]
+    //[InverseProperty("IrServerObjectLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

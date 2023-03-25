@@ -34,10 +34,10 @@ public partial class ChangePasswordWizard
     public virtual ICollection<ChangePasswordUser> ChangePasswordUsers { get; } = new List<ChangePasswordUser>();
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ChangePasswordWizardCreateUs")]
+    //[InverseProperty("ChangePasswordWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ChangePasswordWizardWriteUs")]
+    //[InverseProperty("ChangePasswordWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

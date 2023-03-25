@@ -33,10 +33,10 @@ public partial class ValidateAccountMove
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ValidateAccountMoveCreateUs")]
+    //[InverseProperty("ValidateAccountMoveCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ValidateAccountMoveWriteUs")]
+    //[InverseProperty("ValidateAccountMoveWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

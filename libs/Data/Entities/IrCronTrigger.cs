@@ -37,14 +37,14 @@ public partial class IrCronTrigger
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrCronTriggerCreateUs")]
+    //[InverseProperty("IrCronTriggerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CronId")]
-    [InverseProperty("IrCronTriggers")]
+    //[InverseProperty("IrCronTriggers")]
     public virtual IrCron? Cron { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrCronTriggerWriteUs")]
+    //[InverseProperty("IrCronTriggerWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

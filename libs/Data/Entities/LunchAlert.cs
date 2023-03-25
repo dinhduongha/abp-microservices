@@ -81,15 +81,15 @@ public partial class LunchAlert
     public double? NotificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("LunchAlertCreateUs")]
+    //[InverseProperty("LunchAlertCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CronId")]
-    [InverseProperty("LunchAlerts")]
+    //[InverseProperty("LunchAlerts")]
     public virtual IrCron? Cron { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("LunchAlertWriteUs")]
+    //[InverseProperty("LunchAlertWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("LunchAlertId")]

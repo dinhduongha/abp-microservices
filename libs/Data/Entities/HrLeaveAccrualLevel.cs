@@ -93,22 +93,23 @@ public partial class HrLeaveAccrualLevel
     public double? MaximumLeave { get; set; }
 
     [ForeignKey("AccrualPlanId")]
-    [InverseProperty("HrLeaveAccrualLevels")]
+    //[InverseProperty("HrLeaveAccrualLevels")]
     public virtual HrLeaveAccrualPlan? AccrualPlan { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrLeaveAccrualLevelCreateUs")]
+    //[InverseProperty("HrLeaveAccrualLevelCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual HrLeaveAccrualLevel? Parent { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrLeaveAccrualLevelWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Parent")]
     [NotMapped]
     public virtual ICollection<HrLeaveAccrualLevel> InverseParent { get; } = new List<HrLeaveAccrualLevel>();
 
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual HrLeaveAccrualLevel? Parent { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrLeaveAccrualLevelWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

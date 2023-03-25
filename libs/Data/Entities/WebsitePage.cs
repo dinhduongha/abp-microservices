@@ -65,20 +65,24 @@ public partial class WebsitePage
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WebsitePageCreateUs")]
+    //[InverseProperty("WebsitePageCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ThemeTemplateId")]
-    [InverseProperty("WebsitePages")]
+    //[InverseProperty("WebsitePages")]
     public virtual ThemeWebsitePage? ThemeTemplate { get; set; }
 
     [ForeignKey("ViewId")]
-    [InverseProperty("WebsitePages")]
+    //[InverseProperty("WebsitePages")]
     public virtual IrUiView? View { get; set; }
 
     [ForeignKey("WebsiteId")]
-    [InverseProperty("WebsitePages")]
+    //[InverseProperty("WebsitePages")]
     public virtual Website? Website { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("WebsitePageWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Page")]
     [NotMapped]
@@ -88,7 +92,4 @@ public partial class WebsitePage
     [NotMapped]
     public virtual ICollection<WebsiteTrack> WebsiteTracks { get; } = new List<WebsiteTrack>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("WebsitePageWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

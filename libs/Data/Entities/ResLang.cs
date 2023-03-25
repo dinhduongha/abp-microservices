@@ -69,11 +69,11 @@ public partial class ResLang
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResLangCreateUs")]
+    //[InverseProperty("ResLangCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResLangWriteUs")]
+    //[InverseProperty("ResLangWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Lang")]

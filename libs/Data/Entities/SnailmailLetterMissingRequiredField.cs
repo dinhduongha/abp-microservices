@@ -54,26 +54,26 @@ public partial class SnailmailLetterMissingRequiredField
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CountryId")]
-    [InverseProperty("SnailmailLetterMissingRequiredFields")]
+    //[InverseProperty("SnailmailLetterMissingRequiredFields")]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SnailmailLetterMissingRequiredFieldCreateUs")]
+    //[InverseProperty("SnailmailLetterMissingRequiredFieldCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LetterId")]
-    [InverseProperty("SnailmailLetterMissingRequiredFields")]
+    //[InverseProperty("SnailmailLetterMissingRequiredFields")]
     public virtual SnailmailLetter? Letter { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("SnailmailLetterMissingRequiredFields")]
+    //[InverseProperty("SnailmailLetterMissingRequiredFields")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("StateId")]
-    [InverseProperty("SnailmailLetterMissingRequiredFields")]
+    //[InverseProperty("SnailmailLetterMissingRequiredFields")]
     public virtual ResCountryState? State { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("SnailmailLetterMissingRequiredFieldWriteUs")]
+    //[InverseProperty("SnailmailLetterMissingRequiredFieldWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

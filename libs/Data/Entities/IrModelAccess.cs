@@ -57,18 +57,18 @@ public partial class IrModelAccess
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrModelAccessCreateUs")]
+    //[InverseProperty("IrModelAccessCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GroupId")]
-    [InverseProperty("IrModelAccesses")]
+    //[InverseProperty("IrModelAccesses")]
     public virtual ResGroup? Group { get; set; }
 
     [ForeignKey("ModelId")]
-    [InverseProperty("IrModelAccesses")]
+    //[InverseProperty("IrModelAccesses")]
     public virtual IrModel? Model { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrModelAccessWriteUs")]
+    //[InverseProperty("IrModelAccessWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

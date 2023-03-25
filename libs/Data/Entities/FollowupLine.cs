@@ -60,31 +60,32 @@ public partial class FollowupLine
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
-    [InverseProperty("FollowupLine")]
-    [NotMapped]
-    public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
-
     [ForeignKey("CreatorId")]
-    [InverseProperty("FollowupLineCreateUs")]
+    //[InverseProperty("FollowupLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EmailTemplateId")]
-    [InverseProperty("FollowupLines")]
+    //[InverseProperty("FollowupLines")]
     public virtual MailTemplate? EmailTemplate { get; set; }
 
     [ForeignKey("FollowupId")]
-    [InverseProperty("FollowupLines")]
+    //[InverseProperty("FollowupLines")]
     public virtual FollowupFollowup? Followup { get; set; }
 
     [ForeignKey("ManualActionResponsibleId")]
-    [InverseProperty("FollowupLineManualActionResponsibles")]
+    //[InverseProperty("FollowupLineManualActionResponsibles")]
     public virtual ResUser? ManualActionResponsible { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("FollowupLineWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("FollowupLine")]
+    [NotMapped]
+    public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [InverseProperty("LatestFollowupLevelIdWithoutLitNavigation")]
     [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("FollowupLineWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

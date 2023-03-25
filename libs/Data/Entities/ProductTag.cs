@@ -44,19 +44,19 @@ public partial class ProductTag
     public Guid? RibbonId { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductTagCreateUs")]
+    //[InverseProperty("ProductTagCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("RibbonId")]
-    [InverseProperty("ProductTags")]
+    //[InverseProperty("ProductTags")]
     public virtual ProductRibbon? Ribbon { get; set; }
 
     [ForeignKey("WebsiteId")]
-    [InverseProperty("ProductTags")]
+    //[InverseProperty("ProductTags")]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductTagWriteUs")]
+    //[InverseProperty("ProductTagWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductTagId")]

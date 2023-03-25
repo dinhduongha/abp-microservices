@@ -84,24 +84,24 @@ public partial class FleetVehicleModel
     public double? HorsepowerTax { get; set; }
 
     [ForeignKey("BrandId")]
-    [InverseProperty("FleetVehicleModels")]
+    //[InverseProperty("FleetVehicleModels")]
     public virtual FleetVehicleModelBrand Brand { get; set; } = null!;
 
     [ForeignKey("CategoryId")]
-    [InverseProperty("FleetVehicleModels")]
+    //[InverseProperty("FleetVehicleModels")]
     public virtual FleetVehicleModelCategory? Category { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("FleetVehicleModelCreateUs")]
+    //[InverseProperty("FleetVehicleModelCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("FleetVehicleModelWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Model")]
     [NotMapped]
     public virtual ICollection<FleetVehicle> FleetVehicles { get; } = new List<FleetVehicle>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("FleetVehicleModelWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ModelId")]
     [InverseProperty("Models")]

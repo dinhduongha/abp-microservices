@@ -54,16 +54,20 @@ public partial class SaleOrderTemplate: IMultiTenant, IMayHaveCreator, IModifica
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("TenantId")]
-    [InverseProperty("SaleOrderTemplates")]
+    //[InverseProperty("SaleOrderTemplates")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SaleOrderTemplateCreateUs")]
+    //[InverseProperty("SaleOrderTemplateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailTemplateId")]
-    [InverseProperty("SaleOrderTemplates")]
+    //[InverseProperty("SaleOrderTemplates")]
     public virtual MailTemplate? MailTemplate { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("SaleOrderTemplateWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("SaleOrderTemplate")]
     [NotMapped]
@@ -81,7 +85,4 @@ public partial class SaleOrderTemplate: IMultiTenant, IMayHaveCreator, IModifica
     [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("SaleOrderTemplateWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

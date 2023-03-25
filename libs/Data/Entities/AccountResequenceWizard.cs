@@ -42,11 +42,11 @@ public partial class AccountResequenceWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountResequenceWizardCreateUs")]
+    //[InverseProperty("AccountResequenceWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountResequenceWizardWriteUs")]
+    //[InverseProperty("AccountResequenceWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountResequenceWizardId")]

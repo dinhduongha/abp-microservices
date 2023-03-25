@@ -36,18 +36,18 @@ public partial class StockTrackLine
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockTrackLineCreateUs")]
+    //[InverseProperty("StockTrackLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("StockTrackLines")]
+    //[InverseProperty("StockTrackLines")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("WizardId")]
-    [InverseProperty("StockTrackLines")]
+    //[InverseProperty("StockTrackLines")]
     public virtual StockTrackConfirmation? Wizard { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockTrackLineWriteUs")]
+    //[InverseProperty("StockTrackLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

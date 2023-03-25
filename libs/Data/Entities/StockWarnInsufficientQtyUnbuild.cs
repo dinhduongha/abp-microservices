@@ -45,22 +45,22 @@ public partial class StockWarnInsufficientQtyUnbuild
     public double? Quantity { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockWarnInsufficientQtyUnbuildCreateUs")]
+    //[InverseProperty("StockWarnInsufficientQtyUnbuildCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
-    [InverseProperty("StockWarnInsufficientQtyUnbuilds")]
+    //[InverseProperty("StockWarnInsufficientQtyUnbuilds")]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("StockWarnInsufficientQtyUnbuilds")]
+    //[InverseProperty("StockWarnInsufficientQtyUnbuilds")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("UnbuildId")]
-    [InverseProperty("StockWarnInsufficientQtyUnbuilds")]
+    //[InverseProperty("StockWarnInsufficientQtyUnbuilds")]
     public virtual MrpUnbuild? Unbuild { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockWarnInsufficientQtyUnbuildWriteUs")]
+    //[InverseProperty("StockWarnInsufficientQtyUnbuildWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

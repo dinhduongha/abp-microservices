@@ -30,16 +30,16 @@ public partial class MrpProductionBackorder
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpProductionBackorderCreateUs")]
+    //[InverseProperty("MrpProductionBackorderCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MrpProductionBackorderWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("MrpProductionBackorder")]
     [NotMapped]
     public virtual ICollection<MrpProductionBackorderLine> MrpProductionBackorderLines { get; } = new List<MrpProductionBackorderLine>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpProductionBackorderWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MrpProductionBackorderId")]
     [InverseProperty("MrpProductionBackorders")]

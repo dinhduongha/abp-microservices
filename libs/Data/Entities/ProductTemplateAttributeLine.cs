@@ -44,24 +44,24 @@ public partial class ProductTemplateAttributeLine
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AttributeId")]
-    [InverseProperty("ProductTemplateAttributeLines")]
+    //[InverseProperty("ProductTemplateAttributeLines")]
     public virtual ProductAttribute? Attribute { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductTemplateAttributeLineCreateUs")]
+    //[InverseProperty("ProductTemplateAttributeLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ProductTmplId")]
+    //[InverseProperty("ProductTemplateAttributeLines")]
+    public virtual ProductTemplate? ProductTmpl { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProductTemplateAttributeLineWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("AttributeLine")]
     [NotMapped]
     public virtual ICollection<ProductTemplateAttributeValue> ProductTemplateAttributeValues { get; } = new List<ProductTemplateAttributeValue>();
-
-    [ForeignKey("ProductTmplId")]
-    [InverseProperty("ProductTemplateAttributeLines")]
-    public virtual ProductTemplate? ProductTmpl { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductTemplateAttributeLineWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductTemplateAttributeLineId")]
     [InverseProperty("ProductTemplateAttributeLines")]

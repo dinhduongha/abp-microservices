@@ -42,18 +42,19 @@ public partial class FleetVehicleOdometer
     public double? Value { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("FleetVehicleOdometerCreateUs")]
+    //[InverseProperty("FleetVehicleOdometerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("VehicleId")]
+    //[InverseProperty("FleetVehicleOdometers")]
+    public virtual FleetVehicle? Vehicle { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("FleetVehicleOdometerWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Odometer")]
     [NotMapped]
     public virtual ICollection<FleetVehicleLogService> FleetVehicleLogServices { get; } = new List<FleetVehicleLogService>();
 
-    [ForeignKey("VehicleId")]
-    [InverseProperty("FleetVehicleOdometers")]
-    public virtual FleetVehicle? Vehicle { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("FleetVehicleOdometerWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

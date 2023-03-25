@@ -133,36 +133,72 @@ public partial class HrLeave
     public Guid? OvertimeId { get; set; }
 
     [ForeignKey("CategoryId")]
-    [InverseProperty("HrLeaves")]
+    //[InverseProperty("HrLeaves")]
     public virtual HrEmployeeCategory? Category { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrLeaveCreateUs")]
+    //[InverseProperty("HrLeaveCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartmentId")]
-    [InverseProperty("HrLeaves")]
+    //[InverseProperty("HrLeaves")]
     public virtual HrDepartment? Department { get; set; }
 
     [ForeignKey("EmployeeId")]
-    [InverseProperty("HrLeaveEmployees")]
+    //[InverseProperty("HrLeaveEmployees")]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("EmployeeCompanyId")]
-    [InverseProperty("HrLeaveEmployeeCompanies")]
+    //[InverseProperty("HrLeaveEmployeeCompanies")]
     public virtual ResCompany? EmployeeCompany { get; set; }
 
     [ForeignKey("FirstApproverId")]
-    [InverseProperty("HrLeaveFirstApprovers")]
+    //[InverseProperty("HrLeaveFirstApprovers")]
     public virtual HrEmployee? FirstApprover { get; set; }
 
     [ForeignKey("HolidayAllocationId")]
-    [InverseProperty("HrLeaves")]
+    //[InverseProperty("HrLeaves")]
     public virtual HrLeaveAllocation? HolidayAllocation { get; set; }
 
     [ForeignKey("HolidayStatusId")]
-    [InverseProperty("HrLeaves")]
+    //[InverseProperty("HrLeaves")]
     public virtual HrLeaveType? HolidayStatus { get; set; }
+
+    [ForeignKey("ManagerId")]
+    //[InverseProperty("HrLeaveManagers")]
+    public virtual HrEmployee? Manager { get; set; }
+
+    [ForeignKey("MeetingId")]
+    //[InverseProperty("HrLeaves")]
+    public virtual CalendarEvent? Meeting { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("HrLeaves")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("ModeCompanyId")]
+    //[InverseProperty("HrLeaveModeCompanies")]
+    public virtual ResCompany? ModeCompany { get; set; }
+
+    [ForeignKey("OvertimeId")]
+    //[InverseProperty("HrLeaves")]
+    public virtual HrAttendanceOvertime? Overtime { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual HrLeave? Parent { get; set; }
+
+    [ForeignKey("SecondApproverId")]
+    //[InverseProperty("HrLeaveSecondApprovers")]
+    public virtual HrEmployee? SecondApprover { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("HrLeaveUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrLeaveWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Leave")]
     [NotMapped]
@@ -172,45 +208,9 @@ public partial class HrLeave
     [NotMapped]
     public virtual ICollection<HrLeave> InverseParent { get; } = new List<HrLeave>();
 
-    [ForeignKey("ManagerId")]
-    [InverseProperty("HrLeaveManagers")]
-    public virtual HrEmployee? Manager { get; set; }
-
-    [ForeignKey("MeetingId")]
-    [InverseProperty("HrLeaves")]
-    public virtual CalendarEvent? Meeting { get; set; }
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("HrLeaves")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("ModeCompanyId")]
-    [InverseProperty("HrLeaveModeCompanies")]
-    public virtual ResCompany? ModeCompany { get; set; }
-
-    [ForeignKey("OvertimeId")]
-    [InverseProperty("HrLeaves")]
-    public virtual HrAttendanceOvertime? Overtime { get; set; }
-
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual HrLeave? Parent { get; set; }
-
     [InverseProperty("Holiday")]
     [NotMapped]
     public virtual ICollection<ResourceCalendarLeaf> ResourceCalendarLeaves { get; } = new List<ResourceCalendarLeaf>();
-
-    [ForeignKey("SecondApproverId")]
-    [InverseProperty("HrLeaveSecondApprovers")]
-    public virtual HrEmployee? SecondApprover { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("HrLeaveUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrLeaveWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrLeaveId")]
     [InverseProperty("HrLeaves")]

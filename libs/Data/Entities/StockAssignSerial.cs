@@ -60,18 +60,18 @@ public partial class StockAssignSerial
     public bool? ShowBackorders { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockAssignSerialCreateUs")]
+    //[InverseProperty("StockAssignSerialCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MoveId")]
-    [InverseProperty("StockAssignSerials")]
+    //[InverseProperty("StockAssignSerials")]
     public virtual StockMove? Move { get; set; }
 
     [ForeignKey("ProductionId")]
-    [InverseProperty("StockAssignSerials")]
+    //[InverseProperty("StockAssignSerials")]
     public virtual MrpProduction? Production { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockAssignSerialWriteUs")]
+    //[InverseProperty("StockAssignSerialWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

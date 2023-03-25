@@ -42,10 +42,10 @@ public partial class MailIceServer
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailIceServerCreateUs")]
+    //[InverseProperty("MailIceServerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailIceServerWriteUs")]
+    //[InverseProperty("MailIceServerWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

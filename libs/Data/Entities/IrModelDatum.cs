@@ -47,10 +47,10 @@ public partial class IrModelDatum
     public string? Model { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrModelDatumCreateUs")]
+    //[InverseProperty("IrModelDatumCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrModelDatumWriteUs")]
+    //[InverseProperty("IrModelDatumWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

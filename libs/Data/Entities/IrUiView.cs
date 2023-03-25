@@ -105,12 +105,24 @@ public partial class IrUiView
     public bool? Track { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrUiViewCreateUs")]
+    //[InverseProperty("IrUiViewCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InheritId")]
-    [InverseProperty("InverseInherit")]
+    //[InverseProperty("InverseInherit")]
     public virtual IrUiView? Inherit { get; set; }
+
+    [ForeignKey("ThemeTemplateId")]
+    //[InverseProperty("IrUiViews")]
+    public virtual ThemeIrUiView? ThemeTemplate { get; set; }
+
+    [ForeignKey("WebsiteId")]
+    //[InverseProperty("IrUiViews")]
+    public virtual Website? Website { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("IrUiViewWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Inherit")]
     [NotMapped]
@@ -168,14 +180,6 @@ public partial class IrUiView
     [NotMapped]
     public virtual ICollection<ResetViewArchWizard> ResetViewArchWizardViews { get; } = new List<ResetViewArchWizard>();
 
-    [ForeignKey("ThemeTemplateId")]
-    [InverseProperty("IrUiViews")]
-    public virtual ThemeIrUiView? ThemeTemplate { get; set; }
-
-    [ForeignKey("WebsiteId")]
-    [InverseProperty("IrUiViews")]
-    public virtual Website? Website { get; set; }
-
     [InverseProperty("PageView")]
     [NotMapped]
     public virtual ICollection<WebsiteConfiguratorFeature> WebsiteConfiguratorFeatures { get; } = new List<WebsiteConfiguratorFeature>();
@@ -183,10 +187,6 @@ public partial class IrUiView
     [InverseProperty("View")]
     [NotMapped]
     public virtual ICollection<WebsitePage> WebsitePages { get; } = new List<WebsitePage>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("IrUiViewWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ViewId")]
     [InverseProperty("Views")]

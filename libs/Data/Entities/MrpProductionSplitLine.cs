@@ -42,18 +42,18 @@ public partial class MrpProductionSplitLine
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpProductionSplitLineCreateUs")]
+    //[InverseProperty("MrpProductionSplitLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MrpProductionSplitId")]
-    [InverseProperty("MrpProductionSplitLines")]
+    //[InverseProperty("MrpProductionSplitLines")]
     public virtual MrpProductionSplit? MrpProductionSplit { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("MrpProductionSplitLineUsers")]
+    //[InverseProperty("MrpProductionSplitLineUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpProductionSplitLineWriteUs")]
+    //[InverseProperty("MrpProductionSplitLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

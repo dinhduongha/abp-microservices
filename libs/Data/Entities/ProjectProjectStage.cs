@@ -48,22 +48,23 @@ public partial class ProjectProjectStage
     public Guid? SmsTemplateId { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProjectProjectStageCreateUs")]
+    //[InverseProperty("ProjectProjectStageCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailTemplateId")]
-    [InverseProperty("ProjectProjectStages")]
+    //[InverseProperty("ProjectProjectStages")]
     public virtual MailTemplate? MailTemplate { get; set; }
+
+    [ForeignKey("SmsTemplateId")]
+    //[InverseProperty("ProjectProjectStages")]
+    public virtual SmsTemplate? SmsTemplate { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProjectProjectStageWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Stage")]
     [NotMapped]
     public virtual ICollection<ProjectProject> ProjectProjects { get; } = new List<ProjectProject>();
 
-    [ForeignKey("SmsTemplateId")]
-    [InverseProperty("ProjectProjectStages")]
-    public virtual SmsTemplate? SmsTemplate { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProjectProjectStageWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

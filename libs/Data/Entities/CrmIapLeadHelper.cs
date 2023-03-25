@@ -30,10 +30,10 @@ public partial class CrmIapLeadHelper
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmIapLeadHelperCreateUs")]
+    //[InverseProperty("CrmIapLeadHelperCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmIapLeadHelperWriteUs")]
+    //[InverseProperty("CrmIapLeadHelperWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

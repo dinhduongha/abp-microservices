@@ -37,14 +37,14 @@ public partial class IrModuleModuleExclusion
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrModuleModuleExclusionCreateUs")]
+    //[InverseProperty("IrModuleModuleExclusionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModuleId")]
-    [InverseProperty("IrModuleModuleExclusions")]
+    //[InverseProperty("IrModuleModuleExclusions")]
     public virtual IrModuleModule? Module { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrModuleModuleExclusionWriteUs")]
+    //[InverseProperty("IrModuleModuleExclusionWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -47,12 +47,16 @@ public partial class ResGroup
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CategoryId")]
-    [InverseProperty("ResGroups")]
+    //[InverseProperty("ResGroups")]
     public virtual IrModuleCategory? Category { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResGroupCreateUs")]
+    //[InverseProperty("ResGroupCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ResGroupWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Group")]
     [NotMapped]
@@ -73,10 +77,6 @@ public partial class ResGroup
     [InverseProperty("GroupPosUser")]
     [NotMapped]
     public virtual ICollection<PosConfig> PosConfigGroupPosUsers { get; } = new List<PosConfig>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ResGroupWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("Gid")]
     [InverseProperty("Gids")]

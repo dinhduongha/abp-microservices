@@ -36,11 +36,11 @@ public partial class PosDetailsWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PosDetailsWizardCreateUs")]
+    //[InverseProperty("PosDetailsWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PosDetailsWizardWriteUs")]
+    //[InverseProperty("PosDetailsWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PosDetailsWizardId")]

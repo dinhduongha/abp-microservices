@@ -41,19 +41,20 @@ public partial class BarcodeNomenclature
     [Column("is_gs1_nomenclature")]
     public bool? IsGs1Nomenclature { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("BarcodeNomenclatureCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("BarcodeNomenclatureWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("BarcodeNomenclature")]
     [NotMapped]
     public virtual ICollection<BarcodeRule> BarcodeRules { get; } = new List<BarcodeRule>();
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("BarcodeNomenclatureCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Nomenclature")]
     [NotMapped]
     public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("BarcodeNomenclatureWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

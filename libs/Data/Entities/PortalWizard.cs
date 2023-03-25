@@ -33,16 +33,16 @@ public partial class PortalWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PortalWizardCreateUs")]
+    //[InverseProperty("PortalWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("PortalWizardWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Wizard")]
     [NotMapped]
     public virtual ICollection<PortalWizardUser> PortalWizardUsers { get; } = new List<PortalWizardUser>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("PortalWizardWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PortalWizardId")]
     [InverseProperty("PortalWizards")]

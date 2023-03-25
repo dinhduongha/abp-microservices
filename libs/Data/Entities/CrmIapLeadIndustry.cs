@@ -43,11 +43,11 @@ public partial class CrmIapLeadIndustry
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmIapLeadIndustryCreateUs")]
+    //[InverseProperty("CrmIapLeadIndustryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmIapLeadIndustryWriteUs")]
+    //[InverseProperty("CrmIapLeadIndustryWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CrmIapLeadIndustryId")]

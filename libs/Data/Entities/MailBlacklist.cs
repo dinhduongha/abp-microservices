@@ -40,14 +40,14 @@ public partial class MailBlacklist
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailBlacklistCreateUs")]
+    //[InverseProperty("MailBlacklistCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("MailBlacklists")]
+    //[InverseProperty("MailBlacklists")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailBlacklistWriteUs")]
+    //[InverseProperty("MailBlacklistWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

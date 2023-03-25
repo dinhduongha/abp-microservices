@@ -57,26 +57,27 @@ public partial class ProjectUpdate
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProjectUpdateCreateUs")]
+    //[InverseProperty("ProjectUpdateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("ProjectUpdates")]
+    //[InverseProperty("ProjectUpdates")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ProjectId")]
-    [InverseProperty("ProjectUpdates")]
+    //[InverseProperty("ProjectUpdates")]
     public virtual ProjectProject? Project { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("ProjectUpdateUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProjectUpdateWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("LastUpdate")]
     [NotMapped]
     public virtual ICollection<ProjectProject> ProjectProjects { get; } = new List<ProjectProject>();
 
-    [ForeignKey("UserId")]
-    [InverseProperty("ProjectUpdateUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProjectUpdateWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

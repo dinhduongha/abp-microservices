@@ -65,25 +65,25 @@ public partial class BasePartnerMergeAutomaticWizard
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
-    [InverseProperty("Wizard")]
-    [NotMapped]
-    public virtual ICollection<BasePartnerMergeLine> BasePartnerMergeLines { get; } = new List<BasePartnerMergeLine>();
-
     [ForeignKey("CreatorId")]
-    [InverseProperty("BasePartnerMergeAutomaticWizardCreateUs")]
+    //[InverseProperty("BasePartnerMergeAutomaticWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrentLineId")]
-    [InverseProperty("BasePartnerMergeAutomaticWizards")]
+    //[InverseProperty("BasePartnerMergeAutomaticWizards")]
     public virtual BasePartnerMergeLine? CurrentLine { get; set; }
 
     [ForeignKey("DstPartnerId")]
-    [InverseProperty("BasePartnerMergeAutomaticWizards")]
+    //[InverseProperty("BasePartnerMergeAutomaticWizards")]
     public virtual ResPartner? DstPartner { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BasePartnerMergeAutomaticWizardWriteUs")]
+    //[InverseProperty("BasePartnerMergeAutomaticWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("Wizard")]
+    [NotMapped]
+    public virtual ICollection<BasePartnerMergeLine> BasePartnerMergeLines { get; } = new List<BasePartnerMergeLine>();
 
     [ForeignKey("BasePartnerMergeAutomaticWizardId")]
     [InverseProperty("BasePartnerMergeAutomaticWizardsNavigation")]

@@ -54,26 +54,27 @@ public partial class ProjectMilestone
     public double? QuantityPercentage { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProjectMilestoneCreateUs")]
+    //[InverseProperty("ProjectMilestoneCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("ProjectMilestones")]
+    //[InverseProperty("ProjectMilestones")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ProjectId")]
-    [InverseProperty("ProjectMilestones")]
+    //[InverseProperty("ProjectMilestones")]
     public virtual ProjectProject? Project { get; set; }
+
+    [ForeignKey("SaleLineId")]
+    //[InverseProperty("ProjectMilestones")]
+    public virtual SaleOrderLine? SaleLine { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProjectMilestoneWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Milestone")]
     [NotMapped]
     public virtual ICollection<ProjectTask> ProjectTasks { get; } = new List<ProjectTask>();
 
-    [ForeignKey("SaleLineId")]
-    [InverseProperty("ProjectMilestones")]
-    public virtual SaleOrderLine? SaleLine { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProjectMilestoneWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

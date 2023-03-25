@@ -39,14 +39,14 @@ public partial class MrpDocument
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpDocumentCreateUs")]
+    //[InverseProperty("MrpDocumentCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("IrAttachmentId")]
-    [InverseProperty("MrpDocuments")]
+    //[InverseProperty("MrpDocuments")]
     public virtual IrAttachment? IrAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpDocumentWriteUs")]
+    //[InverseProperty("MrpDocumentWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

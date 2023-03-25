@@ -39,18 +39,18 @@ public partial class MrpProductionBackorderLine
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpProductionBackorderLineCreateUs")]
+    //[InverseProperty("MrpProductionBackorderLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MrpProductionId")]
-    [InverseProperty("MrpProductionBackorderLines")]
+    //[InverseProperty("MrpProductionBackorderLines")]
     public virtual MrpProduction? MrpProduction { get; set; }
 
     [ForeignKey("MrpProductionBackorderId")]
-    [InverseProperty("MrpProductionBackorderLines")]
+    //[InverseProperty("MrpProductionBackorderLines")]
     public virtual MrpProductionBackorder? MrpProductionBackorder { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpProductionBackorderLineWriteUs")]
+    //[InverseProperty("MrpProductionBackorderLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

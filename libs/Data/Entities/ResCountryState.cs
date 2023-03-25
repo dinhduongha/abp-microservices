@@ -44,11 +44,11 @@ public partial class ResCountryState
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResCountryStateCreateUs")]
+    //[InverseProperty("ResCountryStateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResCountryStateWriteUs")]
+    //[InverseProperty("ResCountryStateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
 

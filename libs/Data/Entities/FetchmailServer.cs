@@ -92,18 +92,19 @@ public partial class FetchmailServer
     public string? GoogleGmailAccessToken { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("FetchmailServerCreateUs")]
+    //[InverseProperty("FetchmailServerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ObjectId")]
+    //[InverseProperty("FetchmailServers")]
+    public virtual IrModel? Object { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("FetchmailServerWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("FetchmailServer")]
     [NotMapped]
     public virtual ICollection<MailMail> MailMails { get; } = new List<MailMail>();
 
-    [ForeignKey("ObjectId")]
-    [InverseProperty("FetchmailServers")]
-    public virtual IrModel? Object { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("FetchmailServerWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

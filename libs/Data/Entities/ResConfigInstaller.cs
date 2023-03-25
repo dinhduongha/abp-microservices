@@ -30,10 +30,10 @@ public partial class ResConfigInstaller
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResConfigInstallerCreateUs")]
+    //[InverseProperty("ResConfigInstallerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResConfigInstallerWriteUs")]
+    //[InverseProperty("ResConfigInstallerWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

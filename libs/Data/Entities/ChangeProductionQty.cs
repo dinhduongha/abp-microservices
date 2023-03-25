@@ -36,14 +36,14 @@ public partial class ChangeProductionQty
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ChangeProductionQtyCreateUs")]
+    //[InverseProperty("ChangeProductionQtyCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MoId")]
-    [InverseProperty("ChangeProductionQties")]
+    //[InverseProperty("ChangeProductionQties")]
     public virtual MrpProduction? Mo { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ChangeProductionQtyWriteUs")]
+    //[InverseProperty("ChangeProductionQtyWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

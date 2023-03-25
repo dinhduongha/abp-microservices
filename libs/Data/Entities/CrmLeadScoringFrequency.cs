@@ -46,14 +46,14 @@ public partial class CrmLeadScoringFrequency
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmLeadScoringFrequencyCreateUs")]
+    //[InverseProperty("CrmLeadScoringFrequencyCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TeamId")]
-    [InverseProperty("CrmLeadScoringFrequencies")]
+    //[InverseProperty("CrmLeadScoringFrequencies")]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmLeadScoringFrequencyWriteUs")]
+    //[InverseProperty("CrmLeadScoringFrequencyWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

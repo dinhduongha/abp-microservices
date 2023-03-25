@@ -53,24 +53,24 @@ public partial class IrUiMenu
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrUiMenuCreateUs")]
+    //[InverseProperty("IrUiMenuCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual IrUiMenu? Parent { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("IrUiMenuWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Parent")]
     [NotMapped]
     public virtual ICollection<IrUiMenu> InverseParent { get; } = new List<IrUiMenu>();
 
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual IrUiMenu? Parent { get; set; }
-
     [InverseProperty("Menu")]
     [NotMapped]
     public virtual ICollection<WizardIrModelMenuCreate> WizardIrModelMenuCreates { get; } = new List<WizardIrModelMenuCreate>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("IrUiMenuWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MenuId")]
     [InverseProperty("Menus")]

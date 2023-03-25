@@ -36,14 +36,14 @@ public partial class CrmLeadLost
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmLeadLostCreateUs")]
+    //[InverseProperty("CrmLeadLostCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LostReasonId")]
-    [InverseProperty("CrmLeadLosts")]
+    //[InverseProperty("CrmLeadLosts")]
     public virtual CrmLostReason? LostReason { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmLeadLostWriteUs")]
+    //[InverseProperty("CrmLeadLostWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

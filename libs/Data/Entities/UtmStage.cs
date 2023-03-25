@@ -36,14 +36,15 @@ public partial class UtmStage
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("UtmStageCreateUs")]
+    //[InverseProperty("UtmStageCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("UtmStageWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Stage")]
     [NotMapped]
     public virtual ICollection<UtmCampaign> UtmCampaigns { get; } = new List<UtmCampaign>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("UtmStageWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

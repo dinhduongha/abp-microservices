@@ -48,23 +48,23 @@ public partial class AccountTaxRepartitionLineTemplate
     public double? FactorPercent { get; set; }
 
     [ForeignKey("AccountId")]
-    [InverseProperty("AccountTaxRepartitionLineTemplates")]
+    //[InverseProperty("AccountTaxRepartitionLineTemplates")]
     public virtual AccountAccountTemplate? Account { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountTaxRepartitionLineTemplateCreateUs")]
+    //[InverseProperty("AccountTaxRepartitionLineTemplateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InvoiceTaxId")]
-    [InverseProperty("AccountTaxRepartitionLineTemplateInvoiceTaxes")]
+    //[InverseProperty("AccountTaxRepartitionLineTemplateInvoiceTaxes")]
     public virtual AccountTaxTemplate? InvoiceTax { get; set; }
 
     [ForeignKey("RefundTaxId")]
-    [InverseProperty("AccountTaxRepartitionLineTemplateRefundTaxes")]
+    //[InverseProperty("AccountTaxRepartitionLineTemplateRefundTaxes")]
     public virtual AccountTaxTemplate? RefundTax { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountTaxRepartitionLineTemplateWriteUs")]
+    //[InverseProperty("AccountTaxRepartitionLineTemplateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountTaxRepartitionLineTemplateId")]

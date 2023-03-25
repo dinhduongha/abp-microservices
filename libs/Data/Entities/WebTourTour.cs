@@ -24,6 +24,6 @@ public partial class WebTourTour
     public string? Name { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("WebTourTours")]
+    //[InverseProperty("WebTourTours")]
     public virtual ResUser? User { get; set; }
 }

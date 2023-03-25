@@ -51,18 +51,18 @@ public partial class HrResumeLine
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrResumeLineCreateUs")]
+    //[InverseProperty("HrResumeLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EmployeeId")]
-    [InverseProperty("HrResumeLines")]
+    //[InverseProperty("HrResumeLines")]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("LineTypeId")]
-    [InverseProperty("HrResumeLines")]
+    //[InverseProperty("HrResumeLines")]
     public virtual HrResumeLineType? LineType { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("HrResumeLineWriteUs")]
+    //[InverseProperty("HrResumeLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

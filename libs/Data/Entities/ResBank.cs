@@ -64,22 +64,23 @@ public partial class ResBank
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("Country")]
-    [InverseProperty("ResBanks")]
+    //[InverseProperty("ResBanks")]
     public virtual ResCountry? CountryNavigation { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResBankCreateUs")]
+    //[InverseProperty("ResBankCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("State")]
+    //[InverseProperty("ResBanks")]
+    public virtual ResCountryState? StateNavigation { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ResBankWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Bank")]
     [NotMapped]
     public virtual ICollection<ResPartnerBank> ResPartnerBanks { get; } = new List<ResPartnerBank>();
 
-    [ForeignKey("State")]
-    [InverseProperty("ResBanks")]
-    public virtual ResCountryState? StateNavigation { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ResBankWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

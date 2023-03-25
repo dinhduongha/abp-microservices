@@ -45,11 +45,11 @@ public partial class ProjectShareWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProjectShareWizardCreateUs")]
+    //[InverseProperty("ProjectShareWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ProjectShareWizardWriteUs")]
+    //[InverseProperty("ProjectShareWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProjectShareWizardId")]

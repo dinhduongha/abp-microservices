@@ -45,18 +45,18 @@ public partial class PosMakePayment
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("ConfigId")]
-    [InverseProperty("PosMakePayments")]
+    //[InverseProperty("PosMakePayments")]
     public virtual PosConfig? Config { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PosMakePaymentCreateUs")]
+    //[InverseProperty("PosMakePaymentCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PaymentMethodId")]
-    [InverseProperty("PosMakePayments")]
+    //[InverseProperty("PosMakePayments")]
     public virtual PosPaymentMethod? PaymentMethod { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PosMakePaymentWriteUs")]
+    //[InverseProperty("PosMakePaymentWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

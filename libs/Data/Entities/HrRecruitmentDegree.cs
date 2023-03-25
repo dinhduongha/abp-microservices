@@ -37,14 +37,15 @@ public partial class HrRecruitmentDegree
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrRecruitmentDegreeCreateUs")]
+    //[InverseProperty("HrRecruitmentDegreeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrRecruitmentDegreeWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Type")]
     [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicants { get; } = new List<HrApplicant>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrRecruitmentDegreeWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

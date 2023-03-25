@@ -54,7 +54,7 @@ public partial class AccountTaxRepartitionLine: IMultiTenant, IMayHaveCreator, I
     public double? FactorPercent { get; set; }
 
     [ForeignKey("AccountId")]
-    [InverseProperty("AccountTaxRepartitionLines")]
+    //[InverseProperty("AccountTaxRepartitionLines")]
     public virtual AccountAccount? Account { get; set; }
 
     [InverseProperty("TaxRepartitionLine")]
@@ -62,23 +62,23 @@ public partial class AccountTaxRepartitionLine: IMultiTenant, IMayHaveCreator, I
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [ForeignKey("TenantId")]
-    [InverseProperty("AccountTaxRepartitionLines")]
+    //[InverseProperty("AccountTaxRepartitionLines")]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountTaxRepartitionLineCreateUs")]
+    //[InverseProperty("AccountTaxRepartitionLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InvoiceTaxId")]
-    [InverseProperty("AccountTaxRepartitionLineInvoiceTaxes")]
+    //[InverseProperty("AccountTaxRepartitionLineInvoiceTaxes")]
     public virtual AccountTax? InvoiceTax { get; set; }
 
     [ForeignKey("RefundTaxId")]
-    [InverseProperty("AccountTaxRepartitionLineRefundTaxes")]
+    //[InverseProperty("AccountTaxRepartitionLineRefundTaxes")]
     public virtual AccountTax? RefundTax { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountTaxRepartitionLineWriteUs")]
+    //[InverseProperty("AccountTaxRepartitionLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountTaxRepartitionLineId")]

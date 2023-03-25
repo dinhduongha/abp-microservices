@@ -39,18 +39,18 @@ public partial class IrDemoFailure
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrDemoFailureCreateUs")]
+    //[InverseProperty("IrDemoFailureCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModuleId")]
-    [InverseProperty("IrDemoFailures")]
+    //[InverseProperty("IrDemoFailures")]
     public virtual IrModuleModule? Module { get; set; }
 
     [ForeignKey("WizardId")]
-    [InverseProperty("IrDemoFailures")]
+    //[InverseProperty("IrDemoFailures")]
     public virtual IrDemoFailureWizard? Wizard { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrDemoFailureWriteUs")]
+    //[InverseProperty("IrDemoFailureWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

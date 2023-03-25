@@ -30,11 +30,11 @@ public partial class MailTemplateReset
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailTemplateResetCreateUs")]
+    //[InverseProperty("MailTemplateResetCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailTemplateResetWriteUs")]
+    //[InverseProperty("MailTemplateResetWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MailTemplateResetId")]

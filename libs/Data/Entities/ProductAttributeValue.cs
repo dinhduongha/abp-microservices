@@ -55,16 +55,16 @@ public partial class ProductAttributeValue
     public virtual ProductAttribute? Attribute { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductAttributeValueCreateUs")]
+    //[InverseProperty("ProductAttributeValueCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProductAttributeValueWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ProductAttributeValue")]
     [NotMapped]
     public virtual ICollection<ProductTemplateAttributeValue> ProductTemplateAttributeValues { get; } = new List<ProductTemplateAttributeValue>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductAttributeValueWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductAttributeValueId")]
     [InverseProperty("ProductAttributeValues")]

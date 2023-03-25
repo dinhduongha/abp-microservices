@@ -38,19 +38,20 @@ public partial class BasePartnerMergeLine
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("BasePartnerMergeLineCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("WizardId")]
+    //[InverseProperty("BasePartnerMergeLines")]
+    public virtual BasePartnerMergeAutomaticWizard? Wizard { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("BasePartnerMergeLineWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("CurrentLine")]
     [NotMapped]
     public virtual ICollection<BasePartnerMergeAutomaticWizard> BasePartnerMergeAutomaticWizards { get; } = new List<BasePartnerMergeAutomaticWizard>();
 
-    [ForeignKey("CreatorId")]
-    [InverseProperty("BasePartnerMergeLineCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("WizardId")]
-    [InverseProperty("BasePartnerMergeLines")]
-    public virtual BasePartnerMergeAutomaticWizard? Wizard { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("BasePartnerMergeLineWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

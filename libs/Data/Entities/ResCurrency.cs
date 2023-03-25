@@ -58,11 +58,11 @@ public partial class ResCurrency
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResCurrencyCreateUs")]
+    //[InverseProperty("ResCurrencyCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResCurrencyWriteUs")]
+    //[InverseProperty("ResCurrencyWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
 /*

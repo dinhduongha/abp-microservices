@@ -42,11 +42,11 @@ public partial class AccountCashRounding
     public double? Rounding { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountCashRoundingCreateUs")]
+    //[InverseProperty("AccountCashRoundingCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountCashRoundingWriteUs")]
+    //[InverseProperty("AccountCashRoundingWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("InvoiceCashRounding")]

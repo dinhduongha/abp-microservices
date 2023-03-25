@@ -30,10 +30,10 @@ public partial class IrDemo
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrDemoCreateUs")]
+    //[InverseProperty("IrDemoCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrDemoWriteUs")]
+    //[InverseProperty("IrDemoWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -57,10 +57,10 @@ public partial class SalePaymentProviderOnboardingWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SalePaymentProviderOnboardingWizardCreateUs")]
+    //[InverseProperty("SalePaymentProviderOnboardingWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("SalePaymentProviderOnboardingWizardWriteUs")]
+    //[InverseProperty("SalePaymentProviderOnboardingWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

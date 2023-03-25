@@ -38,19 +38,19 @@ public partial class ProductTemplateAttributeExclusion
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductTemplateAttributeExclusionCreateUs")]
+    //[InverseProperty("ProductTemplateAttributeExclusionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductTemplateAttributeValueId")]
-    [InverseProperty("ProductTemplateAttributeExclusionsNavigation")]
+    //[InverseProperty("ProductTemplateAttributeExclusionsNavigation")]
     public virtual ProductTemplateAttributeValue? ProductTemplateAttributeValue { get; set; }
 
     [ForeignKey("ProductTmplId")]
-    [InverseProperty("ProductTemplateAttributeExclusions")]
+    //[InverseProperty("ProductTemplateAttributeExclusions")]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductTemplateAttributeExclusionWriteUs")]
+    //[InverseProperty("ProductTemplateAttributeExclusionWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductTemplateAttributeExclusionId")]

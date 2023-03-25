@@ -36,8 +36,12 @@ public partial class FleetServiceType
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("FleetServiceTypeCreateUs")]
+    //[InverseProperty("FleetServiceTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("FleetServiceTypeWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("CostSubtype")]
     [NotMapped]
@@ -46,10 +50,6 @@ public partial class FleetServiceType
     [InverseProperty("ServiceType")]
     [NotMapped]
     public virtual ICollection<FleetVehicleLogService> FleetVehicleLogServices { get; } = new List<FleetVehicleLogService>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("FleetServiceTypeWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("FleetServiceTypeId")]
     [InverseProperty("FleetServiceTypes")]

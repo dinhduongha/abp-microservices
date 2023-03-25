@@ -39,22 +39,23 @@ public partial class HrPayrollStructureType
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CountryId")]
-    [InverseProperty("HrPayrollStructureTypes")]
+    //[InverseProperty("HrPayrollStructureTypes")]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrPayrollStructureTypeCreateUs")]
+    //[InverseProperty("HrPayrollStructureTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DefaultResourceCalendarId")]
-    [InverseProperty("HrPayrollStructureTypes")]
+    //[InverseProperty("HrPayrollStructureTypes")]
     public virtual ResourceCalendar? DefaultResourceCalendar { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrPayrollStructureTypeWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("StructureType")]
     [NotMapped]
     public virtual ICollection<HrContract> HrContracts { get; } = new List<HrContract>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrPayrollStructureTypeWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

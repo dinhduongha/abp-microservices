@@ -33,10 +33,10 @@ public partial class BaseModuleUpgrade
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseModuleUpgradeCreateUs")]
+    //[InverseProperty("BaseModuleUpgradeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseModuleUpgradeWriteUs")]
+    //[InverseProperty("BaseModuleUpgradeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

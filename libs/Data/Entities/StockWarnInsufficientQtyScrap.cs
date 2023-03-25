@@ -45,22 +45,22 @@ public partial class StockWarnInsufficientQtyScrap
     public double? Quantity { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockWarnInsufficientQtyScrapCreateUs")]
+    //[InverseProperty("StockWarnInsufficientQtyScrapCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
-    [InverseProperty("StockWarnInsufficientQtyScraps")]
+    //[InverseProperty("StockWarnInsufficientQtyScraps")]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("StockWarnInsufficientQtyScraps")]
+    //[InverseProperty("StockWarnInsufficientQtyScraps")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ScrapId")]
-    [InverseProperty("StockWarnInsufficientQtyScraps")]
+    //[InverseProperty("StockWarnInsufficientQtyScraps")]
     public virtual StockScrap? Scrap { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockWarnInsufficientQtyScrapWriteUs")]
+    //[InverseProperty("StockWarnInsufficientQtyScrapWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

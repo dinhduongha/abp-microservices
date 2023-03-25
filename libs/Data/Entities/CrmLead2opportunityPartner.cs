@@ -51,27 +51,27 @@ public partial class CrmLead2opportunityPartner
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmLead2opportunityPartnerCreateUs")]
+    //[InverseProperty("CrmLead2opportunityPartnerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LeadId")]
-    [InverseProperty("CrmLead2opportunityPartners")]
+    //[InverseProperty("CrmLead2opportunityPartners")]
     public virtual CrmLead? Lead { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("CrmLead2opportunityPartners")]
+    //[InverseProperty("CrmLead2opportunityPartners")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("TeamId")]
-    [InverseProperty("CrmLead2opportunityPartners")]
+    //[InverseProperty("CrmLead2opportunityPartners")]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("CrmLead2opportunityPartnerUsers")]
+    //[InverseProperty("CrmLead2opportunityPartnerUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmLead2opportunityPartnerWriteUs")]
+    //[InverseProperty("CrmLead2opportunityPartnerWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CrmLead2opportunityPartnerId")]

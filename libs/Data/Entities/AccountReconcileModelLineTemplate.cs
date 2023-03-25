@@ -51,19 +51,19 @@ public partial class AccountReconcileModelLineTemplate
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AccountId")]
-    [InverseProperty("AccountReconcileModelLineTemplates")]
+    //[InverseProperty("AccountReconcileModelLineTemplates")]
     public virtual AccountAccountTemplate? Account { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountReconcileModelLineTemplateCreateUs")]
+    //[InverseProperty("AccountReconcileModelLineTemplateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModelId")]
-    [InverseProperty("AccountReconcileModelLineTemplates")]
+    //[InverseProperty("AccountReconcileModelLineTemplates")]
     public virtual AccountReconcileModelTemplate? Model { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountReconcileModelLineTemplateWriteUs")]
+    //[InverseProperty("AccountReconcileModelLineTemplateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountReconcileModelLineTemplateId")]

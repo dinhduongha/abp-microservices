@@ -39,18 +39,18 @@ public partial class StockChangeProductQty
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockChangeProductQtyCreateUs")]
+    //[InverseProperty("StockChangeProductQtyCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
-    [InverseProperty("StockChangeProductQties")]
+    //[InverseProperty("StockChangeProductQties")]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductTmplId")]
-    [InverseProperty("StockChangeProductQties")]
+    //[InverseProperty("StockChangeProductQties")]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockChangeProductQtyWriteUs")]
+    //[InverseProperty("StockChangeProductQtyWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

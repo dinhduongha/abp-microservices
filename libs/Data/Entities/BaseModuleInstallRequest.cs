@@ -39,18 +39,18 @@ public partial class BaseModuleInstallRequest
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseModuleInstallRequestCreateUs")]
+    //[InverseProperty("BaseModuleInstallRequestCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModuleId")]
-    [InverseProperty("BaseModuleInstallRequests")]
+    //[InverseProperty("BaseModuleInstallRequests")]
     public virtual IrModuleModule? Module { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("BaseModuleInstallRequestUsers")]
+    //[InverseProperty("BaseModuleInstallRequestUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseModuleInstallRequestWriteUs")]
+    //[InverseProperty("BaseModuleInstallRequestWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -58,26 +58,27 @@ public partial class ThemeWebsiteMenu
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ThemeWebsiteMenuCreateUs")]
+    //[InverseProperty("ThemeWebsiteMenuCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("PageId")]
+    //[InverseProperty("ThemeWebsiteMenus")]
+    public virtual ThemeWebsitePage? Page { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual ThemeWebsiteMenu? Parent { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ThemeWebsiteMenuWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Parent")]
     [NotMapped]
     public virtual ICollection<ThemeWebsiteMenu> InverseParent { get; } = new List<ThemeWebsiteMenu>();
 
-    [ForeignKey("PageId")]
-    [InverseProperty("ThemeWebsiteMenus")]
-    public virtual ThemeWebsitePage? Page { get; set; }
-
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual ThemeWebsiteMenu? Parent { get; set; }
-
     [InverseProperty("ThemeTemplate")]
     [NotMapped]
     public virtual ICollection<WebsiteMenu> WebsiteMenus { get; } = new List<WebsiteMenu>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ThemeWebsiteMenuWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

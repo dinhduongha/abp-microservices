@@ -130,8 +130,24 @@ public partial class IrModelField
     public bool? WebsiteFormBlacklisted { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrModelFieldCreateUs")]
+    //[InverseProperty("IrModelFieldCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ModelId")]
+    //[InverseProperty("IrModelFields")]
+    public virtual IrModel? ModelNavigation { get; set; }
+
+    [ForeignKey("RelatedFieldId")]
+    //[InverseProperty("InverseRelatedField")]
+    public virtual IrModelField? RelatedField { get; set; }
+
+    [ForeignKey("RelationFieldId")]
+    //[InverseProperty("InverseRelationFieldNavigation")]
+    public virtual IrModelField? RelationFieldNavigation { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("IrModelFieldWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Field")]
     [NotMapped]
@@ -173,25 +189,9 @@ public partial class IrModelField
     [NotMapped]
     public virtual ICollection<MailTrackingValue> MailTrackingValues { get; } = new List<MailTrackingValue>();
 
-    [ForeignKey("ModelId")]
-    [InverseProperty("IrModelFields")]
-    public virtual IrModel? ModelNavigation { get; set; }
-
-    [ForeignKey("RelatedFieldId")]
-    [InverseProperty("InverseRelatedField")]
-    public virtual IrModelField? RelatedField { get; set; }
-
-    [ForeignKey("RelationFieldId")]
-    [InverseProperty("InverseRelationFieldNavigation")]
-    public virtual IrModelField? RelationFieldNavigation { get; set; }
-
     [InverseProperty("Field")]
     [NotMapped]
     public virtual ICollection<WebsiteSaleExtraField> WebsiteSaleExtraFields { get; } = new List<WebsiteSaleExtraField>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("IrModelFieldWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("FieldId")]
     [InverseProperty("Fields")]

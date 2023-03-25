@@ -42,11 +42,11 @@ public partial class ProductLabelLayout
     public string? PickingQuantity { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductLabelLayoutCreateUs")]
+    //[InverseProperty("ProductLabelLayoutCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductLabelLayoutWriteUs")]
+    //[InverseProperty("ProductLabelLayoutWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductLabelLayoutId")]

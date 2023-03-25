@@ -93,6 +93,30 @@ public partial class MailTemplate
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("MailTemplateCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("MailServerId")]
+    //[InverseProperty("MailTemplates")]
+    public virtual IrMailServer? MailServer { get; set; }
+
+    [ForeignKey("ModelId")]
+    //[InverseProperty("MailTemplates")]
+    public virtual IrModel? ModelNavigation { get; set; }
+
+    [ForeignKey("RefIrActWindow")]
+    //[InverseProperty("MailTemplates")]
+    public virtual IrActWindow? RefIrActWindowNavigation { get; set; }
+
+    [ForeignKey("ReportTemplate")]
+    //[InverseProperty("MailTemplates")]
+    public virtual IrActReportXml? ReportTemplateNavigation { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MailTemplateWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("Template")]
     [NotMapped]
     public virtual ICollection<AccountInvoiceSend> AccountInvoiceSends { get; } = new List<AccountInvoiceSend>();
@@ -108,10 +132,6 @@ public partial class MailTemplate
     [InverseProperty("MailTemplate")]
     [NotMapped]
     public virtual ICollection<CalendarAlarm> CalendarAlarms { get; } = new List<CalendarAlarm>();
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("MailTemplateCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("EmailTemplate")]
     [NotMapped]
@@ -133,17 +153,9 @@ public partial class MailTemplate
     [NotMapped]
     public virtual ICollection<MailComposeMessage> MailComposeMessages { get; } = new List<MailComposeMessage>();
 
-    [ForeignKey("MailServerId")]
-    [InverseProperty("MailTemplates")]
-    public virtual IrMailServer? MailServer { get; set; }
-
     [InverseProperty("MailTemplate")]
     [NotMapped]
     public virtual ICollection<MailTemplatePreview> MailTemplatePreviews { get; } = new List<MailTemplatePreview>();
-
-    [ForeignKey("ModelId")]
-    [InverseProperty("MailTemplates")]
-    public virtual IrModel? ModelNavigation { get; set; }
 
     [InverseProperty("MailTemplate")]
     [NotMapped]
@@ -156,14 +168,6 @@ public partial class MailTemplate
     [InverseProperty("RatingTemplate")]
     [NotMapped]
     public virtual ICollection<ProjectTaskType> ProjectTaskTypeRatingTemplates { get; } = new List<ProjectTaskType>();
-
-    [ForeignKey("RefIrActWindow")]
-    [InverseProperty("MailTemplates")]
-    public virtual IrActWindow? RefIrActWindowNavigation { get; set; }
-
-    [ForeignKey("ReportTemplate")]
-    [InverseProperty("MailTemplates")]
-    public virtual IrActReportXml? ReportTemplateNavigation { get; set; }
 
     [InverseProperty("StockMailConfirmationTemplate")]
     [NotMapped]
@@ -184,10 +188,6 @@ public partial class MailTemplate
     [InverseProperty("CartRecoveryMailTemplate")]
     [NotMapped]
     public virtual ICollection<Website> Websites { get; } = new List<Website>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MailTemplateWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("EmailTemplateId")]
     [InverseProperty("EmailTemplates")]

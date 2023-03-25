@@ -36,8 +36,12 @@ public partial class ProductRemoval
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductRemovalCreateUs")]
+    //[InverseProperty("ProductRemovalCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProductRemovalWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("RemovalStrategy")]
     [NotMapped]
@@ -47,7 +51,4 @@ public partial class ProductRemoval
     [NotMapped]
     public virtual ICollection<StockLocation> StockLocations { get; } = new List<StockLocation>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductRemovalWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

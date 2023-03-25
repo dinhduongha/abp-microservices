@@ -39,22 +39,23 @@ public partial class MrpProductionSplit
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpProductionSplitCreateUs")]
+    //[InverseProperty("MrpProductionSplitCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ProductionId")]
+    //[InverseProperty("MrpProductionSplits")]
+    public virtual MrpProduction? Production { get; set; }
+
+    [ForeignKey("ProductionSplitMultiId")]
+    //[InverseProperty("MrpProductionSplits")]
+    public virtual MrpProductionSplitMulti? ProductionSplitMulti { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MrpProductionSplitWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("MrpProductionSplit")]
     [NotMapped]
     public virtual ICollection<MrpProductionSplitLine> MrpProductionSplitLines { get; } = new List<MrpProductionSplitLine>();
 
-    [ForeignKey("ProductionId")]
-    [InverseProperty("MrpProductionSplits")]
-    public virtual MrpProduction? Production { get; set; }
-
-    [ForeignKey("ProductionSplitMultiId")]
-    [InverseProperty("MrpProductionSplits")]
-    public virtual MrpProductionSplitMulti? ProductionSplitMulti { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpProductionSplitWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

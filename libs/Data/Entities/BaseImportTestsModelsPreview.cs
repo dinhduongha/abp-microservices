@@ -39,10 +39,10 @@ public partial class BaseImportTestsModelsPreview
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseImportTestsModelsPreviewCreateUs")]
+    //[InverseProperty("BaseImportTestsModelsPreviewCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseImportTestsModelsPreviewWriteUs")]
+    //[InverseProperty("BaseImportTestsModelsPreviewWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

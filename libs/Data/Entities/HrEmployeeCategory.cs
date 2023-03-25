@@ -37,8 +37,12 @@ public partial class HrEmployeeCategory
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrEmployeeCategoryCreateUs")]
+    //[InverseProperty("HrEmployeeCategoryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrEmployeeCategoryWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Category")]
     [NotMapped]
@@ -47,10 +51,6 @@ public partial class HrEmployeeCategory
     [InverseProperty("Category")]
     [NotMapped]
     public virtual ICollection<HrLeave> HrLeaves { get; } = new List<HrLeave>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrEmployeeCategoryWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CategoryId")]
     [InverseProperty("Categories")]

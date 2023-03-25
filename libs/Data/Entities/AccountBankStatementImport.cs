@@ -30,11 +30,11 @@ public partial class AccountBankStatementImport
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountBankStatementImportCreateUs")]
+    //[InverseProperty("AccountBankStatementImportCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountBankStatementImportWriteUs")]
+    //[InverseProperty("AccountBankStatementImportWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountBankStatementImportId")]

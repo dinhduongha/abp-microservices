@@ -83,23 +83,23 @@ public partial class AccountBankStatementLine
     public string? UniqueImportId { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountBankStatementLineCreateUs")]
+    //[InverseProperty("AccountBankStatementLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
-    [InverseProperty("AccountBankStatementLineCurrencies")]
+    //[InverseProperty("AccountBankStatementLineCurrencies")]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("ForeignCurrencyId")]
-    [InverseProperty("AccountBankStatementLineForeignCurrencies")]
+    //[InverseProperty("AccountBankStatementLineForeignCurrencies")]
     public virtual ResCurrency? ForeignCurrency { get; set; }
 
     [ForeignKey("MoveId")]
-    [InverseProperty("AccountBankStatementLines")]
+    //[InverseProperty("AccountBankStatementLines")]
     public virtual AccountMove? Move { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("AccountBankStatementLines")]
+    //[InverseProperty("AccountBankStatementLines")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PosSessionId")]
@@ -111,7 +111,7 @@ public partial class AccountBankStatementLine
     public virtual AccountBankStatement? Statement { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountBankStatementLineWriteUs")]
+    //[InverseProperty("AccountBankStatementLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("StatementLine")]

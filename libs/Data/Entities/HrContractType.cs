@@ -36,8 +36,12 @@ public partial class HrContractType
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrContractTypeCreateUs")]
+    //[InverseProperty("HrContractTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrContractTypeWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ContractType")]
     [NotMapped]
@@ -47,7 +51,4 @@ public partial class HrContractType
     [NotMapped]
     public virtual ICollection<HrJob> HrJobs { get; } = new List<HrJob>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrContractTypeWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

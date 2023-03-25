@@ -58,14 +58,14 @@ public partial class AccountPaymentTermLine
     public double? DiscountPercentage { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountPaymentTermLineCreateUs")]
+    //[InverseProperty("AccountPaymentTermLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PaymentId")]
-    [InverseProperty("AccountPaymentTermLines")]
+    //[InverseProperty("AccountPaymentTermLines")]
     public virtual AccountPaymentTerm? Payment { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountPaymentTermLineWriteUs")]
+    //[InverseProperty("AccountPaymentTermLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

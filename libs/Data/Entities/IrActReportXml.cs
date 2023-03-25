@@ -75,11 +75,11 @@ public partial class IrActReportXml
     public bool? AttachmentUse { get; set; }
 
     [ForeignKey("BindingModelId")]
-    [InverseProperty("IrActReportXmls")]
+    //[InverseProperty("IrActReportXmls")]
     public virtual IrModel? BindingModel { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrActReportXmlCreateUs")]
+    //[InverseProperty("IrActReportXmlCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("ReportTemplateNavigation")]
@@ -87,7 +87,7 @@ public partial class IrActReportXml
     public virtual ICollection<MailTemplate> MailTemplates { get; } = new List<MailTemplate>();
 
     [ForeignKey("PaperformatId")]
-    [InverseProperty("IrActReportXmls")]
+    //[InverseProperty("IrActReportXmls")]
     public virtual ReportPaperformat? Paperformat { get; set; }
 
     [InverseProperty("ReportTemplateNavigation")]
@@ -95,7 +95,7 @@ public partial class IrActReportXml
     public virtual ICollection<SnailmailLetter> SnailmailLetters { get; } = new List<SnailmailLetter>();
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrActReportXmlWriteUs")]
+    //[InverseProperty("IrActReportXmlWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("Uid")]

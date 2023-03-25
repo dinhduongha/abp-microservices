@@ -39,8 +39,16 @@ public partial class HrLeaveAccrualPlan
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrLeaveAccrualPlanCreateUs")]
+    //[InverseProperty("HrLeaveAccrualPlanCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("TimeOffTypeId")]
+    //[InverseProperty("HrLeaveAccrualPlans")]
+    public virtual HrLeaveType? TimeOffType { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrLeaveAccrualPlanWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("AccrualPlan")]
     [NotMapped]
@@ -50,11 +58,4 @@ public partial class HrLeaveAccrualPlan
     [NotMapped]
     public virtual ICollection<HrLeaveAllocation> HrLeaveAllocations { get; } = new List<HrLeaveAllocation>();
 
-    [ForeignKey("TimeOffTypeId")]
-    [InverseProperty("HrLeaveAccrualPlans")]
-    public virtual HrLeaveType? TimeOffType { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrLeaveAccrualPlanWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

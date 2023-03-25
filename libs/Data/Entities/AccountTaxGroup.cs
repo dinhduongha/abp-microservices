@@ -41,6 +41,18 @@ public partial class AccountTaxGroup
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CountryId")]
+    //[InverseProperty("AccountTaxGroups")]
+    public virtual ResCountry? Country { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("AccountTaxGroupCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountTaxGroupWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("TaxGroup")]
     [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
@@ -53,15 +65,4 @@ public partial class AccountTaxGroup
     [NotMapped]
     public virtual ICollection<AccountTax> AccountTaxes { get; } = new List<AccountTax>();
 
-    [ForeignKey("CountryId")]
-    [InverseProperty("AccountTaxGroups")]
-    public virtual ResCountry? Country { get; set; }
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("AccountTaxGroupCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountTaxGroupWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

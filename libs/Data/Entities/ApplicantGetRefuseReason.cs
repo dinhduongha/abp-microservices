@@ -39,19 +39,19 @@ public partial class ApplicantGetRefuseReason
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ApplicantGetRefuseReasonCreateUs")]
+    //[InverseProperty("ApplicantGetRefuseReasonCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("RefuseReasonId")]
-    [InverseProperty("ApplicantGetRefuseReasons")]
+    //[InverseProperty("ApplicantGetRefuseReasons")]
     public virtual HrApplicantRefuseReason? RefuseReason { get; set; }
 
     [ForeignKey("TemplateId")]
-    [InverseProperty("ApplicantGetRefuseReasons")]
+    //[InverseProperty("ApplicantGetRefuseReasons")]
     public virtual MailTemplate? Template { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ApplicantGetRefuseReasonWriteUs")]
+    //[InverseProperty("ApplicantGetRefuseReasonWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ApplicantGetRefuseReasonId")]

@@ -36,14 +36,15 @@ public partial class SpreadsheetDashboardGroup
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SpreadsheetDashboardGroupCreateUs")]
+    //[InverseProperty("SpreadsheetDashboardGroupCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("SpreadsheetDashboardGroupWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("DashboardGroup")]
     [NotMapped]
     public virtual ICollection<SpreadsheetDashboard> SpreadsheetDashboards { get; } = new List<SpreadsheetDashboard>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("SpreadsheetDashboardGroupWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

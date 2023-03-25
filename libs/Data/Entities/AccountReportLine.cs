@@ -63,6 +63,22 @@ public partial class AccountReportLine
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("AccountReportLineCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual AccountReportLine? Parent { get; set; }
+
+    [ForeignKey("ReportId")]
+    //[InverseProperty("AccountReportLines")]
+    public virtual AccountReport? Report { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountReportLineWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("ReportLine")]
     [NotMapped]
     public virtual ICollection<AccountReportExpression> AccountReportExpressions { get; } = new List<AccountReportExpression>();
@@ -71,23 +87,9 @@ public partial class AccountReportLine
     [NotMapped]
     public virtual ICollection<AccountReportExternalValue> AccountReportExternalValues { get; } = new List<AccountReportExternalValue>();
 
-    [ForeignKey("CreatorId")]
-    [InverseProperty("AccountReportLineCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
     [InverseProperty("Parent")]
     [NotMapped]
     public virtual ICollection<AccountReportLine> InverseParent { get; } = new List<AccountReportLine>();
 
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual AccountReportLine? Parent { get; set; }
 
-    [ForeignKey("ReportId")]
-    [InverseProperty("AccountReportLines")]
-    public virtual AccountReport? Report { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountReportLineWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

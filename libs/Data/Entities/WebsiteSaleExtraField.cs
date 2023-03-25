@@ -39,18 +39,18 @@ public partial class WebsiteSaleExtraField
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WebsiteSaleExtraFieldCreateUs")]
+    //[InverseProperty("WebsiteSaleExtraFieldCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FieldId")]
-    [InverseProperty("WebsiteSaleExtraFields")]
+    //[InverseProperty("WebsiteSaleExtraFields")]
     public virtual IrModelField? Field { get; set; }
 
     [ForeignKey("WebsiteId")]
-    [InverseProperty("WebsiteSaleExtraFields")]
+    //[InverseProperty("WebsiteSaleExtraFields")]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("WebsiteSaleExtraFieldWriteUs")]
+    //[InverseProperty("WebsiteSaleExtraFieldWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

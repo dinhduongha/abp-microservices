@@ -57,18 +57,18 @@ public partial class HrDepartureWizard
     public bool? ReleaseCampanyCar { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrDepartureWizardCreateUs")]
+    //[InverseProperty("HrDepartureWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartureReasonId")]
-    [InverseProperty("HrDepartureWizards")]
+    //[InverseProperty("HrDepartureWizards")]
     public virtual HrDepartureReason? DepartureReason { get; set; }
 
     [ForeignKey("EmployeeId")]
-    [InverseProperty("HrDepartureWizards")]
+    //[InverseProperty("HrDepartureWizards")]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("HrDepartureWizardWriteUs")]
+    //[InverseProperty("HrDepartureWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

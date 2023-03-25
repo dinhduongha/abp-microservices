@@ -36,14 +36,14 @@ public partial class PaymentRefundWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PaymentRefundWizardCreateUs")]
+    //[InverseProperty("PaymentRefundWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PaymentId")]
-    [InverseProperty("PaymentRefundWizards")]
+    //[InverseProperty("PaymentRefundWizards")]
     public virtual AccountPayment? Payment { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PaymentRefundWizardWriteUs")]
+    //[InverseProperty("PaymentRefundWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

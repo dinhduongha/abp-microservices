@@ -63,13 +63,21 @@ public partial class IrCron
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrCronCreateUs")]
+    //[InverseProperty("IrCronCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("IrActionsServerId")]
-    [InverseProperty("IrCrons")]
+    //[InverseProperty("IrCrons")]
     public virtual IrActServer? IrActionsServer { get; set; }
 
+    [ForeignKey("UserId")]
+    //[InverseProperty("IrCronUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("IrCronWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+    
     [InverseProperty("Cron")]
     [NotMapped]
     public virtual ICollection<IrCronTrigger> IrCronTriggers { get; } = new List<IrCronTrigger>();
@@ -82,11 +90,4 @@ public partial class IrCron
     [NotMapped]
     public virtual ICollection<LunchSupplier> LunchSuppliers { get; } = new List<LunchSupplier>();
 
-    [ForeignKey("UserId")]
-    [InverseProperty("IrCronUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("IrCronWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

@@ -241,6 +241,30 @@ public partial class ProductTemplate: IMultiTenant, IMayHaveCreator, IModificati
     //[InverseProperty("ProductTemplates")]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
+    [ForeignKey("PosCategId")]
+    //[InverseProperty("ProductTemplates")]
+    public virtual PosCategory? PosCateg { get; set; }
+
+    [ForeignKey("UomId")]
+    //[InverseProperty("ProductTemplateUoms")]
+    public virtual UomUom? Uom { get; set; }
+
+    [ForeignKey("UomPoId")]
+    //[InverseProperty("ProductTemplateUomPos")]
+    public virtual UomUom? UomPo { get; set; }
+
+    [ForeignKey("WebsiteId")]
+    //[InverseProperty("ProductTemplates")]
+    public virtual Website? Website { get; set; }
+
+    [ForeignKey("WebsiteRibbonId")]
+    //[InverseProperty("ProductTemplates")]
+    public virtual ProductRibbon? WebsiteRibbon { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProductTemplateWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("ProductTmpl")]
     [NotMapped]
     public virtual ICollection<MrpBomLine> MrpBomLines { get; } = new List<MrpBomLine>();
@@ -248,30 +272,6 @@ public partial class ProductTemplate: IMultiTenant, IMayHaveCreator, IModificati
     [InverseProperty("ProductTmpl")]
     [NotMapped]
     public virtual ICollection<MrpBom> MrpBoms { get; } = new List<MrpBom>();
-
-    [ForeignKey("PosCategId")]
-    [InverseProperty("ProductTemplates")]
-    public virtual PosCategory? PosCateg { get; set; }
-
-    [ForeignKey("UomId")]
-    [InverseProperty("ProductTemplateUoms")]
-    public virtual UomUom? Uom { get; set; }
-
-    [ForeignKey("UomPoId")]
-    [InverseProperty("ProductTemplateUomPos")]
-    public virtual UomUom? UomPo { get; set; }
-
-    [ForeignKey("WebsiteId")]
-    [InverseProperty("ProductTemplates")]
-    public virtual Website? Website { get; set; }
-
-    [ForeignKey("WebsiteRibbonId")]
-    [InverseProperty("ProductTemplates")]
-    public virtual ProductRibbon? WebsiteRibbon { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductTemplateWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ProductTmpl")]
     [NotMapped]

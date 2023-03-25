@@ -45,14 +45,14 @@ public partial class AuthTotpWizard
     public byte[]? Qrcode { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AuthTotpWizardCreateUs")]
+    //[InverseProperty("AuthTotpWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("AuthTotpWizardUsers")]
+    //[InverseProperty("AuthTotpWizardUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("AuthTotpWizardWriteUs")]
+    //[InverseProperty("AuthTotpWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

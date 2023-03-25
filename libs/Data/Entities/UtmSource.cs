@@ -33,13 +33,17 @@ public partial class UtmSource
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("UtmSourceCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("UtmSourceWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("Source")]
     [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("UtmSourceCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Source")]
     [NotMapped]
@@ -57,7 +61,4 @@ public partial class UtmSource
     [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("UtmSourceWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

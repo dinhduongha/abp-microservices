@@ -37,14 +37,14 @@ public partial class IrExportsLine
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrExportsLineCreateUs")]
+    //[InverseProperty("IrExportsLineCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ExportId")]
-    [InverseProperty("IrExportsLines")]
+    //[InverseProperty("IrExportsLines")]
     public virtual IrExport? Export { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrExportsLineWriteUs")]
+    //[InverseProperty("IrExportsLineWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

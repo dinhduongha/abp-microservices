@@ -63,14 +63,14 @@ public partial class WebEditorConverterTest
     public byte[]? Binary { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WebEditorConverterTestCreateUs")]
+    //[InverseProperty("WebEditorConverterTestCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("Many2one")]
-    [InverseProperty("WebEditorConverterTests")]
+    //[InverseProperty("WebEditorConverterTests")]
     public virtual WebEditorConverterTestSub? Many2oneNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("WebEditorConverterTestWriteUs")]
+    //[InverseProperty("WebEditorConverterTestWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

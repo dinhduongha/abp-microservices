@@ -63,14 +63,14 @@ public partial class IrActClient
     public byte[]? ParamsStore { get; set; }
 
     [ForeignKey("BindingModelId")]
-    [InverseProperty("IrActClients")]
+    //[InverseProperty("IrActClients")]
     public virtual IrModel? BindingModel { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrActClientCreateUs")]
+    //[InverseProperty("IrActClientCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrActClientWriteUs")]
+    //[InverseProperty("IrActClientWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

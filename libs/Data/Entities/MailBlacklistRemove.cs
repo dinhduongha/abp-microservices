@@ -36,10 +36,10 @@ public partial class MailBlacklistRemove
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailBlacklistRemoveCreateUs")]
+    //[InverseProperty("MailBlacklistRemoveCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("MailBlacklistRemoveWriteUs")]
+    //[InverseProperty("MailBlacklistRemoveWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

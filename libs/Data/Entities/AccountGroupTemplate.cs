@@ -45,22 +45,23 @@ public partial class AccountGroupTemplate
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("ChartTemplateId")]
-    [InverseProperty("AccountGroupTemplates")]
+    //[InverseProperty("AccountGroupTemplates")]
     public virtual AccountChartTemplate? ChartTemplate { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("AccountGroupTemplateCreateUs")]
+    //[InverseProperty("AccountGroupTemplateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual AccountGroupTemplate? Parent { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountGroupTemplateWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Parent")]
     [NotMapped]
     public virtual ICollection<AccountGroupTemplate> InverseParent { get; } = new List<AccountGroupTemplate>();
 
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual AccountGroupTemplate? Parent { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountGroupTemplateWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

@@ -49,14 +49,14 @@ public partial class ReportLayout
     public virtual ICollection<BaseDocumentLayout> BaseDocumentLayouts { get; } = new List<BaseDocumentLayout>();
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ReportLayoutCreateUs")]
+    //[InverseProperty("ReportLayoutCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ViewId")]
-    [InverseProperty("ReportLayouts")]
+    //[InverseProperty("ReportLayouts")]
     public virtual IrUiView? View { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ReportLayoutWriteUs")]
+    //[InverseProperty("ReportLayoutWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

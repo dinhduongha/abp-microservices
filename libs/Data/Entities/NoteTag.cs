@@ -37,11 +37,11 @@ public partial class NoteTag
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("NoteTagCreateUs")]
+    //[InverseProperty("NoteTagCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("NoteTagWriteUs")]
+    //[InverseProperty("NoteTagWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("TagId")]

@@ -56,36 +56,36 @@ public partial class ProductTemplateAttributeValue
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AttributeId")]
-    [InverseProperty("ProductTemplateAttributeValues")]
+    //[InverseProperty("ProductTemplateAttributeValues")]
     public virtual ProductAttribute? Attribute { get; set; }
 
     [ForeignKey("AttributeLineId")]
-    [InverseProperty("ProductTemplateAttributeValues")]
+    //[InverseProperty("ProductTemplateAttributeValues")]
     public virtual ProductTemplateAttributeLine? AttributeLine { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductTemplateAttributeValueCreateUs")]
+    //[InverseProperty("ProductTemplateAttributeValueCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ProductAttributeValueId")]
+    //[InverseProperty("ProductTemplateAttributeValues")]
+    public virtual ProductAttributeValue? ProductAttributeValue { get; set; }
+
+    [ForeignKey("ProductTmplId")]
+    //[InverseProperty("ProductTemplateAttributeValues")]
+    public virtual ProductTemplate? ProductTmpl { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProductTemplateAttributeValueWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("CustomProductTemplateAttributeValue")]
     [NotMapped]
     public virtual ICollection<ProductAttributeCustomValue> ProductAttributeCustomValues { get; } = new List<ProductAttributeCustomValue>();
 
-    [ForeignKey("ProductAttributeValueId")]
-    [InverseProperty("ProductTemplateAttributeValues")]
-    public virtual ProductAttributeValue? ProductAttributeValue { get; set; }
-
     [InverseProperty("ProductTemplateAttributeValue")]
     [NotMapped]
     public virtual ICollection<ProductTemplateAttributeExclusion> ProductTemplateAttributeExclusionsNavigation { get; } = new List<ProductTemplateAttributeExclusion>();
-
-    [ForeignKey("ProductTmplId")]
-    [InverseProperty("ProductTemplateAttributeValues")]
-    public virtual ProductTemplate? ProductTmpl { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductTemplateAttributeValueWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductTemplateAttributeValueId")]
     [InverseProperty("ProductTemplateAttributeValues")]

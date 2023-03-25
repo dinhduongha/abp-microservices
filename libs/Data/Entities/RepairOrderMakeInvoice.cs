@@ -33,10 +33,10 @@ public partial class RepairOrderMakeInvoice
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("RepairOrderMakeInvoiceCreateUs")]
+    //[InverseProperty("RepairOrderMakeInvoiceCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("RepairOrderMakeInvoiceWriteUs")]
+    //[InverseProperty("RepairOrderMakeInvoiceWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

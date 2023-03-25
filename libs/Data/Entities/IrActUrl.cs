@@ -54,14 +54,14 @@ public partial class IrActUrl
     public string? Url { get; set; }
 
     [ForeignKey("BindingModelId")]
-    [InverseProperty("IrActUrls")]
+    //[InverseProperty("IrActUrls")]
     public virtual IrModel? BindingModel { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrActUrlCreateUs")]
+    //[InverseProperty("IrActUrlCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrActUrlWriteUs")]
+    //[InverseProperty("IrActUrlWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

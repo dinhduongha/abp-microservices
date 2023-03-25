@@ -50,22 +50,23 @@ public partial class MailChannelRtcSession
     public DateTime? CreationTime { get; set; }
 
     [ForeignKey("ChannelId")]
-    [InverseProperty("MailChannelRtcSessions")]
+    //[InverseProperty("MailChannelRtcSessions")]
     public virtual MailChannel? Channel { get; set; }
 
     [ForeignKey("ChannelMemberId")]
-    [InverseProperty("MailChannelRtcSession")]
+    //[InverseProperty("MailChannelRtcSession")]
     public virtual MailChannelMember? ChannelMember { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailChannelRtcSessionCreateUs")]
+    //[InverseProperty("MailChannelRtcSessionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MailChannelRtcSessionWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("RtcInvitingSession")]
     [NotMapped]
     public virtual ICollection<MailChannelMember> MailChannelMembers { get; } = new List<MailChannelMember>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MailChannelRtcSessionWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

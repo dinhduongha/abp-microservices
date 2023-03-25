@@ -42,26 +42,26 @@ public partial class HrRecruitmentSource
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("AliasId")]
-    [InverseProperty("HrRecruitmentSources")]
+    //[InverseProperty("HrRecruitmentSources")]
     public virtual MailAlias? Alias { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrRecruitmentSourceCreateUs")]
+    //[InverseProperty("HrRecruitmentSourceCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JobId")]
-    [InverseProperty("HrRecruitmentSources")]
+    //[InverseProperty("HrRecruitmentSources")]
     public virtual HrJob? Job { get; set; }
 
     [ForeignKey("MediumId")]
-    [InverseProperty("HrRecruitmentSources")]
+    //[InverseProperty("HrRecruitmentSources")]
     public virtual UtmMedium? Medium { get; set; }
 
     [ForeignKey("SourceId")]
-    [InverseProperty("HrRecruitmentSources")]
+    //[InverseProperty("HrRecruitmentSources")]
     public virtual UtmSource? Source { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("HrRecruitmentSourceWriteUs")]
+    //[InverseProperty("HrRecruitmentSourceWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

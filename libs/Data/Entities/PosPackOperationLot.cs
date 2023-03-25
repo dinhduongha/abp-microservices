@@ -36,14 +36,14 @@ public partial class PosPackOperationLot
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PosPackOperationLotCreateUs")]
+    //[InverseProperty("PosPackOperationLotCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PosOrderLineId")]
-    [InverseProperty("PosPackOperationLots")]
+    //[InverseProperty("PosPackOperationLots")]
     public virtual PosOrderLine? PosOrderLine { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PosPackOperationLotWriteUs")]
+    //[InverseProperty("PosPackOperationLotWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

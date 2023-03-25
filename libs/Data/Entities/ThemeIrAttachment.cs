@@ -39,14 +39,15 @@ public partial class ThemeIrAttachment
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ThemeIrAttachmentCreateUs")]
+    //[InverseProperty("ThemeIrAttachmentCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ThemeIrAttachmentWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ThemeTemplate")]
     [NotMapped]
     public virtual ICollection<IrAttachment> IrAttachments { get; } = new List<IrAttachment>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ThemeIrAttachmentWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

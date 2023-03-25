@@ -39,11 +39,11 @@ public partial class PortalShare
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PortalShareCreateUs")]
+    //[InverseProperty("PortalShareCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PortalShareWriteUs")]
+    //[InverseProperty("PortalShareWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("PortalShareId")]

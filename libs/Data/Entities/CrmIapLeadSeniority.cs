@@ -37,14 +37,14 @@ public partial class CrmIapLeadSeniority
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmIapLeadSeniorityCreateUs")]
+    //[InverseProperty("CrmIapLeadSeniorityCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("CrmIapLeadSeniorityWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Seniority")]
     [NotMapped]
     public virtual ICollection<CrmIapLeadMiningRequest> CrmIapLeadMiningRequests { get; } = new List<CrmIapLeadMiningRequest>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmIapLeadSeniorityWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

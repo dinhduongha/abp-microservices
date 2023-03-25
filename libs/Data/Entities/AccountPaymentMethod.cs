@@ -39,6 +39,14 @@ public partial class AccountPaymentMethod
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("AccountPaymentMethodCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("AccountPaymentMethodWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("PaymentMethod")]
     [NotMapped]
     public virtual ICollection<AccountPaymentMethodLine> AccountPaymentMethodLines { get; } = new List<AccountPaymentMethodLine>();
@@ -46,12 +54,4 @@ public partial class AccountPaymentMethod
     [InverseProperty("PaymentMethod")]
     [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("AccountPaymentMethodCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("AccountPaymentMethodWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

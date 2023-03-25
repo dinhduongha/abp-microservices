@@ -57,25 +57,29 @@ public partial class MailAlias
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
-    [InverseProperty("Alias")]
-    [NotMapped]
-    public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
-
     [ForeignKey("AliasModelId")]
-    [InverseProperty("MailAliasAliasModels")]
+    //[InverseProperty("MailAliasAliasModels")]
     public virtual IrModel? AliasModel { get; set; }
 
     [ForeignKey("AliasParentModelId")]
-    [InverseProperty("MailAliasAliasParentModels")]
+    //[InverseProperty("MailAliasAliasParentModels")]
     public virtual IrModel? AliasParentModel { get; set; }
 
     [ForeignKey("AliasUserId")]
-    [InverseProperty("MailAliasAliasUsers")]
+    //[InverseProperty("MailAliasAliasUsers")]
     public virtual ResUser? AliasUser { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MailAliasCreateUs")]
+    //[InverseProperty("MailAliasCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MailAliasWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("Alias")]
+    [NotMapped]
+    public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 
     [InverseProperty("Alias")]
     [NotMapped]
@@ -97,7 +101,4 @@ public partial class MailAlias
     [NotMapped]
     public virtual ICollection<ProjectProject> ProjectProjects { get; } = new List<ProjectProject>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MailAliasWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

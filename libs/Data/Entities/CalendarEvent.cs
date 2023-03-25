@@ -107,8 +107,40 @@ public partial class CalendarEvent
     public Guid? ApplicantId { get; set; }
 
     [ForeignKey("ApplicantId")]
-    [InverseProperty("CalendarEvents")]
+    //[InverseProperty("CalendarEvents")]
     public virtual HrApplicant? Applicant { get; set; }
+
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("CalendarEventCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("MessageMainAttachmentId")]
+    //[InverseProperty("CalendarEvents")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("OpportunityId")]
+    //[InverseProperty("CalendarEvents")]
+    public virtual CrmLead? Opportunity { get; set; }
+
+    [ForeignKey("RecurrenceId")]
+    //[InverseProperty("CalendarEvents")]
+    public virtual CalendarRecurrence? Recurrence { get; set; }
+
+    [ForeignKey("ResModelId")]
+    //[InverseProperty("CalendarEvents")]
+    public virtual IrModel? ResModelNavigation { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("CalendarEventUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("VideocallChannelId")]
+    //[InverseProperty("CalendarEvents")]
+    public virtual MailChannel? VideocallChannel { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("CalendarEventWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Event")]
     [NotMapped]
@@ -118,10 +150,6 @@ public partial class CalendarEvent
     [NotMapped]
     public virtual ICollection<CalendarRecurrence> CalendarRecurrences { get; } = new List<CalendarRecurrence>();
 
-    [ForeignKey("CreatorId")]
-    [InverseProperty("CalendarEventCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
     [InverseProperty("Meeting")]
     [NotMapped]
     public virtual ICollection<HrLeave> HrLeaves { get; } = new List<HrLeave>();
@@ -129,34 +157,6 @@ public partial class CalendarEvent
     [InverseProperty("CalendarEvent")]
     [NotMapped]
     public virtual ICollection<MailActivity> MailActivities { get; } = new List<MailActivity>();
-
-    [ForeignKey("MessageMainAttachmentId")]
-    [InverseProperty("CalendarEvents")]
-    public virtual IrAttachment? MessageMainAttachment { get; set; }
-
-    [ForeignKey("OpportunityId")]
-    [InverseProperty("CalendarEvents")]
-    public virtual CrmLead? Opportunity { get; set; }
-
-    [ForeignKey("RecurrenceId")]
-    [InverseProperty("CalendarEvents")]
-    public virtual CalendarRecurrence? Recurrence { get; set; }
-
-    [ForeignKey("ResModelId")]
-    [InverseProperty("CalendarEvents")]
-    public virtual IrModel? ResModelNavigation { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("CalendarEventUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("VideocallChannelId")]
-    [InverseProperty("CalendarEvents")]
-    public virtual MailChannel? VideocallChannel { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("CalendarEventWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CalendarEventId")]
     [InverseProperty("CalendarEvents")]

@@ -45,20 +45,28 @@ public partial class ProcurementGroup
     public Guid? SaleId { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProcurementGroupCreateUs")]
+    //[InverseProperty("ProcurementGroupCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("PartnerId")]
+    //[InverseProperty("ProcurementGroups")]
+    public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("PosOrderId")]
+    //[InverseProperty("ProcurementGroups")]
+    public virtual PosOrder? PosOrder { get; set; }
+
+    [ForeignKey("SaleId")]
+    //[InverseProperty("ProcurementGroups")]
+    public virtual SaleOrder? Sale { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProcurementGroupWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ProcurementGroup")]
     [NotMapped]
     public virtual ICollection<MrpProduction> MrpProductions { get; } = new List<MrpProduction>();
-
-    [ForeignKey("PartnerId")]
-    [InverseProperty("ProcurementGroups")]
-    public virtual ResPartner? Partner { get; set; }
-
-    [ForeignKey("PosOrderId")]
-    [InverseProperty("ProcurementGroups")]
-    public virtual PosOrder? PosOrder { get; set; }
 
     [InverseProperty("ProcurementGroup")]
     [NotMapped]
@@ -67,10 +75,6 @@ public partial class ProcurementGroup
     [InverseProperty("Group")]
     [NotMapped]
     public virtual ICollection<PurchaseOrder> PurchaseOrders { get; } = new List<PurchaseOrder>();
-
-    [ForeignKey("SaleId")]
-    [InverseProperty("ProcurementGroups")]
-    public virtual SaleOrder? Sale { get; set; }
 
     [InverseProperty("ProcurementGroup")]
     [NotMapped]
@@ -92,7 +96,4 @@ public partial class ProcurementGroup
     [NotMapped]
     public virtual ICollection<StockWarehouseOrderpoint> StockWarehouseOrderpoints { get; } = new List<StockWarehouseOrderpoint>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProcurementGroupWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

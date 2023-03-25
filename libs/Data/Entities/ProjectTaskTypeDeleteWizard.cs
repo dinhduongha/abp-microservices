@@ -30,11 +30,11 @@ public partial class ProjectTaskTypeDeleteWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProjectTaskTypeDeleteWizardCreateUs")]
+    //[InverseProperty("ProjectTaskTypeDeleteWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ProjectTaskTypeDeleteWizardWriteUs")]
+    //[InverseProperty("ProjectTaskTypeDeleteWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProjectTaskTypeDeleteWizardId")]

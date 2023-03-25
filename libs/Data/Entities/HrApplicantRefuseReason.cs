@@ -38,23 +38,24 @@ public partial class HrApplicantRefuseReason
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("HrApplicantRefuseReasonCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("TemplateId")]
+    //[InverseProperty("HrApplicantRefuseReasons")]
+    public virtual MailTemplate? Template { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrApplicantRefuseReasonWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("RefuseReason")]
     [NotMapped]
     public virtual ICollection<ApplicantGetRefuseReason> ApplicantGetRefuseReasons { get; } = new List<ApplicantGetRefuseReason>();
-
-    [ForeignKey("CreatorId")]
-    [InverseProperty("HrApplicantRefuseReasonCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("RefuseReason")]
     [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicants { get; } = new List<HrApplicant>();
 
-    [ForeignKey("TemplateId")]
-    [InverseProperty("HrApplicantRefuseReasons")]
-    public virtual MailTemplate? Template { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrApplicantRefuseReasonWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

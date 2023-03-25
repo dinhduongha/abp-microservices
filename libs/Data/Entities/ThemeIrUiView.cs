@@ -60,8 +60,12 @@ public partial class ThemeIrUiView
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ThemeIrUiViewCreateUs")]
+    //[InverseProperty("ThemeIrUiViewCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ThemeIrUiViewWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ThemeTemplate")]
     [NotMapped]
@@ -71,7 +75,4 @@ public partial class ThemeIrUiView
     [NotMapped]
     public virtual ICollection<ThemeWebsitePage> ThemeWebsitePages { get; } = new List<ThemeWebsitePage>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ThemeIrUiViewWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

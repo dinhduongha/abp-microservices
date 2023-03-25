@@ -37,11 +37,11 @@ public partial class CalendarEventType
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CalendarEventTypeCreateUs")]
+    //[InverseProperty("CalendarEventTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CalendarEventTypeWriteUs")]
+    //[InverseProperty("CalendarEventTypeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("TypeId")]

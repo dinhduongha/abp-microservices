@@ -36,14 +36,14 @@ public partial class ResPartnerAutocompleteSync
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResPartnerAutocompleteSyncCreateUs")]
+    //[InverseProperty("ResPartnerAutocompleteSyncCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("ResPartnerAutocompleteSyncs")]
+    //[InverseProperty("ResPartnerAutocompleteSyncs")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResPartnerAutocompleteSyncWriteUs")]
+    //[InverseProperty("ResPartnerAutocompleteSyncWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -37,11 +37,11 @@ public partial class ProjectTag
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProjectTagCreateUs")]
+    //[InverseProperty("ProjectTagCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ProjectTagWriteUs")]
+    //[InverseProperty("ProjectTagWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProjectTagsId")]

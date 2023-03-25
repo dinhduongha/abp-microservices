@@ -45,11 +45,11 @@ public partial class BaseLanguageExport
     public byte[]? Data { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseLanguageExportCreateUs")]
+    //[InverseProperty("BaseLanguageExportCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseLanguageExportWriteUs")]
+    //[InverseProperty("BaseLanguageExportWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("WizId")]

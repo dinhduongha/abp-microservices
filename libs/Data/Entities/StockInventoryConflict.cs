@@ -30,11 +30,11 @@ public partial class StockInventoryConflict
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockInventoryConflictCreateUs")]
+    //[InverseProperty("StockInventoryConflictCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockInventoryConflictWriteUs")]
+    //[InverseProperty("StockInventoryConflictWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockInventoryConflictId")]

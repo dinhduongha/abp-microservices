@@ -33,10 +33,10 @@ public partial class ResUsersApikeysDescription
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResUsersApikeysDescriptionCreateUs")]
+    //[InverseProperty("ResUsersApikeysDescriptionCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResUsersApikeysDescriptionWriteUs")]
+    //[InverseProperty("ResUsersApikeysDescriptionWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

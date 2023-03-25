@@ -40,16 +40,16 @@ public partial class CrmIapLeadRole
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmIapLeadRoleCreateUs")]
+    //[InverseProperty("CrmIapLeadRoleCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("CrmIapLeadRoleWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("PreferredRole")]
     [NotMapped]
     public virtual ICollection<CrmIapLeadMiningRequest> CrmIapLeadMiningRequests { get; } = new List<CrmIapLeadMiningRequest>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmIapLeadRoleWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CrmIapLeadRoleId")]
     [InverseProperty("CrmIapLeadRoles")]

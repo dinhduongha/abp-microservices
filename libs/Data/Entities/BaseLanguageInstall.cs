@@ -33,11 +33,11 @@ public partial class BaseLanguageInstall
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("BaseLanguageInstallCreateUs")]
+    //[InverseProperty("BaseLanguageInstallCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("BaseLanguageInstallWriteUs")]
+    //[InverseProperty("BaseLanguageInstallWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("LanguageWizardId")]

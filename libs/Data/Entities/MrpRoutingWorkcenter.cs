@@ -64,12 +64,20 @@ public partial class MrpRoutingWorkcenter
     public double? TimeCycleManual { get; set; }
 
     [ForeignKey("BomId")]
-    [InverseProperty("MrpRoutingWorkcenters")]
+    //[InverseProperty("MrpRoutingWorkcenters")]
     public virtual MrpBom? Bom { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("MrpRoutingWorkcenterCreateUs")]
+    //[InverseProperty("MrpRoutingWorkcenterCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("WorkcenterId")]
+    //[InverseProperty("MrpRoutingWorkcenters")]
+    public virtual MrpWorkcenter? Workcenter { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("MrpRoutingWorkcenterWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Operation")]
     [NotMapped]
@@ -86,14 +94,6 @@ public partial class MrpRoutingWorkcenter
     [InverseProperty("Operation")]
     [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
-
-    [ForeignKey("WorkcenterId")]
-    [InverseProperty("MrpRoutingWorkcenters")]
-    public virtual MrpWorkcenter? Workcenter { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("MrpRoutingWorkcenterWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("OperationId")]
     [InverseProperty("Operations")]

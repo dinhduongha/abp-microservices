@@ -50,18 +50,18 @@ public partial class ProductImage
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductImageCreateUs")]
+    //[InverseProperty("ProductImageCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductTmplId")]
-    [InverseProperty("ProductImages")]
+    //[InverseProperty("ProductImages")]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("ProductVariantId")]
-    [InverseProperty("ProductImages")]
+    //[InverseProperty("ProductImages")]
     public virtual ProductProduct? ProductVariant { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductImageWriteUs")]
+    //[InverseProperty("ProductImageWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

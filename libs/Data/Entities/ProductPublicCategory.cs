@@ -67,24 +67,24 @@ public partial class ProductPublicCategory
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProductPublicCategoryCreateUs")]
+    //[InverseProperty("ProductPublicCategoryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual ProductPublicCategory? Parent { get; set; }
+
+    [ForeignKey("WebsiteId")]
+    //[InverseProperty("ProductPublicCategories")]
+    public virtual Website? Website { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProductPublicCategoryWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Parent")]
     [NotMapped]
     public virtual ICollection<ProductPublicCategory> InverseParent { get; } = new List<ProductPublicCategory>();
-
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual ProductPublicCategory? Parent { get; set; }
-
-    [ForeignKey("WebsiteId")]
-    [InverseProperty("ProductPublicCategories")]
-    public virtual Website? Website { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductPublicCategoryWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductPublicCategoryId")]
     [InverseProperty("ProductPublicCategories")]

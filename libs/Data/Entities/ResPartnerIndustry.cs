@@ -39,14 +39,15 @@ public partial class ResPartnerIndustry
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResPartnerIndustryCreateUs")]
+    //[InverseProperty("ResPartnerIndustryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ResPartnerIndustryWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Industry")]
     [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ResPartnerIndustryWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

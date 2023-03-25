@@ -42,22 +42,22 @@ public partial class ProjectTaskUserRel
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProjectTaskUserRelCreateUs")]
+    //[InverseProperty("ProjectTaskUserRelCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("StageId")]
-    [InverseProperty("ProjectTaskUserRels")]
+    //[InverseProperty("ProjectTaskUserRels")]
     public virtual ProjectTaskType? Stage { get; set; }
 
     [ForeignKey("TaskId")]
-    [InverseProperty("ProjectTaskUserRels")]
+    //[InverseProperty("ProjectTaskUserRels")]
     public virtual ProjectTask? Task { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("ProjectTaskUserRelUsers")]
+    //[InverseProperty("ProjectTaskUserRelUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ProjectTaskUserRelWriteUs")]
+    //[InverseProperty("ProjectTaskUserRelWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

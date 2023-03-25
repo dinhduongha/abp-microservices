@@ -39,18 +39,18 @@ public partial class ResetViewArchWizard
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CompareViewId")]
-    [InverseProperty("ResetViewArchWizardCompareViews")]
+    //[InverseProperty("ResetViewArchWizardCompareViews")]
     public virtual IrUiView? CompareView { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResetViewArchWizardCreateUs")]
+    //[InverseProperty("ResetViewArchWizardCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ViewId")]
-    [InverseProperty("ResetViewArchWizardViews")]
+    //[InverseProperty("ResetViewArchWizardViews")]
     public virtual IrUiView? View { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResetViewArchWizardWriteUs")]
+    //[InverseProperty("ResetViewArchWizardWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

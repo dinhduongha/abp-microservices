@@ -70,15 +70,15 @@ public partial class IrModel
     public bool? WebsiteFormAccess { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrModelCreateUs")]
+    //[InverseProperty("IrModelCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("WebsiteFormDefaultFieldId")]
-    [InverseProperty("IrModels")]
+    //[InverseProperty("IrModels")]
     public virtual IrModelField? WebsiteFormDefaultField { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("IrModelWriteUs")]
+    //[InverseProperty("IrModelWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ResModelNavigation")]

@@ -54,14 +54,15 @@ public partial class ThemeIrAsset
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ThemeIrAssetCreateUs")]
+    //[InverseProperty("ThemeIrAssetCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ThemeIrAssetWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ThemeTemplate")]
     [NotMapped]
     public virtual ICollection<IrAsset> IrAssets { get; } = new List<IrAsset>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ThemeIrAssetWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

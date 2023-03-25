@@ -45,18 +45,18 @@ public partial class CalendarFilter
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CalendarFilterCreateUs")]
+    //[InverseProperty("CalendarFilterCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("CalendarFilters")]
+    //[InverseProperty("CalendarFilters")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("UserId")]
-    [InverseProperty("CalendarFilterUsers")]
+    //[InverseProperty("CalendarFilterUsers")]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CalendarFilterWriteUs")]
+    //[InverseProperty("CalendarFilterWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

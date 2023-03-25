@@ -80,17 +80,29 @@ public partial class IrActWindow
     [Column("filter")]
     public bool? Filter { get; set; }
 
-    [InverseProperty("CustomAuditAction")]
-    [NotMapped]
-    public virtual ICollection<AccountReportColumn> AccountReportColumns { get; } = new List<AccountReportColumn>();
-
     [ForeignKey("BindingModelId")]
-    [InverseProperty("IrActWindows")]
+    //[InverseProperty("IrActWindows")]
     public virtual IrModel? BindingModel { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("IrActWindowCreateUs")]
+    //[InverseProperty("IrActWindowCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("SearchViewId")]
+    //[InverseProperty("IrActWindowSearchViews")]
+    public virtual IrUiView? SearchView { get; set; }
+
+    [ForeignKey("ViewId")]
+    //[InverseProperty("IrActWindowViews")]
+    public virtual IrUiView? View { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("IrActWindowWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("CustomAuditAction")]
+    [NotMapped]
+    public virtual ICollection<AccountReportColumn> AccountReportColumns { get; } = new List<AccountReportColumn>();
 
     [InverseProperty("ActWindow")]
     [NotMapped]
@@ -100,21 +112,9 @@ public partial class IrActWindow
     [NotMapped]
     public virtual ICollection<MailTemplate> MailTemplates { get; } = new List<MailTemplate>();
 
-    [ForeignKey("SearchViewId")]
-    [InverseProperty("IrActWindowSearchViews")]
-    public virtual IrUiView? SearchView { get; set; }
-
     [InverseProperty("SidebarAction")]
     [NotMapped]
     public virtual ICollection<SmsTemplate> SmsTemplates { get; } = new List<SmsTemplate>();
-
-    [ForeignKey("ViewId")]
-    [InverseProperty("IrActWindowViews")]
-    public virtual IrUiView? View { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("IrActWindowWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ActId")]
     [InverseProperty("ActsNavigation")]

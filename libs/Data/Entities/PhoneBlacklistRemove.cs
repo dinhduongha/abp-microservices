@@ -36,10 +36,10 @@ public partial class PhoneBlacklistRemove
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("PhoneBlacklistRemoveCreateUs")]
+    //[InverseProperty("PhoneBlacklistRemoveCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("PhoneBlacklistRemoveWriteUs")]
+    //[InverseProperty("PhoneBlacklistRemoveWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

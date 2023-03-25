@@ -70,12 +70,28 @@ public partial class ProjectTaskType
     public Guid? SmsTemplateId { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ProjectTaskTypeCreateUs")]
+    //[InverseProperty("ProjectTaskTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailTemplateId")]
-    [InverseProperty("ProjectTaskTypeMailTemplates")]
+    //[InverseProperty("ProjectTaskTypeMailTemplates")]
     public virtual MailTemplate? MailTemplate { get; set; }
+
+    [ForeignKey("RatingTemplateId")]
+    //[InverseProperty("ProjectTaskTypeRatingTemplates")]
+    public virtual MailTemplate? RatingTemplate { get; set; }
+
+    [ForeignKey("SmsTemplateId")]
+    //[InverseProperty("ProjectTaskTypes")]
+    public virtual SmsTemplate? SmsTemplate { get; set; }
+
+    [ForeignKey("UserId")]
+    //[InverseProperty("ProjectTaskTypeUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProjectTaskTypeWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Stage")]
     [NotMapped]
@@ -84,22 +100,6 @@ public partial class ProjectTaskType
     [InverseProperty("Stage")]
     [NotMapped]
     public virtual ICollection<ProjectTask> ProjectTasks { get; } = new List<ProjectTask>();
-
-    [ForeignKey("RatingTemplateId")]
-    [InverseProperty("ProjectTaskTypeRatingTemplates")]
-    public virtual MailTemplate? RatingTemplate { get; set; }
-
-    [ForeignKey("SmsTemplateId")]
-    [InverseProperty("ProjectTaskTypes")]
-    public virtual SmsTemplate? SmsTemplate { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("ProjectTaskTypeUsers")]
-    public virtual ResUser? User { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProjectTaskTypeWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProjectTaskTypeId")]
     [InverseProperty("ProjectTaskTypes")]

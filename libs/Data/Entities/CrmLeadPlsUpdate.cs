@@ -33,11 +33,11 @@ public partial class CrmLeadPlsUpdate
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("CrmLeadPlsUpdateCreateUs")]
+    //[InverseProperty("CrmLeadPlsUpdateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("CrmLeadPlsUpdateWriteUs")]
+    //[InverseProperty("CrmLeadPlsUpdateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CrmLeadPlsUpdateId")]

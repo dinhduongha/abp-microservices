@@ -36,8 +36,12 @@ public partial class HrDepartureReason
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("HrDepartureReasonCreateUs")]
+    //[InverseProperty("HrDepartureReasonCreateUs")]
     public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("HrDepartureReasonWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("DepartureReason")]
     [NotMapped]
@@ -47,7 +51,4 @@ public partial class HrDepartureReason
     [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("HrDepartureReasonWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

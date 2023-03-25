@@ -66,14 +66,14 @@ public partial class SmsComposer
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SmsComposerCreateUs")]
+    //[InverseProperty("SmsComposerCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TemplateId")]
-    [InverseProperty("SmsComposers")]
+    //[InverseProperty("SmsComposers")]
     public virtual SmsTemplate? Template { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("SmsComposerWriteUs")]
+    //[InverseProperty("SmsComposerWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -36,10 +36,10 @@ public partial class ResUsersIdentitycheck
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("ResUsersIdentitycheckCreateUs")]
+    //[InverseProperty("ResUsersIdentitycheckCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("ResUsersIdentitycheckWriteUs")]
+    //[InverseProperty("ResUsersIdentitycheckWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

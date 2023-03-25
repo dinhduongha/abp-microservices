@@ -36,18 +36,18 @@ public partial class StockPackageDestination
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("StockPackageDestinationCreateUs")]
+    //[InverseProperty("StockPackageDestinationCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationDestId")]
-    [InverseProperty("StockPackageDestinations")]
+    //[InverseProperty("StockPackageDestinations")]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("PickingId")]
-    [InverseProperty("StockPackageDestinations")]
+    //[InverseProperty("StockPackageDestinations")]
     public virtual StockPicking? Picking { get; set; }
 
     [ForeignKey("LastModifierId")]
-    [InverseProperty("StockPackageDestinationWriteUs")]
+    //[InverseProperty("StockPackageDestinationWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 }

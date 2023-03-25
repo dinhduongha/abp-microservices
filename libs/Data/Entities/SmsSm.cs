@@ -49,22 +49,23 @@ public partial class SmsSm
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("SmsSmCreateUs")]
+    //[InverseProperty("SmsSmCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailMessageId")]
-    [InverseProperty("SmsSms")]
+    //[InverseProperty("SmsSms")]
     public virtual MailMessage? MailMessage { get; set; }
+
+    [ForeignKey("PartnerId")]
+    //[InverseProperty("SmsSms")]
+    public virtual ResPartner? Partner { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("SmsSmWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Sms")]
     [NotMapped]
     public virtual ICollection<MailNotification> MailNotifications { get; } = new List<MailNotification>();
 
-    [ForeignKey("PartnerId")]
-    [InverseProperty("SmsSms")]
-    public virtual ResPartner? Partner { get; set; }
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("SmsSmWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 }

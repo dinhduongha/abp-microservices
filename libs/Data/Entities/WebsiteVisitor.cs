@@ -55,32 +55,32 @@ public partial class WebsiteVisitor
     public DateTime? LastModificationTime { get; set; }
 
     [ForeignKey("CountryId")]
-    [InverseProperty("WebsiteVisitors")]
+    //[InverseProperty("WebsiteVisitors")]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
-    [InverseProperty("WebsiteVisitorCreateUs")]
+    //[InverseProperty("WebsiteVisitorCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LangId")]
-    [InverseProperty("WebsiteVisitors")]
+    //[InverseProperty("WebsiteVisitors")]
     public virtual ResLang? Lang { get; set; }
 
     [ForeignKey("PartnerId")]
-    [InverseProperty("WebsiteVisitors")]
+    //[InverseProperty("WebsiteVisitors")]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("WebsiteId")]
-    [InverseProperty("WebsiteVisitors")]
+    //[InverseProperty("WebsiteVisitors")]
     public virtual Website? Website { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("WebsiteVisitorWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Visitor")]
     [NotMapped]
     public virtual ICollection<WebsiteTrack> WebsiteTracks { get; } = new List<WebsiteTrack>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("WebsiteVisitorWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("WebsiteVisitorId")]
     [InverseProperty("WebsiteVisitors")]

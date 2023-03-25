@@ -49,6 +49,22 @@ public partial class ProductCategory
     [Column("packaging_reserve_method")]
     public string? PackagingReserveMethod { get; set; }
 
+    [ForeignKey("CreatorId")]
+    //[InverseProperty("ProductCategoryCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ParentId")]
+    //[InverseProperty("InverseParent")]
+    public virtual ProductCategory? Parent { get; set; }
+
+    [ForeignKey("RemovalStrategyId")]
+    //[InverseProperty("ProductCategories")]
+    public virtual ProductRemoval? RemovalStrategy { get; set; }
+
+    [ForeignKey("LastModifierId")]
+    //[InverseProperty("ProductCategoryWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
     [InverseProperty("ProductCateg")]
     [NotMapped]
     public virtual ICollection<AccountAnalyticApplicability> AccountAnalyticApplicabilities { get; } = new List<AccountAnalyticApplicability>();
@@ -57,17 +73,9 @@ public partial class ProductCategory
     [NotMapped]
     public virtual ICollection<AccountAnalyticDistributionModel> AccountAnalyticDistributionModels { get; } = new List<AccountAnalyticDistributionModel>();
 
-    [ForeignKey("CreatorId")]
-    [InverseProperty("ProductCategoryCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
-
     [InverseProperty("Parent")]
     [NotMapped]
     public virtual ICollection<ProductCategory> InverseParent { get; } = new List<ProductCategory>();
-
-    [ForeignKey("ParentId")]
-    [InverseProperty("InverseParent")]
-    public virtual ProductCategory? Parent { get; set; }
 
     [InverseProperty("Categ")]
     [NotMapped]
@@ -77,10 +85,6 @@ public partial class ProductCategory
     [NotMapped]
     public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
 
-    [ForeignKey("RemovalStrategyId")]
-    [InverseProperty("ProductCategories")]
-    public virtual ProductRemoval? RemovalStrategy { get; set; }
-
     [InverseProperty("Category")]
     [NotMapped]
     public virtual ICollection<StockPutawayRule> StockPutawayRules { get; } = new List<StockPutawayRule>();
@@ -88,10 +92,6 @@ public partial class ProductCategory
     [InverseProperty("ProductCategory")]
     [NotMapped]
     public virtual ICollection<StockWarehouseOrderpoint> StockWarehouseOrderpoints { get; } = new List<StockWarehouseOrderpoint>();
-
-    [ForeignKey("LastModifierId")]
-    [InverseProperty("ProductCategoryWriteUs")]
-    public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CategId")]
     [InverseProperty("Categs")]
