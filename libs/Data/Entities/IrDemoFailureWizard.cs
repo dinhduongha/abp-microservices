@@ -34,6 +34,7 @@ public partial class IrDemoFailureWizard
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Wizard")]
+    [NotMapped]
     public virtual ICollection<IrDemoFailure> IrDemoFailures { get; } = new List<IrDemoFailure>();
 
     [ForeignKey("LastModifierId")]

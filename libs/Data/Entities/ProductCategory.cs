@@ -50,9 +50,11 @@ public partial class ProductCategory
     public string? PackagingReserveMethod { get; set; }
 
     [InverseProperty("ProductCateg")]
+    [NotMapped]
     public virtual ICollection<AccountAnalyticApplicability> AccountAnalyticApplicabilities { get; } = new List<AccountAnalyticApplicability>();
 
     [InverseProperty("ProductCateg")]
+    [NotMapped]
     public virtual ICollection<AccountAnalyticDistributionModel> AccountAnalyticDistributionModels { get; } = new List<AccountAnalyticDistributionModel>();
 
     [ForeignKey("CreatorId")]
@@ -60,6 +62,7 @@ public partial class ProductCategory
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<ProductCategory> InverseParent { get; } = new List<ProductCategory>();
 
     [ForeignKey("ParentId")]
@@ -67,9 +70,11 @@ public partial class ProductCategory
     public virtual ProductCategory? Parent { get; set; }
 
     [InverseProperty("Categ")]
+    [NotMapped]
     public virtual ICollection<ProductPricelistItem> ProductPricelistItems { get; } = new List<ProductPricelistItem>();
 
     [InverseProperty("Categ")]
+    [NotMapped]
     public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
 
     [ForeignKey("RemovalStrategyId")]
@@ -77,9 +82,11 @@ public partial class ProductCategory
     public virtual ProductRemoval? RemovalStrategy { get; set; }
 
     [InverseProperty("Category")]
+    [NotMapped]
     public virtual ICollection<StockPutawayRule> StockPutawayRules { get; } = new List<StockPutawayRule>();
 
     [InverseProperty("ProductCategory")]
+    [NotMapped]
     public virtual ICollection<StockWarehouseOrderpoint> StockWarehouseOrderpoints { get; } = new List<StockWarehouseOrderpoint>();
 
     [ForeignKey("LastModifierId")]
@@ -88,5 +95,6 @@ public partial class ProductCategory
 
     [ForeignKey("CategId")]
     [InverseProperty("Categs")]
+    [NotMapped]
     public virtual ICollection<StockRoute> Routes { get; } = new List<StockRoute>();
 }

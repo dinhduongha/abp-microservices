@@ -247,30 +247,39 @@ public partial class AccountChartTemplate
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("ChartTemplate")]
+    [NotMapped]
     public virtual ICollection<AccountAccountTemplate> AccountAccountTemplates { get; } = new List<AccountAccountTemplate>();
 
     [InverseProperty("ChartTemplate")]
+    [NotMapped]
     public virtual ICollection<AccountFiscalPositionTemplate> AccountFiscalPositionTemplates { get; } = new List<AccountFiscalPositionTemplate>();
 
     [InverseProperty("ChartTemplate")]
+    [NotMapped]
     public virtual ICollection<AccountGroupTemplate> AccountGroupTemplates { get; } = new List<AccountGroupTemplate>();
 
     [InverseProperty("ChartTemplate")]
+    [NotMapped]
     public virtual ICollection<AccountReconcileModelTemplate> AccountReconcileModelTemplates { get; } = new List<AccountReconcileModelTemplate>();
 
     [InverseProperty("ChartTemplate")]
+    [NotMapped]
     public virtual ICollection<AccountReport> AccountReports { get; } = new List<AccountReport>();
 
     [InverseProperty("ChartTemplate")]
+    [NotMapped]
     public virtual ICollection<AccountTaxTemplate> AccountTaxTemplates { get; } = new List<AccountTaxTemplate>();
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<AccountChartTemplate> InverseParent { get; } = new List<AccountChartTemplate>();
 
     [InverseProperty("ChartTemplate")]
+    [NotMapped]
     public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
 
     [InverseProperty("ChartTemplate")]
+    [NotMapped]
     public virtual ICollection<ResConfigSetting> ResConfigSettings { get; } = new List<ResConfigSetting>();
 
 }

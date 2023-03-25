@@ -47,9 +47,11 @@ public partial class LunchLocation: IMultiTenant, IMayHaveCreator, IModification
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("LunchLocation")]
+    [NotMapped]
     public virtual ICollection<LunchOrder> LunchOrders { get; } = new List<LunchOrder>();
 
     [InverseProperty("LastLunchLocation")]
+    [NotMapped]
     public virtual ICollection<ResUser> ResUsers { get; } = new List<ResUser>();
 
     [ForeignKey("LastModifierId")]
@@ -58,9 +60,11 @@ public partial class LunchLocation: IMultiTenant, IMayHaveCreator, IModification
 
     [ForeignKey("LunchLocationId")]
     [InverseProperty("LunchLocations")]
+    [NotMapped]
     public virtual ICollection<LunchAlert> LunchAlerts { get; } = new List<LunchAlert>();
 
     [ForeignKey("LunchLocationId")]
     [InverseProperty("LunchLocations")]
+    [NotMapped]
     public virtual ICollection<LunchSupplier> LunchSuppliers { get; } = new List<LunchSupplier>();
 }

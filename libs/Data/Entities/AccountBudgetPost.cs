@@ -49,9 +49,11 @@ public partial class AccountBudgetPost: IMultiTenant, IMayHaveCreator, IModifica
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("GeneralBudget")]
+    [NotMapped]
     public virtual ICollection<CrossoveredBudgetLine> CrossoveredBudgetLines { get; } = new List<CrossoveredBudgetLine>();
 
     [ForeignKey("BudgetId")]
     [InverseProperty("Budgets")]
+    [NotMapped]
     public virtual ICollection<AccountAccount> Accounts { get; } = new List<AccountAccount>();
 }

@@ -61,9 +61,11 @@ public partial class AccountAgedTrialBalance: IMultiTenant, IMayHaveCreator, IMo
 
     [ForeignKey("AccountAgedTrialBalanceId")]
     [InverseProperty("AccountAgedTrialBalances")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 
     [ForeignKey("AccountAgedTrialBalanceId")]
     [InverseProperty("AccountAgedTrialBalances")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 }

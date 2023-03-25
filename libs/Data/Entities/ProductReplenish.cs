@@ -83,5 +83,6 @@ public partial class ProductReplenish: IMultiTenant, IMayHaveCreator, IModificat
 
     [ForeignKey("ProductReplenishId")]
     [InverseProperty("ProductReplenishes")]
+    [NotMapped]
     public virtual ICollection<StockRoute> StockRoutes { get; } = new List<StockRoute>();
 }

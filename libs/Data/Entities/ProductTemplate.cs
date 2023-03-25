@@ -242,9 +242,11 @@ public partial class ProductTemplate: IMultiTenant, IMayHaveCreator, IModificati
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [InverseProperty("ProductTmpl")]
+    [NotMapped]
     public virtual ICollection<MrpBomLine> MrpBomLines { get; } = new List<MrpBomLine>();
 
     [InverseProperty("ProductTmpl")]
+    [NotMapped]
     public virtual ICollection<MrpBom> MrpBoms { get; } = new List<MrpBom>();
 
     [ForeignKey("PosCategId")]
@@ -252,33 +254,43 @@ public partial class ProductTemplate: IMultiTenant, IMayHaveCreator, IModificati
     public virtual PosCategory? PosCateg { get; set; }
 
     [InverseProperty("ProductTmpl")]
+    [NotMapped]
     public virtual ICollection<ProductImage> ProductImages { get; } = new List<ProductImage>();
 
     [InverseProperty("ProductTmpl")]
+    [NotMapped]
     public virtual ICollection<ProductPricelistItem> ProductPricelistItems { get; } = new List<ProductPricelistItem>();
 
     [InverseProperty("ProductTmpl")]
+    [NotMapped]
     public virtual ICollection<ProductProduct> ProductProducts { get; } = new List<ProductProduct>();
 
     [InverseProperty("ProductTmpl")]
+    [NotMapped]
     public virtual ICollection<ProductReplenish> ProductReplenishes { get; } = new List<ProductReplenish>();
 
     [InverseProperty("ProductTmpl")]
+    [NotMapped]
     public virtual ICollection<ProductSupplierinfo> ProductSupplierinfos { get; } = new List<ProductSupplierinfo>();
 
     [InverseProperty("ProductTmpl")]
+    [NotMapped]
     public virtual ICollection<ProductTemplateAttributeExclusion> ProductTemplateAttributeExclusions { get; } = new List<ProductTemplateAttributeExclusion>();
 
     [InverseProperty("ProductTmpl")]
+    [NotMapped]
     public virtual ICollection<ProductTemplateAttributeLine> ProductTemplateAttributeLines { get; } = new List<ProductTemplateAttributeLine>();
 
     [InverseProperty("ProductTmpl")]
+    [NotMapped]
     public virtual ICollection<ProductTemplateAttributeValue> ProductTemplateAttributeValues { get; } = new List<ProductTemplateAttributeValue>();
 
     [InverseProperty("ProductTmpl")]
+    [NotMapped]
     public virtual ICollection<StockChangeProductQty> StockChangeProductQties { get; } = new List<StockChangeProductQty>();
 
     [InverseProperty("ProductTmpl")]
+    [NotMapped]
     public virtual ICollection<StockRulesReport> StockRulesReports { get; } = new List<StockRulesReport>();
 
     [ForeignKey("UomId")]
@@ -303,53 +315,66 @@ public partial class ProductTemplate: IMultiTenant, IMayHaveCreator, IModificati
 
     [ForeignKey("ProductTemplateId")]
     [InverseProperty("ProductTemplates")]
+    [NotMapped]
     public virtual ICollection<AccountAccountTag> AccountAccountTags { get; } = new List<AccountAccountTag>();
 
     [ForeignKey("SrcId")]
     [InverseProperty("Srcs")]
+    [NotMapped]
     public virtual ICollection<ProductProduct> Dests { get; } = new List<ProductProduct>();
 
     [ForeignKey("SrcId")]
     [InverseProperty("SrcsNavigation")]
+    [NotMapped]
     public virtual ICollection<ProductTemplate> Dests1 { get; } = new List<ProductTemplate>();
 
     [ForeignKey("SrcId")]
     [InverseProperty("Srcs")]
+    [NotMapped]
     public virtual ICollection<ProductTemplate> DestsNavigation { get; } = new List<ProductTemplate>();
 
     [ForeignKey("ProductTemplateId")]
     [InverseProperty("ProductTemplates")]
+    [NotMapped]
     public virtual ICollection<ProductAttribute> ProductAttributes { get; } = new List<ProductAttribute>();
 
     [ForeignKey("ProductTemplateId")]
     [InverseProperty("ProductTemplates")]
+    [NotMapped]
     public virtual ICollection<ProductLabelLayout> ProductLabelLayouts { get; } = new List<ProductLabelLayout>();
 
     [ForeignKey("ProductTemplateId")]
     [InverseProperty("ProductTemplates")]
+    [NotMapped]
     public virtual ICollection<ProductPublicCategory> ProductPublicCategories { get; } = new List<ProductPublicCategory>();
 
     [ForeignKey("ProductTemplateId")]
     [InverseProperty("ProductTemplates")]
+    [NotMapped]
     public virtual ICollection<ProductTag> ProductTags { get; } = new List<ProductTag>();
 
     [ForeignKey("ProductId")]
     [InverseProperty("Products")]
+    [NotMapped]
     public virtual ICollection<StockRoute> Routes { get; } = new List<StockRoute>();
 
     [ForeignKey("DestId")]
     [InverseProperty("DestsNavigation")]
+    [NotMapped]
     public virtual ICollection<ProductTemplate> Srcs { get; } = new List<ProductTemplate>();
 
     [ForeignKey("DestId")]
     [InverseProperty("Dests1")]
+    [NotMapped]
     public virtual ICollection<ProductTemplate> SrcsNavigation { get; } = new List<ProductTemplate>();
 
     [ForeignKey("ProdId")]
     [InverseProperty("Prods")]
+    [NotMapped]
     public virtual ICollection<AccountTax> Taxes { get; } = new List<AccountTax>();
 
     [ForeignKey("ProdId")]
     [InverseProperty("ProdsNavigation")]
+    [NotMapped]
     public virtual ICollection<AccountTax> TaxesNavigation { get; } = new List<AccountTax>();
 }

@@ -58,6 +58,7 @@ public partial class MailAlias
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("Alias")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 
     [ForeignKey("AliasModelId")]
@@ -77,18 +78,23 @@ public partial class MailAlias
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Alias")]
+    [NotMapped]
     public virtual ICollection<CrmTeam> CrmTeams { get; } = new List<CrmTeam>();
 
     [InverseProperty("Alias")]
+    [NotMapped]
     public virtual ICollection<HrJob> HrJobs { get; } = new List<HrJob>();
 
     [InverseProperty("Alias")]
+    [NotMapped]
     public virtual ICollection<HrRecruitmentSource> HrRecruitmentSources { get; } = new List<HrRecruitmentSource>();
 
     [InverseProperty("Alias")]
+    [NotMapped]
     public virtual ICollection<MaintenanceEquipmentCategory> MaintenanceEquipmentCategories { get; } = new List<MaintenanceEquipmentCategory>();
 
     [InverseProperty("Alias")]
+    [NotMapped]
     public virtual ICollection<ProjectProject> ProjectProjects { get; } = new List<ProjectProject>();
 
     [ForeignKey("LastModifierId")]

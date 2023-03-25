@@ -52,6 +52,7 @@ public partial class CrmStage
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Stage")]
+    [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
 
     [ForeignKey("TeamId")]

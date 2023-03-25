@@ -214,6 +214,7 @@ public partial class StockMove: IMultiTenant, IMayHaveCreator, IModificationAudi
     public bool? ManualConsumption { get; set; }
 
     [InverseProperty("StockMove")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [ForeignKey("AnalyticAccountLineId")]
@@ -253,6 +254,7 @@ public partial class StockMove: IMultiTenant, IMayHaveCreator, IModificationAudi
     public virtual ProcurementGroup? Group { get; set; }
 
     [InverseProperty("OriginReturnedMove")]
+    [NotMapped]
     public virtual ICollection<StockMove> InverseOriginReturnedMove { get; } = new List<StockMove>();
 
     [ForeignKey("LocationId")]
@@ -324,9 +326,11 @@ public partial class StockMove: IMultiTenant, IMayHaveCreator, IModificationAudi
     public virtual RepairOrder? Repair { get; set; }
 
     [InverseProperty("Move")]
+    [NotMapped]
     public virtual ICollection<RepairLine> RepairLines { get; } = new List<RepairLine>();
 
     [InverseProperty("Move")]
+    [NotMapped]
     public virtual ICollection<RepairOrder> RepairOrders { get; } = new List<RepairOrder>();
 
     [ForeignKey("RestrictPartnerId")]
@@ -342,18 +346,23 @@ public partial class StockMove: IMultiTenant, IMayHaveCreator, IModificationAudi
     public virtual SaleOrderLine? SaleLine { get; set; }
 
     [InverseProperty("Move")]
+    [NotMapped]
     public virtual ICollection<StockAssignSerial> StockAssignSerials { get; } = new List<StockAssignSerial>();
 
     [InverseProperty("Move")]
+    [NotMapped]
     public virtual ICollection<StockMoveLine> StockMoveLines { get; } = new List<StockMoveLine>();
 
     [InverseProperty("Move")]
+    [NotMapped]
     public virtual ICollection<StockReturnPickingLine> StockReturnPickingLines { get; } = new List<StockReturnPickingLine>();
 
     [InverseProperty("Move")]
+    [NotMapped]
     public virtual ICollection<StockScrap> StockScraps { get; } = new List<StockScrap>();
 
     [InverseProperty("StockMove")]
+    [NotMapped]
     public virtual ICollection<StockValuationLayer> StockValuationLayers { get; } = new List<StockValuationLayer>();
 
     [ForeignKey("UnbuildId")]
@@ -374,13 +383,16 @@ public partial class StockMove: IMultiTenant, IMayHaveCreator, IModificationAudi
 
     [ForeignKey("MoveOrigId")]
     [InverseProperty("MoveOrigs")]
+    [NotMapped]
     public virtual ICollection<StockMove> MoveDests { get; } = new List<StockMove>();
 
     [ForeignKey("MoveDestId")]
     [InverseProperty("MoveDests")]
+    [NotMapped]
     public virtual ICollection<StockMove> MoveOrigs { get; } = new List<StockMove>();
 
     [ForeignKey("MoveId")]
     [InverseProperty("Moves")]
+    [NotMapped]
     public virtual ICollection<StockRoute> Routes { get; } = new List<StockRoute>();
 }

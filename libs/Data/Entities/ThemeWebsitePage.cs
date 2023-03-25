@@ -58,6 +58,7 @@ public partial class ThemeWebsitePage
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Page")]
+    [NotMapped]
     public virtual ICollection<ThemeWebsiteMenu> ThemeWebsiteMenus { get; } = new List<ThemeWebsiteMenu>();
 
     [ForeignKey("ViewId")]
@@ -65,6 +66,7 @@ public partial class ThemeWebsitePage
     public virtual ThemeIrUiView? View { get; set; }
 
     [InverseProperty("ThemeTemplate")]
+    [NotMapped]
     public virtual ICollection<WebsitePage> WebsitePages { get; } = new List<WebsitePage>();
 
     [ForeignKey("LastModifierId")]

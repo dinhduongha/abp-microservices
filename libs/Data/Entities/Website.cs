@@ -186,9 +186,6 @@ public partial class Website: IMultiTenant, IMayHaveCreator, IModificationAudite
     [Column("warehouse_id")]
     public Guid? WarehouseId { get; set; }
 
-    [InverseProperty("Website")]
-    public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
-
     [ForeignKey("CartRecoveryMailTemplateId")]
     [InverseProperty("Websites")]
     public virtual MailTemplate? CartRecoveryMailTemplate { get; set; }
@@ -213,48 +210,6 @@ public partial class Website: IMultiTenant, IMayHaveCreator, IModificationAudite
     [InverseProperty("Websites")]
     public virtual ResLang? DefaultLang { get; set; }
 
-    [InverseProperty("Website")]
-    public virtual ICollection<HrJob> HrJobs { get; } = new List<HrJob>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<IrAsset> IrAssets { get; } = new List<IrAsset>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<IrAttachment> IrAttachments { get; } = new List<IrAttachment>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<IrUiView> IrUiViews { get; } = new List<IrUiView>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<PaymentProvider> PaymentProviders { get; } = new List<PaymentProvider>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<ProductPricelist> ProductPricelists { get; } = new List<ProductPricelist>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<ProductPublicCategory> ProductPublicCategories { get; } = new List<ProductPublicCategory>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<ProductTag> ProductTags { get; } = new List<ProductTag>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<ResConfigSetting> ResConfigSettings { get; } = new List<ResConfigSetting>();
-
-    [InverseProperty("WebsiteNavigation")]
-    public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<ResUser> ResUsers { get; } = new List<ResUser>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
-
     [ForeignKey("SalespersonId")]
     [InverseProperty("WebsiteSalespeople")]
     public virtual ResUser? Salesperson { get; set; }
@@ -262,9 +217,6 @@ public partial class Website: IMultiTenant, IMayHaveCreator, IModificationAudite
     [ForeignKey("SalesteamId")]
     [InverseProperty("WebsiteSalesteams")]
     public virtual CrmTeam? Salesteam { get; set; }
-
-    [InverseProperty("Website")]
-    public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
 
     [ForeignKey("ThemeId")]
     [InverseProperty("Websites")]
@@ -278,33 +230,105 @@ public partial class Website: IMultiTenant, IMayHaveCreator, IModificationAudite
     [InverseProperty("Websites")]
     public virtual StockWarehouse? Warehouse { get; set; }
 
-    [InverseProperty("Website")]
-    public virtual ICollection<WebsiteMenu> WebsiteMenus { get; } = new List<WebsiteMenu>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<WebsitePage> WebsitePages { get; } = new List<WebsitePage>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<WebsiteRewrite> WebsiteRewrites { get; } = new List<WebsiteRewrite>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<WebsiteSaleExtraField> WebsiteSaleExtraFields { get; } = new List<WebsiteSaleExtraField>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<WebsiteSnippetFilter> WebsiteSnippetFilters { get; } = new List<WebsiteSnippetFilter>();
-
-    [InverseProperty("Website")]
-    public virtual ICollection<WebsiteVisitor> WebsiteVisitors { get; } = new List<WebsiteVisitor>();
-
     [ForeignKey("LastModifierId")]
     [InverseProperty("WebsiteWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<HrJob> HrJobs { get; } = new List<HrJob>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<IrAsset> IrAssets { get; } = new List<IrAsset>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<IrAttachment> IrAttachments { get; } = new List<IrAttachment>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<IrUiView> IrUiViews { get; } = new List<IrUiView>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<PaymentProvider> PaymentProviders { get; } = new List<PaymentProvider>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<ProductPricelist> ProductPricelists { get; } = new List<ProductPricelist>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<ProductPublicCategory> ProductPublicCategories { get; } = new List<ProductPublicCategory>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<ProductTag> ProductTags { get; } = new List<ProductTag>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<ResConfigSetting> ResConfigSettings { get; } = new List<ResConfigSetting>();
+
+    [InverseProperty("WebsiteNavigation")]
+    [NotMapped]
+    public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<ResUser> ResUsers { get; } = new List<ResUser>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<WebsiteMenu> WebsiteMenus { get; } = new List<WebsiteMenu>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<WebsitePage> WebsitePages { get; } = new List<WebsitePage>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<WebsiteRewrite> WebsiteRewrites { get; } = new List<WebsiteRewrite>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<WebsiteSaleExtraField> WebsiteSaleExtraFields { get; } = new List<WebsiteSaleExtraField>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<WebsiteSnippetFilter> WebsiteSnippetFilters { get; } = new List<WebsiteSnippetFilter>();
+
+    [InverseProperty("Website")]
+    [NotMapped]
+    public virtual ICollection<WebsiteVisitor> WebsiteVisitors { get; } = new List<WebsiteVisitor>();
+
     [ForeignKey("WebsiteId")]
     [InverseProperty("Websites")]
+    [NotMapped]
     public virtual ICollection<BaseLanguageInstall> BaseLanguageInstalls { get; } = new List<BaseLanguageInstall>();
 
     [ForeignKey("WebsiteId")]
     [InverseProperty("WebsitesNavigation")]
+    [NotMapped]
     public virtual ICollection<ResLang> Langs { get; } = new List<ResLang>();
 }

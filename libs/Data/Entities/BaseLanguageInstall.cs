@@ -42,9 +42,11 @@ public partial class BaseLanguageInstall
 
     [ForeignKey("LanguageWizardId")]
     [InverseProperty("LanguageWizards")]
+    [NotMapped]
     public virtual ICollection<ResLang> Langs { get; } = new List<ResLang>();
 
     [ForeignKey("BaseLanguageInstallId")]
     [InverseProperty("BaseLanguageInstalls")]
+    [NotMapped]
     public virtual ICollection<Website> Websites { get; } = new List<Website>();
 }

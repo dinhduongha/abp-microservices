@@ -66,15 +66,19 @@ public partial class ResourceResource: IMultiTenant, IMayHaveCreator, IModificat
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Resource")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 
     [InverseProperty("Resource")]
+    [NotMapped]
     public virtual ICollection<MrpWorkcenter> MrpWorkcenters { get; } = new List<MrpWorkcenter>();
 
     [InverseProperty("Resource")]
+    [NotMapped]
     public virtual ICollection<ResourceCalendarAttendance> ResourceCalendarAttendances { get; } = new List<ResourceCalendarAttendance>();
 
     [InverseProperty("Resource")]
+    [NotMapped]
     public virtual ICollection<ResourceCalendarLeaf> ResourceCalendarLeaves { get; } = new List<ResourceCalendarLeaf>();
 
     [ForeignKey("UserId")]

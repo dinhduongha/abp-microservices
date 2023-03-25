@@ -30,6 +30,7 @@ public partial class ChangePasswordWizard
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("Wizard")]
+    [NotMapped]
     public virtual ICollection<ChangePasswordUser> ChangePasswordUsers { get; } = new List<ChangePasswordUser>();
 
     [ForeignKey("CreatorId")]

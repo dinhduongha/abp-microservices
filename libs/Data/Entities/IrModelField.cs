@@ -134,33 +134,43 @@ public partial class IrModelField
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Field")]
+    [NotMapped]
     public virtual ICollection<CrmLeadScoringFrequencyField> CrmLeadScoringFrequencyFields { get; } = new List<CrmLeadScoringFrequencyField>();
 
     [InverseProperty("RelatedField")]
+    [NotMapped]
     public virtual ICollection<IrModelField> InverseRelatedField { get; } = new List<IrModelField>();
 
     [InverseProperty("RelationFieldNavigation")]
+    [NotMapped]
     public virtual ICollection<IrModelField> InverseRelationFieldNavigation { get; } = new List<IrModelField>();
 
     [InverseProperty("LinkField")]
+    [NotMapped]
     public virtual ICollection<IrActServer> IrActServers { get; } = new List<IrActServer>();
 
     [InverseProperty("Field")]
+    [NotMapped]
     public virtual ICollection<IrDefault> IrDefaults { get; } = new List<IrDefault>();
 
     [InverseProperty("Field")]
+    [NotMapped]
     public virtual ICollection<IrModelFieldsSelection> IrModelFieldsSelections { get; } = new List<IrModelFieldsSelection>();
 
     [InverseProperty("WebsiteFormDefaultField")]
+    [NotMapped]
     public virtual ICollection<IrModel> IrModels { get; } = new List<IrModel>();
 
     [InverseProperty("Fields")]
+    [NotMapped]
     public virtual ICollection<IrProperty> IrProperties { get; } = new List<IrProperty>();
 
     [InverseProperty("Col1Navigation")]
+    [NotMapped]
     public virtual ICollection<IrServerObjectLine> IrServerObjectLines { get; } = new List<IrServerObjectLine>();
 
     [InverseProperty("FieldNavigation")]
+    [NotMapped]
     public virtual ICollection<MailTrackingValue> MailTrackingValues { get; } = new List<MailTrackingValue>();
 
     [ForeignKey("ModelId")]
@@ -176,6 +186,7 @@ public partial class IrModelField
     public virtual IrModelField? RelationFieldNavigation { get; set; }
 
     [InverseProperty("Field")]
+    [NotMapped]
     public virtual ICollection<WebsiteSaleExtraField> WebsiteSaleExtraFields { get; } = new List<WebsiteSaleExtraField>();
 
     [ForeignKey("LastModifierId")]
@@ -184,5 +195,6 @@ public partial class IrModelField
 
     [ForeignKey("FieldId")]
     [InverseProperty("Fields")]
+    [NotMapped]
     public virtual ICollection<ResGroup> Groups { get; } = new List<ResGroup>();
 }

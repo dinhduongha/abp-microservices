@@ -46,5 +46,6 @@ public partial class NoteTag
 
     [ForeignKey("TagId")]
     [InverseProperty("Tags")]
+    [NotMapped]
     public virtual ICollection<NoteNote> Notes { get; } = new List<NoteNote>();
 }

@@ -88,5 +88,6 @@ public partial class AccountReconcileModelLine: IMultiTenant, IMayHaveCreator, I
 
     [ForeignKey("AccountReconcileModelLineId")]
     [InverseProperty("AccountReconcileModelLines")]
+    [NotMapped]
     public virtual ICollection<AccountTax> AccountTaxes { get; } = new List<AccountTax>();
 }

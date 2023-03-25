@@ -76,5 +76,6 @@ public partial class CrmLead2opportunityPartner
 
     [ForeignKey("CrmLead2opportunityPartnerId")]
     [InverseProperty("CrmLead2opportunityPartnersNavigation")]
+    [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
 }

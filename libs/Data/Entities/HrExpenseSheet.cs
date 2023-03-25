@@ -120,9 +120,11 @@ public partial class HrExpenseSheet: IMultiTenant, IMayHaveCreator, IModificatio
     public virtual HrEmployee? Employee { get; set; }
 
     [InverseProperty("HrExpenseSheet")]
+    [NotMapped]
     public virtual ICollection<HrExpenseRefuseWizard> HrExpenseRefuseWizards { get; } = new List<HrExpenseRefuseWizard>();
 
     [InverseProperty("Sheet")]
+    [NotMapped]
     public virtual ICollection<HrExpense> HrExpenses { get; } = new List<HrExpense>();
 
     [ForeignKey("JournalId")]
@@ -143,5 +145,6 @@ public partial class HrExpenseSheet: IMultiTenant, IMayHaveCreator, IModificatio
 
     [ForeignKey("HrExpenseSheetId")]
     [InverseProperty("HrExpenseSheets")]
+    [NotMapped]
     public virtual ICollection<HrExpenseApproveDuplicate> HrExpenseApproveDuplicates { get; } = new List<HrExpenseApproveDuplicate>();
 }

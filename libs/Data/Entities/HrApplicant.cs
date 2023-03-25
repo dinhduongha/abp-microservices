@@ -141,6 +141,7 @@ public partial class HrApplicant: IMultiTenant, IMayHaveCreator, IModificationAu
     public double? DelayClose { get; set; }
 
     [InverseProperty("Applicant")]
+    [NotMapped]
     public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
 
     [ForeignKey("CampaignId")]
@@ -164,6 +165,7 @@ public partial class HrApplicant: IMultiTenant, IMayHaveCreator, IModificationAu
     public virtual HrEmployee? Emp { get; set; }
 
     [InverseProperty("Applicant")]
+    [NotMapped]
     public virtual ICollection<HrApplicantSkill> HrApplicantSkills { get; } = new List<HrApplicantSkill>();
 
     [ForeignKey("JobId")]
@@ -212,21 +214,26 @@ public partial class HrApplicant: IMultiTenant, IMayHaveCreator, IModificationAu
 
     [ForeignKey("HrApplicantId")]
     [InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual ICollection<ApplicantGetRefuseReason> ApplicantGetRefuseReasons { get; } = new List<ApplicantGetRefuseReason>();
 
     [ForeignKey("HrApplicantId")]
     [InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual ICollection<ApplicantSendMail> ApplicantSendMails { get; } = new List<ApplicantSendMail>();
 
     [ForeignKey("HrApplicantId")]
     [InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual ICollection<HrApplicantCategory> HrApplicantCategories { get; } = new List<HrApplicantCategory>();
 
     [ForeignKey("HrApplicantId")]
     [InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual ICollection<HrSkill> HrSkills { get; } = new List<HrSkill>();
 
     [ForeignKey("HrApplicantId")]
     [InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual ICollection<ResUser> ResUsers { get; } = new List<ResUser>();
 }

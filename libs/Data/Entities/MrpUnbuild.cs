@@ -107,12 +107,15 @@ public partial class MrpUnbuild: IMultiTenant, IMayHaveCreator, IModificationAud
     public virtual UomUom? ProductUom { get; set; }
 
     [InverseProperty("ConsumeUnbuild")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoveConsumeUnbuilds { get; } = new List<StockMove>();
 
     [InverseProperty("Unbuild")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoveUnbuilds { get; } = new List<StockMove>();
 
     [InverseProperty("Unbuild")]
+    [NotMapped]
     public virtual ICollection<StockWarnInsufficientQtyUnbuild> StockWarnInsufficientQtyUnbuilds { get; } = new List<StockWarnInsufficientQtyUnbuild>();
 
     [ForeignKey("LastModifierId")]

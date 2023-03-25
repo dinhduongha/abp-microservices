@@ -126,24 +126,31 @@ public partial class StockRule: IMultiTenant, IMayHaveCreator, IModificationAudi
     public virtual StockRoute? Route { get; set; }
 
     [InverseProperty("Rule")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
 
     [InverseProperty("BuyPull")]
+    [NotMapped]
     public virtual ICollection<StockWarehouse> StockWarehouseBuyPulls { get; } = new List<StockWarehouse>();
 
     [InverseProperty("ManufactureMtoPull")]
+    [NotMapped]
     public virtual ICollection<StockWarehouse> StockWarehouseManufactureMtoPulls { get; } = new List<StockWarehouse>();
 
     [InverseProperty("ManufacturePull")]
+    [NotMapped]
     public virtual ICollection<StockWarehouse> StockWarehouseManufacturePulls { get; } = new List<StockWarehouse>();
 
     [InverseProperty("MtoPull")]
+    [NotMapped]
     public virtual ICollection<StockWarehouse> StockWarehouseMtoPulls { get; } = new List<StockWarehouse>();
 
     [InverseProperty("PbmMtoPull")]
+    [NotMapped]
     public virtual ICollection<StockWarehouse> StockWarehousePbmMtoPulls { get; } = new List<StockWarehouse>();
 
     [InverseProperty("SamRule")]
+    [NotMapped]
     public virtual ICollection<StockWarehouse> StockWarehouseSamRules { get; } = new List<StockWarehouse>();
 
     [ForeignKey("WarehouseId")]

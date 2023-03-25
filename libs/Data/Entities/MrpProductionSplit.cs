@@ -43,6 +43,7 @@ public partial class MrpProductionSplit
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("MrpProductionSplit")]
+    [NotMapped]
     public virtual ICollection<MrpProductionSplitLine> MrpProductionSplitLines { get; } = new List<MrpProductionSplitLine>();
 
     [ForeignKey("ProductionId")]

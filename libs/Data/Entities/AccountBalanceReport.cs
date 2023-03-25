@@ -58,17 +58,21 @@ public partial class AccountBalanceReport: IMultiTenant, IMayHaveCreator, IModif
 
     [ForeignKey("AccountBalanceReportId")]
     [InverseProperty("AccountBalanceReports")]
+    [NotMapped]
     public virtual ICollection<AccountAccount> AccountAccounts { get; } = new List<AccountAccount>();
 
     [ForeignKey("AccountBalanceReportId")]
     [InverseProperty("AccountBalanceReports")]
+    [NotMapped]
     public virtual ICollection<AccountAnalyticAccount> AccountAnalyticAccounts { get; } = new List<AccountAnalyticAccount>();
 
     [ForeignKey("AccountId")]
     [InverseProperty("Accounts")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> Journals { get; } = new List<AccountJournal>();
 
     [ForeignKey("AccountBalanceReportId")]
     [InverseProperty("AccountBalanceReports")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 }

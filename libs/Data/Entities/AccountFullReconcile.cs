@@ -48,9 +48,11 @@ public partial class AccountFullReconcile
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("FullReconcile")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [InverseProperty("FullReconcile")]
+    [NotMapped]
     public virtual ICollection<AccountPartialReconcile> AccountPartialReconciles { get; } = new List<AccountPartialReconcile>();
 
 

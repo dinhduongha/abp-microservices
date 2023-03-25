@@ -136,9 +136,11 @@ public partial class HrLeaveAllocation
     public virtual HrLeaveType? HolidayStatus { get; set; }
 
     [InverseProperty("HolidayAllocation")]
+    [NotMapped]
     public virtual ICollection<HrLeave> HrLeaves { get; } = new List<HrLeave>();
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<HrLeaveAllocation> InverseParent { get; } = new List<HrLeaveAllocation>();
 
     [ForeignKey("ManagerId")]
@@ -167,5 +169,6 @@ public partial class HrLeaveAllocation
 
     [ForeignKey("HrLeaveAllocationId")]
     [InverseProperty("HrLeaveAllocations")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 }

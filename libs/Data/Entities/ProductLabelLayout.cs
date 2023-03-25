@@ -51,13 +51,16 @@ public partial class ProductLabelLayout
 
     [ForeignKey("ProductLabelLayoutId")]
     [InverseProperty("ProductLabelLayouts")]
+    [NotMapped]
     public virtual ICollection<ProductProduct> ProductProducts { get; } = new List<ProductProduct>();
 
     [ForeignKey("ProductLabelLayoutId")]
     [InverseProperty("ProductLabelLayouts")]
+    [NotMapped]
     public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
 
     [ForeignKey("ProductLabelLayoutId")]
     [InverseProperty("ProductLabelLayouts")]
+    [NotMapped]
     public virtual ICollection<StockMoveLine> StockMoveLines { get; } = new List<StockMoveLine>();
 }

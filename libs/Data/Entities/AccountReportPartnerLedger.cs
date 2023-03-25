@@ -64,9 +64,11 @@ public partial class AccountReportPartnerLedger: IMultiTenant, IMayHaveCreator, 
 
     [ForeignKey("AccountReportPartnerLedgerId")]
     [InverseProperty("AccountReportPartnerLedgers")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 
     [ForeignKey("AccountReportPartnerLedgerId")]
     [InverseProperty("AccountReportPartnerLedgers")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 }

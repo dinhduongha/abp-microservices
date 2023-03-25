@@ -181,9 +181,11 @@ public partial class RepairOrder
     public virtual UomUom? ProductUomNavigation { get; set; }
 
     [InverseProperty("Repair")]
+    [NotMapped]
     public virtual ICollection<RepairFee> RepairFees { get; } = new List<RepairFee>();
 
     [InverseProperty("Repair")]
+    [NotMapped]
     public virtual ICollection<RepairLine> RepairLines { get; } = new List<RepairLine>();
 
     [ForeignKey("SaleOrderId")]
@@ -191,9 +193,11 @@ public partial class RepairOrder
     public virtual SaleOrder? SaleOrder { get; set; }
 
     [InverseProperty("Repair")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
 
     [InverseProperty("Repair")]
+    [NotMapped]
     public virtual ICollection<StockWarnInsufficientQtyRepair> StockWarnInsufficientQtyRepairs { get; } = new List<StockWarnInsufficientQtyRepair>();
 
     [ForeignKey("UserId")]
@@ -206,5 +210,6 @@ public partial class RepairOrder
 
     [ForeignKey("RepairOrderId")]
     [InverseProperty("RepairOrders")]
+    [NotMapped]
     public virtual ICollection<RepairTag> RepairTags { get; } = new List<RepairTag>();
 }

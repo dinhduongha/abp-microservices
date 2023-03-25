@@ -34,6 +34,7 @@ public partial class MrpProductionBackorder
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("MrpProductionBackorder")]
+    [NotMapped]
     public virtual ICollection<MrpProductionBackorderLine> MrpProductionBackorderLines { get; } = new List<MrpProductionBackorderLine>();
 
     [ForeignKey("LastModifierId")]
@@ -42,5 +43,6 @@ public partial class MrpProductionBackorder
 
     [ForeignKey("MrpProductionBackorderId")]
     [InverseProperty("MrpProductionBackorders")]
+    [NotMapped]
     public virtual ICollection<MrpProduction> MrpProductions { get; } = new List<MrpProduction>();
 }

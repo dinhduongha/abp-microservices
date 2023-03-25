@@ -39,6 +39,7 @@ public partial class AccountIncoterm
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("InvoiceIncoterm")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [ForeignKey("CreatorId")]
@@ -46,12 +47,15 @@ public partial class AccountIncoterm
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Incoterm")]
+    [NotMapped]
     public virtual ICollection<PurchaseOrder> PurchaseOrders { get; } = new List<PurchaseOrder>();
 
     [InverseProperty("Incoterm")]
+    [NotMapped]
     public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
 
     [InverseProperty("IncotermNavigation")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
     [ForeignKey("LastModifierId")]

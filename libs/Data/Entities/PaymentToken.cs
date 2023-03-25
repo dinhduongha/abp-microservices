@@ -52,9 +52,11 @@ public partial class PaymentToken: IMultiTenant, IMayHaveCreator, IModificationA
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("PaymentToken")]
+    [NotMapped]
     public virtual ICollection<AccountPaymentRegister> AccountPaymentRegisters { get; } = new List<AccountPaymentRegister>();
 
     [InverseProperty("PaymentToken")]
+    [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
 
     [ForeignKey("TenantId")]
@@ -70,6 +72,7 @@ public partial class PaymentToken: IMultiTenant, IMayHaveCreator, IModificationA
     public virtual ResPartner? Partner { get; set; }
 
     [InverseProperty("Token")]
+    [NotMapped]
     public virtual ICollection<PaymentTransaction> PaymentTransactions { get; } = new List<PaymentTransaction>();
 
     [ForeignKey("ProviderId")]

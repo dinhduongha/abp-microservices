@@ -37,6 +37,7 @@ public partial class MrpWorkcenterProductivityLossType
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Loss")]
+    [NotMapped]
     public virtual ICollection<MrpWorkcenterProductivityLoss> MrpWorkcenterProductivityLosses { get; } = new List<MrpWorkcenterProductivityLoss>();
 
     [ForeignKey("LastModifierId")]

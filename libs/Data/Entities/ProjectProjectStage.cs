@@ -56,6 +56,7 @@ public partial class ProjectProjectStage
     public virtual MailTemplate? MailTemplate { get; set; }
 
     [InverseProperty("Stage")]
+    [NotMapped]
     public virtual ICollection<ProjectProject> ProjectProjects { get; } = new List<ProjectProject>();
 
     [ForeignKey("SmsTemplateId")]

@@ -79,13 +79,16 @@ public partial class CrmLead2opportunityPartnerMass
 
     [ForeignKey("CrmLead2opportunityPartnerMassId")]
     [InverseProperty("CrmLead2opportunityPartnerMasses")]
+    [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
 
     [ForeignKey("CrmLead2opportunityPartnerMassId")]
     [InverseProperty("CrmLead2opportunityPartnerMasses1")]
+    [NotMapped]
     public virtual ICollection<CrmLead> CrmLeadsNavigation { get; } = new List<CrmLead>();
 
     [ForeignKey("CrmLead2opportunityPartnerMassId")]
     [InverseProperty("CrmLead2opportunityPartnerMasses")]
+    [NotMapped]
     public virtual ICollection<ResUser> ResUsers { get; } = new List<ResUser>();
 }

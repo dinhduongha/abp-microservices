@@ -141,15 +141,19 @@ public partial class HrJob: IMultiTenant, IMayHaveCreator, IModificationAuditedO
     public virtual HrDepartment? Department { get; set; }
 
     [InverseProperty("Job")]
+    [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicants { get; } = new List<HrApplicant>();
 
     [InverseProperty("Job")]
+    [NotMapped]
     public virtual ICollection<HrContract> HrContracts { get; } = new List<HrContract>();
 
     [InverseProperty("Job")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 
     [InverseProperty("Job")]
+    [NotMapped]
     public virtual ICollection<HrRecruitmentSource> HrRecruitmentSources { get; } = new List<HrRecruitmentSource>();
 
     [ForeignKey("HrResponsibleId")]
@@ -178,17 +182,21 @@ public partial class HrJob: IMultiTenant, IMayHaveCreator, IModificationAuditedO
 
     [ForeignKey("HrJobId")]
     [InverseProperty("HrJobs")]
+    [NotMapped]
     public virtual ICollection<HrRecruitmentStage> HrRecruitmentStages { get; } = new List<HrRecruitmentStage>();
 
     [ForeignKey("HrJobId")]
     [InverseProperty("HrJobs")]
+    [NotMapped]
     public virtual ICollection<ResUser> ResUsers { get; } = new List<ResUser>();
 
     [ForeignKey("HrJobId")]
     [InverseProperty("HrJobsNavigation")]
+    [NotMapped]
     public virtual ICollection<ResUser> ResUsersNavigation { get; } = new List<ResUser>();
 
     [ForeignKey("JobId")]
     [InverseProperty("Jobs")]
+    [NotMapped]
     public virtual ICollection<ResUser> Users { get; } = new List<ResUser>();
 }

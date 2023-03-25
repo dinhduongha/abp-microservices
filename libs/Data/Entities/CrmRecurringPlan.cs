@@ -46,6 +46,7 @@ public partial class CrmRecurringPlan
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("RecurringPlanNavigation")]
+    [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
 
     [ForeignKey("LastModifierId")]

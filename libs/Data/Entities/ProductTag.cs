@@ -61,9 +61,11 @@ public partial class ProductTag
 
     [ForeignKey("ProductTagId")]
     [InverseProperty("ProductTags")]
+    [NotMapped]
     public virtual ICollection<ProductProduct> ProductProducts { get; } = new List<ProductProduct>();
 
     [ForeignKey("ProductTagId")]
     [InverseProperty("ProductTags")]
+    [NotMapped]
     public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
 }

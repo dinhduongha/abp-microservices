@@ -57,9 +57,11 @@ public partial class AccountBankbookReport
 
     [ForeignKey("AccountBankbookReportId")]
     [InverseProperty("AccountBankbookReports")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 
     [ForeignKey("ReportLineId")]
     [InverseProperty("ReportLines")]
+    [NotMapped]
     public virtual ICollection<AccountAccount> Accounts { get; } = new List<AccountAccount>();
 }

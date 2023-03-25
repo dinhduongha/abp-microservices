@@ -37,6 +37,7 @@ public partial class WebEditorConverterTestSub
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Many2oneNavigation")]
+    [NotMapped]
     public virtual ICollection<WebEditorConverterTest> WebEditorConverterTests { get; } = new List<WebEditorConverterTest>();
 
     [ForeignKey("LastModifierId")]

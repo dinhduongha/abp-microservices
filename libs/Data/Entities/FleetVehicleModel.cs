@@ -96,6 +96,7 @@ public partial class FleetVehicleModel
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Model")]
+    [NotMapped]
     public virtual ICollection<FleetVehicle> FleetVehicles { get; } = new List<FleetVehicle>();
 
     [ForeignKey("LastModifierId")]
@@ -104,5 +105,6 @@ public partial class FleetVehicleModel
 
     [ForeignKey("ModelId")]
     [InverseProperty("Models")]
+    [NotMapped]
     public virtual ICollection<ResPartner> Partners { get; } = new List<ResPartner>();
 }

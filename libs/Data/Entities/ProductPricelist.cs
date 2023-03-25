@@ -69,24 +69,31 @@ public partial class ProductPricelist: IMultiTenant, IMayHaveCreator, IModificat
     public virtual ResCurrency? Currency { get; set; }
 
     [InverseProperty("Pricelist")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigs { get; } = new List<PosConfig>();
 
     [InverseProperty("Pricelist")]
+    [NotMapped]
     public virtual ICollection<PosOrder> PosOrders { get; } = new List<PosOrder>();
 
     [InverseProperty("BasePricelist")]
+    [NotMapped]
     public virtual ICollection<ProductPricelistItem> ProductPricelistItemBasePricelists { get; } = new List<ProductPricelistItem>();
 
     [InverseProperty("Pricelist")]
+    [NotMapped]
     public virtual ICollection<ProductPricelistItem> ProductPricelistItemPricelists { get; } = new List<ProductPricelistItem>();
 
     [InverseProperty("Pricelist")]
+    [NotMapped]
     public virtual ICollection<RepairOrder> RepairOrders { get; } = new List<RepairOrder>();
 
     [InverseProperty("PosPricelist")]
+    [NotMapped]
     public virtual ICollection<ResConfigSetting> ResConfigSettingsNavigation { get; } = new List<ResConfigSetting>();
 
     [InverseProperty("Pricelist")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
     [ForeignKey("WebsiteId")]
@@ -99,13 +106,16 @@ public partial class ProductPricelist: IMultiTenant, IMayHaveCreator, IModificat
 
     [ForeignKey("ProductPricelistId")]
     [InverseProperty("ProductPricelists")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigsNavigation { get; } = new List<PosConfig>();
 
     [ForeignKey("ProductPricelistId")]
     [InverseProperty("ProductPricelists")]
+    [NotMapped]
     public virtual ICollection<ResConfigSetting> ResConfigSettings { get; } = new List<ResConfigSetting>();
 
     [ForeignKey("PricelistId")]
     [InverseProperty("Pricelists")]
+    [NotMapped]
     public virtual ICollection<ResCountryGroup> ResCountryGroups { get; } = new List<ResCountryGroup>();
 }

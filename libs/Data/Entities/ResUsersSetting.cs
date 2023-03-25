@@ -52,9 +52,6 @@ public partial class ResUsersSetting
     [InverseProperty("ResUsersSettingCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
-    [InverseProperty("UserSetting")]
-    public virtual ICollection<ResUsersSettingsVolume> ResUsersSettingsVolumes { get; } = new List<ResUsersSettingsVolume>();
-
     [ForeignKey("UserId")]
     [InverseProperty("ResUsersSettingUser")]
     public virtual ResUser? User { get; set; }
@@ -62,4 +59,9 @@ public partial class ResUsersSetting
     [ForeignKey("LastModifierId")]
     [InverseProperty("ResUsersSettingWriteUs")]
     public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("UserSetting")]
+    [NotMapped]
+    public virtual ICollection<ResUsersSettingsVolume> ResUsersSettingsVolumes { get; } = new List<ResUsersSettingsVolume>();
+
 }

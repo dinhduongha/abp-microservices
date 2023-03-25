@@ -39,9 +39,11 @@ public partial class StockInventoryConflict
 
     [ForeignKey("StockInventoryConflictId")]
     [InverseProperty("StockInventoryConflicts")]
+    [NotMapped]
     public virtual ICollection<StockQuant> StockQuants { get; } = new List<StockQuant>();
 
     [ForeignKey("StockInventoryConflictId")]
     [InverseProperty("StockInventoryConflictsNavigation")]
+    [NotMapped]
     public virtual ICollection<StockQuant> StockQuantsNavigation { get; } = new List<StockQuant>();
 }

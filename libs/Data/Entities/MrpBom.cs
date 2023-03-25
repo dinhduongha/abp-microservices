@@ -87,18 +87,23 @@ public partial class MrpBom: IMultiTenant, IMayHaveCreator, IModificationAudited
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [InverseProperty("Bom")]
+    [NotMapped]
     public virtual ICollection<MrpBomByproduct> MrpBomByproducts { get; } = new List<MrpBomByproduct>();
 
     [InverseProperty("Bom")]
+    [NotMapped]
     public virtual ICollection<MrpBomLine> MrpBomLines { get; } = new List<MrpBomLine>();
 
     [InverseProperty("Bom")]
+    [NotMapped]
     public virtual ICollection<MrpProduction> MrpProductions { get; } = new List<MrpProduction>();
 
     [InverseProperty("Bom")]
+    [NotMapped]
     public virtual ICollection<MrpRoutingWorkcenter> MrpRoutingWorkcenters { get; } = new List<MrpRoutingWorkcenter>();
 
     [InverseProperty("Bom")]
+    [NotMapped]
     public virtual ICollection<MrpUnbuild> MrpUnbuilds { get; } = new List<MrpUnbuild>();
 
     [ForeignKey("PickingTypeId")]
@@ -118,6 +123,7 @@ public partial class MrpBom: IMultiTenant, IMayHaveCreator, IModificationAudited
     public virtual UomUom? ProductUom { get; set; }
 
     [InverseProperty("Bom")]
+    [NotMapped]
     public virtual ICollection<StockWarehouseOrderpoint> StockWarehouseOrderpoints { get; } = new List<StockWarehouseOrderpoint>();
 
     [ForeignKey("LastModifierId")]

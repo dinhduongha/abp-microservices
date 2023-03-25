@@ -40,9 +40,11 @@ public partial class HrContractType
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("ContractType")]
+    [NotMapped]
     public virtual ICollection<HrContract> HrContracts { get; } = new List<HrContract>();
 
     [InverseProperty("ContractType")]
+    [NotMapped]
     public virtual ICollection<HrJob> HrJobs { get; } = new List<HrJob>();
 
     [ForeignKey("LastModifierId")]

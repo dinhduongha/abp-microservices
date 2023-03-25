@@ -95,5 +95,6 @@ public partial class RepairFee: IMultiTenant, IMayHaveCreator, IModificationAudi
 
     [ForeignKey("RepairFeeLineId")]
     [InverseProperty("RepairFeeLines")]
+    [NotMapped]
     public virtual ICollection<AccountTax> Taxes { get; } = new List<AccountTax>();
 }

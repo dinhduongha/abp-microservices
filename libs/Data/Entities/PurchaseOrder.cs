@@ -180,6 +180,7 @@ public partial class PurchaseOrder: IMultiTenant, IMayHaveCreator, IModification
     public virtual StockPickingType? PickingType { get; set; }
 
     [InverseProperty("Order")]
+    [NotMapped]
     public virtual ICollection<PurchaseOrderLine> PurchaseOrderLines { get; } = new List<PurchaseOrderLine>();
 
     [ForeignKey("UserId")]
@@ -192,9 +193,11 @@ public partial class PurchaseOrder: IMultiTenant, IMayHaveCreator, IModification
 
     [ForeignKey("PurchaseOrderId")]
     [InverseProperty("PurchaseOrders")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [ForeignKey("PurchaseOrderId")]
     [InverseProperty("PurchaseOrders")]
+    [NotMapped]
     public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
 }

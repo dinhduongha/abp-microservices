@@ -66,6 +66,7 @@ public partial class AccountRecurringTemplate: IMultiTenant, IMayHaveCreator, IM
     public virtual AccountJournal? Journal { get; set; }
 
     [InverseProperty("Template")]
+    [NotMapped]
     public virtual ICollection<RecurringPayment> RecurringPayments { get; } = new List<RecurringPayment>();
 
     [ForeignKey("LastModifierId")]

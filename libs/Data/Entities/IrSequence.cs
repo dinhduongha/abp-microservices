@@ -63,6 +63,7 @@ public partial class IrSequence: IMultiTenant, IMayHaveCreator, IModificationAud
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("SecureSequence")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 
     [ForeignKey("TenantId")]
@@ -74,15 +75,19 @@ public partial class IrSequence: IMultiTenant, IMayHaveCreator, IModificationAud
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Sequence")]
+    [NotMapped]
     public virtual ICollection<IrSequenceDateRange> IrSequenceDateRanges { get; } = new List<IrSequenceDateRange>();
 
     [InverseProperty("SequenceLine")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigSequenceLines { get; } = new List<PosConfig>();
 
     [InverseProperty("Sequence")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigSequences { get; } = new List<PosConfig>();
 
     [InverseProperty("SequenceNavigation")]
+    [NotMapped]
     public virtual ICollection<StockPickingType> StockPickingTypes { get; } = new List<StockPickingType>();
 
     [ForeignKey("LastModifierId")]

@@ -34,6 +34,7 @@ public partial class StockTrackConfirmation
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Wizard")]
+    [NotMapped]
     public virtual ICollection<StockTrackLine> StockTrackLines { get; } = new List<StockTrackLine>();
 
     [ForeignKey("LastModifierId")]
@@ -42,9 +43,11 @@ public partial class StockTrackConfirmation
 
     [ForeignKey("StockTrackConfirmationId")]
     [InverseProperty("StockTrackConfirmations")]
+    [NotMapped]
     public virtual ICollection<ProductProduct> ProductProducts { get; } = new List<ProductProduct>();
 
     [ForeignKey("StockTrackConfirmationId")]
     [InverseProperty("StockTrackConfirmations")]
+    [NotMapped]
     public virtual ICollection<StockQuant> StockQuants { get; } = new List<StockQuant>();
 }

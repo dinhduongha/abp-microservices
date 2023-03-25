@@ -45,5 +45,6 @@ public partial class AccountAccountType
 
     [ForeignKey("AccountTypeId")]
     [InverseProperty("AccountTypes")]
+    [NotMapped]
     public virtual ICollection<AccountFinancialReport> Reports { get; } = new List<AccountFinancialReport>();
 }

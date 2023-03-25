@@ -37,6 +37,7 @@ public partial class StockBackorderConfirmation
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("BackorderConfirmation")]
+    [NotMapped]
     public virtual ICollection<StockBackorderConfirmationLine> StockBackorderConfirmationLines { get; } = new List<StockBackorderConfirmationLine>();
 
     [ForeignKey("LastModifierId")]
@@ -45,5 +46,6 @@ public partial class StockBackorderConfirmation
 
     [ForeignKey("StockBackorderConfirmationId")]
     [InverseProperty("StockBackorderConfirmations")]
+    [NotMapped]
     public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
 }

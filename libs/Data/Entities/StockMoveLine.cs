@@ -168,13 +168,16 @@ public partial class StockMoveLine: IMultiTenant, IMayHaveCreator, IModification
 
     [ForeignKey("ProduceLineId")]
     [InverseProperty("ProduceLines")]
+    [NotMapped]
     public virtual ICollection<StockMoveLine> ConsumeLines { get; } = new List<StockMoveLine>();
 
     [ForeignKey("ConsumeLineId")]
     [InverseProperty("ConsumeLines")]
+    [NotMapped]
     public virtual ICollection<StockMoveLine> ProduceLines { get; } = new List<StockMoveLine>();
 
     [ForeignKey("StockMoveLineId")]
     [InverseProperty("StockMoveLines")]
+    [NotMapped]
     public virtual ICollection<ProductLabelLayout> ProductLabelLayouts { get; } = new List<ProductLabelLayout>();
 }

@@ -83,41 +83,53 @@ public partial class AccountAnalyticAccount: IMultiTenant, IMayHaveCreator, IMod
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("AnalyticAccount")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
     [InverseProperty("Account")]
+    [NotMapped]
     public virtual ICollection<AccountAnalyticLine> AccountAnalyticLines { get; } = new List<AccountAnalyticLine>();
 
     [InverseProperty("AccountAnalytic")]
+    [NotMapped]
     public virtual ICollection<AccountAssetAsset> AccountAssetAssets { get; } = new List<AccountAssetAsset>();
 
     [InverseProperty("AccountAnalytic")]
+    [NotMapped]
     public virtual ICollection<AccountAssetCategory> AccountAssetCategories { get; } = new List<AccountAssetCategory>();
 
     [InverseProperty("AnalyticAccount")]
+    [NotMapped]
     public virtual ICollection<CrossoveredBudgetLine> CrossoveredBudgetLines { get; } = new List<CrossoveredBudgetLine>();
     
     [InverseProperty("AnalyticAccount")]
+    [NotMapped]
     public virtual ICollection<MrpProduction> MrpProductions { get; } = new List<MrpProduction>();
 
     [InverseProperty("CostsHourAccount")]
+    [NotMapped]
     public virtual ICollection<MrpWorkcenter> MrpWorkcenters { get; } = new List<MrpWorkcenter>();
 
     [InverseProperty("AnalyticAccount")]
+    [NotMapped]
     public virtual ICollection<ProjectProject> ProjectProjects { get; } = new List<ProjectProject>();
 
     [InverseProperty("AnalyticAccount")]
+    [NotMapped]
     public virtual ICollection<ProjectTask> ProjectTasks { get; } = new List<ProjectTask>();
 
     [ForeignKey("AccountAnalyticAccountId")]
     [InverseProperty("AccountAnalyticAccounts")]
+    [NotMapped]
     public virtual ICollection<AccountBalanceReport> AccountBalanceReports { get; } = new List<AccountBalanceReport>();
 
     [ForeignKey("AccountAnalyticAccountId")]
     [InverseProperty("AccountAnalyticAccounts")]
+    [NotMapped]
     public virtual ICollection<AccountCommonAccountReport> AccountCommonAccountReports { get; } = new List<AccountCommonAccountReport>();
 
     [ForeignKey("AccountAnalyticAccountId")]
     [InverseProperty("AccountAnalyticAccounts")]
+    [NotMapped]
     public virtual ICollection<AccountReportGeneralLedger> AccountReportGeneralLedgers { get; } = new List<AccountReportGeneralLedger>();
 }

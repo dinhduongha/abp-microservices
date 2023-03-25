@@ -40,6 +40,7 @@ public partial class SpreadsheetDashboardGroup
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("DashboardGroup")]
+    [NotMapped]
     public virtual ICollection<SpreadsheetDashboard> SpreadsheetDashboards { get; } = new List<SpreadsheetDashboard>();
 
     [ForeignKey("LastModifierId")]

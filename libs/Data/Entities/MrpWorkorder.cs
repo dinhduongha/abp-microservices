@@ -111,6 +111,7 @@ public partial class MrpWorkorder
     public virtual AccountAnalyticLine? MoAnalyticAccountLine { get; set; }
 
     [InverseProperty("Workorder")]
+    [NotMapped]
     public virtual ICollection<MrpWorkcenterProductivity> MrpWorkcenterProductivities { get; } = new List<MrpWorkcenterProductivity>();
 
     [ForeignKey("OperationId")]
@@ -130,12 +131,15 @@ public partial class MrpWorkorder
     public virtual MrpProduction? Production { get; set; }
 
     [InverseProperty("Workorder")]
+    [NotMapped]
     public virtual ICollection<StockMoveLine> StockMoveLines { get; } = new List<StockMoveLine>();
 
     [InverseProperty("Workorder")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
 
     [InverseProperty("Workorder")]
+    [NotMapped]
     public virtual ICollection<StockScrap> StockScraps { get; } = new List<StockScrap>();
 
     [ForeignKey("WcAnalyticAccountLineId")]
@@ -152,9 +156,11 @@ public partial class MrpWorkorder
 
     [ForeignKey("WorkorderId")]
     [InverseProperty("Workorders")]
+    [NotMapped]
     public virtual ICollection<MrpWorkorder> BlockedBies { get; } = new List<MrpWorkorder>();
 
     [ForeignKey("BlockedById")]
     [InverseProperty("BlockedBies")]
+    [NotMapped]
     public virtual ICollection<MrpWorkorder> Workorders { get; } = new List<MrpWorkorder>();
 }

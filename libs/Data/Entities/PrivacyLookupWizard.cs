@@ -50,6 +50,7 @@ public partial class PrivacyLookupWizard
     public virtual PrivacyLog? Log { get; set; }
 
     [InverseProperty("Wizard")]
+    [NotMapped]
     public virtual ICollection<PrivacyLookupWizardLine> PrivacyLookupWizardLines { get; } = new List<PrivacyLookupWizardLine>();
 
     [ForeignKey("LastModifierId")]

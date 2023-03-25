@@ -47,9 +47,11 @@ public partial class LunchProductCategory: IMultiTenant, IMayHaveCreator, IModif
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Category")]
+    [NotMapped]
     public virtual ICollection<LunchOrder> LunchOrders { get; } = new List<LunchOrder>();
 
     [InverseProperty("Category")]
+    [NotMapped]
     public virtual ICollection<LunchProduct> LunchProducts { get; } = new List<LunchProduct>();
 
     [ForeignKey("LastModifierId")]

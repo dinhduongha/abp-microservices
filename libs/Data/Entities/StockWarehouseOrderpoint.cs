@@ -113,6 +113,7 @@ public partial class StockWarehouseOrderpoint: IMultiTenant, IMayHaveCreator, IM
     public virtual StockLocation? Location { get; set; }
 
     [InverseProperty("Orderpoint")]
+    [NotMapped]
     public virtual ICollection<MrpProduction> MrpProductions { get; } = new List<MrpProduction>();
 
     [ForeignKey("ProductId")]
@@ -124,6 +125,7 @@ public partial class StockWarehouseOrderpoint: IMultiTenant, IMayHaveCreator, IM
     public virtual ProductCategory? ProductCategory { get; set; }
 
     [InverseProperty("Orderpoint")]
+    [NotMapped]
     public virtual ICollection<PurchaseOrderLine> PurchaseOrderLines { get; } = new List<PurchaseOrderLine>();
 
     [ForeignKey("RouteId")]
@@ -131,9 +133,11 @@ public partial class StockWarehouseOrderpoint: IMultiTenant, IMayHaveCreator, IM
     public virtual StockRoute? Route { get; set; }
 
     [InverseProperty("Orderpoint")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
 
     [InverseProperty("Orderpoint")]
+    [NotMapped]
     public virtual ICollection<StockReplenishmentInfo> StockReplenishmentInfos { get; } = new List<StockReplenishmentInfo>();
 
     [ForeignKey("SupplierId")]
@@ -154,5 +158,6 @@ public partial class StockWarehouseOrderpoint: IMultiTenant, IMayHaveCreator, IM
 
     [ForeignKey("StockWarehouseOrderpointId")]
     [InverseProperty("StockWarehouseOrderpoints")]
+    [NotMapped]
     public virtual ICollection<StockOrderpointSnooze> StockOrderpointSnoozes { get; } = new List<StockOrderpointSnooze>();
 }

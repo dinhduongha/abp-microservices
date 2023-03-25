@@ -53,9 +53,11 @@ public partial class IrModuleCategory
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<IrModuleCategory> InverseParent { get; } = new List<IrModuleCategory>();
 
     [InverseProperty("Category")]
+    [NotMapped]
     public virtual ICollection<IrModuleModule> IrModuleModules { get; } = new List<IrModuleModule>();
 
     [ForeignKey("ParentId")]
@@ -63,6 +65,7 @@ public partial class IrModuleCategory
     public virtual IrModuleCategory? Parent { get; set; }
 
     [InverseProperty("Category")]
+    [NotMapped]
     public virtual ICollection<ResGroup> ResGroups { get; } = new List<ResGroup>();
 
     [ForeignKey("LastModifierId")]

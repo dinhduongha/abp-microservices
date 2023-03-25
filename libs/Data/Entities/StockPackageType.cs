@@ -66,20 +66,24 @@ public partial class StockPackageType: IMultiTenant, IMayHaveCreator, IModificat
     [InverseProperty("StockPackageTypeCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
-    [InverseProperty("PackageType")]
-    public virtual ICollection<ProductPackaging> ProductPackagings { get; } = new List<ProductPackaging>();
-
-    [InverseProperty("PackageType")]
-    public virtual ICollection<StockQuantPackage> StockQuantPackages { get; } = new List<StockQuantPackage>();
-
-    [InverseProperty("PackageType")]
-    public virtual ICollection<StockStorageCategoryCapacity> StockStorageCategoryCapacities { get; } = new List<StockStorageCategoryCapacity>();
-
     [ForeignKey("LastModifierId")]
     [InverseProperty("StockPackageTypeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
+    [InverseProperty("PackageType")]
+    [NotMapped]
+    public virtual ICollection<ProductPackaging> ProductPackagings { get; } = new List<ProductPackaging>();
+
+    [InverseProperty("PackageType")]
+    [NotMapped]
+    public virtual ICollection<StockQuantPackage> StockQuantPackages { get; } = new List<StockQuantPackage>();
+
+    [InverseProperty("PackageType")]
+    [NotMapped]
+    public virtual ICollection<StockStorageCategoryCapacity> StockStorageCategoryCapacities { get; } = new List<StockStorageCategoryCapacity>();
+
     [ForeignKey("StockPackageTypeId")]
     [InverseProperty("StockPackageTypes")]
+    [NotMapped]
     public virtual ICollection<StockPutawayRule> StockPutawayRules { get; } = new List<StockPutawayRule>();
 }

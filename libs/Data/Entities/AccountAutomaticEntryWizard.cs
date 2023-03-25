@@ -68,5 +68,6 @@ public partial class AccountAutomaticEntryWizard: IMultiTenant, IMayHaveCreator,
 
     [ForeignKey("AccountAutomaticEntryWizardId")]
     [InverseProperty("AccountAutomaticEntryWizards")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 }

@@ -62,5 +62,6 @@ public partial class ApplicantSendMail
 
     [ForeignKey("ApplicantSendMailId")]
     [InverseProperty("ApplicantSendMails")]
+    [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicants { get; } = new List<HrApplicant>();
 }

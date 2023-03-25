@@ -40,9 +40,11 @@ public partial class FleetVehicleModelBrand
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Brand")]
+    [NotMapped]
     public virtual ICollection<FleetVehicleModel> FleetVehicleModels { get; } = new List<FleetVehicleModel>();
 
     [InverseProperty("Brand")]
+    [NotMapped]
     public virtual ICollection<FleetVehicle> FleetVehicles { get; } = new List<FleetVehicle>();
 
     [ForeignKey("LastModifierId")]

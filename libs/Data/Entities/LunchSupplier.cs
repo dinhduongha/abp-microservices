@@ -117,12 +117,15 @@ public partial class LunchSupplier: IMultiTenant, IMayHaveCreator, IModification
     public virtual IrCron? Cron { get; set; }
 
     [InverseProperty("Supplier")]
+    [NotMapped]
     public virtual ICollection<LunchOrder> LunchOrders { get; } = new List<LunchOrder>();
 
     [InverseProperty("Supplier")]
+    [NotMapped]
     public virtual ICollection<LunchProduct> LunchProducts { get; } = new List<LunchProduct>();
 
     [InverseProperty("Supplier")]
+    [NotMapped]
     public virtual ICollection<LunchTopping> LunchToppings { get; } = new List<LunchTopping>();
 
     [ForeignKey("MessageMainAttachmentId")]
@@ -143,5 +146,6 @@ public partial class LunchSupplier: IMultiTenant, IMayHaveCreator, IModification
 
     [ForeignKey("LunchSupplierId")]
     [InverseProperty("LunchSuppliers")]
+    [NotMapped]
     public virtual ICollection<LunchLocation> LunchLocations { get; } = new List<LunchLocation>();
 }

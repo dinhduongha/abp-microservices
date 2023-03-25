@@ -138,5 +138,6 @@ public partial class AccountPaymentRegister: IMultiTenant, IMayHaveCreator, IMod
 
     [ForeignKey("WizardId")]
     [InverseProperty("Wizards")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> Lines { get; } = new List<AccountMoveLine>();
 }

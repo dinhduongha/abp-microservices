@@ -55,34 +55,44 @@ public partial class ResourceCalendar: IMultiTenant, IMayHaveCreator, IModificat
     [InverseProperty("ResourceCalendarCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
-    [InverseProperty("ResourceCalendar")]
-    public virtual ICollection<HrContract> HrContracts { get; } = new List<HrContract>();
-
-    [InverseProperty("ResourceCalendar")]
-    public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
-
-    [InverseProperty("ResourceCalendar")]
-    public virtual ICollection<HrLeaveStressDay> HrLeaveStressDays { get; } = new List<HrLeaveStressDay>();
-
-    [InverseProperty("DefaultResourceCalendar")]
-    public virtual ICollection<HrPayrollStructureType> HrPayrollStructureTypes { get; } = new List<HrPayrollStructureType>();
-
-    [InverseProperty("ResourceCalendar")]
-    public virtual ICollection<MrpWorkcenter> MrpWorkcenters { get; } = new List<MrpWorkcenter>();
-
-    [InverseProperty("ResourceCalendar")]
-    public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
-
-    [InverseProperty("Calendar")]
-    public virtual ICollection<ResourceCalendarAttendance> ResourceCalendarAttendances { get; } = new List<ResourceCalendarAttendance>();
-
-    [InverseProperty("Calendar")]
-    public virtual ICollection<ResourceCalendarLeaf> ResourceCalendarLeaves { get; } = new List<ResourceCalendarLeaf>();
-
-    [InverseProperty("Calendar")]
-    public virtual ICollection<ResourceResource> ResourceResources { get; } = new List<ResourceResource>();
-
     [ForeignKey("LastModifierId")]
     [InverseProperty("ResourceCalendarWriteUs")]
     public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("ResourceCalendar")]
+    [NotMapped]
+    public virtual ICollection<HrContract> HrContracts { get; } = new List<HrContract>();
+
+    [InverseProperty("ResourceCalendar")]
+    [NotMapped]
+    public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
+
+    [InverseProperty("ResourceCalendar")]
+    [NotMapped]
+    public virtual ICollection<HrLeaveStressDay> HrLeaveStressDays { get; } = new List<HrLeaveStressDay>();
+
+    [InverseProperty("DefaultResourceCalendar")]
+    [NotMapped]
+    public virtual ICollection<HrPayrollStructureType> HrPayrollStructureTypes { get; } = new List<HrPayrollStructureType>();
+
+    [InverseProperty("ResourceCalendar")]
+    [NotMapped]
+    public virtual ICollection<MrpWorkcenter> MrpWorkcenters { get; } = new List<MrpWorkcenter>();
+
+    [InverseProperty("ResourceCalendar")]
+    [NotMapped]
+    public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
+
+    [InverseProperty("Calendar")]
+    [NotMapped]
+    public virtual ICollection<ResourceCalendarAttendance> ResourceCalendarAttendances { get; } = new List<ResourceCalendarAttendance>();
+
+    [InverseProperty("Calendar")]
+    [NotMapped]
+    public virtual ICollection<ResourceCalendarLeaf> ResourceCalendarLeaves { get; } = new List<ResourceCalendarLeaf>();
+
+    [InverseProperty("Calendar")]
+    [NotMapped]
+    public virtual ICollection<ResourceResource> ResourceResources { get; } = new List<ResourceResource>();
+
 }

@@ -94,5 +94,6 @@ public partial class LunchAlert
 
     [ForeignKey("LunchAlertId")]
     [InverseProperty("LunchAlerts")]
+    [NotMapped]
     public virtual ICollection<LunchLocation> LunchLocations { get; } = new List<LunchLocation>();
 }

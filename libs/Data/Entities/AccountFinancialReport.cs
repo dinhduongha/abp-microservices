@@ -76,19 +76,24 @@ public partial class AccountFinancialReport
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("AccountReport")]
+    [NotMapped]
     public virtual ICollection<AccountingReport> AccountingReports { get; } = new List<AccountingReport>();
 
     [InverseProperty("AccountReport")]
+    [NotMapped]
     public virtual ICollection<AccountFinancialReport> InverseAccountReport { get; } = new List<AccountFinancialReport>();
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<AccountFinancialReport> InverseParent { get; } = new List<AccountFinancialReport>();
 
     [ForeignKey("ReportId")]
     [InverseProperty("Reports")]
+    [NotMapped]
     public virtual ICollection<AccountAccountType> AccountTypes { get; } = new List<AccountAccountType>();
 
     [ForeignKey("ReportLineId")]
     [InverseProperty("ReportLines2")]
+    [NotMapped]
     public virtual ICollection<AccountAccount> Accounts { get; } = new List<AccountAccount>();
 }

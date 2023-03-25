@@ -43,6 +43,7 @@ public partial class ResPartnerIndustry
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Industry")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 
     [ForeignKey("LastModifierId")]

@@ -88,6 +88,7 @@ public partial class StockValuationLayer: IMultiTenant, IMayHaveCreator, IModifi
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("StockValuationLayerNavigation")]
+    [NotMapped]
     public virtual ICollection<StockValuationLayer> InverseStockValuationLayerNavigation { get; } = new List<StockValuationLayer>();
 
     [ForeignKey("ProductId")]

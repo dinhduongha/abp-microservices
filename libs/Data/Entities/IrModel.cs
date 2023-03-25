@@ -69,81 +69,9 @@ public partial class IrModel
     [Column("website_form_access")]
     public bool? WebsiteFormAccess { get; set; }
 
-    [InverseProperty("ResModelNavigation")]
-    public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
-
     [ForeignKey("CreatorId")]
     [InverseProperty("IrModelCreateUs")]
     public virtual ResUser? CreateU { get; set; }
-
-    [InverseProperty("Object")]
-    public virtual ICollection<FetchmailServer> FetchmailServers { get; } = new List<FetchmailServer>();
-
-    [InverseProperty("BindingModel")]
-    public virtual ICollection<IrActClient> IrActClients { get; } = new List<IrActClient>();
-
-    [InverseProperty("BindingModel")]
-    public virtual ICollection<IrActReportXml> IrActReportXmls { get; } = new List<IrActReportXml>();
-
-    [InverseProperty("BindingModel")]
-    public virtual ICollection<IrActServer> IrActServerBindingModels { get; } = new List<IrActServer>();
-
-    [InverseProperty("CrudModel")]
-    public virtual ICollection<IrActServer> IrActServerCrudModels { get; } = new List<IrActServer>();
-
-    [InverseProperty("Model")]
-    public virtual ICollection<IrActServer> IrActServerModels { get; } = new List<IrActServer>();
-
-    [InverseProperty("BindingModel")]
-    public virtual ICollection<IrActUrl> IrActUrls { get; } = new List<IrActUrl>();
-
-    [InverseProperty("BindingModel")]
-    public virtual ICollection<IrActWindow> IrActWindows { get; } = new List<IrActWindow>();
-
-    [InverseProperty("BindingModel")]
-    public virtual ICollection<IrAction> IrActions { get; } = new List<IrAction>();
-
-    [InverseProperty("Model")]
-    public virtual ICollection<IrModelAccess> IrModelAccesses { get; } = new List<IrModelAccess>();
-
-    [InverseProperty("ModelNavigation")]
-    public virtual ICollection<IrModelConstraint> IrModelConstraints { get; } = new List<IrModelConstraint>();
-
-    [InverseProperty("ModelNavigation")]
-    public virtual ICollection<IrModelField> IrModelFields { get; } = new List<IrModelField>();
-
-    [InverseProperty("ModelNavigation")]
-    public virtual ICollection<IrModelRelation> IrModelRelations { get; } = new List<IrModelRelation>();
-
-    [InverseProperty("Model")]
-    public virtual ICollection<IrRule> IrRules { get; } = new List<IrRule>();
-
-    [InverseProperty("ResModelNavigation")]
-    public virtual ICollection<MailActivity> MailActivities { get; } = new List<MailActivity>();
-
-    [InverseProperty("AliasModel")]
-    public virtual ICollection<MailAlias> MailAliasAliasModels { get; } = new List<MailAlias>();
-
-    [InverseProperty("AliasParentModel")]
-    public virtual ICollection<MailAlias> MailAliasAliasParentModels { get; } = new List<MailAlias>();
-
-    [InverseProperty("ModelNavigation")]
-    public virtual ICollection<MailTemplate> MailTemplates { get; } = new List<MailTemplate>();
-
-    [InverseProperty("CallbackModel")]
-    public virtual ICollection<PaymentTransaction> PaymentTransactions { get; } = new List<PaymentTransaction>();
-
-    [InverseProperty("ResModelNavigation")]
-    public virtual ICollection<PrivacyLookupWizardLine> PrivacyLookupWizardLines { get; } = new List<PrivacyLookupWizardLine>();
-
-    [InverseProperty("ParentResModelNavigation")]
-    public virtual ICollection<RatingRating> RatingRatingParentResModelNavigations { get; } = new List<RatingRating>();
-
-    [InverseProperty("ResModelNavigation")]
-    public virtual ICollection<RatingRating> RatingRatingResModelNavigations { get; } = new List<RatingRating>();
-
-    [InverseProperty("ModelNavigation")]
-    public virtual ICollection<SmsTemplate> SmsTemplates { get; } = new List<SmsTemplate>();
 
     [ForeignKey("WebsiteFormDefaultFieldId")]
     [InverseProperty("IrModels")]
@@ -152,4 +80,101 @@ public partial class IrModel
     [ForeignKey("LastModifierId")]
     [InverseProperty("IrModelWriteUs")]
     public virtual ResUser? WriteU { get; set; }
+
+    [InverseProperty("ResModelNavigation")]
+    [NotMapped]
+    public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
+
+    [InverseProperty("Object")]
+    [NotMapped]
+    public virtual ICollection<FetchmailServer> FetchmailServers { get; } = new List<FetchmailServer>();
+
+    [InverseProperty("BindingModel")]
+    [NotMapped]
+    public virtual ICollection<IrActClient> IrActClients { get; } = new List<IrActClient>();
+
+    [InverseProperty("BindingModel")]
+    [NotMapped]
+    public virtual ICollection<IrActReportXml> IrActReportXmls { get; } = new List<IrActReportXml>();
+
+    [InverseProperty("BindingModel")]
+    [NotMapped]
+    public virtual ICollection<IrActServer> IrActServerBindingModels { get; } = new List<IrActServer>();
+
+    [InverseProperty("CrudModel")]
+    [NotMapped]
+    public virtual ICollection<IrActServer> IrActServerCrudModels { get; } = new List<IrActServer>();
+
+    [InverseProperty("Model")]
+    [NotMapped]
+    public virtual ICollection<IrActServer> IrActServerModels { get; } = new List<IrActServer>();
+
+    [InverseProperty("BindingModel")]
+    [NotMapped]
+    public virtual ICollection<IrActUrl> IrActUrls { get; } = new List<IrActUrl>();
+
+    [InverseProperty("BindingModel")]
+    [NotMapped]
+    public virtual ICollection<IrActWindow> IrActWindows { get; } = new List<IrActWindow>();
+
+    [InverseProperty("BindingModel")]
+    [NotMapped]
+    public virtual ICollection<IrAction> IrActions { get; } = new List<IrAction>();
+
+    [InverseProperty("Model")]
+    [NotMapped]
+    public virtual ICollection<IrModelAccess> IrModelAccesses { get; } = new List<IrModelAccess>();
+
+    [InverseProperty("ModelNavigation")]
+    [NotMapped]
+    public virtual ICollection<IrModelConstraint> IrModelConstraints { get; } = new List<IrModelConstraint>();
+
+    [InverseProperty("ModelNavigation")]
+    [NotMapped]
+    public virtual ICollection<IrModelField> IrModelFields { get; } = new List<IrModelField>();
+
+    [InverseProperty("ModelNavigation")]
+    [NotMapped]
+    public virtual ICollection<IrModelRelation> IrModelRelations { get; } = new List<IrModelRelation>();
+
+    [InverseProperty("Model")]
+    [NotMapped]
+    public virtual ICollection<IrRule> IrRules { get; } = new List<IrRule>();
+
+    [InverseProperty("ResModelNavigation")]
+    [NotMapped]
+    public virtual ICollection<MailActivity> MailActivities { get; } = new List<MailActivity>();
+
+    [InverseProperty("AliasModel")]
+    [NotMapped]
+    public virtual ICollection<MailAlias> MailAliasAliasModels { get; } = new List<MailAlias>();
+
+    [InverseProperty("AliasParentModel")]
+    [NotMapped]
+    public virtual ICollection<MailAlias> MailAliasAliasParentModels { get; } = new List<MailAlias>();
+
+    [InverseProperty("ModelNavigation")]
+    [NotMapped]
+    public virtual ICollection<MailTemplate> MailTemplates { get; } = new List<MailTemplate>();
+
+    [InverseProperty("CallbackModel")]
+    [NotMapped]
+    public virtual ICollection<PaymentTransaction> PaymentTransactions { get; } = new List<PaymentTransaction>();
+
+    [InverseProperty("ResModelNavigation")]
+    [NotMapped]
+    public virtual ICollection<PrivacyLookupWizardLine> PrivacyLookupWizardLines { get; } = new List<PrivacyLookupWizardLine>();
+
+    [InverseProperty("ParentResModelNavigation")]
+    [NotMapped]
+    public virtual ICollection<RatingRating> RatingRatingParentResModelNavigations { get; } = new List<RatingRating>();
+
+    [InverseProperty("ResModelNavigation")]
+    [NotMapped]
+    public virtual ICollection<RatingRating> RatingRatingResModelNavigations { get; } = new List<RatingRating>();
+
+    [InverseProperty("ModelNavigation")]
+    [NotMapped]
+    public virtual ICollection<SmsTemplate> SmsTemplates { get; } = new List<SmsTemplate>();
+
 }

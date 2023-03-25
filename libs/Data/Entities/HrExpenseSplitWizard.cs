@@ -41,6 +41,7 @@ public partial class HrExpenseSplitWizard
     public virtual HrExpense? Expense { get; set; }
 
     [InverseProperty("Wizard")]
+    [NotMapped]
     public virtual ICollection<HrExpenseSplit> HrExpenseSplits { get; } = new List<HrExpenseSplit>();
 
     [ForeignKey("LastModifierId")]

@@ -106,6 +106,7 @@ public partial class HrContract: IMultiTenant, IMayHaveCreator, IModificationAud
     public virtual HrEmployee? Employee { get; set; }
 
     [InverseProperty("Contract")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 
     [ForeignKey("HrResponsibleId")]

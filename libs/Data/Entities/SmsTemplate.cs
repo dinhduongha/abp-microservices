@@ -52,6 +52,7 @@ public partial class SmsTemplate
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("SmsTemplate")]
+    [NotMapped]
     public virtual ICollection<CalendarAlarm> CalendarAlarms { get; } = new List<CalendarAlarm>();
 
     [ForeignKey("CreatorId")]
@@ -59,6 +60,7 @@ public partial class SmsTemplate
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("SmsTemplate")]
+    [NotMapped]
     public virtual ICollection<IrActServer> IrActServers { get; } = new List<IrActServer>();
 
     [ForeignKey("ModelId")]
@@ -66,12 +68,15 @@ public partial class SmsTemplate
     public virtual IrModel? ModelNavigation { get; set; }
 
     [InverseProperty("SmsTemplate")]
+    [NotMapped]
     public virtual ICollection<ProjectProjectStage> ProjectProjectStages { get; } = new List<ProjectProjectStage>();
 
     [InverseProperty("SmsTemplate")]
+    [NotMapped]
     public virtual ICollection<ProjectTaskType> ProjectTaskTypes { get; } = new List<ProjectTaskType>();
 
     [InverseProperty("StockSmsConfirmationTemplate")]
+    [NotMapped]
     public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
 
     [ForeignKey("SidebarActionId")]
@@ -79,9 +84,11 @@ public partial class SmsTemplate
     public virtual IrActWindow? SidebarAction { get; set; }
 
     [InverseProperty("Template")]
+    [NotMapped]
     public virtual ICollection<SmsComposer> SmsComposers { get; } = new List<SmsComposer>();
 
     [InverseProperty("SmsTemplate")]
+    [NotMapped]
     public virtual ICollection<SmsTemplatePreview> SmsTemplatePreviews { get; } = new List<SmsTemplatePreview>();
 
     [ForeignKey("LastModifierId")]
@@ -90,5 +97,6 @@ public partial class SmsTemplate
 
     [ForeignKey("SmsTemplateId")]
     [InverseProperty("SmsTemplates")]
+    [NotMapped]
     public virtual ICollection<SmsTemplateReset> SmsTemplateResets { get; } = new List<SmsTemplateReset>();
 }

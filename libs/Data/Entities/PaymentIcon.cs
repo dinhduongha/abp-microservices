@@ -45,5 +45,6 @@ public partial class PaymentIcon
 
     [ForeignKey("PaymentIconId")]
     [InverseProperty("PaymentIcons")]
+    [NotMapped]
     public virtual ICollection<PaymentProvider> PaymentProviders { get; } = new List<PaymentProvider>();
 }

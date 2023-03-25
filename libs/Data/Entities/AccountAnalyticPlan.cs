@@ -71,18 +71,23 @@ public partial class AccountAnalyticPlan: IMultiTenant, IMayHaveCreator, IModifi
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Plan")]
+    [NotMapped]
     public virtual ICollection<AccountAnalyticAccount> AccountAnalyticAccountPlans { get; } = new List<AccountAnalyticAccount>();
 
     [InverseProperty("RootPlan")]
+    [NotMapped]
     public virtual ICollection<AccountAnalyticAccount> AccountAnalyticAccountRootPlans { get; } = new List<AccountAnalyticAccount>();
 
     [InverseProperty("AnalyticPlan")]
+    [NotMapped]
     public virtual ICollection<AccountAnalyticApplicability> AccountAnalyticApplicabilities { get; } = new List<AccountAnalyticApplicability>();
 
     [InverseProperty("Plan")]
+    [NotMapped]
     public virtual ICollection<AccountAnalyticLine> AccountAnalyticLines { get; } = new List<AccountAnalyticLine>();
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<AccountAnalyticPlan> InverseParent { get; } = new List<AccountAnalyticPlan>();
 
 }

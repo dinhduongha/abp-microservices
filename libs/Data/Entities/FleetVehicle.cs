@@ -159,6 +159,7 @@ public partial class FleetVehicle: IMultiTenant, IMayHaveCreator, IModificationA
     public string? MobilityCard { get; set; }
 
     [InverseProperty("Vehicle")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [ForeignKey("BrandId")]
@@ -186,15 +187,19 @@ public partial class FleetVehicle: IMultiTenant, IMayHaveCreator, IModificationA
     public virtual HrEmployee? DriverEmployee { get; set; }
 
     [InverseProperty("Vehicle")]
+    [NotMapped]
     public virtual ICollection<FleetVehicleAssignationLog> FleetVehicleAssignationLogs { get; } = new List<FleetVehicleAssignationLog>();
 
     [InverseProperty("Vehicle")]
+    [NotMapped]
     public virtual ICollection<FleetVehicleLogContract> FleetVehicleLogContracts { get; } = new List<FleetVehicleLogContract>();
 
     [InverseProperty("Vehicle")]
+    [NotMapped]
     public virtual ICollection<FleetVehicleLogService> FleetVehicleLogServices { get; } = new List<FleetVehicleLogService>();
 
     [InverseProperty("Vehicle")]
+    [NotMapped]
     public virtual ICollection<FleetVehicleOdometer> FleetVehicleOdometers { get; } = new List<FleetVehicleOdometer>();
 
     [ForeignKey("FutureDriverId")]
@@ -227,5 +232,6 @@ public partial class FleetVehicle: IMultiTenant, IMayHaveCreator, IModificationA
 
     [ForeignKey("VehicleTagId")]
     [InverseProperty("VehicleTags")]
+    [NotMapped]
     public virtual ICollection<FleetVehicleTag> Tags { get; } = new List<FleetVehicleTag>();
 }

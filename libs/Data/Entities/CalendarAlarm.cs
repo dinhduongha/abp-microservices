@@ -71,5 +71,6 @@ public partial class CalendarAlarm
 
     [ForeignKey("CalendarAlarmId")]
     [InverseProperty("CalendarAlarms")]
+    [NotMapped]
     public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
 }

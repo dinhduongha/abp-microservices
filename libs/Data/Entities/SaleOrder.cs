@@ -204,9 +204,11 @@ public partial class SaleOrder: IMultiTenant, IMayHaveCreator, IModificationAudi
     public virtual AccountFiscalPosition? FiscalPosition { get; set; }
 
     [InverseProperty("SaleOrder")]
+    [NotMapped]
     public virtual ICollection<HrExpenseSplit> HrExpenseSplits { get; } = new List<HrExpenseSplit>();
 
     [InverseProperty("SaleOrder")]
+    [NotMapped]
     public virtual ICollection<HrExpense> HrExpenses { get; } = new List<HrExpense>();
 
     [ForeignKey("Incoterm")]
@@ -242,6 +244,7 @@ public partial class SaleOrder: IMultiTenant, IMayHaveCreator, IModificationAudi
     public virtual AccountPaymentTerm? PaymentTerm { get; set; }
 
     [InverseProperty("SaleOrderOrigin")]
+    [NotMapped]
     public virtual ICollection<PosOrderLine> PosOrderLines { get; } = new List<PosOrderLine>();
 
     [ForeignKey("PricelistId")]
@@ -253,6 +256,7 @@ public partial class SaleOrder: IMultiTenant, IMayHaveCreator, IModificationAudi
     public virtual ProcurementGroup? ProcurementGroup { get; set; }
 
     [InverseProperty("Sale")]
+    [NotMapped]
     public virtual ICollection<ProcurementGroup> ProcurementGroups { get; } = new List<ProcurementGroup>();
 
     [ForeignKey("ProjectId")]
@@ -260,21 +264,27 @@ public partial class SaleOrder: IMultiTenant, IMayHaveCreator, IModificationAudi
     public virtual ProjectProject? Project { get; set; }
 
     [InverseProperty("SaleOrder")]
+    [NotMapped]
     public virtual ICollection<ProjectTask> ProjectTasks { get; } = new List<ProjectTask>();
 
     [InverseProperty("SaleOrder")]
+    [NotMapped]
     public virtual ICollection<PurchaseOrderLine> PurchaseOrderLines { get; } = new List<PurchaseOrderLine>();
 
     [InverseProperty("SaleOrder")]
+    [NotMapped]
     public virtual ICollection<RepairOrder> RepairOrders { get; } = new List<RepairOrder>();
 
     [InverseProperty("Order")]
+    [NotMapped]
     public virtual ICollection<SaleOrderCancel> SaleOrderCancels { get; } = new List<SaleOrderCancel>();
 
     [InverseProperty("Order")]
+    [NotMapped]
     public virtual ICollection<SaleOrderLine> SaleOrderLines { get; } = new List<SaleOrderLine>();
 
     [InverseProperty("Order")]
+    [NotMapped]
     public virtual ICollection<SaleOrderOption> SaleOrderOptions { get; } = new List<SaleOrderOption>();
 
     [ForeignKey("SaleOrderTemplateId")]
@@ -286,6 +296,7 @@ public partial class SaleOrder: IMultiTenant, IMayHaveCreator, IModificationAudi
     public virtual UtmSource? Source { get; set; }
 
     [InverseProperty("Sale")]
+    [NotMapped]
     public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
 
     [ForeignKey("TeamId")]
@@ -310,13 +321,16 @@ public partial class SaleOrder: IMultiTenant, IMayHaveCreator, IModificationAudi
 
     [ForeignKey("SaleOrderId")]
     [InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual ICollection<SaleAdvancePaymentInv> SaleAdvancePaymentInvs { get; } = new List<SaleAdvancePaymentInv>();
 
     [ForeignKey("OrderId")]
     [InverseProperty("Orders")]
+    [NotMapped]
     public virtual ICollection<CrmTag> Tags { get; } = new List<CrmTag>();
 
     [ForeignKey("SaleOrderId")]
     [InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual ICollection<PaymentTransaction> Transactions { get; } = new List<PaymentTransaction>();
 }

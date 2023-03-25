@@ -165,9 +165,11 @@ public partial class HrLeave
     public virtual HrLeaveType? HolidayStatus { get; set; }
 
     [InverseProperty("Leave")]
+    [NotMapped]
     public virtual ICollection<HrHolidaysCancelLeave> HrHolidaysCancelLeaves { get; } = new List<HrHolidaysCancelLeave>();
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<HrLeave> InverseParent { get; } = new List<HrLeave>();
 
     [ForeignKey("ManagerId")]
@@ -195,6 +197,7 @@ public partial class HrLeave
     public virtual HrLeave? Parent { get; set; }
 
     [InverseProperty("Holiday")]
+    [NotMapped]
     public virtual ICollection<ResourceCalendarLeaf> ResourceCalendarLeaves { get; } = new List<ResourceCalendarLeaf>();
 
     [ForeignKey("SecondApproverId")]
@@ -211,5 +214,6 @@ public partial class HrLeave
 
     [ForeignKey("HrLeaveId")]
     [InverseProperty("HrLeaves")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 }

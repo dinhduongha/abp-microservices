@@ -51,6 +51,7 @@ public partial class HrPayrollStructureType
     public virtual ResourceCalendar? DefaultResourceCalendar { get; set; }
 
     [InverseProperty("StructureType")]
+    [NotMapped]
     public virtual ICollection<HrContract> HrContracts { get; } = new List<HrContract>();
 
     [ForeignKey("LastModifierId")]

@@ -105,9 +105,11 @@ public partial class AccountPayment
     public Guid? PosSessionId { get; set; }
 
     [InverseProperty("Payment")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [InverseProperty("Payment")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [ForeignKey("CreatorId")]
@@ -131,9 +133,11 @@ public partial class AccountPayment
     public virtual AccountAccount? ForceOutstandingAccount { get; set; }
 
     [InverseProperty("PairedInternalTransferPayment")]
+    [NotMapped]
     public virtual ICollection<AccountPayment> InversePairedInternalTransferPayment { get; } = new List<AccountPayment>();
 
     [InverseProperty("SourcePayment")]
+    [NotMapped]
     public virtual ICollection<AccountPayment> InverseSourcePayment { get; } = new List<AccountPayment>();
 
     [ForeignKey("MessageMainAttachmentId")]
@@ -169,6 +173,7 @@ public partial class AccountPayment
     public virtual AccountPaymentMethodLine? PaymentMethodLine { get; set; }
 
     [InverseProperty("Payment")]
+    [NotMapped]
     public virtual ICollection<PaymentRefundWizard> PaymentRefundWizards { get; } = new List<PaymentRefundWizard>();
 
     [ForeignKey("PaymentTokenId")]
@@ -180,6 +185,7 @@ public partial class AccountPayment
     public virtual PaymentTransaction? PaymentTransaction { get; set; }
 
     [InverseProperty("Payment")]
+    [NotMapped]
     public virtual ICollection<PaymentTransaction> PaymentTransactions { get; } = new List<PaymentTransaction>();
 
     [ForeignKey("PosPaymentMethodId")]
@@ -191,6 +197,7 @@ public partial class AccountPayment
     public virtual PosSession? PosSession { get; set; }
 
     [InverseProperty("Payment")]
+    [NotMapped]
     public virtual ICollection<RecurringPaymentLine> RecurringPaymentLines { get; } = new List<RecurringPaymentLine>();
 
     [ForeignKey("SourcePaymentId")]
@@ -203,5 +210,6 @@ public partial class AccountPayment
 
     [ForeignKey("AccountPaymentId")]
     [InverseProperty("AccountPayments")]
+    [NotMapped]
     public virtual ICollection<AccountBankStatementLine> AccountBankStatementLines { get; } = new List<AccountBankStatementLine>();
 }

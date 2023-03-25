@@ -106,6 +106,7 @@ public partial class SnailmailLetter: IMultiTenant, IMayHaveCreator, IModificati
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Letter")]
+    [NotMapped]
     public virtual ICollection<MailNotification> MailNotifications { get; } = new List<MailNotification>();
 
     [ForeignKey("MessageId")]
@@ -121,6 +122,7 @@ public partial class SnailmailLetter: IMultiTenant, IMayHaveCreator, IModificati
     public virtual IrActReportXml? ReportTemplateNavigation { get; set; }
 
     [InverseProperty("Letter")]
+    [NotMapped]
     public virtual ICollection<SnailmailLetterMissingRequiredField> SnailmailLetterMissingRequiredFields { get; } = new List<SnailmailLetterMissingRequiredField>();
 
     [ForeignKey("StateId")]

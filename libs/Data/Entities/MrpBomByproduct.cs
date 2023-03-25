@@ -80,6 +80,7 @@ public partial class MrpBomByproduct: IMultiTenant, IMayHaveCreator, IModificati
     public virtual UomUom? ProductUom { get; set; }
 
     [InverseProperty("Byproduct")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
 
     [ForeignKey("LastModifierId")]
@@ -88,5 +89,6 @@ public partial class MrpBomByproduct: IMultiTenant, IMayHaveCreator, IModificati
 
     [ForeignKey("MrpBomByproductId")]
     [InverseProperty("MrpBomByproducts")]
+    [NotMapped]
     public virtual ICollection<ProductTemplateAttributeValue> ProductTemplateAttributeValues { get; } = new List<ProductTemplateAttributeValue>();
 }

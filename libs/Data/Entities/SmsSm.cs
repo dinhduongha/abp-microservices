@@ -57,6 +57,7 @@ public partial class SmsSm
     public virtual MailMessage? MailMessage { get; set; }
 
     [InverseProperty("Sms")]
+    [NotMapped]
     public virtual ICollection<MailNotification> MailNotifications { get; } = new List<MailNotification>();
 
     [ForeignKey("PartnerId")]

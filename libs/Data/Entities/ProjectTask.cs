@@ -186,9 +186,11 @@ public partial class ProjectTask: IMultiTenant, IMayHaveCreator, IModificationAu
     public virtual IrAttachment? DisplayedImage { get; set; }
 
     [InverseProperty("Ancestor")]
+    [NotMapped]
     public virtual ICollection<ProjectTask> InverseAncestor { get; } = new List<ProjectTask>();
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<ProjectTask> InverseParent { get; } = new List<ProjectTask>();
 
     [ForeignKey("MessageMainAttachmentId")]
@@ -212,6 +214,7 @@ public partial class ProjectTask: IMultiTenant, IMayHaveCreator, IModificationAu
     public virtual ProjectProject? Project { get; set; }
 
     [InverseProperty("Task")]
+    [NotMapped]
     public virtual ICollection<ProjectTaskUserRel> ProjectTaskUserRels { get; } = new List<ProjectTaskUserRel>();
 
     [ForeignKey("RecurrenceId")]
@@ -227,6 +230,7 @@ public partial class ProjectTask: IMultiTenant, IMayHaveCreator, IModificationAu
     public virtual SaleOrder? SaleOrder { get; set; }
 
     [InverseProperty("Task")]
+    [NotMapped]
     public virtual ICollection<SaleOrderLine> SaleOrderLines { get; } = new List<SaleOrderLine>();
 
     [ForeignKey("StageId")]
@@ -239,13 +243,16 @@ public partial class ProjectTask: IMultiTenant, IMayHaveCreator, IModificationAu
 
     [ForeignKey("TaskId")]
     [InverseProperty("Tasks")]
+    [NotMapped]
     public virtual ICollection<ProjectTask> DependsOns { get; } = new List<ProjectTask>();
 
     [ForeignKey("ProjectTaskId")]
     [InverseProperty("ProjectTasks")]
+    [NotMapped]
     public virtual ICollection<ProjectTag> ProjectTags { get; } = new List<ProjectTag>();
 
     [ForeignKey("DependsOnId")]
     [InverseProperty("DependsOns")]
+    [NotMapped]
     public virtual ICollection<ProjectTask> Tasks { get; } = new List<ProjectTask>();
 }

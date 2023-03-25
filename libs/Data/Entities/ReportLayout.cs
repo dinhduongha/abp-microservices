@@ -45,6 +45,7 @@ public partial class ReportLayout
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("ReportLayout")]
+    [NotMapped]
     public virtual ICollection<BaseDocumentLayout> BaseDocumentLayouts { get; } = new List<BaseDocumentLayout>();
 
     [ForeignKey("CreatorId")]

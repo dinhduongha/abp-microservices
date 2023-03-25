@@ -37,6 +37,7 @@ public partial class WebsiteRoute
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Route")]
+    [NotMapped]
     public virtual ICollection<WebsiteRewrite> WebsiteRewrites { get; } = new List<WebsiteRewrite>();
 
     [ForeignKey("LastModifierId")]

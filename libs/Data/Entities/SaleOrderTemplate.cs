@@ -66,15 +66,19 @@ public partial class SaleOrderTemplate: IMultiTenant, IMayHaveCreator, IModifica
     public virtual MailTemplate? MailTemplate { get; set; }
 
     [InverseProperty("SaleOrderTemplate")]
+    [NotMapped]
     public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
 
     [InverseProperty("SaleOrderTemplate")]
+    [NotMapped]
     public virtual ICollection<SaleOrderTemplateLine> SaleOrderTemplateLines { get; } = new List<SaleOrderTemplateLine>();
 
     [InverseProperty("SaleOrderTemplate")]
+    [NotMapped]
     public virtual ICollection<SaleOrderTemplateOption> SaleOrderTemplateOptions { get; } = new List<SaleOrderTemplateOption>();
 
     [InverseProperty("SaleOrderTemplate")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
     [ForeignKey("LastModifierId")]

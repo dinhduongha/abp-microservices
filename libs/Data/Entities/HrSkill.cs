@@ -43,12 +43,15 @@ public partial class HrSkill
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Skill")]
+    [NotMapped]
     public virtual ICollection<HrApplicantSkill> HrApplicantSkills { get; } = new List<HrApplicantSkill>();
 
     [InverseProperty("Skill")]
+    [NotMapped]
     public virtual ICollection<HrEmployeeSkillLog> HrEmployeeSkillLogs { get; } = new List<HrEmployeeSkillLog>();
 
     [InverseProperty("Skill")]
+    [NotMapped]
     public virtual ICollection<HrEmployeeSkill> HrEmployeeSkills { get; } = new List<HrEmployeeSkill>();
 
     [ForeignKey("SkillTypeId")]
@@ -61,9 +64,11 @@ public partial class HrSkill
 
     [ForeignKey("HrSkillId")]
     [InverseProperty("HrSkills")]
+    [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicants { get; } = new List<HrApplicant>();
 
     [ForeignKey("HrSkillId")]
     [InverseProperty("HrSkills")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 }

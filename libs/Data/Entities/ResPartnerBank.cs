@@ -65,18 +65,23 @@ public partial class ResPartnerBank: IMultiTenant, IMayHaveCreator, IModificatio
     public Guid? MessageMainAttachmentId { get; set; }
 
     [InverseProperty("BankAccount")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 
     [InverseProperty("PartnerBank")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [InverseProperty("PartnerBank")]
+    [NotMapped]
     public virtual ICollection<AccountPaymentRegister> AccountPaymentRegisters { get; } = new List<AccountPaymentRegister>();
 
     [InverseProperty("PartnerBank")]
+    [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
 
     [InverseProperty("ResPartnerBank")]
+    [NotMapped]
     public virtual ICollection<AccountSetupBankManualConfig> AccountSetupBankManualConfigs { get; } = new List<AccountSetupBankManualConfig>();
 
     [ForeignKey("BankId")]
@@ -96,6 +101,7 @@ public partial class ResPartnerBank: IMultiTenant, IMayHaveCreator, IModificatio
     public virtual ResCurrency? Currency { get; set; }
 
     [InverseProperty("BankAccount")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 
     [ForeignKey("MessageMainAttachmentId")]

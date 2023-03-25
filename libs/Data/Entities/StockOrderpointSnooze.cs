@@ -45,5 +45,6 @@ public partial class StockOrderpointSnooze
 
     [ForeignKey("StockOrderpointSnoozeId")]
     [InverseProperty("StockOrderpointSnoozes")]
+    [NotMapped]
     public virtual ICollection<StockWarehouseOrderpoint> StockWarehouseOrderpoints { get; } = new List<StockWarehouseOrderpoint>();
 }

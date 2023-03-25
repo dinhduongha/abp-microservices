@@ -42,12 +42,15 @@ public partial class AccountTaxGroup
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("TaxGroup")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [InverseProperty("TaxGroup")]
+    [NotMapped]
     public virtual ICollection<AccountTaxTemplate> AccountTaxTemplates { get; } = new List<AccountTaxTemplate>();
 
     [InverseProperty("TaxGroup")]
+    [NotMapped]
     public virtual ICollection<AccountTax> AccountTaxes { get; } = new List<AccountTax>();
 
     [ForeignKey("CountryId")]

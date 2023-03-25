@@ -135,6 +135,7 @@ public partial class MaintenanceEquipment: IMultiTenant, IMayHaveCreator, IModif
     public virtual HrEmployee? Employee { get; set; }
 
     [InverseProperty("Equipment")]
+    [NotMapped]
     public virtual ICollection<MaintenanceRequest> MaintenanceRequests { get; } = new List<MaintenanceRequest>();
 
     [ForeignKey("MaintenanceTeamId")]

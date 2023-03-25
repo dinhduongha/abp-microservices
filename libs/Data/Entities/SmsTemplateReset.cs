@@ -39,5 +39,6 @@ public partial class SmsTemplateReset
 
     [ForeignKey("SmsTemplateResetId")]
     [InverseProperty("SmsTemplateResets")]
+    [NotMapped]
     public virtual ICollection<SmsTemplate> SmsTemplates { get; } = new List<SmsTemplate>();
 }

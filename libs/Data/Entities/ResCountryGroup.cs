@@ -32,12 +32,6 @@ public partial class ResCountryGroup
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
-    [InverseProperty("CountryGroup")]
-    public virtual ICollection<AccountFiscalPositionTemplate> AccountFiscalPositionTemplates { get; } = new List<AccountFiscalPositionTemplate>();
-
-    [InverseProperty("CountryGroup")]
-    public virtual ICollection<AccountFiscalPosition> AccountFiscalPositions { get; } = new List<AccountFiscalPosition>();
-
     [ForeignKey("CreatorId")]
     [InverseProperty("ResCountryGroupCreateUs")]
     public virtual ResUser? CreateU { get; set; }
@@ -45,12 +39,23 @@ public partial class ResCountryGroup
     [ForeignKey("LastModifierId")]
     [InverseProperty("ResCountryGroupWriteUs")]
     public virtual ResUser? WriteU { get; set; }
+/*
+    [InverseProperty("CountryGroup")]
+    [NotMapped]
+    public virtual ICollection<AccountFiscalPositionTemplate> AccountFiscalPositionTemplates { get; } = new List<AccountFiscalPositionTemplate>();
+
+    [InverseProperty("CountryGroup")]
+    [NotMapped]
+    public virtual ICollection<AccountFiscalPosition> AccountFiscalPositions { get; } = new List<AccountFiscalPosition>();
 
     [ForeignKey("ResCountryGroupId")]
     [InverseProperty("ResCountryGroups")]
+    [NotMapped]
     public virtual ICollection<ProductPricelist> Pricelists { get; } = new List<ProductPricelist>();
-
+*/
     [ForeignKey("ResCountryGroupId")]
     [InverseProperty("ResCountryGroups")]
+    [NotMapped]
     public virtual ICollection<ResCountry> ResCountries { get; } = new List<ResCountry>();
+
 }

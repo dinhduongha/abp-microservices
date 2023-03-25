@@ -39,6 +39,7 @@ public partial class BasePartnerMergeLine
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("CurrentLine")]
+    [NotMapped]
     public virtual ICollection<BasePartnerMergeAutomaticWizard> BasePartnerMergeAutomaticWizards { get; } = new List<BasePartnerMergeAutomaticWizard>();
 
     [ForeignKey("CreatorId")]

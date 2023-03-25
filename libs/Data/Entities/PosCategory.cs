@@ -44,6 +44,7 @@ public partial class PosCategory
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<PosCategory> InverseParent { get; } = new List<PosCategory>();
 
     [ForeignKey("ParentId")]
@@ -51,12 +52,15 @@ public partial class PosCategory
     public virtual PosCategory? Parent { get; set; }
 
     [InverseProperty("IfaceStartCateg")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigsNavigation { get; } = new List<PosConfig>();
 
     [InverseProperty("PosCateg")]
+    [NotMapped]
     public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
 
     [InverseProperty("PosIfaceStartCateg")]
+    [NotMapped]
     public virtual ICollection<ResConfigSetting> ResConfigSettingsNavigation { get; } = new List<ResConfigSetting>();
 
     [ForeignKey("LastModifierId")]
@@ -65,9 +69,11 @@ public partial class PosCategory
 
     [ForeignKey("PosCategoryId")]
     [InverseProperty("PosCategories")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigs { get; } = new List<PosConfig>();
 
     [ForeignKey("PosCategoryId")]
     [InverseProperty("PosCategories")]
+    [NotMapped]
     public virtual ICollection<ResConfigSetting> ResConfigSettings { get; } = new List<ResConfigSetting>();
 }

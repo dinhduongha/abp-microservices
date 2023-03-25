@@ -58,6 +58,7 @@ public partial class ThemeIrAsset
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("ThemeTemplate")]
+    [NotMapped]
     public virtual ICollection<IrAsset> IrAssets { get; } = new List<IrAsset>();
 
     [ForeignKey("LastModifierId")]

@@ -136,6 +136,7 @@ public partial class StockScrap: IMultiTenant, IMayHaveCreator, IModificationAud
     public virtual StockLocation? ScrapLocation { get; set; }
 
     [InverseProperty("Scrap")]
+    [NotMapped]
     public virtual ICollection<StockWarnInsufficientQtyScrap> StockWarnInsufficientQtyScraps { get; } = new List<StockWarnInsufficientQtyScrap>();
 
     [ForeignKey("WorkorderId")]

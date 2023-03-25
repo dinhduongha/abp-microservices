@@ -53,5 +53,6 @@ public partial class AccountJournalGroup: IMultiTenant, IMayHaveCreator, IModifi
 
     [ForeignKey("AccountJournalGroupId")]
     [InverseProperty("AccountJournalGroups")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 }

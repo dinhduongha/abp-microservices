@@ -115,5 +115,6 @@ public partial class FleetVehicleLogContract: IMultiTenant, IMayHaveCreator, IMo
 
     [ForeignKey("FleetVehicleLogContractId")]
     [InverseProperty("FleetVehicleLogContracts")]
+    [NotMapped]
     public virtual ICollection<FleetServiceType> FleetServiceTypes { get; } = new List<FleetServiceType>();
 }

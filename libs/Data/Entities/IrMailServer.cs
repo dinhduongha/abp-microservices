@@ -86,12 +86,15 @@ public partial class IrMailServer
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("MailServer")]
+    [NotMapped]
     public virtual ICollection<MailComposeMessage> MailComposeMessages { get; } = new List<MailComposeMessage>();
 
     [InverseProperty("MailServer")]
+    [NotMapped]
     public virtual ICollection<MailMessage> MailMessages { get; } = new List<MailMessage>();
 
     [InverseProperty("MailServer")]
+    [NotMapped]
     public virtual ICollection<MailTemplate> MailTemplates { get; } = new List<MailTemplate>();
 
     [ForeignKey("LastModifierId")]

@@ -33,6 +33,7 @@ public partial class BaseImportTestsModelsM2oRelated
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("ValueNavigation")]
+    [NotMapped]
     public virtual ICollection<BaseImportTestsModelsM2o> BaseImportTestsModelsM2os { get; } = new List<BaseImportTestsModelsM2o>();
 
     [ForeignKey("CreatorId")]

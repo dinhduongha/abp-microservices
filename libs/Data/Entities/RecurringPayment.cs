@@ -72,6 +72,7 @@ public partial class RecurringPayment: IMultiTenant, IMayHaveCreator, IModificat
     public virtual ResPartner? Partner { get; set; }
 
     [InverseProperty("RecurringPayment")]
+    [NotMapped]
     public virtual ICollection<RecurringPaymentLine> RecurringPaymentLines { get; } = new List<RecurringPaymentLine>();
 
     [ForeignKey("TemplateId")]

@@ -66,9 +66,11 @@ public partial class MaintenanceEquipmentCategory: IMultiTenant, IMayHaveCreator
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Category")]
+    [NotMapped]
     public virtual ICollection<MaintenanceEquipment> MaintenanceEquipments { get; } = new List<MaintenanceEquipment>();
 
     [InverseProperty("Category")]
+    [NotMapped]
     public virtual ICollection<MaintenanceRequest> MaintenanceRequests { get; } = new List<MaintenanceRequest>();
 
     [ForeignKey("MessageMainAttachmentId")]

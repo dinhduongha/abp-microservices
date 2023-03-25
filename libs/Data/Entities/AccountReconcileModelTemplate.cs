@@ -108,6 +108,7 @@ public partial class AccountReconcileModelTemplate
     public double? PaymentToleranceParam { get; set; }
 
     [InverseProperty("Model")]
+    [NotMapped]
     public virtual ICollection<AccountReconcileModelLineTemplate> AccountReconcileModelLineTemplates { get; } = new List<AccountReconcileModelLineTemplate>();
 
     [ForeignKey("ChartTemplateId")]
@@ -124,13 +125,16 @@ public partial class AccountReconcileModelTemplate
 
     [ForeignKey("AccountReconcileModelTemplateId")]
     [InverseProperty("AccountReconcileModelTemplates")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 
     [ForeignKey("AccountReconcileModelTemplateId")]
     [InverseProperty("AccountReconcileModelTemplates")]
+    [NotMapped]
     public virtual ICollection<ResPartnerCategory> ResPartnerCategories { get; } = new List<ResPartnerCategory>();
 
     [ForeignKey("AccountReconcileModelTemplateId")]
     [InverseProperty("AccountReconcileModelTemplates")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 }

@@ -41,6 +41,7 @@ public partial class IrExport
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Export")]
+    [NotMapped]
     public virtual ICollection<IrExportsLine> IrExportsLines { get; } = new List<IrExportsLine>();
 
     [ForeignKey("LastModifierId")]

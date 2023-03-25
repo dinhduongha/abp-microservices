@@ -72,5 +72,6 @@ public partial class IrRule
 
     [ForeignKey("RuleGroupId")]
     [InverseProperty("RuleGroups")]
+    [NotMapped]
     public virtual ICollection<ResGroup> Groups { get; } = new List<ResGroup>();
 }

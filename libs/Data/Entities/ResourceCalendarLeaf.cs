@@ -72,6 +72,7 @@ public partial class ResourceCalendarLeaf: IMultiTenant, IMayHaveCreator, IModif
     public virtual HrLeave? Holiday { get; set; }
 
     [InverseProperty("Leave")]
+    [NotMapped]
     public virtual ICollection<MrpWorkorder> MrpWorkorders { get; } = new List<MrpWorkorder>();
 
     [ForeignKey("ResourceId")]

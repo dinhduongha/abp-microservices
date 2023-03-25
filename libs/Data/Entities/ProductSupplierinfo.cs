@@ -95,6 +95,7 @@ public partial class ProductSupplierinfo: IMultiTenant, IMayHaveCreator, IModifi
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [InverseProperty("Supplier")]
+    [NotMapped]
     public virtual ICollection<StockWarehouseOrderpoint> StockWarehouseOrderpoints { get; } = new List<StockWarehouseOrderpoint>();
 
     [ForeignKey("LastModifierId")]
@@ -103,5 +104,6 @@ public partial class ProductSupplierinfo: IMultiTenant, IMayHaveCreator, IModifi
 
     [ForeignKey("ProductSupplierinfoId")]
     [InverseProperty("ProductSupplierinfos")]
+    [NotMapped]
     public virtual ICollection<StockReplenishmentInfo> StockReplenishmentInfos { get; } = new List<StockReplenishmentInfo>();
 }

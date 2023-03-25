@@ -215,6 +215,7 @@ public partial class CrmLead: IMultiTenant, IMayHaveCreator, IModificationAudite
     public Guid? LeadMiningRequestId { get; set; }
 
     [InverseProperty("Opportunity")]
+    [NotMapped]
     public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
 
     [ForeignKey("CampaignId")]
@@ -234,12 +235,15 @@ public partial class CrmLead: IMultiTenant, IMayHaveCreator, IModificationAudite
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Lead")]
+    [NotMapped]
     public virtual ICollection<CrmLead2opportunityPartnerMass> CrmLead2opportunityPartnerMassesNavigation { get; } = new List<CrmLead2opportunityPartnerMass>();
 
     [InverseProperty("Lead")]
+    [NotMapped]
     public virtual ICollection<CrmLead2opportunityPartner> CrmLead2opportunityPartners { get; } = new List<CrmLead2opportunityPartner>();
 
     [InverseProperty("Lead")]
+    [NotMapped]
     public virtual ICollection<CrmQuotationPartner> CrmQuotationPartners { get; } = new List<CrmQuotationPartner>();
 
     [ForeignKey("LangId")]
@@ -271,6 +275,7 @@ public partial class CrmLead: IMultiTenant, IMayHaveCreator, IModificationAudite
     public virtual CrmRecurringPlan? RecurringPlanNavigation { get; set; }
 
     [InverseProperty("Opportunity")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
     [ForeignKey("SourceId")]
@@ -303,25 +308,31 @@ public partial class CrmLead: IMultiTenant, IMayHaveCreator, IModificationAudite
 
     [ForeignKey("CrmLeadId")]
     [InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual ICollection<CrmLead2opportunityPartnerMass> CrmLead2opportunityPartnerMasses { get; } = new List<CrmLead2opportunityPartnerMass>();
 
     [ForeignKey("CrmLeadId")]
     [InverseProperty("CrmLeadsNavigation")]
+    [NotMapped]
     public virtual ICollection<CrmLead2opportunityPartnerMass> CrmLead2opportunityPartnerMasses1 { get; } = new List<CrmLead2opportunityPartnerMass>();
 
     [ForeignKey("CrmLeadId")]
     [InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual ICollection<CrmLead2opportunityPartner> CrmLead2opportunityPartnersNavigation { get; } = new List<CrmLead2opportunityPartner>();
 
     [ForeignKey("OpportunityId")]
     [InverseProperty("Opportunities")]
+    [NotMapped]
     public virtual ICollection<CrmMergeOpportunity> Merges { get; } = new List<CrmMergeOpportunity>();
 
     [ForeignKey("LeadId")]
     [InverseProperty("Leads")]
+    [NotMapped]
     public virtual ICollection<CrmTag> Tags { get; } = new List<CrmTag>();
 
     [ForeignKey("CrmLeadId")]
     [InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual ICollection<WebsiteVisitor> WebsiteVisitors { get; } = new List<WebsiteVisitor>();
 }

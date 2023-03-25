@@ -46,5 +46,6 @@ public partial class HrPlanWizard
 
     [ForeignKey("EmployeeId")]
     [InverseProperty("Employees")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> PlanWizards { get; } = new List<HrEmployee>();
 }

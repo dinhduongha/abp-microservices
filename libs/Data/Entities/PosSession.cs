@@ -86,9 +86,11 @@ public partial class PosSession
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("PosSession")]
+    [NotMapped]
     public virtual ICollection<AccountBankStatementLine> AccountBankStatementLines { get; } = new List<AccountBankStatementLine>();
 
     [InverseProperty("PosSession")]
+    [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
 
     [ForeignKey("CashJournalId")]
@@ -112,12 +114,15 @@ public partial class PosSession
     public virtual AccountMove? Move { get; set; }
 
     [InverseProperty("Session")]
+    [NotMapped]
     public virtual ICollection<PosOrder> PosOrders { get; } = new List<PosOrder>();
 
     [InverseProperty("Session")]
+    [NotMapped]
     public virtual ICollection<PosPayment> PosPayments { get; } = new List<PosPayment>();
 
     [InverseProperty("PosSession")]
+    [NotMapped]
     public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
 
     [ForeignKey("UserId")]

@@ -40,9 +40,11 @@ public partial class HrDepartureReason
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("DepartureReason")]
+    [NotMapped]
     public virtual ICollection<HrDepartureWizard> HrDepartureWizards { get; } = new List<HrDepartureWizard>();
 
     [InverseProperty("DepartureReason")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 
     [ForeignKey("LastModifierId")]

@@ -55,6 +55,7 @@ public partial class MailChannel
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("VideocallChannel")]
+    [NotMapped]
     public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
 
     [ForeignKey("CreatorId")]
@@ -66,9 +67,11 @@ public partial class MailChannel
     public virtual ResGroup? GroupPublic { get; set; }
 
     [InverseProperty("Channel")]
+    [NotMapped]
     public virtual ICollection<MailChannelMember> MailChannelMembers { get; } = new List<MailChannelMember>();
 
     [InverseProperty("Channel")]
+    [NotMapped]
     public virtual ICollection<MailChannelRtcSession> MailChannelRtcSessions { get; } = new List<MailChannelRtcSession>();
 
     [ForeignKey("MessageMainAttachmentId")]
@@ -81,9 +84,11 @@ public partial class MailChannel
 
     [ForeignKey("MailChannelId")]
     [InverseProperty("MailChannels")]
+    [NotMapped]
     public virtual ICollection<HrDepartment> HrDepartments { get; } = new List<HrDepartment>();
 
     [ForeignKey("MailChannelId")]
     [InverseProperty("MailChannelsNavigation")]
+    [NotMapped]
     public virtual ICollection<ResGroup> ResGroups { get; } = new List<ResGroup>();
 }

@@ -54,5 +54,6 @@ public partial class BaseLanguageExport
 
     [ForeignKey("WizId")]
     [InverseProperty("Wizs")]
+    [NotMapped]
     public virtual ICollection<IrModuleModule> Modules { get; } = new List<IrModuleModule>();
 }

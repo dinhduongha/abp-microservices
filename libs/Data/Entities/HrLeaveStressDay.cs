@@ -65,5 +65,6 @@ public partial class HrLeaveStressDay: IMultiTenant, IMayHaveCreator, IModificat
 
     [ForeignKey("HrLeaveStressDayId")]
     [InverseProperty("HrLeaveStressDays")]
+    [NotMapped]
     public virtual ICollection<HrDepartment> HrDepartments { get; } = new List<HrDepartment>();
 }

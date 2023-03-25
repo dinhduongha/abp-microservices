@@ -58,6 +58,7 @@ public partial class AccountTaxRepartitionLine: IMultiTenant, IMayHaveCreator, I
     public virtual AccountAccount? Account { get; set; }
 
     [InverseProperty("TaxRepartitionLine")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [ForeignKey("TenantId")]
@@ -82,5 +83,6 @@ public partial class AccountTaxRepartitionLine: IMultiTenant, IMayHaveCreator, I
 
     [ForeignKey("AccountTaxRepartitionLineId")]
     [InverseProperty("AccountTaxRepartitionLines")]
+    [NotMapped]
     public virtual ICollection<AccountAccountTag> AccountAccountTags { get; } = new List<AccountAccountTag>();
 }

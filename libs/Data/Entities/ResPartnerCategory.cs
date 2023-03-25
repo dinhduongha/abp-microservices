@@ -47,6 +47,7 @@ public partial class ResPartnerCategory
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("PartnerCategory")]
+    [NotMapped]
     public virtual ICollection<AccountAnalyticDistributionModel> AccountAnalyticDistributionModels { get; } = new List<AccountAnalyticDistributionModel>();
 
     [ForeignKey("CreatorId")]
@@ -54,6 +55,7 @@ public partial class ResPartnerCategory
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<ResPartnerCategory> InverseParent { get; } = new List<ResPartnerCategory>();
 
     [ForeignKey("ParentId")]
@@ -66,13 +68,16 @@ public partial class ResPartnerCategory
 
     [ForeignKey("ResPartnerCategoryId")]
     [InverseProperty("ResPartnerCategories")]
+    [NotMapped]
     public virtual ICollection<AccountReconcileModelTemplate> AccountReconcileModelTemplates { get; } = new List<AccountReconcileModelTemplate>();
 
     [ForeignKey("ResPartnerCategoryId")]
     [InverseProperty("ResPartnerCategories")]
+    [NotMapped]
     public virtual ICollection<AccountReconcileModel> AccountReconcileModels { get; } = new List<AccountReconcileModel>();
 
     [ForeignKey("CategoryId")]
     [InverseProperty("Categories")]
+    [NotMapped]
     public virtual ICollection<ResPartner> Partners { get; } = new List<ResPartner>();
 }

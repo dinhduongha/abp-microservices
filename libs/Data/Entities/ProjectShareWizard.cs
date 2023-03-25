@@ -54,5 +54,6 @@ public partial class ProjectShareWizard
 
     [ForeignKey("ProjectShareWizardId")]
     [InverseProperty("ProjectShareWizards")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 }

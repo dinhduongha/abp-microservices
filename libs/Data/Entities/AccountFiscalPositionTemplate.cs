@@ -80,12 +80,15 @@ public partial class AccountFiscalPositionTemplate
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Position")]
+    [NotMapped]
     public virtual ICollection<AccountFiscalPositionAccountTemplate> AccountFiscalPositionAccountTemplates { get; } = new List<AccountFiscalPositionAccountTemplate>();
 
     [InverseProperty("Position")]
+    [NotMapped]
     public virtual ICollection<AccountFiscalPositionTaxTemplate> AccountFiscalPositionTaxTemplates { get; } = new List<AccountFiscalPositionTaxTemplate>();
 
     [ForeignKey("AccountFiscalPositionTemplateId")]
     [InverseProperty("AccountFiscalPositionTemplates")]
+    [NotMapped]
     public virtual ICollection<ResCountryState> ResCountryStates { get; } = new List<ResCountryState>();
 }

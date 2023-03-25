@@ -315,40 +315,51 @@ public partial class AccountMoveLine: IMultiTenant, IMayHaveCreator, IModificati
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("MoveLine")]
+    [NotMapped]
     public virtual ICollection<AccountAnalyticLine> AccountAnalyticLines { get; } = new List<AccountAnalyticLine>();
 
     [InverseProperty("CreditMove")]
+    [NotMapped]
     public virtual ICollection<AccountPartialReconcile> AccountPartialReconcileCreditMoves { get; } = new List<AccountPartialReconcile>();
 
     [InverseProperty("DebitMove")]
+    [NotMapped]
     public virtual ICollection<AccountPartialReconcile> AccountPartialReconcileDebitMoves { get; } = new List<AccountPartialReconcile>();
 
     [InverseProperty("InvoiceLine")]
+    [NotMapped]
     public virtual ICollection<RepairFee> RepairFees { get; } = new List<RepairFee>();
 
     [InverseProperty("InvoiceLine")]
+    [NotMapped]
     public virtual ICollection<RepairLine> RepairLines { get; } = new List<RepairLine>();
 
     [InverseProperty("AccountMoveLine")]
+    [NotMapped]
     public virtual ICollection<StockValuationLayer> StockValuationLayers { get; } = new List<StockValuationLayer>();
 
     [ForeignKey("AccountMoveLineId")]
     [InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual ICollection<AccountAccountTag> AccountAccountTags { get; } = new List<AccountAccountTag>();
 
     [ForeignKey("AccountMoveLineId")]
     [InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual ICollection<AccountAutomaticEntryWizard> AccountAutomaticEntryWizards { get; } = new List<AccountAutomaticEntryWizard>();
 
     [ForeignKey("AccountMoveLineId")]
     [InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual ICollection<AccountTax> AccountTaxes { get; } = new List<AccountTax>();
 
     [ForeignKey("InvoiceLineId")]
     [InverseProperty("InvoiceLines")]
+    [NotMapped]
     public virtual ICollection<SaleOrderLine> OrderLines { get; } = new List<SaleOrderLine>();
 
     [ForeignKey("LineId")]
     [InverseProperty("Lines")]
+    [NotMapped]
     public virtual ICollection<AccountPaymentRegister> Wizards { get; } = new List<AccountPaymentRegister>();
 }

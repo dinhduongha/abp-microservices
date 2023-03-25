@@ -96,9 +96,11 @@ public partial class AccountReport
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("Report")]
+    [NotMapped]
     public virtual ICollection<AccountReportColumn> AccountReportColumns { get; } = new List<AccountReportColumn>();
 
     [InverseProperty("Report")]
+    [NotMapped]
     public virtual ICollection<AccountReportLine> AccountReportLines { get; } = new List<AccountReportLine>();
 
     [ForeignKey("ChartTemplateId")]
@@ -114,6 +116,7 @@ public partial class AccountReport
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("RootReport")]
+    [NotMapped]
     public virtual ICollection<AccountReport> InverseRootReport { get; } = new List<AccountReport>();
 
     [ForeignKey("RootReportId")]

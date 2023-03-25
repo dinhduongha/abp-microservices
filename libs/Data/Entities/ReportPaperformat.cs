@@ -76,9 +76,11 @@ public partial class ReportPaperformat
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Paperformat")]
+    [NotMapped]
     public virtual ICollection<IrActReportXml> IrActReportXmls { get; } = new List<IrActReportXml>();
 
     [InverseProperty("Paperformat")]
+    [NotMapped]
     public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
 
     [ForeignKey("LastModifierId")]

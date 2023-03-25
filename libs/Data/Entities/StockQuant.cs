@@ -123,25 +123,31 @@ public partial class StockQuant: IMultiTenant, IMayHaveCreator, IModificationAud
 
     [ForeignKey("StockQuantId")]
     [InverseProperty("StockQuants")]
+    [NotMapped]
     public virtual ICollection<StockInventoryAdjustmentName> StockInventoryAdjustmentNames { get; } = new List<StockInventoryAdjustmentName>();
 
     [ForeignKey("StockQuantId")]
     [InverseProperty("StockQuants")]
+    [NotMapped]
     public virtual ICollection<StockInventoryConflict> StockInventoryConflicts { get; } = new List<StockInventoryConflict>();
 
     [ForeignKey("StockQuantId")]
     [InverseProperty("StockQuantsNavigation")]
+    [NotMapped]
     public virtual ICollection<StockInventoryConflict> StockInventoryConflictsNavigation { get; } = new List<StockInventoryConflict>();
 
     [ForeignKey("StockQuantId")]
     [InverseProperty("StockQuants")]
+    [NotMapped]
     public virtual ICollection<StockInventoryWarning> StockInventoryWarnings { get; } = new List<StockInventoryWarning>();
 
     [ForeignKey("StockQuantId")]
     [InverseProperty("StockQuants")]
+    [NotMapped]
     public virtual ICollection<StockRequestCount> StockRequestCounts { get; } = new List<StockRequestCount>();
 
     [ForeignKey("StockQuantId")]
     [InverseProperty("StockQuants")]
+    [NotMapped]
     public virtual ICollection<StockTrackConfirmation> StockTrackConfirmations { get; } = new List<StockTrackConfirmation>();
 }

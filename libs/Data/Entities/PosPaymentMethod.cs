@@ -57,6 +57,7 @@ public partial class PosPaymentMethod: IMultiTenant, IMayHaveCreator, IModificat
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("PosPaymentMethod")]
+    [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
 
     [ForeignKey("TenantId")]
@@ -76,9 +77,11 @@ public partial class PosPaymentMethod: IMultiTenant, IMayHaveCreator, IModificat
     public virtual AccountAccount? OutstandingAccount { get; set; }
 
     [InverseProperty("PaymentMethod")]
+    [NotMapped]
     public virtual ICollection<PosMakePayment> PosMakePayments { get; } = new List<PosMakePayment>();
 
     [InverseProperty("PaymentMethod")]
+    [NotMapped]
     public virtual ICollection<PosPayment> PosPayments { get; } = new List<PosPayment>();
 
     [ForeignKey("ReceivableAccountId")]
@@ -91,5 +94,6 @@ public partial class PosPaymentMethod: IMultiTenant, IMayHaveCreator, IModificat
 
     [ForeignKey("PosPaymentMethodId")]
     [InverseProperty("PosPaymentMethods")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigs { get; } = new List<PosConfig>();
 }

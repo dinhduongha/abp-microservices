@@ -79,9 +79,11 @@ public partial class SaleAdvancePaymentInv: IMultiTenant, IMayHaveCreator, IModi
 
     [ForeignKey("SaleAdvancePaymentInvId")]
     [InverseProperty("SaleAdvancePaymentInvs")]
+    [NotMapped]
     public virtual ICollection<AccountTax> AccountTaxes { get; } = new List<AccountTax>();
 
     [ForeignKey("SaleAdvancePaymentInvId")]
     [InverseProperty("SaleAdvancePaymentInvs")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 }

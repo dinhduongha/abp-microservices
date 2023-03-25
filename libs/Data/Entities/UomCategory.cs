@@ -40,6 +40,7 @@ public partial class UomCategory
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Category")]
+    [NotMapped]
     public virtual ICollection<UomUom> UomUoms { get; } = new List<UomUom>();
 
     [ForeignKey("LastModifierId")]

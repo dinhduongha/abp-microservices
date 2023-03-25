@@ -257,9 +257,11 @@ public partial class PosConfig: IMultiTenant, IMayHaveCreator, IModificationAudi
     public virtual StockPickingType? PickingType { get; set; }
 
     [InverseProperty("Config")]
+    [NotMapped]
     public virtual ICollection<PosMakePayment> PosMakePayments { get; } = new List<PosMakePayment>();
 
     [InverseProperty("Config")]
+    [NotMapped]
     public virtual ICollection<PosSession> PosSessions { get; } = new List<PosSession>();
 
     [ForeignKey("PricelistId")]
@@ -267,6 +269,7 @@ public partial class PosConfig: IMultiTenant, IMayHaveCreator, IModificationAudi
     public virtual ProductPricelist? Pricelist { get; set; }
 
     [InverseProperty("PosConfig")]
+    [NotMapped]
     public virtual ICollection<ResConfigSetting> ResConfigSettings { get; } = new List<ResConfigSetting>();
 
     [ForeignKey("RoundingMethod")]
@@ -299,29 +302,36 @@ public partial class PosConfig: IMultiTenant, IMayHaveCreator, IModificationAudi
 
     [ForeignKey("PosConfigId")]
     [InverseProperty("PosConfigs")]
+    [NotMapped]
     public virtual ICollection<AccountFiscalPosition> AccountFiscalPositions { get; } = new List<AccountFiscalPosition>();
 
     [ForeignKey("PosConfigId")]
     [InverseProperty("PosConfigs")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 
     [ForeignKey("PosConfigId")]
     [InverseProperty("PosConfigs")]
+    [NotMapped]
     public virtual ICollection<PosBill> PosBills { get; } = new List<PosBill>();
 
     [ForeignKey("PosConfigId")]
     [InverseProperty("PosConfigs")]
+    [NotMapped]
     public virtual ICollection<PosCategory> PosCategories { get; } = new List<PosCategory>();
 
     [ForeignKey("PosConfigId")]
     [InverseProperty("PosConfigs")]
+    [NotMapped]
     public virtual ICollection<PosDetailsWizard> PosDetailsWizards { get; } = new List<PosDetailsWizard>();
 
     [ForeignKey("PosConfigId")]
     [InverseProperty("PosConfigs")]
+    [NotMapped]
     public virtual ICollection<PosPaymentMethod> PosPaymentMethods { get; } = new List<PosPaymentMethod>();
 
     [ForeignKey("PosConfigId")]
     [InverseProperty("PosConfigsNavigation")]
+    [NotMapped]
     public virtual ICollection<ProductPricelist> ProductPricelists { get; } = new List<ProductPricelist>();
 }

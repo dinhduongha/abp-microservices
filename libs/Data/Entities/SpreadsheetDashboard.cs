@@ -52,5 +52,6 @@ public partial class SpreadsheetDashboard
 
     [ForeignKey("SpreadsheetDashboardId")]
     [InverseProperty("SpreadsheetDashboards")]
+    [NotMapped]
     public virtual ICollection<ResGroup> ResGroups { get; } = new List<ResGroup>();
 }

@@ -39,5 +39,6 @@ public partial class MailTemplateReset
 
     [ForeignKey("MailTemplateResetId")]
     [InverseProperty("MailTemplateResets")]
+    [NotMapped]
     public virtual ICollection<MailTemplate> MailTemplates { get; } = new List<MailTemplate>();
 }

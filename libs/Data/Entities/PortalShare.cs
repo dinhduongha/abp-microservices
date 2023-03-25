@@ -48,5 +48,6 @@ public partial class PortalShare
 
     [ForeignKey("PortalShareId")]
     [InverseProperty("PortalShares")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 }

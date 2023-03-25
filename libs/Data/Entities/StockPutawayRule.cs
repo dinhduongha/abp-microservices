@@ -89,5 +89,6 @@ public partial class StockPutawayRule: IMultiTenant, IMayHaveCreator, IModificat
 
     [ForeignKey("StockPutawayRuleId")]
     [InverseProperty("StockPutawayRules")]
+    [NotMapped]
     public virtual ICollection<StockPackageType> StockPackageTypes { get; } = new List<StockPackageType>();
 }

@@ -39,5 +39,6 @@ public partial class StockInventoryWarning
 
     [ForeignKey("StockInventoryWarningId")]
     [InverseProperty("StockInventoryWarnings")]
+    [NotMapped]
     public virtual ICollection<StockQuant> StockQuants { get; } = new List<StockQuant>();
 }

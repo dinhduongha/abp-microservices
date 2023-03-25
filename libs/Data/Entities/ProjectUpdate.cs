@@ -69,6 +69,7 @@ public partial class ProjectUpdate
     public virtual ProjectProject? Project { get; set; }
 
     [InverseProperty("LastUpdate")]
+    [NotMapped]
     public virtual ICollection<ProjectProject> ProjectProjects { get; } = new List<ProjectProject>();
 
     [ForeignKey("UserId")]

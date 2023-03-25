@@ -132,9 +132,11 @@ public partial class AccountAssetCategory: IMultiTenant, IMayHaveCreator, IModif
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Category")]
+    [NotMapped]
     public virtual ICollection<AccountAssetAsset> AccountAssetAssets { get; } = new List<AccountAssetAsset>();
 
     [InverseProperty("AssetCategory")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
 }

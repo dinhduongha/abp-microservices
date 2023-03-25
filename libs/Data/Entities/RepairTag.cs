@@ -46,5 +46,6 @@ public partial class RepairTag
 
     [ForeignKey("RepairTagsId")]
     [InverseProperty("RepairTags")]
+    [NotMapped]
     public virtual ICollection<RepairOrder> RepairOrders { get; } = new List<RepairOrder>();
 }

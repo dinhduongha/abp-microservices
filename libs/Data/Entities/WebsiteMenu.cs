@@ -69,6 +69,7 @@ public partial class WebsiteMenu
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<WebsiteMenu> InverseParent { get; } = new List<WebsiteMenu>();
 
     [ForeignKey("PageId")]

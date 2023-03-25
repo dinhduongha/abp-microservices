@@ -156,18 +156,23 @@ public partial class ProjectProject: IMultiTenant, IMayHaveCreator, IModificatio
     public virtual ResPartner? Partner { get; set; }
 
     [InverseProperty("Project")]
+    [NotMapped]
     public virtual ICollection<ProjectCollaborator> ProjectCollaborators { get; } = new List<ProjectCollaborator>();
 
     [InverseProperty("Project")]
+    [NotMapped]
     public virtual ICollection<ProjectMilestone> ProjectMilestones { get; } = new List<ProjectMilestone>();
 
     [InverseProperty("DisplayProject")]
+    [NotMapped]
     public virtual ICollection<ProjectTask> ProjectTaskDisplayProjects { get; } = new List<ProjectTask>();
 
     [InverseProperty("Project")]
+    [NotMapped]
     public virtual ICollection<ProjectTask> ProjectTaskProjects { get; } = new List<ProjectTask>();
 
     [InverseProperty("Project")]
+    [NotMapped]
     public virtual ICollection<ProjectUpdate> ProjectUpdates { get; } = new List<ProjectUpdate>();
 
     [ForeignKey("SaleLineId")]
@@ -175,9 +180,11 @@ public partial class ProjectProject: IMultiTenant, IMayHaveCreator, IModificatio
     public virtual SaleOrderLine? SaleLine { get; set; }
 
     [InverseProperty("Project")]
+    [NotMapped]
     public virtual ICollection<SaleOrderLine> SaleOrderLines { get; } = new List<SaleOrderLine>();
 
     [InverseProperty("Project")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
     [ForeignKey("StageId")]
@@ -194,17 +201,21 @@ public partial class ProjectProject: IMultiTenant, IMayHaveCreator, IModificatio
 
     [ForeignKey("ProjectProjectId")]
     [InverseProperty("ProjectProjects")]
+    [NotMapped]
     public virtual ICollection<ProjectTag> ProjectTags { get; } = new List<ProjectTag>();
 
     [ForeignKey("ProjectProjectId")]
     [InverseProperty("ProjectProjects")]
+    [NotMapped]
     public virtual ICollection<ProjectTaskTypeDeleteWizard> ProjectTaskTypeDeleteWizards { get; } = new List<ProjectTaskTypeDeleteWizard>();
 
     [ForeignKey("ProjectId")]
     [InverseProperty("Projects")]
+    [NotMapped]
     public virtual ICollection<ProjectTaskType> Types { get; } = new List<ProjectTaskType>();
 
     [ForeignKey("ProjectId")]
     [InverseProperty("Projects")]
+    [NotMapped]
     public virtual ICollection<ResUser> Users { get; } = new List<ResUser>();
 }

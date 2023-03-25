@@ -88,9 +88,11 @@ public partial class MailNotification
     public virtual SmsSm? Sms { get; set; }
 
     [InverseProperty("Notification")]
+    [NotMapped]
     public virtual ICollection<SmsResendRecipient> SmsResendRecipients { get; } = new List<SmsResendRecipient>();
 
     [ForeignKey("MailNotificationId")]
     [InverseProperty("MailNotifications")]
+    [NotMapped]
     public virtual ICollection<MailResendMessage> MailResendMessages { get; } = new List<MailResendMessage>();
 }

@@ -51,5 +51,6 @@ public partial class AccountResequenceWizard
 
     [ForeignKey("AccountResequenceWizardId")]
     [InverseProperty("AccountResequenceWizards")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 }

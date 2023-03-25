@@ -148,9 +148,11 @@ public partial class PosOrder: IMultiTenant, IMayHaveCreator, IModificationAudit
     public virtual ResPartner? Partner { get; set; }
 
     [InverseProperty("Order")]
+    [NotMapped]
     public virtual ICollection<PosOrderLine> PosOrderLines { get; } = new List<PosOrderLine>();
 
     [InverseProperty("PosOrder")]
+    [NotMapped]
     public virtual ICollection<PosPayment> PosPayments { get; } = new List<PosPayment>();
 
     [ForeignKey("PricelistId")]
@@ -162,6 +164,7 @@ public partial class PosOrder: IMultiTenant, IMayHaveCreator, IModificationAudit
     public virtual ProcurementGroup? ProcurementGroup { get; set; }
 
     [InverseProperty("PosOrder")]
+    [NotMapped]
     public virtual ICollection<ProcurementGroup> ProcurementGroups { get; } = new List<ProcurementGroup>();
 
     [ForeignKey("SaleJournal")]
@@ -173,6 +176,7 @@ public partial class PosOrder: IMultiTenant, IMayHaveCreator, IModificationAudit
     public virtual PosSession? Session { get; set; }
 
     [InverseProperty("PosOrder")]
+    [NotMapped]
     public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
 
     [ForeignKey("UserId")]

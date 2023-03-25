@@ -68,6 +68,7 @@ public partial class ProductTemplateAttributeValue
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("CustomProductTemplateAttributeValue")]
+    [NotMapped]
     public virtual ICollection<ProductAttributeCustomValue> ProductAttributeCustomValues { get; } = new List<ProductAttributeCustomValue>();
 
     [ForeignKey("ProductAttributeValueId")]
@@ -75,6 +76,7 @@ public partial class ProductTemplateAttributeValue
     public virtual ProductAttributeValue? ProductAttributeValue { get; set; }
 
     [InverseProperty("ProductTemplateAttributeValue")]
+    [NotMapped]
     public virtual ICollection<ProductTemplateAttributeExclusion> ProductTemplateAttributeExclusionsNavigation { get; } = new List<ProductTemplateAttributeExclusion>();
 
     [ForeignKey("ProductTmplId")]
@@ -87,25 +89,31 @@ public partial class ProductTemplateAttributeValue
 
     [ForeignKey("ProductTemplateAttributeValueId")]
     [InverseProperty("ProductTemplateAttributeValues")]
+    [NotMapped]
     public virtual ICollection<MrpBomByproduct> MrpBomByproducts { get; } = new List<MrpBomByproduct>();
 
     [ForeignKey("ProductTemplateAttributeValueId")]
     [InverseProperty("ProductTemplateAttributeValues")]
+    [NotMapped]
     public virtual ICollection<MrpBomLine> MrpBomLines { get; } = new List<MrpBomLine>();
 
     [ForeignKey("ProductTemplateAttributeValueId")]
     [InverseProperty("ProductTemplateAttributeValues")]
+    [NotMapped]
     public virtual ICollection<MrpRoutingWorkcenter> MrpRoutingWorkcenters { get; } = new List<MrpRoutingWorkcenter>();
 
     [ForeignKey("ProductTemplateAttributeValueId")]
     [InverseProperty("ProductTemplateAttributeValues")]
+    [NotMapped]
     public virtual ICollection<ProductProduct> ProductProducts { get; } = new List<ProductProduct>();
 
     [ForeignKey("ProductTemplateAttributeValueId")]
     [InverseProperty("ProductTemplateAttributeValues")]
+    [NotMapped]
     public virtual ICollection<ProductTemplateAttributeExclusion> ProductTemplateAttributeExclusions { get; } = new List<ProductTemplateAttributeExclusion>();
 
     [ForeignKey("ProductTemplateAttributeValueId")]
     [InverseProperty("ProductTemplateAttributeValues")]
+    [NotMapped]
     public virtual ICollection<SaleOrderLine> SaleOrderLines { get; } = new List<SaleOrderLine>();
 }

@@ -83,6 +83,7 @@ public partial class DigestDigest: IMultiTenant, IMayHaveCreator, IModificationA
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Digest")]
+    [NotMapped]
     public virtual ICollection<ResConfigSetting> ResConfigSettings { get; } = new List<ResConfigSetting>();
 
     [ForeignKey("LastModifierId")]
@@ -91,5 +92,6 @@ public partial class DigestDigest: IMultiTenant, IMayHaveCreator, IModificationA
 
     [ForeignKey("DigestDigestId")]
     [InverseProperty("DigestDigests")]
+    [NotMapped]
     public virtual ICollection<ResUser> ResUsers { get; } = new List<ResUser>();
 }

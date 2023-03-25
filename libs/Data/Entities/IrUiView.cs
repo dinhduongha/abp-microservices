@@ -113,45 +113,59 @@ public partial class IrUiView
     public virtual IrUiView? Inherit { get; set; }
 
     [InverseProperty("Inherit")]
+    [NotMapped]
     public virtual ICollection<IrUiView> InverseInherit { get; } = new List<IrUiView>();
 
     [InverseProperty("SearchView")]
+    [NotMapped]
     public virtual ICollection<IrActWindow> IrActWindowSearchViews { get; } = new List<IrActWindow>();
 
     [InverseProperty("View")]
+    [NotMapped]
     public virtual ICollection<IrActWindow> IrActWindowViews { get; } = new List<IrActWindow>();
 
     [InverseProperty("View")]
+    [NotMapped]
     public virtual ICollection<IrActWindowView> IrActWindowViewsNavigation { get; } = new List<IrActWindowView>();
 
     [InverseProperty("Ref")]
+    [NotMapped]
     public virtual ICollection<IrUiViewCustom> IrUiViewCustoms { get; } = new List<IrUiViewCustom>();
 
     [InverseProperty("ExpressCheckoutFormView")]
+    [NotMapped]
     public virtual ICollection<PaymentProvider> PaymentProviderExpressCheckoutFormViews { get; } = new List<PaymentProvider>();
 
     [InverseProperty("InlineFormView")]
+    [NotMapped]
     public virtual ICollection<PaymentProvider> PaymentProviderInlineFormViews { get; } = new List<PaymentProvider>();
 
     [InverseProperty("RedirectFormView")]
+    [NotMapped]
     public virtual ICollection<PaymentProvider> PaymentProviderRedirectFormViews { get; } = new List<PaymentProvider>();
 
     [InverseProperty("TokenInlineFormView")]
+    [NotMapped]
     public virtual ICollection<PaymentProvider> PaymentProviderTokenInlineFormViews { get; } = new List<PaymentProvider>();
 
     [InverseProperty("View")]
+    [NotMapped]
     public virtual ICollection<ReportLayout> ReportLayouts { get; } = new List<ReportLayout>();
 
     [InverseProperty("ExternalReportLayout")]
+    [NotMapped]
     public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
 
     [InverseProperty("AddressView")]
+    [NotMapped]
     public virtual ICollection<ResCountry> ResCountries { get; } = new List<ResCountry>();
 
     [InverseProperty("CompareView")]
+    [NotMapped]
     public virtual ICollection<ResetViewArchWizard> ResetViewArchWizardCompareViews { get; } = new List<ResetViewArchWizard>();
 
     [InverseProperty("View")]
+    [NotMapped]
     public virtual ICollection<ResetViewArchWizard> ResetViewArchWizardViews { get; } = new List<ResetViewArchWizard>();
 
     [ForeignKey("ThemeTemplateId")]
@@ -163,9 +177,11 @@ public partial class IrUiView
     public virtual Website? Website { get; set; }
 
     [InverseProperty("PageView")]
+    [NotMapped]
     public virtual ICollection<WebsiteConfiguratorFeature> WebsiteConfiguratorFeatures { get; } = new List<WebsiteConfiguratorFeature>();
 
     [InverseProperty("View")]
+    [NotMapped]
     public virtual ICollection<WebsitePage> WebsitePages { get; } = new List<WebsitePage>();
 
     [ForeignKey("LastModifierId")]
@@ -174,5 +190,6 @@ public partial class IrUiView
 
     [ForeignKey("ViewId")]
     [InverseProperty("Views")]
+    [NotMapped]
     public virtual ICollection<ResGroup> Groups { get; } = new List<ResGroup>();
 }

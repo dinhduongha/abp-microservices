@@ -62,6 +62,7 @@ public partial class FollowupPrint
     public virtual FollowupFollowup? Followup { get; set; }
 
     [InverseProperty("OsvMemory")]
+    [NotMapped]
     public virtual ICollection<PartnerStatRel> PartnerStatRels { get; } = new List<PartnerStatRel>();
 
     [ForeignKey("LastModifierId")]

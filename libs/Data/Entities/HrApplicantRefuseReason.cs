@@ -39,6 +39,7 @@ public partial class HrApplicantRefuseReason
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("RefuseReason")]
+    [NotMapped]
     public virtual ICollection<ApplicantGetRefuseReason> ApplicantGetRefuseReasons { get; } = new List<ApplicantGetRefuseReason>();
 
     [ForeignKey("CreatorId")]
@@ -46,6 +47,7 @@ public partial class HrApplicantRefuseReason
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("RefuseReason")]
+    [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicants { get; } = new List<HrApplicant>();
 
     [ForeignKey("TemplateId")]

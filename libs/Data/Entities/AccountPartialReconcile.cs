@@ -65,6 +65,7 @@ public partial class AccountPartialReconcile: IMultiTenant, IMayHaveCreator, IMo
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("TaxCashBasisRec")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [ForeignKey("TenantId")]

@@ -122,6 +122,7 @@ public partial class PurchaseOrderLine: IMultiTenant, IMayHaveCreator, IModifica
     public Guid? SaleLineId { get; set; }
 
     [InverseProperty("PurchaseLine")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [ForeignKey("TenantId")]
@@ -169,9 +170,11 @@ public partial class PurchaseOrderLine: IMultiTenant, IMayHaveCreator, IModifica
     public virtual SaleOrder? SaleOrder { get; set; }
 
     [InverseProperty("CreatedPurchaseLine")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoveCreatedPurchaseLines { get; } = new List<StockMove>();
 
     [InverseProperty("PurchaseLine")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMovePurchaseLines { get; } = new List<StockMove>();
 
     [ForeignKey("LastModifierId")]
@@ -180,5 +183,6 @@ public partial class PurchaseOrderLine: IMultiTenant, IMayHaveCreator, IModifica
 
     [ForeignKey("PurchaseOrderLineId")]
     [InverseProperty("PurchaseOrderLines")]
+    [NotMapped]
     public virtual ICollection<AccountTax> AccountTaxes { get; } = new List<AccountTax>();
 }

@@ -113,6 +113,7 @@ public partial class HrExpense: IMultiTenant, IMayHaveCreator, IModificationAudi
     public virtual AccountAccount? Account { get; set; }
 
     [InverseProperty("Expense")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [ForeignKey("TenantId")]
@@ -132,9 +133,11 @@ public partial class HrExpense: IMultiTenant, IMayHaveCreator, IModificationAudi
     public virtual HrEmployee? Employee { get; set; }
 
     [InverseProperty("Expense")]
+    [NotMapped]
     public virtual ICollection<HrExpenseSplitWizard> HrExpenseSplitWizards { get; } = new List<HrExpenseSplitWizard>();
 
     [InverseProperty("Expense")]
+    [NotMapped]
     public virtual ICollection<HrExpenseSplit> HrExpenseSplits { get; } = new List<HrExpenseSplit>();
 
     [ForeignKey("MessageMainAttachmentId")]
@@ -163,13 +166,16 @@ public partial class HrExpense: IMultiTenant, IMayHaveCreator, IModificationAudi
 
     [ForeignKey("HrExpenseId")]
     [InverseProperty("HrExpenses")]
+    [NotMapped]
     public virtual ICollection<HrExpenseApproveDuplicate> HrExpenseApproveDuplicates { get; } = new List<HrExpenseApproveDuplicate>();
 
     [ForeignKey("HrExpenseId")]
     [InverseProperty("HrExpenses")]
+    [NotMapped]
     public virtual ICollection<HrExpenseRefuseWizard> HrExpenseRefuseWizards { get; } = new List<HrExpenseRefuseWizard>();
 
     [ForeignKey("ExpenseId")]
     [InverseProperty("Expenses")]
+    [NotMapped]
     public virtual ICollection<AccountTax> Taxes { get; } = new List<AccountTax>();
 }

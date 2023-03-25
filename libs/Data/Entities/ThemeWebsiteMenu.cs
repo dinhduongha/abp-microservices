@@ -62,6 +62,7 @@ public partial class ThemeWebsiteMenu
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<ThemeWebsiteMenu> InverseParent { get; } = new List<ThemeWebsiteMenu>();
 
     [ForeignKey("PageId")]
@@ -73,6 +74,7 @@ public partial class ThemeWebsiteMenu
     public virtual ThemeWebsiteMenu? Parent { get; set; }
 
     [InverseProperty("ThemeTemplate")]
+    [NotMapped]
     public virtual ICollection<WebsiteMenu> WebsiteMenus { get; } = new List<WebsiteMenu>();
 
     [ForeignKey("LastModifierId")]

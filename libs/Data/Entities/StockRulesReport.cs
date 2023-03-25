@@ -56,9 +56,11 @@ public partial class StockRulesReport
 
     [ForeignKey("StockRulesReportId")]
     [InverseProperty("StockRulesReports")]
+    [NotMapped]
     public virtual ICollection<StockRoute> StockRoutes { get; } = new List<StockRoute>();
 
     [ForeignKey("StockRulesReportId")]
     [InverseProperty("StockRulesReports")]
+    [NotMapped]
     public virtual ICollection<StockWarehouse> StockWarehouses { get; } = new List<StockWarehouse>();
 }

@@ -42,5 +42,6 @@ public partial class AccountTourUploadBill
 
     [ForeignKey("AccountTourUploadBillId")]
     [InverseProperty("AccountTourUploadBills")]
+    [NotMapped]
     public virtual ICollection<IrAttachment> IrAttachments { get; } = new List<IrAttachment>();
 }

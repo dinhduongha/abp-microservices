@@ -54,9 +54,11 @@ public partial class HrPlan: IMultiTenant, IMayHaveCreator, IModificationAudited
     public virtual HrDepartment? Department { get; set; }
 
     [InverseProperty("Plan")]
+    [NotMapped]
     public virtual ICollection<HrPlanActivityType> HrPlanActivityTypes { get; } = new List<HrPlanActivityType>();
 
     [InverseProperty("Plan")]
+    [NotMapped]
     public virtual ICollection<HrPlanWizard> HrPlanWizards { get; } = new List<HrPlanWizard>();
 
     [ForeignKey("LastModifierId")]

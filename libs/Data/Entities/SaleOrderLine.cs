@@ -153,6 +153,7 @@ public partial class SaleOrderLine: IMultiTenant, IMayHaveCreator, IModification
     public string? ShopWarning { get; set; }
 
     [InverseProperty("SoLineNavigation")]
+    [NotMapped]
     public virtual ICollection<AccountAnalyticLine> AccountAnalyticLines { get; } = new List<AccountAnalyticLine>();
 
     [ForeignKey("TenantId")]
@@ -168,6 +169,7 @@ public partial class SaleOrderLine: IMultiTenant, IMayHaveCreator, IModification
     public virtual ResCurrency? Currency { get; set; }
 
     [InverseProperty("LinkedLine")]
+    [NotMapped]
     public virtual ICollection<SaleOrderLine> InverseLinkedLine { get; } = new List<SaleOrderLine>();
 
     [ForeignKey("LinkedLineId")]
@@ -183,6 +185,7 @@ public partial class SaleOrderLine: IMultiTenant, IMayHaveCreator, IModification
     public virtual ResPartner? OrderPartner { get; set; }
 
     [InverseProperty("SaleOrderLine")]
+    [NotMapped]
     public virtual ICollection<PosOrderLine> PosOrderLines { get; } = new List<PosOrderLine>();
 
     [ForeignKey("ProductId")]
@@ -190,6 +193,7 @@ public partial class SaleOrderLine: IMultiTenant, IMayHaveCreator, IModification
     public virtual ProductProduct? Product { get; set; }
 
     [InverseProperty("SaleOrderLine")]
+    [NotMapped]
     public virtual ICollection<ProductAttributeCustomValue> ProductAttributeCustomValues { get; } = new List<ProductAttributeCustomValue>();
 
     [ForeignKey("ProductPackagingId")]
@@ -205,15 +209,19 @@ public partial class SaleOrderLine: IMultiTenant, IMayHaveCreator, IModification
     public virtual ProjectProject? Project { get; set; }
 
     [InverseProperty("SaleLine")]
+    [NotMapped]
     public virtual ICollection<ProjectMilestone> ProjectMilestones { get; } = new List<ProjectMilestone>();
 
     [InverseProperty("SaleLine")]
+    [NotMapped]
     public virtual ICollection<ProjectProject> ProjectProjects { get; } = new List<ProjectProject>();
 
     [InverseProperty("SaleLine")]
+    [NotMapped]
     public virtual ICollection<ProjectTask> ProjectTasks { get; } = new List<ProjectTask>();
 
     [InverseProperty("SaleLine")]
+    [NotMapped]
     public virtual ICollection<PurchaseOrderLine> PurchaseOrderLines { get; } = new List<PurchaseOrderLine>();
 
     [ForeignKey("RouteId")]
@@ -221,6 +229,7 @@ public partial class SaleOrderLine: IMultiTenant, IMayHaveCreator, IModification
     public virtual StockRoute? Route { get; set; }
 
     [InverseProperty("Line")]
+    [NotMapped]
     public virtual ICollection<SaleOrderOption> SaleOrderOptions { get; } = new List<SaleOrderOption>();
 
     [ForeignKey("SalesmanId")]
@@ -228,6 +237,7 @@ public partial class SaleOrderLine: IMultiTenant, IMayHaveCreator, IModification
     public virtual ResUser? Salesman { get; set; }
 
     [InverseProperty("SaleLine")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
 
     [ForeignKey("TaskId")]
@@ -240,13 +250,16 @@ public partial class SaleOrderLine: IMultiTenant, IMayHaveCreator, IModification
 
     [ForeignKey("SaleOrderLineId")]
     [InverseProperty("SaleOrderLines")]
+    [NotMapped]
     public virtual ICollection<AccountTax> AccountTaxes { get; } = new List<AccountTax>();
 
     [ForeignKey("OrderLineId")]
     [InverseProperty("OrderLines")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> InvoiceLines { get; } = new List<AccountMoveLine>();
 
     [ForeignKey("SaleOrderLineId")]
     [InverseProperty("SaleOrderLines")]
+    [NotMapped]
     public virtual ICollection<ProductTemplateAttributeValue> ProductTemplateAttributeValues { get; } = new List<ProductTemplateAttributeValue>();
 }

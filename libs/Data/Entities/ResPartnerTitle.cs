@@ -40,9 +40,11 @@ public partial class ResPartnerTitle
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("TitleNavigation")]
+    [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
 
     [InverseProperty("TitleNavigation")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 
     [ForeignKey("LastModifierId")]

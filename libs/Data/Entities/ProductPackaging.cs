@@ -75,12 +75,15 @@ public partial class ProductPackaging: IMultiTenant, IMayHaveCreator, IModificat
     public virtual ProductProduct? Product { get; set; }
 
     [InverseProperty("ProductPackaging")]
+    [NotMapped]
     public virtual ICollection<PurchaseOrderLine> PurchaseOrderLines { get; } = new List<PurchaseOrderLine>();
 
     [InverseProperty("ProductPackaging")]
+    [NotMapped]
     public virtual ICollection<SaleOrderLine> SaleOrderLines { get; } = new List<SaleOrderLine>();
 
     [InverseProperty("ProductPackaging")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
 
     [ForeignKey("LastModifierId")]
@@ -89,5 +92,6 @@ public partial class ProductPackaging: IMultiTenant, IMayHaveCreator, IModificat
 
     [ForeignKey("PackagingId")]
     [InverseProperty("Packagings")]
+    [NotMapped]
     public virtual ICollection<StockRoute> Routes { get; } = new List<StockRoute>();
 }

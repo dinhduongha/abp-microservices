@@ -33,6 +33,7 @@ public partial class BaseImportTestsModelsO2m
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<BaseImportTestsModelsO2mChild> BaseImportTestsModelsO2mChildren { get; } = new List<BaseImportTestsModelsO2mChild>();
 
     [ForeignKey("CreatorId")]

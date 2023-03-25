@@ -55,5 +55,6 @@ public partial class NoteStage
 
     [ForeignKey("StageId")]
     [InverseProperty("Stages")]
+    [NotMapped]
     public virtual ICollection<NoteNote> Notes { get; } = new List<NoteNote>();
 }

@@ -105,12 +105,15 @@ public partial class IrModuleModule
     public string? ViewsByModule { get; set; }
 
     [InverseProperty("Module")]
+    [NotMapped]
     public virtual ICollection<BaseModuleInstallRequest> BaseModuleInstallRequests { get; } = new List<BaseModuleInstallRequest>();
 
     [InverseProperty("Module")]
+    [NotMapped]
     public virtual ICollection<BaseModuleInstallReview> BaseModuleInstallReviews { get; } = new List<BaseModuleInstallReview>();
 
     [InverseProperty("Module")]
+    [NotMapped]
     public virtual ICollection<BaseModuleUninstall> BaseModuleUninstalls { get; } = new List<BaseModuleUninstall>();
 
     [ForeignKey("CategoryId")]
@@ -122,27 +125,35 @@ public partial class IrModuleModule
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Module")]
+    [NotMapped]
     public virtual ICollection<IrDemoFailure> IrDemoFailures { get; } = new List<IrDemoFailure>();
 
     [InverseProperty("ModuleNavigation")]
+    [NotMapped]
     public virtual ICollection<IrModelConstraint> IrModelConstraints { get; } = new List<IrModelConstraint>();
 
     [InverseProperty("ModuleNavigation")]
+    [NotMapped]
     public virtual ICollection<IrModelRelation> IrModelRelations { get; } = new List<IrModelRelation>();
 
     [InverseProperty("Module")]
+    [NotMapped]
     public virtual ICollection<IrModuleModuleDependency> IrModuleModuleDependencies { get; } = new List<IrModuleModuleDependency>();
 
     [InverseProperty("Module")]
+    [NotMapped]
     public virtual ICollection<IrModuleModuleExclusion> IrModuleModuleExclusions { get; } = new List<IrModuleModuleExclusion>();
 
     [InverseProperty("Module")]
+    [NotMapped]
     public virtual ICollection<PaymentProvider> PaymentProviders { get; } = new List<PaymentProvider>();
 
     [InverseProperty("Module")]
+    [NotMapped]
     public virtual ICollection<WebsiteConfiguratorFeature> WebsiteConfiguratorFeatures { get; } = new List<WebsiteConfiguratorFeature>();
 
     [InverseProperty("Theme")]
+    [NotMapped]
     public virtual ICollection<Website> Websites { get; } = new List<Website>();
 
     [ForeignKey("LastModifierId")]
@@ -151,5 +162,6 @@ public partial class IrModuleModule
 
     [ForeignKey("ModuleId")]
     [InverseProperty("Modules")]
+    [NotMapped]
     public virtual ICollection<BaseLanguageExport> Wizs { get; } = new List<BaseLanguageExport>();
 }

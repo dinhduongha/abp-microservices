@@ -50,9 +50,11 @@ public partial class MaintenanceTeam: IMultiTenant, IMayHaveCreator, IModificati
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("MaintenanceTeam")]
+    [NotMapped]
     public virtual ICollection<MaintenanceEquipment> MaintenanceEquipments { get; } = new List<MaintenanceEquipment>();
 
     [InverseProperty("MaintenanceTeam")]
+    [NotMapped]
     public virtual ICollection<MaintenanceRequest> MaintenanceRequests { get; } = new List<MaintenanceRequest>();
 
     [ForeignKey("LastModifierId")]
@@ -61,5 +63,6 @@ public partial class MaintenanceTeam: IMultiTenant, IMayHaveCreator, IModificati
 
     [ForeignKey("MaintenanceTeamId")]
     [InverseProperty("MaintenanceTeams")]
+    [NotMapped]
     public virtual ICollection<ResUser> ResUsers { get; } = new List<ResUser>();
 }

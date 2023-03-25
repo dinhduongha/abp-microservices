@@ -118,5 +118,6 @@ public partial class LunchOrder: IMultiTenant, IMayHaveCreator, IModificationAud
 
     [ForeignKey("OrderId")]
     [InverseProperty("Orders")]
+    [NotMapped]
     public virtual ICollection<LunchTopping> Toppings { get; } = new List<LunchTopping>();
 }

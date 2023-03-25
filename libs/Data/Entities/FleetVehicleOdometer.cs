@@ -46,6 +46,7 @@ public partial class FleetVehicleOdometer
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Odometer")]
+    [NotMapped]
     public virtual ICollection<FleetVehicleLogService> FleetVehicleLogServices { get; } = new List<FleetVehicleLogService>();
 
     [ForeignKey("VehicleId")]

@@ -46,9 +46,11 @@ public partial class ProductRibbon
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Ribbon")]
+    [NotMapped]
     public virtual ICollection<ProductTag> ProductTags { get; } = new List<ProductTag>();
 
     [InverseProperty("WebsiteRibbon")]
+    [NotMapped]
     public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
 
     [ForeignKey("LastModifierId")]

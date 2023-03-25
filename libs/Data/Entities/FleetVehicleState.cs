@@ -41,6 +41,7 @@ public partial class FleetVehicleState
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("State")]
+    [NotMapped]
     public virtual ICollection<FleetVehicle> FleetVehicles { get; } = new List<FleetVehicle>();
 
     [ForeignKey("LastModifierId")]

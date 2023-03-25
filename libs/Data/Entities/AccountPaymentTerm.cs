@@ -48,9 +48,11 @@ public partial class AccountPaymentTerm: IMultiTenant, IMayHaveCreator, IModific
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("InvoicePaymentTerm")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [InverseProperty("Payment")]
+    [NotMapped]
     public virtual ICollection<AccountPaymentTermLine> AccountPaymentTermLines { get; } = new List<AccountPaymentTermLine>();
 
     [ForeignKey("TenantId")]
@@ -62,9 +64,11 @@ public partial class AccountPaymentTerm: IMultiTenant, IMayHaveCreator, IModific
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("PaymentTerm")]
+    [NotMapped]
     public virtual ICollection<PurchaseOrder> PurchaseOrders { get; } = new List<PurchaseOrder>();
 
     [InverseProperty("PaymentTerm")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
     [ForeignKey("LastModifierId")]

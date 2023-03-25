@@ -41,9 +41,11 @@ public partial class HrEmployeeCategory
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Category")]
+    [NotMapped]
     public virtual ICollection<HrLeaveAllocation> HrLeaveAllocations { get; } = new List<HrLeaveAllocation>();
 
     [InverseProperty("Category")]
+    [NotMapped]
     public virtual ICollection<HrLeave> HrLeaves { get; } = new List<HrLeave>();
 
     [ForeignKey("LastModifierId")]
@@ -52,5 +54,6 @@ public partial class HrEmployeeCategory
 
     [ForeignKey("CategoryId")]
     [InverseProperty("Categories")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> Emps { get; } = new List<HrEmployee>();
 }

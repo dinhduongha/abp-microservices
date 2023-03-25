@@ -81,6 +81,7 @@ public partial class IrActWindow
     public bool? Filter { get; set; }
 
     [InverseProperty("CustomAuditAction")]
+    [NotMapped]
     public virtual ICollection<AccountReportColumn> AccountReportColumns { get; } = new List<AccountReportColumn>();
 
     [ForeignKey("BindingModelId")]
@@ -92,9 +93,11 @@ public partial class IrActWindow
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("ActWindow")]
+    [NotMapped]
     public virtual ICollection<IrActWindowView> IrActWindowViews { get; } = new List<IrActWindowView>();
 
     [InverseProperty("RefIrActWindowNavigation")]
+    [NotMapped]
     public virtual ICollection<MailTemplate> MailTemplates { get; } = new List<MailTemplate>();
 
     [ForeignKey("SearchViewId")]
@@ -102,6 +105,7 @@ public partial class IrActWindow
     public virtual IrUiView? SearchView { get; set; }
 
     [InverseProperty("SidebarAction")]
+    [NotMapped]
     public virtual ICollection<SmsTemplate> SmsTemplates { get; } = new List<SmsTemplate>();
 
     [ForeignKey("ViewId")]
@@ -114,5 +118,6 @@ public partial class IrActWindow
 
     [ForeignKey("ActId")]
     [InverseProperty("ActsNavigation")]
+    [NotMapped]
     public virtual ICollection<ResGroup> Gids { get; } = new List<ResGroup>();
 }

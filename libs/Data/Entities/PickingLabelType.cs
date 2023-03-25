@@ -42,5 +42,6 @@ public partial class PickingLabelType
 
     [ForeignKey("PickingLabelTypeId")]
     [InverseProperty("PickingLabelTypes")]
+    [NotMapped]
     public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
 }

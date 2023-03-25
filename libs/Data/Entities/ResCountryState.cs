@@ -47,37 +47,48 @@ public partial class ResCountryState
     [InverseProperty("ResCountryStateCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
-    [InverseProperty("State")]
-    public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
-
-    [InverseProperty("PartnerState")]
-    public virtual ICollection<PaymentTransaction> PaymentTransactions { get; } = new List<PaymentTransaction>();
-
-    [InverseProperty("StateNavigation")]
-    public virtual ICollection<ResBank> ResBanks { get; } = new List<ResBank>();
-
-    [InverseProperty("State")]
-    public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
-
-    [InverseProperty("State")]
-    public virtual ICollection<SnailmailLetterMissingRequiredField> SnailmailLetterMissingRequiredFields { get; } = new List<SnailmailLetterMissingRequiredField>();
-
-    [InverseProperty("StateNavigation")]
-    public virtual ICollection<SnailmailLetter> SnailmailLetters { get; } = new List<SnailmailLetter>();
-
     [ForeignKey("LastModifierId")]
     [InverseProperty("ResCountryStateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
+/*
+    [InverseProperty("State")]
+    [NotMapped]
+    public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
+
+    [InverseProperty("PartnerState")]
+    [NotMapped]
+    public virtual ICollection<PaymentTransaction> PaymentTransactions { get; } = new List<PaymentTransaction>();
+
+    [InverseProperty("StateNavigation")]
+    [NotMapped]
+    public virtual ICollection<ResBank> ResBanks { get; } = new List<ResBank>();
+
+    [InverseProperty("State")]
+    [NotMapped]
+    public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
+
+    [InverseProperty("State")]
+    [NotMapped]
+    public virtual ICollection<SnailmailLetterMissingRequiredField> SnailmailLetterMissingRequiredFields { get; } = new List<SnailmailLetterMissingRequiredField>();
+
+    [InverseProperty("StateNavigation")]
+    [NotMapped]
+    public virtual ICollection<SnailmailLetter> SnailmailLetters { get; } = new List<SnailmailLetter>();
+
     [ForeignKey("ResCountryStateId")]
     [InverseProperty("ResCountryStates")]
+    [NotMapped]
     public virtual ICollection<AccountFiscalPositionTemplate> AccountFiscalPositionTemplates { get; } = new List<AccountFiscalPositionTemplate>();
 
     [ForeignKey("ResCountryStateId")]
     [InverseProperty("ResCountryStates")]
+    [NotMapped]
     public virtual ICollection<AccountFiscalPosition> AccountFiscalPositions { get; } = new List<AccountFiscalPosition>();
 
     [ForeignKey("ResCountryStateId")]
     [InverseProperty("ResCountryStates")]
+    [NotMapped]
     public virtual ICollection<CrmIapLeadMiningRequest> CrmIapLeadMiningRequests { get; } = new List<CrmIapLeadMiningRequest>();
+*/
 }

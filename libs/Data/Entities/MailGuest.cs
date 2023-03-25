@@ -56,12 +56,15 @@ public partial class MailGuest
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Guest")]
+    [NotMapped]
     public virtual ICollection<MailChannelMember> MailChannelMembers { get; } = new List<MailChannelMember>();
 
     [InverseProperty("Guest")]
+    [NotMapped]
     public virtual ICollection<MailMessageReaction> MailMessageReactions { get; } = new List<MailMessageReaction>();
 
     [InverseProperty("AuthorGuest")]
+    [NotMapped]
     public virtual ICollection<MailMessage> MailMessages { get; } = new List<MailMessage>();
 
     [ForeignKey("LastModifierId")]

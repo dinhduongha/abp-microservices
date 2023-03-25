@@ -92,39 +92,6 @@ public partial class IrAttachment: IMultiTenant, IMayHaveCreator, IModificationA
     [Column("key")]
     public string? Key { get; set; }
 
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<AccountAccountTemplate> AccountAccountTemplates { get; } = new List<AccountAccountTemplate>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<AccountAccount> AccountAccounts { get; } = new List<AccountAccount>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<AccountAnalyticAccount> AccountAnalyticAccounts { get; } = new List<AccountAnalyticAccount>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<AccountAssetAsset> AccountAssetAssets { get; } = new List<AccountAssetAsset>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<AccountAssetCategory> AccountAssetCategories { get; } = new List<AccountAssetCategory>();
-
-    [InverseProperty("Attachment")]
-    public virtual ICollection<AccountEdiDocument> AccountEdiDocuments { get; } = new List<AccountEdiDocument>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<AccountReconcileModel> AccountReconcileModels { get; } = new List<AccountReconcileModel>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
-
     [ForeignKey("TenantId")]
     [InverseProperty("IrAttachments")]
     public virtual ResCompany? Company { get; set; }
@@ -133,153 +100,9 @@ public partial class IrAttachment: IMultiTenant, IMayHaveCreator, IModificationA
     [InverseProperty("IrAttachmentCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<CrmTeamMember> CrmTeamMembers { get; } = new List<CrmTeamMember>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<CrmTeam> CrmTeams { get; } = new List<CrmTeam>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<CrossoveredBudget> CrossoveredBudgets { get; } = new List<CrossoveredBudget>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<FleetVehicleLogContract> FleetVehicleLogContracts { get; } = new List<FleetVehicleLogContract>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<FleetVehicleLogService> FleetVehicleLogServices { get; } = new List<FleetVehicleLogService>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<FleetVehicle> FleetVehicles { get; } = new List<FleetVehicle>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<HrApplicant> HrApplicants { get; } = new List<HrApplicant>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<HrContract> HrContracts { get; } = new List<HrContract>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<HrDepartment> HrDepartments { get; } = new List<HrDepartment>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<HrExpenseSheet> HrExpenseSheets { get; } = new List<HrExpenseSheet>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<HrExpense> HrExpenses { get; } = new List<HrExpense>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<HrJob> HrJobs { get; } = new List<HrJob>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<HrLeaveAllocation> HrLeaveAllocations { get; } = new List<HrLeaveAllocation>();
-
-    [InverseProperty("Icon")]
-    public virtual ICollection<HrLeaveType> HrLeaveTypes { get; } = new List<HrLeaveType>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<HrLeave> HrLeaves { get; } = new List<HrLeave>();
-
-    [InverseProperty("Original")]
-    public virtual ICollection<IrAttachment> InverseOriginal { get; } = new List<IrAttachment>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<LunchSupplier> LunchSuppliers { get; } = new List<LunchSupplier>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<MailBlacklist> MailBlacklists { get; } = new List<MailBlacklist>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<MailChannel> MailChannels { get; } = new List<MailChannel>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<MaintenanceEquipmentCategory> MaintenanceEquipmentCategories { get; } = new List<MaintenanceEquipmentCategory>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<MaintenanceEquipment> MaintenanceEquipments { get; } = new List<MaintenanceEquipment>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<MaintenanceRequest> MaintenanceRequests { get; } = new List<MaintenanceRequest>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<MrpBom> MrpBoms { get; } = new List<MrpBom>();
-
-    [InverseProperty("IrAttachment")]
-    public virtual ICollection<MrpDocument> MrpDocuments { get; } = new List<MrpDocument>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<MrpProduction> MrpProductions { get; } = new List<MrpProduction>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<MrpUnbuild> MrpUnbuilds { get; } = new List<MrpUnbuild>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<NoteNote> NoteNotes { get; } = new List<NoteNote>();
-
     [ForeignKey("OriginalId")]
     [InverseProperty("InverseOriginal")]
     public virtual IrAttachment? Original { get; set; }
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<PhoneBlacklist> PhoneBlacklists { get; } = new List<PhoneBlacklist>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<PosSession> PosSessions { get; } = new List<PosSession>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<ProductProduct> ProductProducts { get; } = new List<ProductProduct>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<ProjectMilestone> ProjectMilestones { get; } = new List<ProjectMilestone>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<ProjectProject> ProjectProjects { get; } = new List<ProjectProject>();
-
-    [InverseProperty("DisplayedImage")]
-    public virtual ICollection<ProjectTask> ProjectTaskDisplayedImages { get; } = new List<ProjectTask>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<ProjectTask> ProjectTaskMessageMainAttachments { get; } = new List<ProjectTask>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<ProjectUpdate> ProjectUpdates { get; } = new List<ProjectUpdate>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<PurchaseOrder> PurchaseOrders { get; } = new List<PurchaseOrder>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<RepairOrder> RepairOrders { get; } = new List<RepairOrder>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<ResPartnerBank> ResPartnerBanks { get; } = new List<ResPartnerBank>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
-
-    [InverseProperty("Attachment")]
-    public virtual ICollection<SnailmailLetter> SnailmailLetters { get; } = new List<SnailmailLetter>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<StockLot> StockLots { get; } = new List<StockLot>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
-
-    [InverseProperty("MessageMainAttachment")]
-    public virtual ICollection<StockScrap> StockScraps { get; } = new List<StockScrap>();
 
     [ForeignKey("ThemeTemplateId")]
     [InverseProperty("IrAttachments")]
@@ -293,27 +116,269 @@ public partial class IrAttachment: IMultiTenant, IMayHaveCreator, IModificationA
     [InverseProperty("IrAttachmentWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<AccountAccountTemplate> AccountAccountTemplates { get; } = new List<AccountAccountTemplate>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<AccountAccount> AccountAccounts { get; } = new List<AccountAccount>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<AccountAnalyticAccount> AccountAnalyticAccounts { get; } = new List<AccountAnalyticAccount>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<AccountAssetAsset> AccountAssetAssets { get; } = new List<AccountAssetAsset>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<AccountAssetCategory> AccountAssetCategories { get; } = new List<AccountAssetCategory>();
+
+    [InverseProperty("Attachment")]
+    [NotMapped]
+    public virtual ICollection<AccountEdiDocument> AccountEdiDocuments { get; } = new List<AccountEdiDocument>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<AccountReconcileModel> AccountReconcileModels { get; } = new List<AccountReconcileModel>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<CrmTeamMember> CrmTeamMembers { get; } = new List<CrmTeamMember>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<CrmTeam> CrmTeams { get; } = new List<CrmTeam>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<CrossoveredBudget> CrossoveredBudgets { get; } = new List<CrossoveredBudget>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<FleetVehicleLogContract> FleetVehicleLogContracts { get; } = new List<FleetVehicleLogContract>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<FleetVehicleLogService> FleetVehicleLogServices { get; } = new List<FleetVehicleLogService>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<FleetVehicle> FleetVehicles { get; } = new List<FleetVehicle>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<HrApplicant> HrApplicants { get; } = new List<HrApplicant>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<HrContract> HrContracts { get; } = new List<HrContract>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<HrDepartment> HrDepartments { get; } = new List<HrDepartment>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<HrExpenseSheet> HrExpenseSheets { get; } = new List<HrExpenseSheet>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<HrExpense> HrExpenses { get; } = new List<HrExpense>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<HrJob> HrJobs { get; } = new List<HrJob>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<HrLeaveAllocation> HrLeaveAllocations { get; } = new List<HrLeaveAllocation>();
+
+    [InverseProperty("Icon")]
+    [NotMapped]
+    public virtual ICollection<HrLeaveType> HrLeaveTypes { get; } = new List<HrLeaveType>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<HrLeave> HrLeaves { get; } = new List<HrLeave>();
+
+    [InverseProperty("Original")]
+    [NotMapped]
+    public virtual ICollection<IrAttachment> InverseOriginal { get; } = new List<IrAttachment>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<LunchSupplier> LunchSuppliers { get; } = new List<LunchSupplier>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<MailBlacklist> MailBlacklists { get; } = new List<MailBlacklist>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<MailChannel> MailChannels { get; } = new List<MailChannel>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<MaintenanceEquipmentCategory> MaintenanceEquipmentCategories { get; } = new List<MaintenanceEquipmentCategory>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<MaintenanceEquipment> MaintenanceEquipments { get; } = new List<MaintenanceEquipment>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<MaintenanceRequest> MaintenanceRequests { get; } = new List<MaintenanceRequest>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<MrpBom> MrpBoms { get; } = new List<MrpBom>();
+
+    [InverseProperty("IrAttachment")]
+    [NotMapped]
+    public virtual ICollection<MrpDocument> MrpDocuments { get; } = new List<MrpDocument>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<MrpProduction> MrpProductions { get; } = new List<MrpProduction>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<MrpUnbuild> MrpUnbuilds { get; } = new List<MrpUnbuild>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<NoteNote> NoteNotes { get; } = new List<NoteNote>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<PhoneBlacklist> PhoneBlacklists { get; } = new List<PhoneBlacklist>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<PosSession> PosSessions { get; } = new List<PosSession>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<ProductProduct> ProductProducts { get; } = new List<ProductProduct>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<ProjectMilestone> ProjectMilestones { get; } = new List<ProjectMilestone>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<ProjectProject> ProjectProjects { get; } = new List<ProjectProject>();
+
+    [InverseProperty("DisplayedImage")]
+    [NotMapped]
+    public virtual ICollection<ProjectTask> ProjectTaskDisplayedImages { get; } = new List<ProjectTask>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<ProjectTask> ProjectTaskMessageMainAttachments { get; } = new List<ProjectTask>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<ProjectUpdate> ProjectUpdates { get; } = new List<ProjectUpdate>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<PurchaseOrder> PurchaseOrders { get; } = new List<PurchaseOrder>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<RepairOrder> RepairOrders { get; } = new List<RepairOrder>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<ResPartnerBank> ResPartnerBanks { get; } = new List<ResPartnerBank>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
+
+    [InverseProperty("Attachment")]
+    [NotMapped]
+    public virtual ICollection<SnailmailLetter> SnailmailLetters { get; } = new List<SnailmailLetter>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<StockLot> StockLots { get; } = new List<StockLot>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
+
+    [InverseProperty("MessageMainAttachment")]
+    [NotMapped]
+    public virtual ICollection<StockScrap> StockScraps { get; } = new List<StockScrap>();
+
     [ForeignKey("IrAttachmentId")]
     [InverseProperty("IrAttachments")]
+    [NotMapped]
     public virtual ICollection<AccountBankStatementImport> AccountBankStatementImports { get; } = new List<AccountBankStatementImport>();
 
     [ForeignKey("IrAttachmentId")]
     [InverseProperty("IrAttachments")]
+    [NotMapped]
     public virtual ICollection<AccountBankStatement> AccountBankStatements { get; } = new List<AccountBankStatement>();
 
     [ForeignKey("IrAttachmentId")]
     [InverseProperty("IrAttachments")]
+    [NotMapped]
     public virtual ICollection<AccountTourUploadBill> AccountTourUploadBills { get; } = new List<AccountTourUploadBill>();
 
     [ForeignKey("AttachmentId")]
     [InverseProperty("Attachments")]
+    [NotMapped]
     public virtual ICollection<MailTemplate> EmailTemplates { get; } = new List<MailTemplate>();
 
     [ForeignKey("AttachmentId")]
     [InverseProperty("Attachments")]
+    [NotMapped]
     public virtual ICollection<MailMessage> Messages { get; } = new List<MailMessage>();
 
     [ForeignKey("AttachmentId")]
     [InverseProperty("Attachments")]
+    [NotMapped]
     public virtual ICollection<MailComposeMessage> Wizards { get; } = new List<MailComposeMessage>();
 }

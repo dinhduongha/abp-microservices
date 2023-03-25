@@ -55,5 +55,6 @@ public partial class AccountTaxReportWizard: IMultiTenant, IMayHaveCreator, IMod
 
     [ForeignKey("AccountTaxReportWizardId")]
     [InverseProperty("AccountTaxReportWizards")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 }

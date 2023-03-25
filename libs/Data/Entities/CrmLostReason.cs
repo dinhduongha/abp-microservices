@@ -40,9 +40,11 @@ public partial class CrmLostReason
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("LostReason")]
+    [NotMapped]
     public virtual ICollection<CrmLeadLost> CrmLeadLosts { get; } = new List<CrmLeadLost>();
 
     [InverseProperty("LostReason")]
+    [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
 
     [ForeignKey("LastModifierId")]

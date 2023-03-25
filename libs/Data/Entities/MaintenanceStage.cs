@@ -46,6 +46,7 @@ public partial class MaintenanceStage
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Stage")]
+    [NotMapped]
     public virtual ICollection<MaintenanceRequest> MaintenanceRequests { get; } = new List<MaintenanceRequest>();
 
     [ForeignKey("LastModifierId")]

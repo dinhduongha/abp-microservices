@@ -61,9 +61,11 @@ public partial class HrRecruitmentStage
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("LastStage")]
+    [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicantLastStages { get; } = new List<HrApplicant>();
 
     [InverseProperty("Stage")]
+    [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicantStages { get; } = new List<HrApplicant>();
 
     [ForeignKey("TemplateId")]
@@ -76,5 +78,6 @@ public partial class HrRecruitmentStage
 
     [ForeignKey("HrRecruitmentStageId")]
     [InverseProperty("HrRecruitmentStages")]
+    [NotMapped]
     public virtual ICollection<HrJob> HrJobs { get; } = new List<HrJob>();
 }

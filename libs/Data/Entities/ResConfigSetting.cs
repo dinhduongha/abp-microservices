@@ -783,13 +783,16 @@ public partial class ResConfigSetting: IMultiTenant, IMayHaveCreator, IModificat
 
     [ForeignKey("ResConfigSettingsId")]
     [InverseProperty("ResConfigSettings")]
+    [NotMapped]
     public virtual ICollection<AccountFiscalPosition> AccountFiscalPositions { get; } = new List<AccountFiscalPosition>();
 
     [ForeignKey("ResConfigSettingsId")]
     [InverseProperty("ResConfigSettings")]
+    [NotMapped]
     public virtual ICollection<PosCategory> PosCategories { get; } = new List<PosCategory>();
 
     [ForeignKey("ResConfigSettingsId")]
     [InverseProperty("ResConfigSettings")]
+    [NotMapped]
     public virtual ICollection<ProductPricelist> ProductPricelists { get; } = new List<ProductPricelist>();
 }

@@ -63,6 +63,7 @@ public partial class AccountReportExpression
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("TargetReportExpression")]
+    [NotMapped]
     public virtual ICollection<AccountReportExternalValue> AccountReportExternalValues { get; } = new List<AccountReportExternalValue>();
 
     [ForeignKey("CreatorId")]
@@ -79,9 +80,11 @@ public partial class AccountReportExpression
 
     [ForeignKey("AccountReportExpressionId")]
     [InverseProperty("AccountReportExpressions")]
+    [NotMapped]
     public virtual ICollection<AccountTaxRepartitionLineTemplate> AccountTaxRepartitionLineTemplates { get; } = new List<AccountTaxRepartitionLineTemplate>();
 
     [ForeignKey("AccountReportExpressionId")]
     [InverseProperty("AccountReportExpressionsNavigation")]
+    [NotMapped]
     public virtual ICollection<AccountTaxRepartitionLineTemplate> AccountTaxRepartitionLineTemplatesNavigation { get; } = new List<AccountTaxRepartitionLineTemplate>();
 }

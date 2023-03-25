@@ -50,9 +50,11 @@ public partial class AccountCashRounding
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("InvoiceCashRounding")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [InverseProperty("RoundingMethodNavigation")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigs { get; } = new List<PosConfig>();
 
 }

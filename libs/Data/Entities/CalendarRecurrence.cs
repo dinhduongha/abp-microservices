@@ -94,6 +94,7 @@ public partial class CalendarRecurrence
     public virtual CalendarEvent? BaseEvent { get; set; }
 
     [InverseProperty("Recurrence")]
+    [NotMapped]
     public virtual ICollection<CalendarEvent> CalendarEvents { get; } = new List<CalendarEvent>();
 
     [ForeignKey("CreatorId")]

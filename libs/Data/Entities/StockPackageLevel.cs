@@ -63,9 +63,11 @@ public partial class StockPackageLevel: IMultiTenant, IMayHaveCreator, IModifica
     public virtual StockPicking? Picking { get; set; }
 
     [InverseProperty("PackageLevel")]
+    [NotMapped]
     public virtual ICollection<StockMoveLine> StockMoveLines { get; } = new List<StockMoveLine>();
 
     [InverseProperty("PackageLevel")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
 
     [ForeignKey("LastModifierId")]

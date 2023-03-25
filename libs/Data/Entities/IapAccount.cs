@@ -45,5 +45,6 @@ public partial class IapAccount
 
     [ForeignKey("IapAccountId")]
     [InverseProperty("IapAccounts")]
+    [NotMapped]
     public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
 }

@@ -61,27 +61,6 @@ public partial class ResCountry
     [Column("write_date", TypeName = "timestamp without time zone")]
     public DateTime? LastModificationTime { get; set; }
 
-    [InverseProperty("Country")]
-    public virtual ICollection<AccountAccountTag> AccountAccountTags { get; } = new List<AccountAccountTag>();
-
-    [InverseProperty("Country")]
-    public virtual ICollection<AccountChartTemplate> AccountChartTemplates { get; } = new List<AccountChartTemplate>();
-
-    [InverseProperty("Country")]
-    public virtual ICollection<AccountFiscalPositionTemplate> AccountFiscalPositionTemplates { get; } = new List<AccountFiscalPositionTemplate>();
-
-    [InverseProperty("Country")]
-    public virtual ICollection<AccountFiscalPosition> AccountFiscalPositions { get; } = new List<AccountFiscalPosition>();
-
-    [InverseProperty("Country")]
-    public virtual ICollection<AccountReport> AccountReports { get; } = new List<AccountReport>();
-
-    [InverseProperty("Country")]
-    public virtual ICollection<AccountTaxGroup> AccountTaxGroups { get; } = new List<AccountTaxGroup>();
-
-    [InverseProperty("Country")]
-    public virtual ICollection<AccountTax> AccountTaxes { get; } = new List<AccountTax>();
-
     [ForeignKey("AddressViewId")]
     [InverseProperty("ResCountries")]
     public virtual IrUiView? AddressView { get; set; }
@@ -90,62 +69,108 @@ public partial class ResCountry
     [InverseProperty("ResCountryCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
-    [InverseProperty("Country")]
-    public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
-
     [ForeignKey("CurrencyId")]
     [InverseProperty("ResCountries")]
     public virtual ResCurrency? Currency { get; set; }
-
-    [InverseProperty("Country")]
-    public virtual ICollection<HrEmployee> HrEmployeeCountries { get; } = new List<HrEmployee>();
-
-    [InverseProperty("CountryOfBirthNavigation")]
-    public virtual ICollection<HrEmployee> HrEmployeeCountryOfBirthNavigations { get; } = new List<HrEmployee>();
-
-    [InverseProperty("Country")]
-    public virtual ICollection<HrPayrollStructureType> HrPayrollStructureTypes { get; } = new List<HrPayrollStructureType>();
-
-    [InverseProperty("Country")]
-    public virtual ICollection<MailGuest> MailGuests { get; } = new List<MailGuest>();
-
-    [InverseProperty("PartnerCountry")]
-    public virtual ICollection<PaymentTransaction> PaymentTransactions { get; } = new List<PaymentTransaction>();
-
-    [InverseProperty("CountryNavigation")]
-    public virtual ICollection<ResBank> ResBanks { get; } = new List<ResBank>();
-
-    [InverseProperty("AccountFiscalCountry")]
-    public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
-
-    [InverseProperty("Country")]
-    public virtual ICollection<ResCountryState> ResCountryStates { get; } = new List<ResCountryState>();
-
-    [InverseProperty("Country")]
-    public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
-
-    [InverseProperty("Country")]
-    public virtual ICollection<SnailmailLetterMissingRequiredField> SnailmailLetterMissingRequiredFields { get; } = new List<SnailmailLetterMissingRequiredField>();
-
-    [InverseProperty("Country")]
-    public virtual ICollection<SnailmailLetter> SnailmailLetters { get; } = new List<SnailmailLetter>();
-
-    [InverseProperty("Country")]
-    public virtual ICollection<WebsiteVisitor> WebsiteVisitors { get; } = new List<WebsiteVisitor>();
 
     [ForeignKey("LastModifierId")]
     [InverseProperty("ResCountryWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<AccountAccountTag> AccountAccountTags { get; } = new List<AccountAccountTag>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<AccountChartTemplate> AccountChartTemplates { get; } = new List<AccountChartTemplate>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<AccountFiscalPositionTemplate> AccountFiscalPositionTemplates { get; } = new List<AccountFiscalPositionTemplate>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<AccountFiscalPosition> AccountFiscalPositions { get; } = new List<AccountFiscalPosition>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<AccountReport> AccountReports { get; } = new List<AccountReport>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<AccountTaxGroup> AccountTaxGroups { get; } = new List<AccountTaxGroup>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<AccountTax> AccountTaxes { get; } = new List<AccountTax>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<HrEmployee> HrEmployeeCountries { get; } = new List<HrEmployee>();
+
+    [InverseProperty("CountryOfBirthNavigation")]
+    [NotMapped]
+    public virtual ICollection<HrEmployee> HrEmployeeCountryOfBirthNavigations { get; } = new List<HrEmployee>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<HrPayrollStructureType> HrPayrollStructureTypes { get; } = new List<HrPayrollStructureType>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<MailGuest> MailGuests { get; } = new List<MailGuest>();
+
+    [InverseProperty("PartnerCountry")]
+    [NotMapped]
+    public virtual ICollection<PaymentTransaction> PaymentTransactions { get; } = new List<PaymentTransaction>();
+
+    [InverseProperty("CountryNavigation")]
+    [NotMapped]
+    public virtual ICollection<ResBank> ResBanks { get; } = new List<ResBank>();
+
+    [InverseProperty("AccountFiscalCountry")]
+    [NotMapped]
+    public virtual ICollection<ResCompany> ResCompanies { get; } = new List<ResCompany>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<ResCountryState> ResCountryStates { get; } = new List<ResCountryState>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<SnailmailLetterMissingRequiredField> SnailmailLetterMissingRequiredFields { get; } = new List<SnailmailLetterMissingRequiredField>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<SnailmailLetter> SnailmailLetters { get; } = new List<SnailmailLetter>();
+
+    [InverseProperty("Country")]
+    [NotMapped]
+    public virtual ICollection<WebsiteVisitor> WebsiteVisitors { get; } = new List<WebsiteVisitor>();
+
     [ForeignKey("ResCountryId")]
     [InverseProperty("ResCountries")]
+    [NotMapped]
     public virtual ICollection<CrmIapLeadMiningRequest> CrmIapLeadMiningRequests { get; } = new List<CrmIapLeadMiningRequest>();
 
     [ForeignKey("CountryId")]
     [InverseProperty("Countries")]
+    [NotMapped]
     public virtual ICollection<PaymentProvider> Payments { get; } = new List<PaymentProvider>();
 
     [ForeignKey("ResCountryId")]
     [InverseProperty("ResCountries")]
+    [NotMapped]
     public virtual ICollection<ResCountryGroup> ResCountryGroups { get; } = new List<ResCountryGroup>();
+
 }

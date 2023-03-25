@@ -81,9 +81,11 @@ public partial class WebsitePage
     public virtual Website? Website { get; set; }
 
     [InverseProperty("Page")]
+    [NotMapped]
     public virtual ICollection<WebsiteMenu> WebsiteMenus { get; } = new List<WebsiteMenu>();
 
     [InverseProperty("Page")]
+    [NotMapped]
     public virtual ICollection<WebsiteTrack> WebsiteTracks { get; } = new List<WebsiteTrack>();
 
     [ForeignKey("LastModifierId")]

@@ -52,5 +52,6 @@ public partial class CrmIapLeadIndustry
 
     [ForeignKey("CrmIapLeadIndustryId")]
     [InverseProperty("CrmIapLeadIndustries")]
+    [NotMapped]
     public virtual ICollection<CrmIapLeadMiningRequest> CrmIapLeadMiningRequests { get; } = new List<CrmIapLeadMiningRequest>();
 }

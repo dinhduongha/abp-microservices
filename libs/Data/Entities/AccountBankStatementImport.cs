@@ -39,5 +39,6 @@ public partial class AccountBankStatementImport
 
     [ForeignKey("AccountBankStatementImportId")]
     [InverseProperty("AccountBankStatementImports")]
+    [NotMapped]
     public virtual ICollection<IrAttachment> IrAttachments { get; } = new List<IrAttachment>();
 }

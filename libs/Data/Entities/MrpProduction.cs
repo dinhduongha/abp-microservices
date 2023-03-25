@@ -149,6 +149,7 @@ public partial class MrpProduction: IMultiTenant, IMayHaveCreator, IModification
     public virtual MrpBom? Bom { get; set; }
 
     [InverseProperty("Mo")]
+    [NotMapped]
     public virtual ICollection<ChangeProductionQty> ChangeProductionQties { get; } = new List<ChangeProductionQty>();
 
     [ForeignKey("TenantId")]
@@ -176,21 +177,27 @@ public partial class MrpProduction: IMultiTenant, IMayHaveCreator, IModification
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [InverseProperty("MrpProduction")]
+    [NotMapped]
     public virtual ICollection<MrpConsumptionWarningLine> MrpConsumptionWarningLines { get; } = new List<MrpConsumptionWarningLine>();
 
     [InverseProperty("Production")]
+    [NotMapped]
     public virtual ICollection<MrpImmediateProductionLine> MrpImmediateProductionLines { get; } = new List<MrpImmediateProductionLine>();
 
     [InverseProperty("MrpProduction")]
+    [NotMapped]
     public virtual ICollection<MrpProductionBackorderLine> MrpProductionBackorderLines { get; } = new List<MrpProductionBackorderLine>();
 
     [InverseProperty("Production")]
+    [NotMapped]
     public virtual ICollection<MrpProductionSplit> MrpProductionSplits { get; } = new List<MrpProductionSplit>();
 
     [InverseProperty("Mo")]
+    [NotMapped]
     public virtual ICollection<MrpUnbuild> MrpUnbuilds { get; } = new List<MrpUnbuild>();
 
     [InverseProperty("Production")]
+    [NotMapped]
     public virtual ICollection<MrpWorkorder> MrpWorkorders { get; } = new List<MrpWorkorder>();
 
     [ForeignKey("OrderpointId")]
@@ -218,21 +225,27 @@ public partial class MrpProduction: IMultiTenant, IMayHaveCreator, IModification
     public virtual StockLocation? ProductionLocation { get; set; }
 
     [InverseProperty("Production")]
+    [NotMapped]
     public virtual ICollection<StockAssignSerial> StockAssignSerials { get; } = new List<StockAssignSerial>();
 
     [InverseProperty("CreatedProduction")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoveCreatedProductions { get; } = new List<StockMove>();
 
     [InverseProperty("Production")]
+    [NotMapped]
     public virtual ICollection<StockMoveLine> StockMoveLines { get; } = new List<StockMoveLine>();
 
     [InverseProperty("Production")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoveProductions { get; } = new List<StockMove>();
 
     [InverseProperty("RawMaterialProduction")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoveRawMaterialProductions { get; } = new List<StockMove>();
 
     [InverseProperty("Production")]
+    [NotMapped]
     public virtual ICollection<StockScrap> StockScraps { get; } = new List<StockScrap>();
 
     [ForeignKey("UserId")]
@@ -245,13 +258,16 @@ public partial class MrpProduction: IMultiTenant, IMayHaveCreator, IModification
 
     [ForeignKey("MrpProductionId")]
     [InverseProperty("MrpProductions")]
+    [NotMapped]
     public virtual ICollection<MrpConsumptionWarning> MrpConsumptionWarnings { get; } = new List<MrpConsumptionWarning>();
 
     [ForeignKey("MrpProductionId")]
     [InverseProperty("MrpProductions")]
+    [NotMapped]
     public virtual ICollection<MrpImmediateProduction> MrpImmediateProductions { get; } = new List<MrpImmediateProduction>();
 
     [ForeignKey("MrpProductionId")]
     [InverseProperty("MrpProductions")]
+    [NotMapped]
     public virtual ICollection<MrpProductionBackorder> MrpProductionBackorders { get; } = new List<MrpProductionBackorder>();
 }

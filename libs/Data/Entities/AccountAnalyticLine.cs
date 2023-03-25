@@ -147,12 +147,15 @@ public partial class AccountAnalyticLine: IMultiTenant, IMayHaveCreator, IModifi
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("MoAnalyticAccountLine")]
+    [NotMapped]
     public virtual ICollection<MrpWorkorder> MrpWorkorderMoAnalyticAccountLines { get; } = new List<MrpWorkorder>();
 
     [InverseProperty("WcAnalyticAccountLine")]
+    [NotMapped]
     public virtual ICollection<MrpWorkorder> MrpWorkorderWcAnalyticAccountLines { get; } = new List<MrpWorkorder>();
 
     [InverseProperty("AnalyticAccountLine")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
 
 }

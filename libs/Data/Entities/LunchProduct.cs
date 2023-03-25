@@ -66,6 +66,7 @@ public partial class LunchProduct: IMultiTenant, IMayHaveCreator, IModificationA
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Product")]
+    [NotMapped]
     public virtual ICollection<LunchOrder> LunchOrders { get; } = new List<LunchOrder>();
 
     [ForeignKey("SupplierId")]
@@ -78,5 +79,6 @@ public partial class LunchProduct: IMultiTenant, IMayHaveCreator, IModificationA
 
     [ForeignKey("ProductId")]
     [InverseProperty("Products")]
+    [NotMapped]
     public virtual ICollection<ResUser> Users { get; } = new List<ResUser>();
 }

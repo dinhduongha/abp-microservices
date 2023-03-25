@@ -53,5 +53,6 @@ public partial class CrmMergeOpportunity
 
     [ForeignKey("MergeId")]
     [InverseProperty("Merges")]
+    [NotMapped]
     public virtual ICollection<CrmLead> Opportunities { get; } = new List<CrmLead>();
 }

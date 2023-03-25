@@ -40,9 +40,11 @@ public partial class AccountPaymentMethod
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("PaymentMethod")]
+    [NotMapped]
     public virtual ICollection<AccountPaymentMethodLine> AccountPaymentMethodLines { get; } = new List<AccountPaymentMethodLine>();
 
     [InverseProperty("PaymentMethod")]
+    [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
 
     [ForeignKey("CreatorId")]

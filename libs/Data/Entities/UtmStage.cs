@@ -40,6 +40,7 @@ public partial class UtmStage
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Stage")]
+    [NotMapped]
     public virtual ICollection<UtmCampaign> UtmCampaigns { get; } = new List<UtmCampaign>();
 
     [ForeignKey("LastModifierId")]

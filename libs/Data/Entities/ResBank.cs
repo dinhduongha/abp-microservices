@@ -72,6 +72,7 @@ public partial class ResBank
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Bank")]
+    [NotMapped]
     public virtual ICollection<ResPartnerBank> ResPartnerBanks { get; } = new List<ResPartnerBank>();
 
     [ForeignKey("State")]

@@ -39,5 +39,6 @@ public partial class ConfirmStockSm
 
     [ForeignKey("ConfirmStockSmsId")]
     [InverseProperty("ConfirmStockSms")]
+    [NotMapped]
     public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
 }

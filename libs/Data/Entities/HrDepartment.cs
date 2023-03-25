@@ -74,39 +74,51 @@ public partial class HrDepartment: IMultiTenant, IMayHaveCreator, IModificationA
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Department")]
+    [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicants { get; } = new List<HrApplicant>();
 
     [InverseProperty("Department")]
+    [NotMapped]
     public virtual ICollection<HrContract> HrContracts { get; } = new List<HrContract>();
 
     [InverseProperty("Department")]
+    [NotMapped]
     public virtual ICollection<HrEmployeeSkillLog> HrEmployeeSkillLogs { get; } = new List<HrEmployeeSkillLog>();
 
     [InverseProperty("Department")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 
     [InverseProperty("Department")]
+    [NotMapped]
     public virtual ICollection<HrExpenseSheet> HrExpenseSheets { get; } = new List<HrExpenseSheet>();
 
     [InverseProperty("Department")]
+    [NotMapped]
     public virtual ICollection<HrJob> HrJobs { get; } = new List<HrJob>();
 
     [InverseProperty("Department")]
+    [NotMapped]
     public virtual ICollection<HrLeaveAllocation> HrLeaveAllocations { get; } = new List<HrLeaveAllocation>();
 
     [InverseProperty("Department")]
+    [NotMapped]
     public virtual ICollection<HrLeave> HrLeaves { get; } = new List<HrLeave>();
 
     [InverseProperty("Department")]
+    [NotMapped]
     public virtual ICollection<HrPlan> HrPlans { get; } = new List<HrPlan>();
 
     [InverseProperty("MasterDepartment")]
+    [NotMapped]
     public virtual ICollection<HrDepartment> InverseMasterDepartment { get; } = new List<HrDepartment>();
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<HrDepartment> InverseParent { get; } = new List<HrDepartment>();
 
     [InverseProperty("Department")]
+    [NotMapped]
     public virtual ICollection<MaintenanceEquipment> MaintenanceEquipments { get; } = new List<MaintenanceEquipment>();
 
     [ForeignKey("ManagerId")]
@@ -131,9 +143,11 @@ public partial class HrDepartment: IMultiTenant, IMayHaveCreator, IModificationA
 
     [ForeignKey("HrDepartmentId")]
     [InverseProperty("HrDepartments")]
+    [NotMapped]
     public virtual ICollection<HrLeaveStressDay> HrLeaveStressDays { get; } = new List<HrLeaveStressDay>();
 
     [ForeignKey("HrDepartmentId")]
     [InverseProperty("HrDepartments")]
+    [NotMapped]
     public virtual ICollection<MailChannel> MailChannels { get; } = new List<MailChannel>();
 }

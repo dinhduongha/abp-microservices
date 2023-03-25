@@ -72,15 +72,19 @@ public partial class MrpRoutingWorkcenter
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Operation")]
+    [NotMapped]
     public virtual ICollection<MrpBomByproduct> MrpBomByproducts { get; } = new List<MrpBomByproduct>();
 
     [InverseProperty("Operation")]
+    [NotMapped]
     public virtual ICollection<MrpBomLine> MrpBomLines { get; } = new List<MrpBomLine>();
 
     [InverseProperty("Operation")]
+    [NotMapped]
     public virtual ICollection<MrpWorkorder> MrpWorkorders { get; } = new List<MrpWorkorder>();
 
     [InverseProperty("Operation")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
 
     [ForeignKey("WorkcenterId")]
@@ -93,13 +97,16 @@ public partial class MrpRoutingWorkcenter
 
     [ForeignKey("OperationId")]
     [InverseProperty("Operations")]
+    [NotMapped]
     public virtual ICollection<MrpRoutingWorkcenter> BlockedBies { get; } = new List<MrpRoutingWorkcenter>();
 
     [ForeignKey("BlockedById")]
     [InverseProperty("BlockedBies")]
+    [NotMapped]
     public virtual ICollection<MrpRoutingWorkcenter> Operations { get; } = new List<MrpRoutingWorkcenter>();
 
     [ForeignKey("MrpRoutingWorkcenterId")]
     [InverseProperty("MrpRoutingWorkcenters")]
+    [NotMapped]
     public virtual ICollection<ProductTemplateAttributeValue> ProductTemplateAttributeValues { get; } = new List<ProductTemplateAttributeValue>();
 }

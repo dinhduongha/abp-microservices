@@ -57,6 +57,7 @@ public partial class IrUiMenu
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<IrUiMenu> InverseParent { get; } = new List<IrUiMenu>();
 
     [ForeignKey("ParentId")]
@@ -64,6 +65,7 @@ public partial class IrUiMenu
     public virtual IrUiMenu? Parent { get; set; }
 
     [InverseProperty("Menu")]
+    [NotMapped]
     public virtual ICollection<WizardIrModelMenuCreate> WizardIrModelMenuCreates { get; } = new List<WizardIrModelMenuCreate>();
 
     [ForeignKey("LastModifierId")]
@@ -72,5 +74,6 @@ public partial class IrUiMenu
 
     [ForeignKey("MenuId")]
     [InverseProperty("Menus")]
+    [NotMapped]
     public virtual ICollection<ResGroup> Gids { get; } = new List<ResGroup>();
 }

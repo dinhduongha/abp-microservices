@@ -48,9 +48,11 @@ public partial class AccountPaymentMethodLine
     public Guid? PaymentProviderId { get; set; }
 
     [InverseProperty("PaymentMethodLine")]
+    [NotMapped]
     public virtual ICollection<AccountPaymentRegister> AccountPaymentRegisters { get; } = new List<AccountPaymentRegister>();
 
     [InverseProperty("PaymentMethodLine")]
+    [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
 
     [ForeignKey("CreatorId")]

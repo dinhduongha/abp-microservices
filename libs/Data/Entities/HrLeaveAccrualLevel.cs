@@ -101,6 +101,7 @@ public partial class HrLeaveAccrualLevel
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<HrLeaveAccrualLevel> InverseParent { get; } = new List<HrLeaveAccrualLevel>();
 
     [ForeignKey("ParentId")]

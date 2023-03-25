@@ -53,6 +53,7 @@ public partial class MrpWorkcenterProductivityLoss
     public virtual MrpWorkcenterProductivityLossType? Loss { get; set; }
 
     [InverseProperty("Loss")]
+    [NotMapped]
     public virtual ICollection<MrpWorkcenterProductivity> MrpWorkcenterProductivities { get; } = new List<MrpWorkcenterProductivity>();
 
     [ForeignKey("LastModifierId")]

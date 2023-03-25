@@ -42,9 +42,11 @@ public partial class FollowupFollowup: IMultiTenant, IMayHaveCreator, IModificat
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Followup")]
+    [NotMapped]
     public virtual ICollection<FollowupLine> FollowupLines { get; } = new List<FollowupLine>();
 
     [InverseProperty("Followup")]
+    [NotMapped]
     public virtual ICollection<FollowupPrint> FollowupPrints { get; } = new List<FollowupPrint>();
 
     [ForeignKey("LastModifierId")]

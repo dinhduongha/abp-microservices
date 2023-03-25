@@ -51,6 +51,7 @@ public partial class HrAttendance
     public virtual HrEmployee? Employee { get; set; }
 
     [InverseProperty("LastAttendance")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 
     [ForeignKey("LastModifierId")]

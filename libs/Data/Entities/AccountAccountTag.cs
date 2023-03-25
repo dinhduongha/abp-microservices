@@ -61,25 +61,31 @@ public partial class AccountAccountTag
 
     [ForeignKey("AccountAccountTagId")]
     [InverseProperty("AccountAccountTags")]
+    [NotMapped]
     public virtual ICollection<AccountAccountTemplate> AccountAccountTemplates { get; } = new List<AccountAccountTemplate>();
 
     [ForeignKey("AccountAccountTagId")]
     [InverseProperty("AccountAccountTags")]
+    [NotMapped]
     public virtual ICollection<AccountAccount> AccountAccounts { get; } = new List<AccountAccount>();
 
     [ForeignKey("AccountAccountTagId")]
     [InverseProperty("AccountAccountTags")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [ForeignKey("AccountAccountTagId")]
     [InverseProperty("AccountAccountTags")]
+    [NotMapped]
     public virtual ICollection<AccountTaxRepartitionLineTemplate> AccountTaxRepartitionLineTemplates { get; } = new List<AccountTaxRepartitionLineTemplate>();
 
     [ForeignKey("AccountAccountTagId")]
     [InverseProperty("AccountAccountTags")]
+    [NotMapped]
     public virtual ICollection<AccountTaxRepartitionLine> AccountTaxRepartitionLines { get; } = new List<AccountTaxRepartitionLine>();
 
     [ForeignKey("AccountAccountTagId")]
     [InverseProperty("AccountAccountTags")]
+    [NotMapped]
     public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
 }

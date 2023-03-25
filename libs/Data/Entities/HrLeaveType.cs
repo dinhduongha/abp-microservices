@@ -102,12 +102,15 @@ public partial class HrLeaveType: IMultiTenant, IMayHaveCreator, IModificationAu
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("TimeOffType")]
+    [NotMapped]
     public virtual ICollection<HrLeaveAccrualPlan> HrLeaveAccrualPlans { get; } = new List<HrLeaveAccrualPlan>();
 
     [InverseProperty("HolidayStatus")]
+    [NotMapped]
     public virtual ICollection<HrLeaveAllocation> HrLeaveAllocations { get; } = new List<HrLeaveAllocation>();
 
     [InverseProperty("HolidayStatus")]
+    [NotMapped]
     public virtual ICollection<HrLeave> HrLeaves { get; } = new List<HrLeave>();
 
     [ForeignKey("IconId")]

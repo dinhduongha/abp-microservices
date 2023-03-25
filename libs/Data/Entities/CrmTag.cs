@@ -46,13 +46,16 @@ public partial class CrmTag
 
     [ForeignKey("CrmTagId")]
     [InverseProperty("CrmTags")]
+    [NotMapped]
     public virtual ICollection<CrmIapLeadMiningRequest> CrmIapLeadMiningRequests { get; } = new List<CrmIapLeadMiningRequest>();
 
     [ForeignKey("TagId")]
     [InverseProperty("Tags")]
+    [NotMapped]
     public virtual ICollection<CrmLead> Leads { get; } = new List<CrmLead>();
 
     [ForeignKey("TagId")]
     [InverseProperty("Tags")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> Orders { get; } = new List<SaleOrder>();
 }

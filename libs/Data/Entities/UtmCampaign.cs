@@ -52,6 +52,7 @@ public partial class UtmCampaign: IMultiTenant, IMayHaveCreator, IModificationAu
     public Guid? TenantId { get; set; }
 
     [InverseProperty("Campaign")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [ForeignKey("TenantId")]
@@ -63,12 +64,15 @@ public partial class UtmCampaign: IMultiTenant, IMayHaveCreator, IModificationAu
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Campaign")]
+    [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
 
     [InverseProperty("Campaign")]
+    [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicants { get; } = new List<HrApplicant>();
 
     [InverseProperty("Campaign")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
     [ForeignKey("StageId")]
@@ -85,5 +89,6 @@ public partial class UtmCampaign: IMultiTenant, IMayHaveCreator, IModificationAu
 
     [ForeignKey("TagId")]
     [InverseProperty("Tags")]
+    [NotMapped]
     public virtual ICollection<UtmTag> Campaigns { get; } = new List<UtmTag>();
 }

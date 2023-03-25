@@ -43,6 +43,7 @@ public partial class ThemeIrAttachment
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("ThemeTemplate")]
+    [NotMapped]
     public virtual ICollection<IrAttachment> IrAttachments { get; } = new List<IrAttachment>();
 
     [ForeignKey("LastModifierId")]

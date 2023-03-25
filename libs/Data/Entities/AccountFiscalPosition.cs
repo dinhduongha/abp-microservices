@@ -86,41 +86,53 @@ public partial class AccountFiscalPosition: IMultiTenant, IMayHaveCreator, IModi
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Position")]
+    [NotMapped]
     public virtual ICollection<AccountFiscalPositionAccount> AccountFiscalPositionAccounts { get; } = new List<AccountFiscalPositionAccount>();
 
     [InverseProperty("Position")]
+    [NotMapped]
     public virtual ICollection<AccountFiscalPositionTax> AccountFiscalPositionTaxes { get; } = new List<AccountFiscalPositionTax>();
 
     [InverseProperty("FiscalPosition")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [InverseProperty("ForeignVatFiscalPosition")]
+    [NotMapped]
     public virtual ICollection<AccountReportExternalValue> AccountReportExternalValues { get; } = new List<AccountReportExternalValue>();
 
     [InverseProperty("DefaultFiscalPosition")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigsNavigation { get; } = new List<PosConfig>();
 
     [InverseProperty("FiscalPosition")]
+    [NotMapped]
     public virtual ICollection<PosOrder> PosOrders { get; } = new List<PosOrder>();
 
     [InverseProperty("FiscalPosition")]
+    [NotMapped]
     public virtual ICollection<PurchaseOrder> PurchaseOrders { get; } = new List<PurchaseOrder>();
 
     [InverseProperty("PosDefaultFiscalPosition")]
+    [NotMapped]
     public virtual ICollection<ResConfigSetting> ResConfigSettingsNavigation { get; } = new List<ResConfigSetting>();
 
     [InverseProperty("FiscalPosition")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
     [ForeignKey("AccountFiscalPositionId")]
     [InverseProperty("AccountFiscalPositions")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigs { get; } = new List<PosConfig>();
 
     [ForeignKey("AccountFiscalPositionId")]
     [InverseProperty("AccountFiscalPositions")]
+    [NotMapped]
     public virtual ICollection<ResConfigSetting> ResConfigSettings { get; } = new List<ResConfigSetting>();
 
     [ForeignKey("AccountFiscalPositionId")]
     [InverseProperty("AccountFiscalPositions")]
+    [NotMapped]
     public virtual ICollection<ResCountryState> ResCountryStates { get; } = new List<ResCountryState>();
 }

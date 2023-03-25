@@ -49,5 +49,6 @@ public partial class HrExpenseRefuseWizard
 
     [ForeignKey("HrExpenseRefuseWizardId")]
     [InverseProperty("HrExpenseRefuseWizards")]
+    [NotMapped]
     public virtual ICollection<HrExpense> HrExpenses { get; } = new List<HrExpense>();
 }

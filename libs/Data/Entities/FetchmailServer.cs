@@ -96,6 +96,7 @@ public partial class FetchmailServer
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("FetchmailServer")]
+    [NotMapped]
     public virtual ICollection<MailMail> MailMails { get; } = new List<MailMail>();
 
     [ForeignKey("ObjectId")]

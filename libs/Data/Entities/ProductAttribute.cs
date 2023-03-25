@@ -50,12 +50,15 @@ public partial class ProductAttribute
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Attribute")]
+    [NotMapped]
     public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; } = new List<ProductAttributeValue>();
 
     [InverseProperty("Attribute")]
+    [NotMapped]
     public virtual ICollection<ProductTemplateAttributeLine> ProductTemplateAttributeLines { get; } = new List<ProductTemplateAttributeLine>();
 
     [InverseProperty("Attribute")]
+    [NotMapped]
     public virtual ICollection<ProductTemplateAttributeValue> ProductTemplateAttributeValues { get; } = new List<ProductTemplateAttributeValue>();
 
     [ForeignKey("LastModifierId")]
@@ -64,5 +67,6 @@ public partial class ProductAttribute
 
     [ForeignKey("ProductAttributeId")]
     [InverseProperty("ProductAttributes")]
+    [NotMapped]
     public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
 }

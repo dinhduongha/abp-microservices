@@ -61,5 +61,6 @@ public partial class AccountPrintJournal: IMultiTenant, IMayHaveCreator, IModifi
 
     [ForeignKey("AccountPrintJournalId")]
     [InverseProperty("AccountPrintJournals")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 }

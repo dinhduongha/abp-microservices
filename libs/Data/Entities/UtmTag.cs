@@ -46,5 +46,6 @@ public partial class UtmTag
 
     [ForeignKey("CampaignId")]
     [InverseProperty("Campaigns")]
+    [NotMapped]
     public virtual ICollection<UtmCampaign> Tags { get; } = new List<UtmCampaign>();
 }

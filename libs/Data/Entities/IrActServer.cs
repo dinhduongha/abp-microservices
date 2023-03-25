@@ -137,9 +137,11 @@ public partial class IrActServer
     public virtual IrModel? CrudModel { get; set; }
 
     [InverseProperty("IrActionsServer")]
+    [NotMapped]
     public virtual ICollection<IrCron> IrCrons { get; } = new List<IrCron>();
 
     [InverseProperty("Server")]
+    [NotMapped]
     public virtual ICollection<IrServerObjectLine> IrServerObjectLines { get; } = new List<IrServerObjectLine>();
 
     [ForeignKey("LinkFieldId")]
@@ -159,6 +161,7 @@ public partial class IrActServer
     public virtual MailTemplate? Template { get; set; }
 
     [InverseProperty("ActionServer")]
+    [NotMapped]
     public virtual ICollection<WebsiteSnippetFilter> WebsiteSnippetFilters { get; } = new List<WebsiteSnippetFilter>();
 
     [ForeignKey("LastModifierId")]
@@ -167,17 +170,21 @@ public partial class IrActServer
 
     [ForeignKey("ServerId")]
     [InverseProperty("Servers")]
+    [NotMapped]
     public virtual ICollection<IrActServer> Actions { get; } = new List<IrActServer>();
 
     [ForeignKey("ActId")]
     [InverseProperty("Acts")]
+    [NotMapped]
     public virtual ICollection<ResGroup> Gids { get; } = new List<ResGroup>();
 
     [ForeignKey("IrActServerId")]
     [InverseProperty("IrActServers")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 
     [ForeignKey("ActionId")]
     [InverseProperty("Actions")]
+    [NotMapped]
     public virtual ICollection<IrActServer> Servers { get; } = new List<IrActServer>();
 }

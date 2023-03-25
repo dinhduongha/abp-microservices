@@ -46,5 +46,6 @@ public partial class HrApplicantCategory
 
     [ForeignKey("HrApplicantCategoryId")]
     [InverseProperty("HrApplicantCategories")]
+    [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicants { get; } = new List<HrApplicant>();
 }

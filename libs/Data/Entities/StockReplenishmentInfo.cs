@@ -41,6 +41,7 @@ public partial class StockReplenishmentInfo
     public virtual StockWarehouseOrderpoint? Orderpoint { get; set; }
 
     [InverseProperty("ReplenishmentInfo")]
+    [NotMapped]
     public virtual ICollection<StockReplenishmentOption> StockReplenishmentOptions { get; } = new List<StockReplenishmentOption>();
 
     [ForeignKey("LastModifierId")]
@@ -49,5 +50,6 @@ public partial class StockReplenishmentInfo
 
     [ForeignKey("StockReplenishmentInfoId")]
     [InverseProperty("StockReplenishmentInfos")]
+    [NotMapped]
     public virtual ICollection<ProductSupplierinfo> ProductSupplierinfos { get; } = new List<ProductSupplierinfo>();
 }

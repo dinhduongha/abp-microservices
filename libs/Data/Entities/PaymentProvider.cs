@@ -121,6 +121,7 @@ public partial class PaymentProvider: IMultiTenant, IMayHaveCreator, IModificati
     public Guid? WebsiteId { get; set; }
 
     [InverseProperty("PaymentProvider")]
+    [NotMapped]
     public virtual ICollection<AccountPaymentMethodLine> AccountPaymentMethodLines { get; } = new List<AccountPaymentMethodLine>();
 
     [ForeignKey("TenantId")]
@@ -144,9 +145,11 @@ public partial class PaymentProvider: IMultiTenant, IMayHaveCreator, IModificati
     public virtual IrModuleModule? Module { get; set; }
 
     [InverseProperty("Provider")]
+    [NotMapped]
     public virtual ICollection<PaymentToken> PaymentTokens { get; } = new List<PaymentToken>();
 
     [InverseProperty("Provider")]
+    [NotMapped]
     public virtual ICollection<PaymentTransaction> PaymentTransactions { get; } = new List<PaymentTransaction>();
 
     [ForeignKey("RedirectFormViewId")]
@@ -167,9 +170,11 @@ public partial class PaymentProvider: IMultiTenant, IMayHaveCreator, IModificati
 
     [ForeignKey("PaymentId")]
     [InverseProperty("Payments")]
+    [NotMapped]
     public virtual ICollection<ResCountry> Countries { get; } = new List<ResCountry>();
 
     [ForeignKey("PaymentProviderId")]
     [InverseProperty("PaymentProviders")]
+    [NotMapped]
     public virtual ICollection<PaymentIcon> PaymentIcons { get; } = new List<PaymentIcon>();
 }

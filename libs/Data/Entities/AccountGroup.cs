@@ -50,6 +50,7 @@ public partial class AccountGroup: IMultiTenant, IMayHaveCreator, IModificationA
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("Group")]
+    [NotMapped]
     public virtual ICollection<AccountAccount> AccountAccounts { get; } = new List<AccountAccount>();
 
     [ForeignKey("TenantId")]
@@ -61,6 +62,7 @@ public partial class AccountGroup: IMultiTenant, IMayHaveCreator, IModificationA
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<AccountGroup> InverseParent { get; } = new List<AccountGroup>();
 
     [ForeignKey("ParentId")]

@@ -66,6 +66,7 @@ public partial class ProjectMilestone
     public virtual ProjectProject? Project { get; set; }
 
     [InverseProperty("Milestone")]
+    [NotMapped]
     public virtual ICollection<ProjectTask> ProjectTasks { get; } = new List<ProjectTask>();
 
     [ForeignKey("SaleLineId")]

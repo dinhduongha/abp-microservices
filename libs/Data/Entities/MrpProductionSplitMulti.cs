@@ -34,6 +34,7 @@ public partial class MrpProductionSplitMulti
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("ProductionSplitMulti")]
+    [NotMapped]
     public virtual ICollection<MrpProductionSplit> MrpProductionSplits { get; } = new List<MrpProductionSplit>();
 
     [ForeignKey("LastModifierId")]

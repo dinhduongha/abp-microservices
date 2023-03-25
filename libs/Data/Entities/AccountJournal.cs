@@ -169,160 +169,206 @@ public partial class AccountJournal: IMultiTenant, IMayHaveCreator, IModificatio
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<AccountAnalyticLine> AccountAnalyticLines { get; } = new List<AccountAnalyticLine>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<AccountAssetCategory> AccountAssetCategories { get; } = new List<AccountAssetCategory>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<AccountBankStatementImportJournalCreation> AccountBankStatementImportJournalCreations { get; } = new List<AccountBankStatementImportJournalCreation>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<AccountBankStatement> AccountBankStatements { get; } = new List<AccountBankStatement>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<AccountMoveReversal> AccountMoveReversals { get; } = new List<AccountMoveReversal>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<AccountPaymentMethodLine> AccountPaymentMethodLines { get; } = new List<AccountPaymentMethodLine>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<AccountPaymentRegister> AccountPaymentRegisters { get; } = new List<AccountPaymentRegister>();
 
     [InverseProperty("DestinationJournal")]
+    [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<AccountReconcileModelLine> AccountReconcileModelLines { get; } = new List<AccountReconcileModelLine>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<AccountRecurringTemplate> AccountRecurringTemplates { get; } = new List<AccountRecurringTemplate>();
 
     [InverseProperty("BankJournal")]
+    [NotMapped]
     public virtual ICollection<HrExpenseSheet> HrExpenseSheetBankJournals { get; } = new List<HrExpenseSheet>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<HrExpenseSheet> HrExpenseSheetJournals { get; } = new List<HrExpenseSheet>();
 
     [InverseProperty("InvoiceJournal")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigInvoiceJournals { get; } = new List<PosConfig>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigJournals { get; } = new List<PosConfig>();
 
     [InverseProperty("SaleJournalNavigation")]
+    [NotMapped]
     public virtual ICollection<PosOrder> PosOrders { get; } = new List<PosOrder>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<PosPaymentMethod> PosPaymentMethods { get; } = new List<PosPaymentMethod>();
 
     [InverseProperty("CashJournal")]
+    [NotMapped]
     public virtual ICollection<PosSession> PosSessions { get; } = new List<PosSession>();
 
     [InverseProperty("Journal")]
+    [NotMapped]
     public virtual ICollection<RecurringPaymentLine> RecurringPaymentLines { get; } = new List<RecurringPaymentLine>();
 
     [InverseProperty("AutomaticEntryDefaultJournal")]
+    [NotMapped]
     public virtual ICollection<ResCompany> ResCompanyAutomaticEntryDefaultJournals { get; } = new List<ResCompany>();
 
     [InverseProperty("CompanyExpenseJournal")]
+    [NotMapped]
     public virtual ICollection<ResCompany> ResCompanyCompanyExpenseJournals { get; } = new List<ResCompany>();
 
     [InverseProperty("CurrencyExchangeJournal")]
+    [NotMapped]
     public virtual ICollection<ResCompany> ResCompanyCurrencyExchangeJournals { get; } = new List<ResCompany>();
 
     [InverseProperty("ExpenseJournal")]
+    [NotMapped]
     public virtual ICollection<ResCompany> ResCompanyExpenseJournals { get; } = new List<ResCompany>();
 
     [InverseProperty("TaxCashBasisJournal")]
+    [NotMapped]
     public virtual ICollection<ResCompany> ResCompanyTaxCashBasisJournals { get; } = new List<ResCompany>();
 
     [InverseProperty("AccountJournal")]
+    [NotMapped]
     public virtual ICollection<StockValuationLayerRevaluation> StockValuationLayerRevaluations { get; } = new List<StockValuationLayerRevaluation>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountAccount> AccountAccounts { get; } = new List<AccountAccount>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountAgedTrialBalance> AccountAgedTrialBalances { get; } = new List<AccountAgedTrialBalance>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountBankbookReport> AccountBankbookReports { get; } = new List<AccountBankbookReport>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountCashbookReport> AccountCashbookReports { get; } = new List<AccountCashbookReport>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountCommonAccountReport> AccountCommonAccountReports { get; } = new List<AccountCommonAccountReport>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountCommonJournalReport> AccountCommonJournalReports { get; } = new List<AccountCommonJournalReport>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountCommonPartnerReport> AccountCommonPartnerReports { get; } = new List<AccountCommonPartnerReport>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountCommonReport> AccountCommonReports { get; } = new List<AccountCommonReport>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountDaybookReport> AccountDaybookReports { get; } = new List<AccountDaybookReport>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountEdiFormat> AccountEdiFormats { get; } = new List<AccountEdiFormat>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountJournalGroup> AccountJournalGroups { get; } = new List<AccountJournalGroup>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountPrintJournal> AccountPrintJournals { get; } = new List<AccountPrintJournal>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountReconcileModelTemplate> AccountReconcileModelTemplates { get; } = new List<AccountReconcileModelTemplate>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountReconcileModel> AccountReconcileModels { get; } = new List<AccountReconcileModel>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountReportPartnerLedger> AccountReportPartnerLedgers { get; } = new List<AccountReportPartnerLedger>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountTaxReportWizard> AccountTaxReportWizards { get; } = new List<AccountTaxReportWizard>();
 
     [ForeignKey("AccountJournalId")]
     [InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ICollection<AccountingReport> AccountingReports { get; } = new List<AccountingReport>();
 
     [ForeignKey("JournalId")]
     [InverseProperty("Journals")]
+    [NotMapped]
     public virtual ICollection<AccountBalanceReport> Accounts { get; } = new List<AccountBalanceReport>();
 
     [ForeignKey("JournalId")]
     [InverseProperty("Journals")]
+    [NotMapped]
     public virtual ICollection<AccountAccount> Accounts1 { get; } = new List<AccountAccount>();
 
     [ForeignKey("JournalId")]
     [InverseProperty("Journals")]
+    [NotMapped]
     public virtual ICollection<AccountReportGeneralLedger> AccountsNavigation { get; } = new List<AccountReportGeneralLedger>();
 }

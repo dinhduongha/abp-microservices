@@ -39,9 +39,11 @@ public partial class ProjectTaskTypeDeleteWizard
 
     [ForeignKey("ProjectTaskTypeDeleteWizardId")]
     [InverseProperty("ProjectTaskTypeDeleteWizards")]
+    [NotMapped]
     public virtual ICollection<ProjectProject> ProjectProjects { get; } = new List<ProjectProject>();
 
     [ForeignKey("ProjectTaskTypeDeleteWizardId")]
     [InverseProperty("ProjectTaskTypeDeleteWizards")]
+    [NotMapped]
     public virtual ICollection<ProjectTaskType> ProjectTaskTypes { get; } = new List<ProjectTaskType>();
 }

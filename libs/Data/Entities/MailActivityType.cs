@@ -76,6 +76,7 @@ public partial class MailActivityType
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("SaleActivityType")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 
     [ForeignKey("CreatorId")]
@@ -87,27 +88,35 @@ public partial class MailActivityType
     public virtual ResUser? DefaultUser { get; set; }
 
     [InverseProperty("ActivityType")]
+    [NotMapped]
     public virtual ICollection<HrPlanActivityType> HrPlanActivityTypes { get; } = new List<HrPlanActivityType>();
 
     [InverseProperty("TriggeredNextType")]
+    [NotMapped]
     public virtual ICollection<MailActivityType> InverseTriggeredNextType { get; } = new List<MailActivityType>();
 
     [InverseProperty("ActivityType")]
+    [NotMapped]
     public virtual ICollection<IrActServer> IrActServers { get; } = new List<IrActServer>();
 
     [InverseProperty("ActivityType")]
+    [NotMapped]
     public virtual ICollection<MailActivity> MailActivityActivityTypes { get; } = new List<MailActivity>();
 
     [InverseProperty("PreviousActivityType")]
+    [NotMapped]
     public virtual ICollection<MailActivity> MailActivityPreviousActivityTypes { get; } = new List<MailActivity>();
 
     [InverseProperty("RecommendedActivityType")]
+    [NotMapped]
     public virtual ICollection<MailActivity> MailActivityRecommendedActivityTypes { get; } = new List<MailActivity>();
 
     [InverseProperty("MailActivityType")]
+    [NotMapped]
     public virtual ICollection<MailComposeMessage> MailComposeMessages { get; } = new List<MailComposeMessage>();
 
     [InverseProperty("MailActivityType")]
+    [NotMapped]
     public virtual ICollection<MailMessage> MailMessages { get; } = new List<MailMessage>();
 
     [ForeignKey("TriggeredNextTypeId")]
@@ -120,13 +129,16 @@ public partial class MailActivityType
 
     [ForeignKey("RecommendedId")]
     [InverseProperty("Recommendeds")]
+    [NotMapped]
     public virtual ICollection<MailActivityType> Activities { get; } = new List<MailActivityType>();
 
     [ForeignKey("MailActivityTypeId")]
     [InverseProperty("MailActivityTypes")]
+    [NotMapped]
     public virtual ICollection<MailTemplate> MailTemplates { get; } = new List<MailTemplate>();
 
     [ForeignKey("ActivityId")]
     [InverseProperty("Activities")]
+    [NotMapped]
     public virtual ICollection<MailActivityType> Recommendeds { get; } = new List<MailActivityType>();
 }

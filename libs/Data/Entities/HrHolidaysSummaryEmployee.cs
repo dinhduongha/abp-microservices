@@ -45,5 +45,6 @@ public partial class HrHolidaysSummaryEmployee
 
     [ForeignKey("SumId")]
     [InverseProperty("Sums")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> Emps { get; } = new List<HrEmployee>();
 }

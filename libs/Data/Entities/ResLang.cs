@@ -72,24 +72,29 @@ public partial class ResLang
     [InverseProperty("ResLangCreateUs")]
     public virtual ResUser? CreateU { get; set; }
 
-    [InverseProperty("Lang")]
-    public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
-
-    [InverseProperty("Lang")]
-    public virtual ICollection<WebsiteVisitor> WebsiteVisitors { get; } = new List<WebsiteVisitor>();
-
-    [InverseProperty("DefaultLang")]
-    public virtual ICollection<Website> Websites { get; } = new List<Website>();
-
     [ForeignKey("LastModifierId")]
     [InverseProperty("ResLangWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
+    [InverseProperty("Lang")]
+    [NotMapped]
+    public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
+
+    [InverseProperty("Lang")]
+    [NotMapped]
+    public virtual ICollection<WebsiteVisitor> WebsiteVisitors { get; } = new List<WebsiteVisitor>();
+
+    [InverseProperty("DefaultLang")]
+    [NotMapped]
+    public virtual ICollection<Website> Websites { get; } = new List<Website>();
+
     [ForeignKey("LangId")]
     [InverseProperty("Langs")]
+    [NotMapped]
     public virtual ICollection<BaseLanguageInstall> LanguageWizards { get; } = new List<BaseLanguageInstall>();
 
     [ForeignKey("LangId")]
     [InverseProperty("Langs")]
+    [NotMapped]
     public virtual ICollection<Website> WebsitesNavigation { get; } = new List<Website>();
 }

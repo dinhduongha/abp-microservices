@@ -61,6 +61,7 @@ public partial class FollowupLine
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("FollowupLine")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [ForeignKey("CreatorId")]
@@ -80,6 +81,7 @@ public partial class FollowupLine
     public virtual ResUser? ManualActionResponsible { get; set; }
 
     [InverseProperty("LatestFollowupLevelIdWithoutLitNavigation")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 
     [ForeignKey("LastModifierId")]

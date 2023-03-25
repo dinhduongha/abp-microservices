@@ -51,5 +51,6 @@ public partial class MailWizardInvite
 
     [ForeignKey("MailWizardInviteId")]
     [InverseProperty("MailWizardInvites")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 }

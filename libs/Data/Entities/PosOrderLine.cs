@@ -96,6 +96,7 @@ public partial class PosOrderLine: IMultiTenant, IMayHaveCreator, IModificationA
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("RefundedOrderline")]
+    [NotMapped]
     public virtual ICollection<PosOrderLine> InverseRefundedOrderline { get; } = new List<PosOrderLine>();
 
     [ForeignKey("OrderId")]
@@ -103,6 +104,7 @@ public partial class PosOrderLine: IMultiTenant, IMayHaveCreator, IModificationA
     public virtual PosOrder? Order { get; set; }
 
     [InverseProperty("PosOrderLine")]
+    [NotMapped]
     public virtual ICollection<PosPackOperationLot> PosPackOperationLots { get; } = new List<PosPackOperationLot>();
 
     [ForeignKey("ProductId")]
@@ -127,5 +129,6 @@ public partial class PosOrderLine: IMultiTenant, IMayHaveCreator, IModificationA
 
     [ForeignKey("PosOrderLineId")]
     [InverseProperty("PosOrderLines")]
+    [NotMapped]
     public virtual ICollection<AccountTax> AccountTaxes { get; } = new List<AccountTax>();
 }

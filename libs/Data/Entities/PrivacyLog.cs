@@ -55,6 +55,7 @@ public partial class PrivacyLog
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Log")]
+    [NotMapped]
     public virtual ICollection<PrivacyLookupWizard> PrivacyLookupWizards { get; } = new List<PrivacyLookupWizard>();
 
     [ForeignKey("UserId")]

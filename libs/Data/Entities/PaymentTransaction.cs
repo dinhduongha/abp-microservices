@@ -133,6 +133,7 @@ public partial class PaymentTransaction: IMultiTenant, IMayHaveCreator, IModific
     public bool? IsDonation { get; set; }
 
     [InverseProperty("PaymentTransaction")]
+    [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
 
     [ForeignKey("CallbackModelId")]
@@ -152,6 +153,7 @@ public partial class PaymentTransaction: IMultiTenant, IMayHaveCreator, IModific
     public virtual ResCurrency? Currency { get; set; }
 
     [InverseProperty("SourceTransaction")]
+    [NotMapped]
     public virtual ICollection<PaymentTransaction> InverseSourceTransaction { get; } = new List<PaymentTransaction>();
 
     [ForeignKey("PartnerId")]
@@ -188,9 +190,11 @@ public partial class PaymentTransaction: IMultiTenant, IMayHaveCreator, IModific
 
     [ForeignKey("TransactionId")]
     [InverseProperty("Transactions")]
+    [NotMapped]
     public virtual ICollection<AccountMove> Invoices { get; } = new List<AccountMove>();
 
     [ForeignKey("TransactionId")]
     [InverseProperty("Transactions")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 }

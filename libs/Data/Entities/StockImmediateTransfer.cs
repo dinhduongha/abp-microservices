@@ -37,6 +37,7 @@ public partial class StockImmediateTransfer
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("ImmediateTransfer")]
+    [NotMapped]
     public virtual ICollection<StockImmediateTransferLine> StockImmediateTransferLines { get; } = new List<StockImmediateTransferLine>();
 
     [ForeignKey("LastModifierId")]
@@ -45,5 +46,6 @@ public partial class StockImmediateTransfer
 
     [ForeignKey("StockImmediateTransferId")]
     [InverseProperty("StockImmediateTransfers")]
+    [NotMapped]
     public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
 }

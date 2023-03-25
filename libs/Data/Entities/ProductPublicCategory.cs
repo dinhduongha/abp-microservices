@@ -71,6 +71,7 @@ public partial class ProductPublicCategory
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<ProductPublicCategory> InverseParent { get; } = new List<ProductPublicCategory>();
 
     [ForeignKey("ParentId")]
@@ -87,5 +88,6 @@ public partial class ProductPublicCategory
 
     [ForeignKey("ProductPublicCategoryId")]
     [InverseProperty("ProductPublicCategories")]
+    [NotMapped]
     public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
 }

@@ -65,6 +65,7 @@ public partial class NoteNote: IMultiTenant, IMayHaveCreator, IModificationAudit
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("NoteNavigation")]
+    [NotMapped]
     public virtual ICollection<MailActivity> MailActivities { get; } = new List<MailActivity>();
 
     [ForeignKey("MessageMainAttachmentId")]
@@ -81,9 +82,11 @@ public partial class NoteNote: IMultiTenant, IMayHaveCreator, IModificationAudit
 
     [ForeignKey("NoteId")]
     [InverseProperty("Notes")]
+    [NotMapped]
     public virtual ICollection<NoteStage> Stages { get; } = new List<NoteStage>();
 
     [ForeignKey("NoteId")]
     [InverseProperty("Notes")]
+    [NotMapped]
     public virtual ICollection<NoteTag> Tags { get; } = new List<NoteTag>();
 }

@@ -78,9 +78,11 @@ public partial class ProjectTaskType
     public virtual MailTemplate? MailTemplate { get; set; }
 
     [InverseProperty("Stage")]
+    [NotMapped]
     public virtual ICollection<ProjectTaskUserRel> ProjectTaskUserRels { get; } = new List<ProjectTaskUserRel>();
 
     [InverseProperty("Stage")]
+    [NotMapped]
     public virtual ICollection<ProjectTask> ProjectTasks { get; } = new List<ProjectTask>();
 
     [ForeignKey("RatingTemplateId")]
@@ -101,9 +103,11 @@ public partial class ProjectTaskType
 
     [ForeignKey("ProjectTaskTypeId")]
     [InverseProperty("ProjectTaskTypes")]
+    [NotMapped]
     public virtual ICollection<ProjectTaskTypeDeleteWizard> ProjectTaskTypeDeleteWizards { get; } = new List<ProjectTaskTypeDeleteWizard>();
 
     [ForeignKey("TypeId")]
     [InverseProperty("Types")]
+    [NotMapped]
     public virtual ICollection<ProjectProject> Projects { get; } = new List<ProjectProject>();
 }

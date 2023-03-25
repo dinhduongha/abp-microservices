@@ -39,9 +39,11 @@ public partial class HrExpenseApproveDuplicate
 
     [ForeignKey("HrExpenseApproveDuplicateId")]
     [InverseProperty("HrExpenseApproveDuplicates")]
+    [NotMapped]
     public virtual ICollection<HrExpenseSheet> HrExpenseSheets { get; } = new List<HrExpenseSheet>();
 
     [ForeignKey("HrExpenseApproveDuplicateId")]
     [InverseProperty("HrExpenseApproveDuplicates")]
+    [NotMapped]
     public virtual ICollection<HrExpense> HrExpenses { get; } = new List<HrExpense>();
 }

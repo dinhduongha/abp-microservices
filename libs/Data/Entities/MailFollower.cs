@@ -36,5 +36,6 @@ public partial class MailFollower
 
     [ForeignKey("MailFollowersId")]
     [InverseProperty("MailFollowers")]
+    [NotMapped]
     public virtual ICollection<MailMessageSubtype> MailMessageSubtypes { get; } = new List<MailMessageSubtype>();
 }

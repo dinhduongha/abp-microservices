@@ -55,5 +55,6 @@ public partial class StockRequestCount
 
     [ForeignKey("StockRequestCountId")]
     [InverseProperty("StockRequestCounts")]
+    [NotMapped]
     public virtual ICollection<StockQuant> StockQuants { get; } = new List<StockQuant>();
 }

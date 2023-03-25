@@ -45,9 +45,11 @@ public partial class AccountEdiFormat
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("EdiFormat")]
+    [NotMapped]
     public virtual ICollection<AccountEdiDocument> AccountEdiDocuments { get; } = new List<AccountEdiDocument>();
 
     [ForeignKey("AccountEdiFormatId")]
     [InverseProperty("AccountEdiFormats")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 }

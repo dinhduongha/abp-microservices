@@ -77,12 +77,15 @@ public partial class AccountBankStatement: IMultiTenant, IMayHaveCreator, IModif
     public virtual ResUser? WriteU { get; set; }
 
    [InverseProperty("Statement")]
+    [NotMapped]
     public virtual ICollection<AccountBankStatementLine> AccountBankStatementLines { get; } = new List<AccountBankStatementLine>();
 
     [InverseProperty("Statement")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [ForeignKey("AccountBankStatementId")]
     [InverseProperty("AccountBankStatements")]
+    [NotMapped]
     public virtual ICollection<IrAttachment> IrAttachments { get; } = new List<IrAttachment>();
 }

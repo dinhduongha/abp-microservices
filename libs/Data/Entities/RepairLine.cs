@@ -130,5 +130,6 @@ public partial class RepairLine
 
     [ForeignKey("RepairOperationLineId")]
     [InverseProperty("RepairOperationLines")]
+    [NotMapped]
     public virtual ICollection<AccountTax> Taxes { get; } = new List<AccountTax>();
 }

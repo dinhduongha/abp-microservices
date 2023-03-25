@@ -46,9 +46,11 @@ public partial class ProjectTag
 
     [ForeignKey("ProjectTagsId")]
     [InverseProperty("ProjectTags")]
+    [NotMapped]
     public virtual ICollection<ProjectProject> ProjectProjects { get; } = new List<ProjectProject>();
 
     [ForeignKey("ProjectTagsId")]
     [InverseProperty("ProjectTags")]
+    [NotMapped]
     public virtual ICollection<ProjectTask> ProjectTasks { get; } = new List<ProjectTask>();
 }

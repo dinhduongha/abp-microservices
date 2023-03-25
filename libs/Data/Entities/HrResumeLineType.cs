@@ -40,6 +40,7 @@ public partial class HrResumeLineType
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("LineType")]
+    [NotMapped]
     public virtual ICollection<HrResumeLine> HrResumeLines { get; } = new List<HrResumeLine>();
 
     [ForeignKey("LastModifierId")]

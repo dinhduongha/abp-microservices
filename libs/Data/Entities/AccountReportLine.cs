@@ -64,9 +64,11 @@ public partial class AccountReportLine
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("ReportLine")]
+    [NotMapped]
     public virtual ICollection<AccountReportExpression> AccountReportExpressions { get; } = new List<AccountReportExpression>();
 
     [InverseProperty("CarryoverOriginReportLine")]
+    [NotMapped]
     public virtual ICollection<AccountReportExternalValue> AccountReportExternalValues { get; } = new List<AccountReportExternalValue>();
 
     [ForeignKey("CreatorId")]
@@ -74,6 +76,7 @@ public partial class AccountReportLine
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<AccountReportLine> InverseParent { get; } = new List<AccountReportLine>();
 
     [ForeignKey("ParentId")]

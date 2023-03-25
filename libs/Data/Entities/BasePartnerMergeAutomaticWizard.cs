@@ -66,6 +66,7 @@ public partial class BasePartnerMergeAutomaticWizard
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("Wizard")]
+    [NotMapped]
     public virtual ICollection<BasePartnerMergeLine> BasePartnerMergeLines { get; } = new List<BasePartnerMergeLine>();
 
     [ForeignKey("CreatorId")]
@@ -86,5 +87,6 @@ public partial class BasePartnerMergeAutomaticWizard
 
     [ForeignKey("BasePartnerMergeAutomaticWizardId")]
     [InverseProperty("BasePartnerMergeAutomaticWizardsNavigation")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 }

@@ -55,5 +55,6 @@ public partial class ProductTemplateAttributeExclusion
 
     [ForeignKey("ProductTemplateAttributeExclusionId")]
     [InverseProperty("ProductTemplateAttributeExclusions")]
+    [NotMapped]
     public virtual ICollection<ProductTemplateAttributeValue> ProductTemplateAttributeValues { get; } = new List<ProductTemplateAttributeValue>();
 }

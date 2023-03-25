@@ -40,9 +40,11 @@ public partial class ProductRemoval
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("RemovalStrategy")]
+    [NotMapped]
     public virtual ICollection<ProductCategory> ProductCategories { get; } = new List<ProductCategory>();
 
     [InverseProperty("RemovalStrategy")]
+    [NotMapped]
     public virtual ICollection<StockLocation> StockLocations { get; } = new List<StockLocation>();
 
     [ForeignKey("LastModifierId")]

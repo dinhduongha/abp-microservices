@@ -83,6 +83,7 @@ public partial class IrActReportXml
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("ReportTemplateNavigation")]
+    [NotMapped]
     public virtual ICollection<MailTemplate> MailTemplates { get; } = new List<MailTemplate>();
 
     [ForeignKey("PaperformatId")]
@@ -90,6 +91,7 @@ public partial class IrActReportXml
     public virtual ReportPaperformat? Paperformat { get; set; }
 
     [InverseProperty("ReportTemplateNavigation")]
+    [NotMapped]
     public virtual ICollection<SnailmailLetter> SnailmailLetters { get; } = new List<SnailmailLetter>();
 
     [ForeignKey("LastModifierId")]
@@ -98,5 +100,6 @@ public partial class IrActReportXml
 
     [ForeignKey("Uid")]
     [InverseProperty("Uids")]
+    [NotMapped]
     public virtual ICollection<ResGroup> Gids { get; } = new List<ResGroup>();
 }

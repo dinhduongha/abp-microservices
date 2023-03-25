@@ -43,9 +43,11 @@ public partial class HrLeaveAccrualPlan
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("AccrualPlan")]
+    [NotMapped]
     public virtual ICollection<HrLeaveAccrualLevel> HrLeaveAccrualLevels { get; } = new List<HrLeaveAccrualLevel>();
 
     [InverseProperty("AccrualPlan")]
+    [NotMapped]
     public virtual ICollection<HrLeaveAllocation> HrLeaveAllocations { get; } = new List<HrLeaveAllocation>();
 
     [ForeignKey("TimeOffTypeId")]

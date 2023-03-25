@@ -141,6 +141,7 @@ public partial class AccountAssetAsset: IMultiTenant, IMayHaveCreator, IModifica
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("Asset")]
+    [NotMapped]
     public virtual ICollection<AccountAssetDepreciationLine> AccountAssetDepreciationLines { get; } = new List<AccountAssetDepreciationLine>();
 
 }

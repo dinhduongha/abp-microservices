@@ -34,6 +34,7 @@ public partial class MrpConsumptionWarning
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("MrpConsumptionWarning")]
+    [NotMapped]
     public virtual ICollection<MrpConsumptionWarningLine> MrpConsumptionWarningLines { get; } = new List<MrpConsumptionWarningLine>();
 
     [ForeignKey("LastModifierId")]
@@ -42,5 +43,6 @@ public partial class MrpConsumptionWarning
 
     [ForeignKey("MrpConsumptionWarningId")]
     [InverseProperty("MrpConsumptionWarnings")]
+    [NotMapped]
     public virtual ICollection<MrpProduction> MrpProductions { get; } = new List<MrpProduction>();
 }

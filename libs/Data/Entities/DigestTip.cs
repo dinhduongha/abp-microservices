@@ -55,5 +55,6 @@ public partial class DigestTip
 
     [ForeignKey("DigestTipId")]
     [InverseProperty("DigestTips")]
+    [NotMapped]
     public virtual ICollection<ResUser> ResUsers { get; } = new List<ResUser>();
 }

@@ -229,6 +229,7 @@ public partial class StockWarehouse: IMultiTenant, IMayHaveCreator, IModificatio
     public virtual StockPickingType? PickType { get; set; }
 
     [InverseProperty("Warehouse")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigs { get; } = new List<PosConfig>();
 
     [ForeignKey("PosTypeId")]
@@ -236,6 +237,7 @@ public partial class StockWarehouse: IMultiTenant, IMayHaveCreator, IModificatio
     public virtual StockPickingType? PosType { get; set; }
 
     [InverseProperty("Warehouse")]
+    [NotMapped]
     public virtual ICollection<ProductReplenish> ProductReplenishes { get; } = new List<ProductReplenish>();
 
     [ForeignKey("ReceptionRouteId")]
@@ -247,6 +249,7 @@ public partial class StockWarehouse: IMultiTenant, IMayHaveCreator, IModificatio
     public virtual StockPickingType? ReturnType { get; set; }
 
     [InverseProperty("Warehouse")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
     [ForeignKey("SamLocId")]
@@ -262,27 +265,35 @@ public partial class StockWarehouse: IMultiTenant, IMayHaveCreator, IModificatio
     public virtual StockPickingType? SamType { get; set; }
 
     [InverseProperty("Warehouse")]
+    [NotMapped]
     public virtual ICollection<StockLocation> StockLocations { get; } = new List<StockLocation>();
 
     [InverseProperty("Warehouse")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
 
     [InverseProperty("Warehouse")]
+    [NotMapped]
     public virtual ICollection<StockPickingType> StockPickingTypes { get; } = new List<StockPickingType>();
 
     [InverseProperty("SuppliedWh")]
+    [NotMapped]
     public virtual ICollection<StockRoute> StockRouteSuppliedWhs { get; } = new List<StockRoute>();
 
     [InverseProperty("SupplierWh")]
+    [NotMapped]
     public virtual ICollection<StockRoute> StockRouteSupplierWhs { get; } = new List<StockRoute>();
 
     [InverseProperty("PropagateWarehouse")]
+    [NotMapped]
     public virtual ICollection<StockRule> StockRulePropagateWarehouses { get; } = new List<StockRule>();
 
     [InverseProperty("Warehouse")]
+    [NotMapped]
     public virtual ICollection<StockRule> StockRuleWarehouses { get; } = new List<StockRule>();
 
     [InverseProperty("Warehouse")]
+    [NotMapped]
     public virtual ICollection<StockWarehouseOrderpoint> StockWarehouseOrderpoints { get; } = new List<StockWarehouseOrderpoint>();
 
     [ForeignKey("ViewLocationId")]
@@ -290,6 +301,7 @@ public partial class StockWarehouse: IMultiTenant, IMayHaveCreator, IModificatio
     public virtual StockLocation? ViewLocation { get; set; }
 
     [InverseProperty("Warehouse")]
+    [NotMapped]
     public virtual ICollection<Website> Websites { get; } = new List<Website>();
 
     [ForeignKey("WhInputStockLocId")]
@@ -314,17 +326,21 @@ public partial class StockWarehouse: IMultiTenant, IMayHaveCreator, IModificatio
 
     [ForeignKey("WarehouseId")]
     [InverseProperty("Warehouses")]
+    [NotMapped]
     public virtual ICollection<StockRoute> Routes { get; } = new List<StockRoute>();
 
     [ForeignKey("StockWarehouseId")]
     [InverseProperty("StockWarehouses")]
+    [NotMapped]
     public virtual ICollection<StockRulesReport> StockRulesReports { get; } = new List<StockRulesReport>();
 
     [ForeignKey("SupplierWhId")]
     [InverseProperty("SupplierWhs")]
+    [NotMapped]
     public virtual ICollection<StockWarehouse> SuppliedWhs { get; } = new List<StockWarehouse>();
 
     [ForeignKey("SuppliedWhId")]
     [InverseProperty("SuppliedWhs")]
+    [NotMapped]
     public virtual ICollection<StockWarehouse> SupplierWhs { get; } = new List<StockWarehouse>();
 }

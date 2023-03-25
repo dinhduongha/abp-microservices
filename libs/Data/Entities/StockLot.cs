@@ -65,9 +65,11 @@ public partial class StockLot: IMultiTenant, IMayHaveCreator, IModificationAudit
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [InverseProperty("LotProducing")]
+    [NotMapped]
     public virtual ICollection<MrpProduction> MrpProductions { get; } = new List<MrpProduction>();
 
     [InverseProperty("Lot")]
+    [NotMapped]
     public virtual ICollection<MrpUnbuild> MrpUnbuilds { get; } = new List<MrpUnbuild>();
 
     [ForeignKey("ProductId")]
@@ -79,21 +81,27 @@ public partial class StockLot: IMultiTenant, IMayHaveCreator, IModificationAudit
     public virtual UomUom? ProductUom { get; set; }
 
     [InverseProperty("Lot")]
+    [NotMapped]
     public virtual ICollection<RepairLine> RepairLines { get; } = new List<RepairLine>();
 
     [InverseProperty("Lot")]
+    [NotMapped]
     public virtual ICollection<RepairOrder> RepairOrders { get; } = new List<RepairOrder>();
 
     [InverseProperty("Lot")]
+    [NotMapped]
     public virtual ICollection<StockMoveLine> StockMoveLines { get; } = new List<StockMoveLine>();
 
     [InverseProperty("OrderFinishedLot")]
+    [NotMapped]
     public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
 
     [InverseProperty("Lot")]
+    [NotMapped]
     public virtual ICollection<StockQuant> StockQuants { get; } = new List<StockQuant>();
 
     [InverseProperty("Lot")]
+    [NotMapped]
     public virtual ICollection<StockScrap> StockScraps { get; } = new List<StockScrap>();
 
     [ForeignKey("LastModifierId")]

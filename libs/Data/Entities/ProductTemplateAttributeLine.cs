@@ -52,6 +52,7 @@ public partial class ProductTemplateAttributeLine
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("AttributeLine")]
+    [NotMapped]
     public virtual ICollection<ProductTemplateAttributeValue> ProductTemplateAttributeValues { get; } = new List<ProductTemplateAttributeValue>();
 
     [ForeignKey("ProductTmplId")]
@@ -64,5 +65,6 @@ public partial class ProductTemplateAttributeLine
 
     [ForeignKey("ProductTemplateAttributeLineId")]
     [InverseProperty("ProductTemplateAttributeLines")]
+    [NotMapped]
     public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; } = new List<ProductAttributeValue>();
 }

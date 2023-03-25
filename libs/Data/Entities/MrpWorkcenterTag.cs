@@ -46,5 +46,6 @@ public partial class MrpWorkcenterTag
 
     [ForeignKey("MrpWorkcenterTagId")]
     [InverseProperty("MrpWorkcenterTags")]
+    [NotMapped]
     public virtual ICollection<MrpWorkcenter> MrpWorkcenters { get; } = new List<MrpWorkcenter>();
 }

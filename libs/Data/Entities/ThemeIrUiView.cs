@@ -64,9 +64,11 @@ public partial class ThemeIrUiView
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("ThemeTemplate")]
+    [NotMapped]
     public virtual ICollection<IrUiView> IrUiViews { get; } = new List<IrUiView>();
 
     [InverseProperty("View")]
+    [NotMapped]
     public virtual ICollection<ThemeWebsitePage> ThemeWebsitePages { get; } = new List<ThemeWebsitePage>();
 
     [ForeignKey("LastModifierId")]

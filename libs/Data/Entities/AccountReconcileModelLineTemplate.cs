@@ -68,5 +68,6 @@ public partial class AccountReconcileModelLineTemplate
 
     [ForeignKey("AccountReconcileModelLineTemplateId")]
     [InverseProperty("AccountReconcileModelLineTemplates")]
+    [NotMapped]
     public virtual ICollection<AccountTaxTemplate> AccountTaxTemplates { get; } = new List<AccountTaxTemplate>();
 }

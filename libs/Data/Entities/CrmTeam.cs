@@ -76,6 +76,7 @@ public partial class CrmTeam: IMultiTenant, IMayHaveCreator, IModificationAudite
     public bool? AssignmentOptout { get; set; }
 
     [InverseProperty("Team")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [ForeignKey("AliasId")]
@@ -91,27 +92,35 @@ public partial class CrmTeam: IMultiTenant, IMayHaveCreator, IModificationAudite
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Team")]
+    [NotMapped]
     public virtual ICollection<CrmIapLeadMiningRequest> CrmIapLeadMiningRequests { get; } = new List<CrmIapLeadMiningRequest>();
 
     [InverseProperty("Team")]
+    [NotMapped]
     public virtual ICollection<CrmLead2opportunityPartnerMass> CrmLead2opportunityPartnerMasses { get; } = new List<CrmLead2opportunityPartnerMass>();
 
     [InverseProperty("Team")]
+    [NotMapped]
     public virtual ICollection<CrmLead2opportunityPartner> CrmLead2opportunityPartners { get; } = new List<CrmLead2opportunityPartner>();
 
     [InverseProperty("Team")]
+    [NotMapped]
     public virtual ICollection<CrmLeadScoringFrequency> CrmLeadScoringFrequencies { get; } = new List<CrmLeadScoringFrequency>();
 
     [InverseProperty("Team")]
+    [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
 
     [InverseProperty("Team")]
+    [NotMapped]
     public virtual ICollection<CrmMergeOpportunity> CrmMergeOpportunities { get; } = new List<CrmMergeOpportunity>();
 
     [InverseProperty("Team")]
+    [NotMapped]
     public virtual ICollection<CrmStage> CrmStages { get; } = new List<CrmStage>();
 
     [InverseProperty("CrmTeam")]
+    [NotMapped]
     public virtual ICollection<CrmTeamMember> CrmTeamMembers { get; } = new List<CrmTeamMember>();
 
     [ForeignKey("MessageMainAttachmentId")]
@@ -119,18 +128,23 @@ public partial class CrmTeam: IMultiTenant, IMayHaveCreator, IModificationAudite
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [InverseProperty("CrmTeam")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigs { get; } = new List<PosConfig>();
 
     [InverseProperty("CrmTeam")]
+    [NotMapped]
     public virtual ICollection<PosOrder> PosOrders { get; } = new List<PosOrder>();
 
     [InverseProperty("Team")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 
     [InverseProperty("SaleTeam")]
+    [NotMapped]
     public virtual ICollection<ResUser> ResUsers { get; } = new List<ResUser>();
 
     [InverseProperty("Team")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
     [ForeignKey("UserId")]
@@ -138,9 +152,11 @@ public partial class CrmTeam: IMultiTenant, IMayHaveCreator, IModificationAudite
     public virtual ResUser? User { get; set; }
 
     [InverseProperty("CrmDefaultTeam")]
+    [NotMapped]
     public virtual ICollection<Website> WebsiteCrmDefaultTeams { get; } = new List<Website>();
 
     [InverseProperty("Salesteam")]
+    [NotMapped]
     public virtual ICollection<Website> WebsiteSalesteams { get; } = new List<Website>();
 
     [ForeignKey("LastModifierId")]
@@ -149,5 +165,6 @@ public partial class CrmTeam: IMultiTenant, IMayHaveCreator, IModificationAudite
 
     [ForeignKey("TeamId")]
     [InverseProperty("Teams")]
+    [NotMapped]
     public virtual ICollection<ResUser> Users { get; } = new List<ResUser>();
 }

@@ -41,6 +41,7 @@ public partial class CrmIapLeadSeniority
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Seniority")]
+    [NotMapped]
     public virtual ICollection<CrmIapLeadMiningRequest> CrmIapLeadMiningRequests { get; } = new List<CrmIapLeadMiningRequest>();
 
     [ForeignKey("LastModifierId")]

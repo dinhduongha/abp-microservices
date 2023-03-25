@@ -45,5 +45,6 @@ public partial class PosBill
 
     [ForeignKey("PosBillId")]
     [InverseProperty("PosBills")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigs { get; } = new List<PosConfig>();
 }

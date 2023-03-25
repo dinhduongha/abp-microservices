@@ -57,6 +57,7 @@ public partial class HrWorkLocation: IMultiTenant, IMayHaveCreator, IModificatio
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("WorkLocation")]
+    [NotMapped]
     public virtual ICollection<HrEmployee> HrEmployees { get; } = new List<HrEmployee>();
 
     [ForeignKey("LastModifierId")]

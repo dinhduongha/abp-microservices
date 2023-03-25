@@ -45,5 +45,6 @@ public partial class LotLabelLayout
 
     [ForeignKey("LotLabelLayoutId")]
     [InverseProperty("LotLabelLayouts")]
+    [NotMapped]
     public virtual ICollection<StockPicking> StockPickings { get; } = new List<StockPicking>();
 }

@@ -41,6 +41,7 @@ public partial class MailResendMessage
     public virtual MailMessage? MailMessage { get; set; }
 
     [InverseProperty("ResendWizard")]
+    [NotMapped]
     public virtual ICollection<MailResendPartner> MailResendPartners { get; } = new List<MailResendPartner>();
 
     [ForeignKey("LastModifierId")]
@@ -49,5 +50,6 @@ public partial class MailResendMessage
 
     [ForeignKey("MailResendMessageId")]
     [InverseProperty("MailResendMessages")]
+    [NotMapped]
     public virtual ICollection<MailNotification> MailNotifications { get; } = new List<MailNotification>();
 }

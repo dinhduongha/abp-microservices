@@ -67,18 +67,23 @@ public partial class StockQuantPackage: IMultiTenant, IMayHaveCreator, IModifica
     public virtual StockPackageType? PackageType { get; set; }
 
     [InverseProperty("Package")]
+    [NotMapped]
     public virtual ICollection<StockMoveLine> StockMoveLinePackages { get; } = new List<StockMoveLine>();
 
     [InverseProperty("ResultPackage")]
+    [NotMapped]
     public virtual ICollection<StockMoveLine> StockMoveLineResultPackages { get; } = new List<StockMoveLine>();
 
     [InverseProperty("Package")]
+    [NotMapped]
     public virtual ICollection<StockPackageLevel> StockPackageLevels { get; } = new List<StockPackageLevel>();
 
     [InverseProperty("Package")]
+    [NotMapped]
     public virtual ICollection<StockQuant> StockQuants { get; } = new List<StockQuant>();
 
     [InverseProperty("Package")]
+    [NotMapped]
     public virtual ICollection<StockScrap> StockScraps { get; } = new List<StockScrap>();
 
     [ForeignKey("LastModifierId")]

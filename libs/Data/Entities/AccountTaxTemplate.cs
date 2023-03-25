@@ -79,15 +79,19 @@ public partial class AccountTaxTemplate
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("TaxDest")]
+    [NotMapped]
     public virtual ICollection<AccountFiscalPositionTaxTemplate> AccountFiscalPositionTaxTemplateTaxDests { get; } = new List<AccountFiscalPositionTaxTemplate>();
 
     [InverseProperty("TaxSrc")]
+    [NotMapped]
     public virtual ICollection<AccountFiscalPositionTaxTemplate> AccountFiscalPositionTaxTemplateTaxSrcs { get; } = new List<AccountFiscalPositionTaxTemplate>();
 
     [InverseProperty("InvoiceTax")]
+    [NotMapped]
     public virtual ICollection<AccountTaxRepartitionLineTemplate> AccountTaxRepartitionLineTemplateInvoiceTaxes { get; } = new List<AccountTaxRepartitionLineTemplate>();
 
     [InverseProperty("RefundTax")]
+    [NotMapped]
     public virtual ICollection<AccountTaxRepartitionLineTemplate> AccountTaxRepartitionLineTemplateRefundTaxes { get; } = new List<AccountTaxRepartitionLineTemplate>();
 
     [ForeignKey("CashBasisTransitionAccountId")]
@@ -112,17 +116,21 @@ public partial class AccountTaxTemplate
 
     [ForeignKey("AccountTaxTemplateId")]
     [InverseProperty("AccountTaxTemplates")]
+    [NotMapped]
     public virtual ICollection<AccountReconcileModelLineTemplate> AccountReconcileModelLineTemplates { get; } = new List<AccountReconcileModelLineTemplate>();
 
     [ForeignKey("TaxId")]
     [InverseProperty("Taxes")]
+    [NotMapped]
     public virtual ICollection<AccountAccountTemplate> Accounts { get; } = new List<AccountAccountTemplate>();
 
     [ForeignKey("ParentTax")]
     [InverseProperty("ParentTaxes")]
+    [NotMapped]
     public virtual ICollection<AccountTaxTemplate> ChildTaxes { get; } = new List<AccountTaxTemplate>();
 
     [ForeignKey("ChildTax")]
     [InverseProperty("ChildTaxes")]
+    [NotMapped]
     public virtual ICollection<AccountTaxTemplate> ParentTaxes { get; } = new List<AccountTaxTemplate>();
 }

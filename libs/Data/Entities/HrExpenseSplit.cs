@@ -100,5 +100,6 @@ public partial class HrExpenseSplit: IMultiTenant, IMayHaveCreator, IModificatio
 
     [ForeignKey("HrExpenseSplitId")]
     [InverseProperty("HrExpenseSplits")]
+    [NotMapped]
     public virtual ICollection<AccountTax> AccountTaxes { get; } = new List<AccountTax>();
 }

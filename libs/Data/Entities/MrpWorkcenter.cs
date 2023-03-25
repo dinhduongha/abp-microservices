@@ -96,15 +96,19 @@ public partial class MrpWorkcenter: IMultiTenant, IMayHaveCreator, IModification
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Workcenter")]
+    [NotMapped]
     public virtual ICollection<MrpRoutingWorkcenter> MrpRoutingWorkcenters { get; } = new List<MrpRoutingWorkcenter>();
 
     [InverseProperty("Workcenter")]
+    [NotMapped]
     public virtual ICollection<MrpWorkcenterCapacity> MrpWorkcenterCapacities { get; } = new List<MrpWorkcenterCapacity>();
 
     [InverseProperty("Workcenter")]
+    [NotMapped]
     public virtual ICollection<MrpWorkcenterProductivity> MrpWorkcenterProductivities { get; } = new List<MrpWorkcenterProductivity>();
 
     [InverseProperty("Workcenter")]
+    [NotMapped]
     public virtual ICollection<MrpWorkorder> MrpWorkorders { get; } = new List<MrpWorkorder>();
 
     [ForeignKey("ResourceId")]
@@ -121,13 +125,16 @@ public partial class MrpWorkcenter: IMultiTenant, IMayHaveCreator, IModification
 
     [ForeignKey("WorkcenterId")]
     [InverseProperty("Workcenters")]
+    [NotMapped]
     public virtual ICollection<MrpWorkcenter> AlternativeWorkcenters { get; } = new List<MrpWorkcenter>();
 
     [ForeignKey("MrpWorkcenterId")]
     [InverseProperty("MrpWorkcenters")]
+    [NotMapped]
     public virtual ICollection<MrpWorkcenterTag> MrpWorkcenterTags { get; } = new List<MrpWorkcenterTag>();
 
     [ForeignKey("AlternativeWorkcenterId")]
     [InverseProperty("AlternativeWorkcenters")]
+    [NotMapped]
     public virtual ICollection<MrpWorkcenter> Workcenters { get; } = new List<MrpWorkcenter>();
 }

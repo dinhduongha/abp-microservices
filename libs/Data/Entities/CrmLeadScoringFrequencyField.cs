@@ -46,5 +46,6 @@ public partial class CrmLeadScoringFrequencyField
 
     [ForeignKey("CrmLeadScoringFrequencyFieldId")]
     [InverseProperty("CrmLeadScoringFrequencyFields")]
+    [NotMapped]
     public virtual ICollection<CrmLeadPlsUpdate> CrmLeadPlsUpdates { get; } = new List<CrmLeadPlsUpdate>();
 }

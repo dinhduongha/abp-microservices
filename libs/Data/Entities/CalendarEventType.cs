@@ -46,5 +46,6 @@ public partial class CalendarEventType
 
     [ForeignKey("TypeId")]
     [InverseProperty("Types")]
+    [NotMapped]
     public virtual ICollection<CalendarEvent> Events { get; } = new List<CalendarEvent>();
 }

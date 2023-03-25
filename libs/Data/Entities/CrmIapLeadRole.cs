@@ -44,6 +44,7 @@ public partial class CrmIapLeadRole
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("PreferredRole")]
+    [NotMapped]
     public virtual ICollection<CrmIapLeadMiningRequest> CrmIapLeadMiningRequests { get; } = new List<CrmIapLeadMiningRequest>();
 
     [ForeignKey("LastModifierId")]
@@ -52,5 +53,6 @@ public partial class CrmIapLeadRole
 
     [ForeignKey("CrmIapLeadRoleId")]
     [InverseProperty("CrmIapLeadRoles")]
+    [NotMapped]
     public virtual ICollection<CrmIapLeadMiningRequest> CrmIapLeadMiningRequestsNavigation { get; } = new List<CrmIapLeadMiningRequest>();
 }

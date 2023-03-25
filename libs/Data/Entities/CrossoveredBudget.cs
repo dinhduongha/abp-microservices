@@ -60,6 +60,7 @@ public partial class CrossoveredBudget: IMultiTenant, IMayHaveCreator, IModifica
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("CrossoveredBudget")]
+    [NotMapped]
     public virtual ICollection<CrossoveredBudgetLine> CrossoveredBudgetLines { get; } = new List<CrossoveredBudgetLine>();
 
     [ForeignKey("MessageMainAttachmentId")]

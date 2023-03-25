@@ -115,12 +115,15 @@ public partial class AccountBankStatementLine
     public virtual ResUser? WriteU { get; set; }
 
     [InverseProperty("StatementLine")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [InverseProperty("StatementLine")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
     
     [ForeignKey("AccountBankStatementLineId")]
     [InverseProperty("AccountBankStatementLines")]
+    [NotMapped]
     public virtual ICollection<AccountPayment> AccountPayments { get; } = new List<AccountPayment>();
 }

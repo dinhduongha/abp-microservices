@@ -45,5 +45,6 @@ public partial class PosDetailsWizard
 
     [ForeignKey("PosDetailsWizardId")]
     [InverseProperty("PosDetailsWizards")]
+    [NotMapped]
     public virtual ICollection<PosConfig> PosConfigs { get; } = new List<PosConfig>();
 }

@@ -56,5 +56,6 @@ public partial class ApplicantGetRefuseReason
 
     [ForeignKey("ApplicantGetRefuseReasonId")]
     [InverseProperty("ApplicantGetRefuseReasons")]
+    [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicants { get; } = new List<HrApplicant>();
 }

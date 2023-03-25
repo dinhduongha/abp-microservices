@@ -45,5 +45,6 @@ public partial class StockInventoryAdjustmentName
 
     [ForeignKey("StockInventoryAdjustmentNameId")]
     [InverseProperty("StockInventoryAdjustmentNames")]
+    [NotMapped]
     public virtual ICollection<StockQuant> StockQuants { get; } = new List<StockQuant>();
 }

@@ -50,15 +50,19 @@ public partial class StockStorageCategory: IMultiTenant, IMayHaveCreator, IModif
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("StorageCategory")]
+    [NotMapped]
     public virtual ICollection<StockLocation> StockLocations { get; } = new List<StockLocation>();
 
     [InverseProperty("StorageCategory")]
+    [NotMapped]
     public virtual ICollection<StockPutawayRule> StockPutawayRules { get; } = new List<StockPutawayRule>();
 
     [InverseProperty("StorageCategory")]
+    [NotMapped]
     public virtual ICollection<StockQuant> StockQuants { get; } = new List<StockQuant>();
 
     [InverseProperty("StorageCategory")]
+    [NotMapped]
     public virtual ICollection<StockStorageCategoryCapacity> StockStorageCategoryCapacities { get; } = new List<StockStorageCategoryCapacity>();
 
     [ForeignKey("LastModifierId")]

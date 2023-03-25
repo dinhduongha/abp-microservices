@@ -65,6 +65,7 @@ public partial class StockReturnPicking
     public virtual StockPicking? Picking { get; set; }
 
     [InverseProperty("Wizard")]
+    [NotMapped]
     public virtual ICollection<StockReturnPickingLine> StockReturnPickingLines { get; } = new List<StockReturnPickingLine>();
 
     [ForeignKey("LastModifierId")]

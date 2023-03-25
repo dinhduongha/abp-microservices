@@ -56,6 +56,7 @@ public partial class AccountInvoiceSend
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("InvoiceSend")]
+    [NotMapped]
     public virtual ICollection<SnailmailConfirmInvoice> SnailmailConfirmInvoices { get; } = new List<SnailmailConfirmInvoice>();
 
     [ForeignKey("TemplateId")]
@@ -68,5 +69,6 @@ public partial class AccountInvoiceSend
 
     [ForeignKey("AccountInvoiceSendId")]
     [InverseProperty("AccountInvoiceSends")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 }

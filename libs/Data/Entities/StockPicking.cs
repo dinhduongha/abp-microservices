@@ -134,9 +134,6 @@ public partial class StockPicking: IMultiTenant, IMayHaveCreator, IModificationA
     [InverseProperty("StockPickings")]
     public virtual ProcurementGroup? Group { get; set; }
 
-    [InverseProperty("Backorder")]
-    public virtual ICollection<StockPicking> InverseBackorder { get; } = new List<StockPicking>();
-
     [ForeignKey("LocationId")]
     [InverseProperty("StockPickingLocations")]
     public virtual StockLocation? Location { get; set; }
@@ -169,36 +166,9 @@ public partial class StockPicking: IMultiTenant, IMayHaveCreator, IModificationA
     [InverseProperty("StockPickings")]
     public virtual PosSession? PosSession { get; set; }
 
-    [InverseProperty("Picking")]
-    public virtual ICollection<RepairOrder> RepairOrders { get; } = new List<RepairOrder>();
-
     [ForeignKey("SaleId")]
     [InverseProperty("StockPickings")]
     public virtual SaleOrder? Sale { get; set; }
-
-    [InverseProperty("Picking")]
-    public virtual ICollection<StockBackorderConfirmationLine> StockBackorderConfirmationLines { get; } = new List<StockBackorderConfirmationLine>();
-
-    [InverseProperty("Picking")]
-    public virtual ICollection<StockImmediateTransferLine> StockImmediateTransferLines { get; } = new List<StockImmediateTransferLine>();
-
-    [InverseProperty("Picking")]
-    public virtual ICollection<StockMoveLine> StockMoveLines { get; } = new List<StockMoveLine>();
-
-    [InverseProperty("Picking")]
-    public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
-
-    [InverseProperty("Picking")]
-    public virtual ICollection<StockPackageDestination> StockPackageDestinations { get; } = new List<StockPackageDestination>();
-
-    [InverseProperty("Picking")]
-    public virtual ICollection<StockPackageLevel> StockPackageLevels { get; } = new List<StockPackageLevel>();
-
-    [InverseProperty("Picking")]
-    public virtual ICollection<StockReturnPicking> StockReturnPickings { get; } = new List<StockReturnPicking>();
-
-    [InverseProperty("Picking")]
-    public virtual ICollection<StockScrap> StockScraps { get; } = new List<StockScrap>();
 
     [ForeignKey("UserId")]
     [InverseProperty("StockPickingUsers")]
@@ -212,27 +182,73 @@ public partial class StockPicking: IMultiTenant, IMayHaveCreator, IModificationA
     [InverseProperty("StockPickingWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
+    [InverseProperty("Backorder")]
+    [NotMapped]
+    public virtual ICollection<StockPicking> InverseBackorder { get; } = new List<StockPicking>();
+
+    [InverseProperty("Picking")]
+    [NotMapped]
+    public virtual ICollection<RepairOrder> RepairOrders { get; } = new List<RepairOrder>();
+
+    [InverseProperty("Picking")]
+    [NotMapped]
+    public virtual ICollection<StockBackorderConfirmationLine> StockBackorderConfirmationLines { get; } = new List<StockBackorderConfirmationLine>();
+
+    [InverseProperty("Picking")]
+    [NotMapped]
+    public virtual ICollection<StockImmediateTransferLine> StockImmediateTransferLines { get; } = new List<StockImmediateTransferLine>();
+
+    [InverseProperty("Picking")]
+    [NotMapped]
+    public virtual ICollection<StockMoveLine> StockMoveLines { get; } = new List<StockMoveLine>();
+
+    [InverseProperty("Picking")]
+    [NotMapped]
+    public virtual ICollection<StockMove> StockMoves { get; } = new List<StockMove>();
+
+    [InverseProperty("Picking")]
+    [NotMapped]
+    public virtual ICollection<StockPackageDestination> StockPackageDestinations { get; } = new List<StockPackageDestination>();
+
+    [InverseProperty("Picking")]
+    [NotMapped]
+    public virtual ICollection<StockPackageLevel> StockPackageLevels { get; } = new List<StockPackageLevel>();
+
+    [InverseProperty("Picking")]
+    [NotMapped]
+    public virtual ICollection<StockReturnPicking> StockReturnPickings { get; } = new List<StockReturnPicking>();
+
+    [InverseProperty("Picking")]
+    [NotMapped]
+    public virtual ICollection<StockScrap> StockScraps { get; } = new List<StockScrap>();
+
     [ForeignKey("StockPickingId")]
     [InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual ICollection<ConfirmStockSm> ConfirmStockSms { get; } = new List<ConfirmStockSm>();
 
     [ForeignKey("StockPickingId")]
     [InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual ICollection<LotLabelLayout> LotLabelLayouts { get; } = new List<LotLabelLayout>();
 
     [ForeignKey("StockPickingId")]
     [InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual ICollection<PickingLabelType> PickingLabelTypes { get; } = new List<PickingLabelType>();
 
     [ForeignKey("StockPickingId")]
     [InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual ICollection<PurchaseOrder> PurchaseOrders { get; } = new List<PurchaseOrder>();
 
     [ForeignKey("StockPickingId")]
     [InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual ICollection<StockBackorderConfirmation> StockBackorderConfirmations { get; } = new List<StockBackorderConfirmation>();
 
     [ForeignKey("StockPickingId")]
     [InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual ICollection<StockImmediateTransfer> StockImmediateTransfers { get; } = new List<StockImmediateTransfer>();
 }

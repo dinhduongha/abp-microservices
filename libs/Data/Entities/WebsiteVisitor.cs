@@ -75,6 +75,7 @@ public partial class WebsiteVisitor
     public virtual Website? Website { get; set; }
 
     [InverseProperty("Visitor")]
+    [NotMapped]
     public virtual ICollection<WebsiteTrack> WebsiteTracks { get; } = new List<WebsiteTrack>();
 
     [ForeignKey("LastModifierId")]
@@ -83,5 +84,6 @@ public partial class WebsiteVisitor
 
     [ForeignKey("WebsiteVisitorId")]
     [InverseProperty("WebsiteVisitors")]
+    [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
 }

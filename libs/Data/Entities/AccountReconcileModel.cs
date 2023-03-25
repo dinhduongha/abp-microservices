@@ -118,12 +118,15 @@ public partial class AccountReconcileModel: IMultiTenant, IMayHaveCreator, IModi
     public double? PaymentToleranceParam { get; set; }
 
     [InverseProperty("ReconcileModel")]
+    [NotMapped]
     public virtual ICollection<AccountMoveLine> AccountMoveLines { get; } = new List<AccountMoveLine>();
 
     [InverseProperty("Model")]
+    [NotMapped]
     public virtual ICollection<AccountReconcileModelLine> AccountReconcileModelLines { get; } = new List<AccountReconcileModelLine>();
 
     [InverseProperty("Model")]
+    [NotMapped]
     public virtual ICollection<AccountReconcileModelPartnerMapping> AccountReconcileModelPartnerMappings { get; } = new List<AccountReconcileModelPartnerMapping>();
 
     [ForeignKey("TenantId")]
@@ -144,13 +147,16 @@ public partial class AccountReconcileModel: IMultiTenant, IMayHaveCreator, IModi
 
     [ForeignKey("AccountReconcileModelId")]
     [InverseProperty("AccountReconcileModels")]
+    [NotMapped]
     public virtual ICollection<AccountJournal> AccountJournals { get; } = new List<AccountJournal>();
 
     [ForeignKey("AccountReconcileModelId")]
     [InverseProperty("AccountReconcileModels")]
+    [NotMapped]
     public virtual ICollection<ResPartnerCategory> ResPartnerCategories { get; } = new List<ResPartnerCategory>();
 
     [ForeignKey("AccountReconcileModelId")]
     [InverseProperty("AccountReconcileModels")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 }

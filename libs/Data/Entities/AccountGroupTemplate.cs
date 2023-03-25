@@ -53,6 +53,7 @@ public partial class AccountGroupTemplate
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Parent")]
+    [NotMapped]
     public virtual ICollection<AccountGroupTemplate> InverseParent { get; } = new List<AccountGroupTemplate>();
 
     [ForeignKey("ParentId")]

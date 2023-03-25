@@ -41,6 +41,7 @@ public partial class SmsResend
     public virtual MailMessage? MailMessage { get; set; }
 
     [InverseProperty("SmsResend")]
+    [NotMapped]
     public virtual ICollection<SmsResendRecipient> SmsResendRecipients { get; } = new List<SmsResendRecipient>();
 
     [ForeignKey("LastModifierId")]

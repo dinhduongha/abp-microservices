@@ -37,6 +37,7 @@ public partial class PortalWizard
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Wizard")]
+    [NotMapped]
     public virtual ICollection<PortalWizardUser> PortalWizardUsers { get; } = new List<PortalWizardUser>();
 
     [ForeignKey("LastModifierId")]
@@ -45,5 +46,6 @@ public partial class PortalWizard
 
     [ForeignKey("PortalWizardId")]
     [InverseProperty("PortalWizards")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 }

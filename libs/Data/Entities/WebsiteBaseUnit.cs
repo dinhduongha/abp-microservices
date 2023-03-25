@@ -37,9 +37,11 @@ public partial class WebsiteBaseUnit
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("BaseUnit")]
+    [NotMapped]
     public virtual ICollection<ProductProduct> ProductProducts { get; } = new List<ProductProduct>();
 
     [InverseProperty("BaseUnit")]
+    [NotMapped]
     public virtual ICollection<ProductTemplate> ProductTemplates { get; } = new List<ProductTemplate>();
 
     [ForeignKey("LastModifierId")]

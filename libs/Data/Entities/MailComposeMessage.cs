@@ -105,6 +105,7 @@ public partial class MailComposeMessage
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("Composer")]
+    [NotMapped]
     public virtual ICollection<AccountInvoiceSend> AccountInvoiceSends { get; } = new List<AccountInvoiceSend>();
 
     [ForeignKey("AuthorId")]
@@ -141,9 +142,11 @@ public partial class MailComposeMessage
 
     [ForeignKey("WizardId")]
     [InverseProperty("Wizards")]
+    [NotMapped]
     public virtual ICollection<IrAttachment> Attachments { get; } = new List<IrAttachment>();
 
     [ForeignKey("WizardId")]
     [InverseProperty("Wizards")]
+    [NotMapped]
     public virtual ICollection<ResPartner> Partners { get; } = new List<ResPartner>();
 }

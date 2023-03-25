@@ -94,6 +94,7 @@ public partial class ProjectTaskRecurrence
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Recurrence")]
+    [NotMapped]
     public virtual ICollection<ProjectTask> ProjectTasks { get; } = new List<ProjectTask>();
 
     [ForeignKey("LastModifierId")]

@@ -71,12 +71,15 @@ public partial class IrCron
     public virtual IrActServer? IrActionsServer { get; set; }
 
     [InverseProperty("Cron")]
+    [NotMapped]
     public virtual ICollection<IrCronTrigger> IrCronTriggers { get; } = new List<IrCronTrigger>();
 
     [InverseProperty("Cron")]
+    [NotMapped]
     public virtual ICollection<LunchAlert> LunchAlerts { get; } = new List<LunchAlert>();
 
     [InverseProperty("Cron")]
+    [NotMapped]
     public virtual ICollection<LunchSupplier> LunchSuppliers { get; } = new List<LunchSupplier>();
 
     [ForeignKey("UserId")]

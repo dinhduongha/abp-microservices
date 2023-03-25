@@ -62,6 +62,7 @@ public partial class MailChannelRtcSession
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("RtcInvitingSession")]
+    [NotMapped]
     public virtual ICollection<MailChannelMember> MailChannelMembers { get; } = new List<MailChannelMember>();
 
     [ForeignKey("LastModifierId")]

@@ -66,6 +66,7 @@ public partial class IrFilter
     public virtual ResUser? User { get; set; }
 
     [InverseProperty("Filter")]
+    [NotMapped]
     public virtual ICollection<WebsiteSnippetFilter> WebsiteSnippetFilters { get; } = new List<WebsiteSnippetFilter>();
 
     [ForeignKey("LastModifierId")]

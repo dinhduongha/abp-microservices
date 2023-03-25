@@ -111,9 +111,11 @@ public partial class CalendarEvent
     public virtual HrApplicant? Applicant { get; set; }
 
     [InverseProperty("Event")]
+    [NotMapped]
     public virtual ICollection<CalendarAttendee> CalendarAttendees { get; } = new List<CalendarAttendee>();
 
     [InverseProperty("BaseEvent")]
+    [NotMapped]
     public virtual ICollection<CalendarRecurrence> CalendarRecurrences { get; } = new List<CalendarRecurrence>();
 
     [ForeignKey("CreatorId")]
@@ -121,9 +123,11 @@ public partial class CalendarEvent
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Meeting")]
+    [NotMapped]
     public virtual ICollection<HrLeave> HrLeaves { get; } = new List<HrLeave>();
 
     [InverseProperty("CalendarEvent")]
+    [NotMapped]
     public virtual ICollection<MailActivity> MailActivities { get; } = new List<MailActivity>();
 
     [ForeignKey("MessageMainAttachmentId")]
@@ -156,13 +160,16 @@ public partial class CalendarEvent
 
     [ForeignKey("CalendarEventId")]
     [InverseProperty("CalendarEvents")]
+    [NotMapped]
     public virtual ICollection<CalendarAlarm> CalendarAlarms { get; } = new List<CalendarAlarm>();
 
     [ForeignKey("CalendarEventId")]
     [InverseProperty("CalendarEvents")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 
     [ForeignKey("EventId")]
     [InverseProperty("Events")]
+    [NotMapped]
     public virtual ICollection<CalendarEventType> Types { get; } = new List<CalendarEventType>();
 }

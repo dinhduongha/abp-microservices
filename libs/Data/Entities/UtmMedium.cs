@@ -37,6 +37,7 @@ public partial class UtmMedium
     public DateTime? LastModificationTime { get; set; }
 
     [InverseProperty("Medium")]
+    [NotMapped]
     public virtual ICollection<AccountMove> AccountMoves { get; } = new List<AccountMove>();
 
     [ForeignKey("CreatorId")]
@@ -44,15 +45,19 @@ public partial class UtmMedium
     public virtual ResUser? CreateU { get; set; }
 
     [InverseProperty("Medium")]
+    [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();
 
     [InverseProperty("Medium")]
+    [NotMapped]
     public virtual ICollection<HrApplicant> HrApplicants { get; } = new List<HrApplicant>();
 
     [InverseProperty("Medium")]
+    [NotMapped]
     public virtual ICollection<HrRecruitmentSource> HrRecruitmentSources { get; } = new List<HrRecruitmentSource>();
 
     [InverseProperty("Medium")]
+    [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
 
     [ForeignKey("LastModifierId")]

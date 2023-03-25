@@ -85,6 +85,7 @@ public partial class MailMail
     public virtual MailMessage? MailMessage { get; set; }
 
     [InverseProperty("MailMail")]
+    [NotMapped]
     public virtual ICollection<MailNotification> MailNotifications { get; } = new List<MailNotification>();
 
     [ForeignKey("LastModifierId")]
@@ -93,5 +94,6 @@ public partial class MailMail
 
     [ForeignKey("MailMailId")]
     [InverseProperty("MailMails")]
+    [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 }
