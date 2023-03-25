@@ -7,7 +7,7 @@ namespace Bamboo.Core.Entities;
 public static class CoreDbContextModelCreatingExtensions
 {
 
-    public static void ConfigureCoreExtension(this ModelBuilder modelBuilder)
+    public static void ConfigureCoreModel(this ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresExtension("pg_trgm");
 
@@ -185,7 +185,7 @@ public static class CoreDbContextModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne(d => d.Account).WithMany(p => p.AccountAccruedOrdersWizards)
+            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_accrued_orders_wizard_account_id_fkey");
 
@@ -358,7 +358,7 @@ public static class CoreDbContextModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne(d => d.Account).WithMany(p => p.AccountAnalyticLines)
+            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_analytic_line_account_id_fkey");
 
@@ -378,7 +378,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_analytic_line_general_account_id_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.AccountAnalyticLines)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_line_journal_id_fkey");
 
@@ -446,7 +446,7 @@ public static class CoreDbContextModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne(d => d.AccountAnalytic).WithMany(p => p.AccountAssetAssets)
+            entity.HasOne<AccountAnalyticAccount>().WithMany().HasForeignKey(p => p.AccountAnalytic)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_asset_account_analytic_id_fkey");
 
@@ -491,11 +491,11 @@ public static class CoreDbContextModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne(d => d.AccountAnalytic).WithMany(p => p.AccountAssetCategories)
+            entity.HasOne<AccountAnalyticAccount>().WithMany().HasForeignKey(p => p.AccountAnalytic)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_category_account_analytic_id_fkey");
 
-            entity.HasOne(d => d.AccountAsset).WithMany(p => p.AccountAssetCategoryAccountAssets)
+            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.AccountAsset)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_asset_category_account_asset_id_fkey");
 
@@ -515,7 +515,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_category_create_uid_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.AccountAssetCategories)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_asset_category_journal_id_fkey");
 
@@ -687,7 +687,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_create_uid_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.AccountBankStatements)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_journal_id_fkey");
 
@@ -753,7 +753,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_import_journal_creation_create_uid_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.AccountBankStatementImportJournalCreations)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_bank_statement_import_journal_creation_journal_id_fkey");
 
@@ -1457,7 +1457,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_fiscal_position_company_id_fkey");
 
-            entity.HasOne(d => d.CountryGroup).WithMany(p => p.AccountFiscalPositions)
+            entity.HasOne<ResCountryGroup>().WithMany().HasForeignKey(p => p.CountryGroup)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_country_group_id_fkey");
 
@@ -1617,7 +1617,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_fiscal_position_template_chart_template_id_fkey");
 
-            entity.HasOne(d => d.CountryGroup).WithMany(p => p.AccountFiscalPositionTemplates)
+            entity.HasOne<ResCountryGroup>().WithMany().HasForeignKey(p => p.CountryGroup)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_template_country_group_id_fkey");
 
@@ -1835,7 +1835,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_journal_sale_activity_type_id_fkey");
 
-            entity.HasOne(d => d.SaleActivityUser).WithMany(p => p.AccountJournalSaleActivityUsers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.SaleActivityUser)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_journal_sale_activity_user_id_fkey");
 
@@ -1985,11 +1985,11 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_invoice_payment_term_id_fkey");
 
-            entity.HasOne(d => d.InvoiceUser).WithMany(p => p.AccountMoveInvoiceUsers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.InvoiceUser)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_invoice_user_id_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.AccountMoves)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_move_journal_id_fkey");
 
@@ -2095,7 +2095,7 @@ public static class CoreDbContextModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne(d => d.Account).WithMany(p => p.AccountMoveLines)
+            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_move_line_account_id_fkey");
 
@@ -2103,7 +2103,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_line_asset_category_id_fkey");
 
-            entity.HasOne(d => d.CompanyCurrency).WithMany(p => p.AccountMoveLineCompanyCurrencies)
+            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.CompanyCurrency)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_line_company_currency_id_fkey");
 
@@ -2135,7 +2135,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_line_group_tax_id_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.AccountMoveLines)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_line_journal_id_fkey");
 
@@ -2259,7 +2259,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_reversal_create_uid_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.AccountMoveReversals)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_move_reversal_journal_id_fkey");
 
@@ -2314,7 +2314,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_partial_reconcile_create_uid_fkey");
 
-            entity.HasOne(d => d.CreditCurrency).WithMany(p => p.AccountPartialReconcileCreditCurrencies)
+            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.CreditCurrency)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_partial_reconcile_credit_currency_id_fkey");
 
@@ -2322,7 +2322,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_partial_reconcile_credit_move_id_fkey");
 
-            entity.HasOne(d => d.DebitCurrency).WithMany(p => p.AccountPartialReconcileDebitCurrencies)
+            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.DebitCurrency)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_partial_reconcile_debit_currency_id_fkey");
 
@@ -2452,7 +2452,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_method_line_create_uid_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.AccountPaymentMethodLines)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_payment_method_line_journal_id_fkey");
 
@@ -2491,7 +2491,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_register_currency_id_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.AccountPaymentRegisters)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_register_journal_id_fkey");
 
@@ -2511,7 +2511,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_register_payment_token_id_fkey");
 
-            entity.HasOne(d => d.SourceCurrency).WithMany(p => p.AccountPaymentRegisterSourceCurrencies)
+            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.SourceCurrency)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_register_source_currency_id_fkey");
 
@@ -2695,7 +2695,7 @@ public static class CoreDbContextModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne(d => d.Account).WithMany(p => p.AccountReconcileModelLines)
+            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_reconcile_model_line_account_id_fkey");
 
@@ -2707,7 +2707,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_line_create_uid_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.AccountReconcileModelLines)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_reconcile_model_line_journal_id_fkey");
 
@@ -2744,7 +2744,7 @@ public static class CoreDbContextModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne(d => d.Account).WithMany(p => p.AccountReconcileModelLineTemplates)
+            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_reconcile_model_line_template_account_id_fkey");
 
@@ -2883,7 +2883,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_recurring_template_create_uid_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.AccountRecurringTemplates)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_recurring_template_journal_id_fkey");
 
@@ -3290,7 +3290,7 @@ public static class CoreDbContextModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne(d => d.Account).WithMany(p => p.AccountTaxRepartitionLines)
+            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_repartition_line_account_id_fkey");
 
@@ -3337,7 +3337,7 @@ public static class CoreDbContextModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne(d => d.Account).WithMany(p => p.AccountTaxRepartitionLineTemplates)
+            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_repartition_line_template_account_id_fkey");
 
@@ -5079,7 +5079,8 @@ public static class CoreDbContextModelCreatingExtensions
                         j.HasIndex(new[] { "CrmLeadId", "CrmLead2opportunityPartnerMassId" }, "crm_lead_crm_lead2opportunity_crm_lead_id_crm_lead2opportu_idx1");
                     });
 
-            entity.HasMany(d => d.ResUsers).WithMany(p => p.CrmLead2opportunityPartnerMasses)
+            /*
+            //entity.HasMany(d => d.ResUsers).WithMany(p => p.CrmLead2opportunityPartnerMasses)
                 .UsingEntity<Dictionary<string, object>>(
                     "CrmLead2opportunityPartnerMassResUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -5094,6 +5095,7 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("crm_lead2opportunity_partner_mass_res_users_rel");
                         j.HasIndex(new[] { "ResUsersId", "CrmLead2opportunityPartnerMassId" }, "crm_lead2opportunity_partner__res_users_id_crm_lead2opportu_idx");
                     });
+            */
         });
 
         modelBuilder.Entity<CrmLeadLost>(entity =>
@@ -5337,8 +5339,8 @@ public static class CoreDbContextModelCreatingExtensions
             entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.WriteU)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_team_write_uid_fkey");
-
-            entity.HasMany(d => d.Users).WithMany(p => p.Teams)
+            /*
+            //entity.HasMany(d => d.Users).WithMany(p => p.Teams)
                 .UsingEntity<Dictionary<string, object>>(
                     "TeamFavoriteUserRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -5353,6 +5355,7 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("team_favorite_user_rel");
                         j.HasIndex(new[] { "UserId", "TeamId" }, "team_favorite_user_rel_user_id_team_id_idx");
                     });
+            */
         });
 
         modelBuilder.Entity<CrmTeamMember>(entity =>
@@ -5471,7 +5474,8 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("digest_digest_write_uid_fkey");
 
-            entity.HasMany(d => d.ResUsers).WithMany(p => p.DigestDigests)
+            /*
+            //entity.HasMany(d => d.ResUsers).WithMany(p => p.DigestDigests)
                 .UsingEntity<Dictionary<string, object>>(
                     "DigestDigestResUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -5486,6 +5490,7 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("digest_digest_res_users_rel");
                         j.HasIndex(new[] { "ResUsersId", "DigestDigestId" }, "digest_digest_res_users_rel_res_users_id_digest_digest_id_idx");
                     });
+            */
         });
 
         modelBuilder.Entity<DigestTip>(entity =>
@@ -5507,6 +5512,8 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("digest_tip_write_uid_fkey");
 
+            /*
+            //entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.ResUsers)
             entity.HasMany(d => d.ResUsers).WithMany(p => p.DigestTips)
                 .UsingEntity<Dictionary<string, object>>(
                     "DigestTipResUsersRel",
@@ -5522,6 +5529,7 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("digest_tip_res_users_rel");
                         j.HasIndex(new[] { "ResUsersId", "DigestTipId" }, "digest_tip_res_users_rel_res_users_id_digest_tip_id_idx");
                     });
+            */
         });
 
         modelBuilder.Entity<FetchmailServer>(entity =>
@@ -5594,7 +5602,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_future_driver_id_fkey");
 
-            entity.HasOne(d => d.Manager).WithMany(p => p.FleetVehicleManagers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.Manager)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_manager_id_fkey");
 
@@ -5727,7 +5735,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_log_services_create_uid_fkey");
 
-            entity.HasOne(d => d.Manager).WithMany(p => p.FleetVehicleLogServiceManagers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.Manager)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_log_services_manager_id_fkey");
 
@@ -5913,7 +5921,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("followup_line_followup_id_fkey");
 
-            entity.HasOne(d => d.ManualActionResponsible).WithMany(p => p.FollowupLineManualActionResponsibles)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.ManualActionResponsible)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("followup_line_manual_action_responsible_id_fkey");
 
@@ -6061,8 +6069,8 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("hr_applicant_hr_skill_rel");
                         j.HasIndex(new[] { "HrSkillId", "HrApplicantId" }, "hr_applicant_hr_skill_rel_hr_skill_id_hr_applicant_id_idx");
                     });
-
-            entity.HasMany(d => d.ResUsers).WithMany(p => p.HrApplicants)
+            /*
+            //entity.HasMany(d => d.ResUsers).WithMany(p => p.HrApplicants)
                 .UsingEntity<Dictionary<string, object>>(
                     "HrApplicantResUsersInterviewersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -6077,6 +6085,7 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("hr_applicant_res_users_interviewers_rel");
                         j.HasIndex(new[] { "ResUsersId", "HrApplicantId" }, "hr_applicant_res_users_intervi_res_users_id_hr_applicant_id_idx");
                     });
+            */
         });
 
         modelBuilder.Entity<HrApplicantCategory>(entity =>
@@ -6194,7 +6203,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_contract_company_id_fkey");
 
-            entity.HasOne(d => d.ContractType).WithMany(p => p.HrContracts)
+            entity.HasOne<HrContractType>().WithMany().HasForeignKey(p => p.ContractType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_contract_type_id_fkey");
 
@@ -6210,7 +6219,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_employee_id_fkey");
 
-            entity.HasOne(d => d.HrResponsible).WithMany(p => p.HrContractHrResponsibles)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.HrResponsible)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_hr_responsible_id_fkey");
 
@@ -6222,11 +6231,11 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_message_main_attachment_id_fkey");
 
-            entity.HasOne(d => d.ResourceCalendar).WithMany(p => p.HrContracts)
+            entity.HasOne<ResourceCalendar>().WithMany().HasForeignKey(p => p.ResourceCalendar)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_resource_calendar_id_fkey");
 
-            entity.HasOne(d => d.StructureType).WithMany(p => p.HrContracts)
+            entity.HasOne<HrPayrollStructureType>().WithMany().HasForeignKey(p => p.StructureType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_structure_type_id_fkey");
 
@@ -6373,7 +6382,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_employee_departure_reason_id_fkey");
 
-            entity.HasOne(d => d.ExpenseManager).WithMany(p => p.HrEmployeeExpenseManagers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.ExpenseManager)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_expense_manager_id_fkey");
 
@@ -6385,7 +6394,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_last_attendance_id_fkey");
 
-            entity.HasOne(d => d.LeaveManager).WithMany(p => p.HrEmployeeLeaveManagers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LeaveManager)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_leave_manager_id_fkey");
 
@@ -6541,7 +6550,7 @@ public static class CoreDbContextModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne(d => d.Account).WithMany(p => p.HrExpenses)
+            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_account_id_fkey");
 
@@ -6689,8 +6698,8 @@ public static class CoreDbContextModelCreatingExtensions
             entity.HasKey(e => e.Id).HasName("hr_expense_sheet_pkey");
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
-
-            entity.HasOne(d => d.AccountMove).WithMany(p => p.HrExpenseSheets)
+            
+            entity.HasOne<AccountMove>().WithMany().HasForeignKey(p => p.AccountMove)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_expense_sheet_account_move_id_fkey");
 
@@ -6722,7 +6731,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_expense_sheet_employee_id_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.HrExpenseSheetJournals)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_sheet_journal_id_fkey");
 
@@ -6900,7 +6909,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_job_department_id_fkey");
 
-            entity.HasOne(d => d.HrResponsible).WithMany(p => p.HrJobHrResponsibles)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.HrResponsible)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_job_hr_responsible_id_fkey");
 
@@ -6923,8 +6932,8 @@ public static class CoreDbContextModelCreatingExtensions
             entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.WriteU)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_job_write_uid_fkey");
-
-            entity.HasMany(d => d.ResUsers).WithMany(p => p.HrJobs)
+            /*
+            //entity.HasMany(d => d.ResUsers).WithMany(p => p.HrJobs)
                 .UsingEntity<Dictionary<string, object>>(
                     "HrJobExtendedInterviewerResUser",
                     r => r.HasOne<ResUser>().WithMany()
@@ -6971,6 +6980,7 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("job_favorite_user_rel");
                         j.HasIndex(new[] { "UserId", "JobId" }, "job_favorite_user_rel_user_id_job_id_idx");
                     });
+            */
         });
 
         modelBuilder.Entity<HrLeave>(entity =>
@@ -6991,7 +7001,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_department_id_fkey");
 
-            entity.HasOne(d => d.EmployeeCompany).WithMany(p => p.HrLeaveEmployeeCompanies)
+            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.EmployeeCompany)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_employee_company_id_fkey");
 
@@ -7023,7 +7033,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_message_main_attachment_id_fkey");
 
-            entity.HasOne(d => d.ModeCompany).WithMany(p => p.HrLeaveModeCompanies)
+            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.ModeCompany)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_mode_company_id_fkey");
 
@@ -7130,7 +7140,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_allocation_department_id_fkey");
 
-            entity.HasOne(d => d.EmployeeCompany).WithMany(p => p.HrLeaveAllocationEmployeeCompanies)
+            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.EmployeeCompany)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_allocation_employee_company_id_fkey");
 
@@ -7150,7 +7160,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_allocation_message_main_attachment_id_fkey");
 
-            entity.HasOne(d => d.ModeCompany).WithMany(p => p.HrLeaveAllocationModeCompanies)
+            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.ModeCompany)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_allocation_mode_company_id_fkey");
 
@@ -7246,7 +7256,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_type_leave_notif_subtype_id_fkey");
 
-            entity.HasOne(d => d.Responsible).WithMany(p => p.HrLeaveTypeResponsibles)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.Responsible)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_type_responsible_id_fkey");
 
@@ -7319,7 +7329,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_activity_type_plan_id_fkey");
 
-            entity.HasOne(d => d.ResponsibleNavigation).WithMany(p => p.HrPlanActivityTypeResponsibleNavigations)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.ResponsibleNavigation)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_activity_type_responsible_id_fkey");
 
@@ -7566,7 +7576,8 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("iap_account_write_uid_fkey");
 
-            entity.HasMany(d => d.ResCompanies).WithMany(p => p.IapAccounts)
+            /*
+            //entity.HasMany(d => d.ResCompanies).WithMany(p => p.IapAccounts)
                 .UsingEntity<Dictionary<string, object>>(
                     "IapAccountResCompanyRel",
                     r => r.HasOne<ResCompany>().WithMany()
@@ -7581,6 +7592,7 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("iap_account_res_company_rel");
                         j.HasIndex(new[] { "ResCompanyId", "IapAccountId" }, "iap_account_res_company_rel_res_company_id_iap_account_id_idx");
                     });
+            */
         });
 
         modelBuilder.Entity<IrActClient>(entity =>
@@ -7652,7 +7664,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("ir_act_server_activity_type_id_fkey");
 
-            entity.HasOne(d => d.ActivityUser).WithMany(p => p.IrActServerActivityUsers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.ActivityUser)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_server_activity_user_id_fkey");
 
@@ -8811,8 +8823,8 @@ public static class CoreDbContextModelCreatingExtensions
             entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.WriteU)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_product_write_uid_fkey");
-
-            entity.HasMany(d => d.Users).WithMany(p => p.Products)
+            /*
+            //entity.HasMany(d => d.Users).WithMany(p => p.Products)
                 .UsingEntity<Dictionary<string, object>>(
                     "LunchProductFavoriteUserRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -8827,6 +8839,7 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("lunch_product_favorite_user_rel");
                         j.HasIndex(new[] { "UserId", "ProductId" }, "lunch_product_favorite_user_rel_user_id_product_id_idx");
                     });
+            */
         });
 
         modelBuilder.Entity<LunchProductCategory>(entity =>
@@ -8874,7 +8887,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("lunch_supplier_partner_id_fkey");
 
-            entity.HasOne(d => d.Responsible).WithMany(p => p.LunchSupplierResponsibles)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.Responsible)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_supplier_responsible_id_fkey");
 
@@ -8979,7 +8992,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_activity_type_create_uid_fkey");
 
-            entity.HasOne(d => d.DefaultUser).WithMany(p => p.MailActivityTypeDefaultUsers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.DefaultUser)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_activity_type_default_user_id_fkey");
 
@@ -9054,7 +9067,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_alias_alias_parent_model_id_fkey");
 
-            entity.HasOne(d => d.AliasUser).WithMany(p => p.MailAliasAliasUsers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.AliasUser)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_alias_alias_user_id_fkey");
 
@@ -9898,7 +9911,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_message_main_attachment_id_fkey");
 
-            entity.HasOne(d => d.OwnerUser).WithMany(p => p.MaintenanceEquipmentOwnerUsers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.OwnerUser)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_owner_user_id_fkey");
 
@@ -9906,7 +9919,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_partner_id_fkey");
 
-            entity.HasOne(d => d.TechnicianUser).WithMany(p => p.MaintenanceEquipmentTechnicianUsers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.TechnicianUser)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_technician_user_id_fkey");
 
@@ -9935,7 +9948,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_category_message_main_attachment_id_fkey");
 
-            entity.HasOne(d => d.TechnicianUser).WithMany(p => p.MaintenanceEquipmentCategoryTechnicianUsers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.TechnicianUser)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_category_technician_user_id_fkey");
 
@@ -9978,7 +9991,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_request_message_main_attachment_id_fkey");
 
-            entity.HasOne(d => d.OwnerUser).WithMany(p => p.MaintenanceRequestOwnerUsers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.OwnerUser)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_request_owner_user_id_fkey");
 
@@ -10028,7 +10041,8 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_team_write_uid_fkey");
 
-            entity.HasMany(d => d.ResUsers).WithMany(p => p.MaintenanceTeams)
+            /*
+            //entity.HasMany(d => d.ResUsers).WithMany(p => p.MaintenanceTeams)
                 .UsingEntity<Dictionary<string, object>>(
                     "MaintenanceTeamUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -10043,6 +10057,7 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("maintenance_team_users_rel");
                         j.HasIndex(new[] { "ResUsersId", "MaintenanceTeamId" }, "maintenance_team_users_rel_res_users_id_maintenance_team_id_idx");
                     });
+            */
         });
 
         modelBuilder.Entity<MrpBom>(entity =>
@@ -10064,7 +10079,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_bom_message_main_attachment_id_fkey");
 
-            entity.HasOne(d => d.PickingType).WithMany(p => p.MrpBoms)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_bom_picking_type_id_fkey");
 
@@ -10371,7 +10386,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_orderpoint_id_fkey");
 
-            entity.HasOne(d => d.PickingType).WithMany(p => p.MrpProductions)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_production_picking_type_id_fkey");
 
@@ -11437,7 +11452,7 @@ public static class CoreDbContextModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne(d => d.Account).WithMany(p => p.PosCloseSessionWizards)
+            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_close_session_wizard_account_id_fkey");
 
@@ -11492,11 +11507,11 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_config_invoice_journal_id_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.PosConfigJournals)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("pos_config_journal_id_fkey");
 
-            entity.HasOne(d => d.PickingType).WithMany(p => p.PosConfigs)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("pos_config_picking_type_id_fkey");
 
@@ -11825,7 +11840,7 @@ public static class CoreDbContextModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne(d => d.AccountMove).WithMany(p => p.PosPayments)
+            entity.HasOne<AccountMove>().WithMany().HasForeignKey(p => p.AccountMove)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_payment_account_move_id_fkey");
 
@@ -11866,7 +11881,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_payment_method_create_uid_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.PosPaymentMethods)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("pos_payment_method_journal_id_fkey");
 
@@ -12278,7 +12293,8 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_pricelist_write_uid_fkey");
 
-            entity.HasMany(d => d.ResCountryGroups).WithMany(p => p.Pricelists)
+            /*
+            //entity.HasMany(d => d.ResCountryGroups).WithMany(p => p.Pricelists)
                 .UsingEntity<Dictionary<string, object>>(
                     "ResCountryGroupPricelistRel",
                     r => r.HasOne<ResCountryGroup>().WithMany()
@@ -12293,6 +12309,7 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("res_country_group_pricelist_rel");
                         j.HasIndex(new[] { "ResCountryGroupId", "PricelistId" }, "res_country_group_pricelist_r_res_country_group_id_pricelis_idx");
                     });
+            */
         });
 
         modelBuilder.Entity<ProductPricelistItem>(entity =>
@@ -13005,7 +13022,8 @@ public static class CoreDbContextModelCreatingExtensions
                         j.HasIndex(new[] { "ProjectTagsId", "ProjectProjectId" }, "project_project_project_tags__project_tags_id_project_proje_idx");
                     });
 
-            entity.HasMany(d => d.Users).WithMany(p => p.Projects)
+            /*
+            //entity.HasMany(d => d.Users).WithMany(p => p.Projects)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProjectFavoriteUserRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -13020,6 +13038,7 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("project_favorite_user_rel");
                         j.HasIndex(new[] { "UserId", "ProjectId" }, "project_favorite_user_rel_user_id_project_id_idx");
                     });
+            */
         });
 
         modelBuilder.Entity<ProjectProjectStage>(entity =>
@@ -13434,7 +13453,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("purchase_order_payment_term_id_fkey");
 
-            entity.HasOne(d => d.PickingType).WithMany(p => p.PurchaseOrders)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("purchase_order_picking_type_id_fkey");
 
@@ -13639,7 +13658,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("recurring_payment_line_create_uid_fkey");
 
-            entity.HasOne(d => d.Journal).WithMany(p => p.RecurringPaymentLines)
+            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("recurring_payment_line_journal_id_fkey");
 
@@ -14078,7 +14097,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_company_paperformat_id_fkey");
 
-            entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
+            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.Parent)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_company_parent_id_fkey");
 
@@ -14134,7 +14153,8 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_company_write_uid_fkey");
 
-            entity.HasMany(d => d.Users).WithMany(p => p.Cids)
+            /*
+            //entity.HasMany(d => d.User).WithMany(p => p.Cids)
                 .UsingEntity<Dictionary<string, object>>(
                     "ResCompanyUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -14149,6 +14169,7 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("res_company_users_rel");
                         j.HasIndex(new[] { "UserId", "Cid" }, "res_company_users_rel_user_id_cid_idx");
                     });
+            */
         });
 
         modelBuilder.Entity<ResConfig>(entity =>
@@ -14187,7 +14208,7 @@ public static class CoreDbContextModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne(d => d.AuthSignupTemplateUser).WithMany(p => p.ResConfigSettingAuthSignupTemplateUsers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.AuthSignupTemplateUser)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_config_settings_auth_signup_template_user_id_fkey");
 
@@ -14445,7 +14466,8 @@ public static class CoreDbContextModelCreatingExtensions
                         j.HasIndex(new[] { "Hid", "Gid" }, "res_groups_implied_rel_hid_gid_idx");
                     });
 
-            entity.HasMany(d => d.UidsNavigation).WithMany(p => p.Gids)
+            /*
+            ///entity.HasMany(d => d.UidsNavigation).WithMany(p => p.Gids)
                 .UsingEntity<Dictionary<string, object>>(
                     "ResGroupsUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -14460,6 +14482,7 @@ public static class CoreDbContextModelCreatingExtensions
                         j.ToTable("res_groups_users_rel");
                         j.HasIndex(new[] { "Uid", "Gid" }, "res_groups_users_rel_uid_gid_idx");
                     });
+            */
         });
 
         modelBuilder.Entity<ResLang>(entity =>
@@ -14513,7 +14536,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_parent_id_fkey");
 
-            entity.HasOne(d => d.PaymentResponsible).WithMany(p => p.ResPartnerPaymentResponsibles)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.PaymentResponsible)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_payment_responsible_id_fkey");
 
@@ -15228,7 +15251,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("sale_order_line_route_id_fkey");
 
-            entity.HasOne(d => d.Salesman).WithMany(p => p.SaleOrderLineSalesmen)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.Salesman)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_line_salesman_id_fkey");
 
@@ -16161,7 +16184,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_picking_id_fkey");
 
-            entity.HasOne(d => d.PickingType).WithMany(p => p.StockMoves)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_picking_type_id_fkey");
 
@@ -16533,7 +16556,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_partner_id_fkey");
 
-            entity.HasOne(d => d.PickingType).WithMany(p => p.StockPickings)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_picking_picking_type_id_fkey");
 
@@ -16585,11 +16608,11 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_type_default_location_src_id_fkey");
 
-            entity.HasOne(d => d.ReturnPickingType).WithMany(p => p.InverseReturnPickingType)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.ReturnPickingType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_type_return_picking_type_id_fkey");
 
-            entity.HasOne(d => d.SequenceNavigation).WithMany(p => p.StockPickingTypes)
+            entity.HasOne<IrSequence>().WithMany().HasForeignKey(p => p.SequenceNavigation)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_type_sequence_id_fkey");
 
@@ -17029,7 +17052,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_rule_partner_address_id_fkey");
 
-            entity.HasOne(d => d.PickingType).WithMany(p => p.StockRules)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_rule_picking_type_id_fkey");
 
@@ -17361,7 +17384,7 @@ public static class CoreDbContextModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne(d => d.Account).WithMany(p => p.StockValuationLayerRevaluations)
+            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_valuation_layer_revaluation_account_id_fkey");
 
@@ -17413,11 +17436,11 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_warehouse_delivery_route_id_fkey");
 
-            entity.HasOne(d => d.InType).WithMany(p => p.StockWarehouseInTypes)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.InType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_in_type_id_fkey");
 
-            entity.HasOne(d => d.IntType).WithMany(p => p.StockWarehouseIntTypes)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.IntType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_int_type_id_fkey");
 
@@ -17425,7 +17448,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_warehouse_lot_stock_id_fkey");
 
-            entity.HasOne(d => d.ManuType).WithMany(p => p.StockWarehouseManuTypes)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.ManuType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_manu_type_id_fkey");
 
@@ -17441,11 +17464,11 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_mto_pull_id_fkey");
 
-            entity.HasOne(d => d.OutType).WithMany(p => p.StockWarehouseOutTypes)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.OutType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_out_type_id_fkey");
 
-            entity.HasOne(d => d.PackType).WithMany(p => p.StockWarehousePackTypes)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PackType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_pack_type_id_fkey");
 
@@ -17465,15 +17488,15 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_warehouse_pbm_route_id_fkey");
 
-            entity.HasOne(d => d.PbmType).WithMany(p => p.StockWarehousePbmTypes)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PbmType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_pbm_type_id_fkey");
 
-            entity.HasOne(d => d.PickType).WithMany(p => p.StockWarehousePickTypes)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_pick_type_id_fkey");
 
-            entity.HasOne(d => d.PosType).WithMany(p => p.StockWarehousePosTypes)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PosType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_pos_type_id_fkey");
 
@@ -17481,7 +17504,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_warehouse_reception_route_id_fkey");
 
-            entity.HasOne(d => d.ReturnType).WithMany(p => p.StockWarehouseReturnTypes)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.ReturnType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_return_type_id_fkey");
 
@@ -17493,7 +17516,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_sam_rule_id_fkey");
 
-            entity.HasOne(d => d.SamType).WithMany(p => p.StockWarehouseSamTypes)
+            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.SamType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_sam_type_id_fkey");
 
@@ -17987,7 +18010,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_crm_default_team_id_fkey");
 
-            entity.HasOne(d => d.CrmDefaultUser).WithMany(p => p.WebsiteCrmDefaultUsers)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CrmDefaultUser)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_crm_default_user_id_fkey");
 
@@ -17995,7 +18018,7 @@ public static class CoreDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("website_default_lang_id_fkey");
 
-            entity.HasOne(d => d.Salesperson).WithMany(p => p.WebsiteSalespeople)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.Salesperson)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_salesperson_id_fkey");
 
