@@ -318,17 +318,17 @@ public partial class ProductTemplate: IMultiTenant, IMayHaveCreator, IModificati
     [NotMapped]
     public virtual ICollection<AccountAccountTag> AccountAccountTags { get; } = new List<AccountAccountTag>();
 
-    [ForeignKey("SrcId")]
+    //[ForeignKey("SrcId")]
     [InverseProperty("Srcs")]
     [NotMapped]
     public virtual ICollection<ProductProduct> Dests { get; } = new List<ProductProduct>();
 
-    [ForeignKey("SrcId")]
+    //[ForeignKey("SrcId")]
     [InverseProperty("SrcsNavigation")]
     [NotMapped]
     public virtual ICollection<ProductTemplate> Dests1 { get; } = new List<ProductTemplate>();
 
-    [ForeignKey("SrcId")]
+    //[ForeignKey("SrcId")]
     [InverseProperty("Srcs")]
     [NotMapped]
     public virtual ICollection<ProductTemplate> DestsNavigation { get; } = new List<ProductTemplate>();
@@ -358,22 +358,22 @@ public partial class ProductTemplate: IMultiTenant, IMayHaveCreator, IModificati
     [NotMapped]
     public virtual ICollection<StockRoute> Routes { get; } = new List<StockRoute>();
 
-    [ForeignKey("DestId")]
+    //[ForeignKey("DestId")]
     [InverseProperty("DestsNavigation")]
     [NotMapped]
     public virtual ICollection<ProductTemplate> Srcs { get; } = new List<ProductTemplate>();
 
-    [ForeignKey("DestId")]
+    //[ForeignKey("DestId")]
     [InverseProperty("Dests1")]
     [NotMapped]
     public virtual ICollection<ProductTemplate> SrcsNavigation { get; } = new List<ProductTemplate>();
 
-    [ForeignKey("ProdId")]
+    //[ForeignKey("ProdId")]
     [InverseProperty("Prods")]
     [NotMapped]
     public virtual ICollection<AccountTax> Taxes { get; } = new List<AccountTax>();
 
-    [ForeignKey("ProdId")]
+    //[ForeignKey("ProdId")]
     [InverseProperty("ProdsNavigation")]
     [NotMapped]
     public virtual ICollection<AccountTax> TaxesNavigation { get; } = new List<AccountTax>();
