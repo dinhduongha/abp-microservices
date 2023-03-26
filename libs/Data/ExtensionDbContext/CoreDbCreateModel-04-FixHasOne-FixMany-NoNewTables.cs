@@ -12723,7 +12723,12 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "AccountAccountTagId", "ProductTemplateId" }, "account_account_tag_product_t_account_account_tag_id_produc_idx");
                     });
 
-            /*entity.HasMany(d => d.Dests).WithMany(p => p.Srcs)
+            modelBuilder.SharedTypeEntity<Dictionary<string, object>>("ProductAccessoryRel", builder =>
+            {
+                builder.Property<Guid>("SrcId");
+                builder.Property<Guid>("DestId");
+            });
+            entity.HasMany(d => d.Dests).WithMany(p => p.Srcs)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProductAccessoryRel",
                     r => r.HasOne<ProductProduct>().WithMany()
@@ -12739,6 +12744,11 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "DestId", "SrcId" }, "product_accessory_rel_dest_id_src_id_idx");
                     });
 
+            modelBuilder.SharedTypeEntity<Dictionary<string, object>>("ProductOptionalRel", builder =>
+            {
+                builder.Property<Guid>("SrcId");
+                builder.Property<Guid>("DestId");
+            });
             entity.HasMany(d => d.Dests1).WithMany(p => p.SrcsNavigation)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProductOptionalRel",
@@ -12755,6 +12765,11 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "DestId", "SrcId" }, "product_optional_rel_dest_id_src_id_idx");
                     });
 
+            modelBuilder.SharedTypeEntity<Dictionary<string, object>>("ProductAlternativeRel", builder =>
+            {
+                builder.Property<Guid>("SrcId");
+                builder.Property<Guid>("DestId");
+            });
             entity.HasMany(d => d.DestsNavigation).WithMany(p => p.Srcs)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProductAlternativeRel",
@@ -12787,6 +12802,11 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "ProductTagId", "ProductTemplateId" }, "product_tag_product_template__product_tag_id_product_templa_idx");
                     });
 
+            modelBuilder.SharedTypeEntity<Dictionary<string, object>>("ProductAlternativeRel", builder =>
+            {
+                builder.Property<Guid>("DestId");
+                builder.Property<Guid>("SrcId");
+            });
             entity.HasMany(d => d.Srcs).WithMany(p => p.DestsNavigation)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProductAlternativeRel",
@@ -12803,6 +12823,11 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "DestId", "SrcId" }, "product_alternative_rel_dest_id_src_id_idx");
                     });
 
+            modelBuilder.SharedTypeEntity<Dictionary<string, object>>("ProductOptionalRel", builder =>
+            {
+                builder.Property<Guid>("DestId");
+                builder.Property<Guid>("SrcId");
+            });
             entity.HasMany(d => d.SrcsNavigation).WithMany(p => p.Dests1)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProductOptionalRel",
@@ -12819,7 +12844,11 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "DestId", "SrcId" }, "product_optional_rel_dest_id_src_id_idx");
                     });
             
-
+            modelBuilder.SharedTypeEntity<Dictionary<string, object>>("ProductSupplierTaxesRel", builder =>
+            {
+                builder.Property<Guid>("TaxId");
+                builder.Property<Guid>("ProdId");
+            });
             entity.HasMany(d => d.Taxes).WithMany(p => p.Prods)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProductSupplierTaxesRel",
@@ -12836,6 +12865,11 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "TaxId", "ProdId" }, "product_supplier_taxes_rel_tax_id_prod_id_idx");
                     });
 
+            modelBuilder.SharedTypeEntity<Dictionary<string, object>>("ProductTaxesRel", builder =>
+            {
+                builder.Property<Guid>("TaxId");
+                builder.Property<Guid>("ProdId");
+            });
             entity.HasMany(d => d.TaxesNavigation).WithMany(p => p.ProdsNavigation)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProductTaxesRel",
@@ -12851,7 +12885,6 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("product_taxes_rel");
                         j.HasIndex(new[] { "TaxId", "ProdId" }, "product_taxes_rel_tax_id_prod_id_idx");
                     });
-                    */
         });
 
         modelBuilder.Entity<ProductTemplateAttributeExclusion>(entity =>
