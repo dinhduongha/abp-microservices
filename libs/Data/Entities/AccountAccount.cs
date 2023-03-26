@@ -285,7 +285,7 @@ public partial class AccountAccount: IMultiTenant, IMayHaveCreator, IModificatio
 
 
     [ForeignKey("AccountAccountId")]
-    [InverseProperty("AccountAccounts")]
+    [InverseProperty("AccountAccounts")] 
     [NotMapped]
     public virtual ICollection<AccountAccountTag> AccountAccountTags { get; } = new List<AccountAccountTag>();
 

@@ -4,11 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Bamboo.Core.Entities;
 
 namespace Bamboo.Core.EntityFrameworkCore;
-
 public static class CoreDbtModelCreatingExtensions
 {
-
-    public static void ConfigureCoreExt(this ModelBuilder modelBuilder)
+    public static void ConfigureCoreExt(
+        this ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresExtension("pg_trgm");
 
@@ -18,15 +17,16 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
+            //entity.HasOne(d => d.Company).WithMany(p => p.AccountAccounts)
             entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_account_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAccountCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.AccountAccounts)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_currency_id_fkey");
 
@@ -38,11 +38,17 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAccountWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_write_uid_fkey");
 
-            entity.HasMany(d => d.AccountAccountTags).WithMany(p => p.AccountAccounts)
+            // modelBuilder.SharedTypeEntity<Dictionary<string, object>>("AccountAccountAccountTag", builder =>
+            // {
+            //     builder.Property<Guid>("AccountAccountId");
+            //     builder.Property<long>("AccountAccountTagId");
+            // });
+            //entity.HasMany(d => d.AccountAccountTags).WithMany(p => p.AccountAccounts)
+            entity.HasMany<AccountAccountTag>().WithMany()
                 .UsingEntity<Dictionary<string, object>>(
                     "AccountAccountAccountTag",
                     r => r.HasOne<AccountAccountTag>().WithMany()
@@ -89,21 +95,22 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("account_account_tax_default_rel");
                         j.HasIndex(new[] { "TaxId", "AccountId" }, "account_account_tax_default_rel_tax_id_account_id_idx");
                     });
+                    
         });
 
         modelBuilder.Entity<AccountAccountTag>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("account_account_tag_pkey");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.AccountAccountTags)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_tag_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAccountTagCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_tag_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAccountTagWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_tag_write_uid_fkey");
         });
@@ -118,11 +125,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_template_chart_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAccountTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_template_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.AccountAccountTemplates)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_template_currency_id_fkey");
 
@@ -130,7 +137,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_template_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAccountTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_template_write_uid_fkey");
 
@@ -171,11 +178,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("account_account_type_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAccountTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_type_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAccountTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_account_type_write_uid_fkey");
         });
@@ -186,23 +193,23 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
+            entity.HasOne(d => d.Account).WithMany(p => p.AccountAccruedOrdersWizards)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_accrued_orders_wizard_account_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountAccruedOrdersWizards)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_accrued_orders_wizard_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAccruedOrdersWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_accrued_orders_wizard_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.AccountAccruedOrdersWizards)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_accrued_orders_wizard_currency_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAccruedOrdersWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_accrued_orders_wizard_write_uid_fkey");
         });
@@ -213,15 +220,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountAgedTrialBalances)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_aged_trial_balance_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAgedTrialBalanceCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_aged_trial_balance_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAgedTrialBalanceWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_aged_trial_balance_write_uid_fkey");
 
@@ -241,7 +248,7 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "AccountJournalId", "AccountAgedTrialBalanceId" }, "account_aged_trial_balance_ac_account_journal_id_account_ag_idx");
                     });
 
-            entity.HasMany(d => d.ResPartners).WithMany(p => p.AccountAgedTrialBalances)            
+            entity.HasMany(d => d.ResPartners).WithMany(p => p.AccountAgedTrialBalances)
                 .UsingEntity<Dictionary<string, object>>(
                     "AccountAgedTrialBalanceResPartnerRel",
                     r => r.HasOne<ResPartner>().WithMany()
@@ -264,11 +271,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountAnalyticAccounts)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_account_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAnalyticAccountCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_account_create_uid_fkey");
 
@@ -276,7 +283,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_account_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.AccountAnalyticAccounts)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_account_partner_id_fkey");
 
@@ -288,7 +295,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_account_root_plan_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAnalyticAccountWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_account_write_uid_fkey");
         });
@@ -303,7 +310,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_applicability_analytic_plan_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAnalyticApplicabilityCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_applicability_create_uid_fkey");
 
@@ -311,7 +318,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_applicability_product_categ_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAnalyticApplicabilityWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_applicability_write_uid_fkey");
         });
@@ -324,11 +331,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountAnalyticDistributionModels)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_analytic_distribution_model_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAnalyticDistributionModelCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_distribution_model_create_uid_fkey");
 
@@ -336,7 +343,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_analytic_distribution_model_partner_category_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.AccountAnalyticDistributionModels)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_analytic_distribution_model_partner_id_fkey");
 
@@ -348,7 +355,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_analytic_distribution_model_product_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAnalyticDistributionModelWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_distribution_model_write_uid_fkey");
         });
@@ -359,19 +366,19 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
+            entity.HasOne(d => d.Account).WithMany(p => p.AccountAnalyticLines)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_analytic_line_account_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountAnalyticLines)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_analytic_line_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAnalyticLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_line_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.AccountAnalyticLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_line_currency_id_fkey");
 
@@ -379,7 +386,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_analytic_line_general_account_id_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.AccountAnalyticLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_line_journal_id_fkey");
 
@@ -387,7 +394,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_analytic_line_move_line_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.AccountAnalyticLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_line_partner_id_fkey");
 
@@ -407,11 +414,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_line_so_line_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.AccountAnalyticLineUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_line_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAnalyticLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_line_write_uid_fkey");
         });
@@ -422,11 +429,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountAnalyticPlans)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_plan_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAnalyticPlanCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_plan_create_uid_fkey");
 
@@ -434,7 +441,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_analytic_plan_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAnalyticPlanWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_analytic_plan_write_uid_fkey");
         });
@@ -447,7 +454,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<AccountAnalyticAccount>().WithMany().HasForeignKey(p => p.AccountAnalytic)
+            entity.HasOne(d => d.AccountAnalytic).WithMany(p => p.AccountAssetAssets)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_asset_account_analytic_id_fkey");
 
@@ -455,15 +462,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_asset_asset_category_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountAssetAssets)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_asset_asset_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAssetAssetCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_asset_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.AccountAssetAssets)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_asset_asset_currency_id_fkey");
 
@@ -475,11 +482,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_asset_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.AccountAssetAssets)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_asset_partner_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAssetAssetWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_asset_write_uid_fkey");
         });
@@ -492,11 +499,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<AccountAnalyticAccount>().WithMany().HasForeignKey(p => p.AccountAnalytic)
+            entity.HasOne(d => d.AccountAnalytic).WithMany(p => p.AccountAssetCategories)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_category_account_analytic_id_fkey");
 
-            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.AccountAsset)
+            entity.HasOne(d => d.AccountAsset).WithMany(p => p.AccountAssetCategoryAccountAssets)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_asset_category_account_asset_id_fkey");
 
@@ -508,15 +515,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_asset_category_account_depreciation_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountAssetCategories)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_asset_category_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAssetCategoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_category_create_uid_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.AccountAssetCategories)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_asset_category_journal_id_fkey");
 
@@ -524,7 +531,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_category_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAssetCategoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_category_write_uid_fkey");
         });
@@ -539,7 +546,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_asset_depreciation_line_asset_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAssetDepreciationLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_depreciation_line_create_uid_fkey");
 
@@ -547,7 +554,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_depreciation_line_move_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAssetDepreciationLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_asset_depreciation_line_write_uid_fkey");
         });
@@ -558,11 +565,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountAutomaticEntryWizards)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_automatic_entry_wizard_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountAutomaticEntryWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_automatic_entry_wizard_create_uid_fkey");
 
@@ -570,7 +577,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_automatic_entry_wizard_destination_account_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountAutomaticEntryWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_automatic_entry_wizard_write_uid_fkey");
 
@@ -597,15 +604,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountBalanceReports)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_balance_report_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountBalanceReportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_balance_report_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountBalanceReportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_balance_report_write_uid_fkey");
 
@@ -680,19 +687,19 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountBankStatements)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountBankStatementCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_create_uid_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.AccountBankStatements)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_journal_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountBankStatementWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_write_uid_fkey");
 
@@ -719,11 +726,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountBankStatementImportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_import_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountBankStatementImportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_import_write_uid_fkey");
 
@@ -750,15 +757,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountBankStatementImportJournalCreationCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_import_journal_creation_create_uid_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.AccountBankStatementImportJournalCreations)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_bank_statement_import_journal_creation_journal_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountBankStatementImportJournalCreationWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_import_journal_creation_write_uid_fkey");
         });
@@ -770,15 +777,15 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountBankStatementLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_line_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.AccountBankStatementLineCurrencies)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_line_currency_id_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.ForeignCurrency)
+            entity.HasOne(d => d.ForeignCurrency).WithMany(p => p.AccountBankStatementLineForeignCurrencies)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_line_foreign_currency_id_fkey");
 
@@ -786,7 +793,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_bank_statement_line_move_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.AccountBankStatementLines)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_bank_statement_line_partner_id_fkey");
 
@@ -798,7 +805,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_line_statement_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountBankStatementLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bank_statement_line_write_uid_fkey");
 
@@ -825,11 +832,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountBankbookReportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bankbook_report_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountBankbookReportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_bankbook_report_write_uid_fkey");
 
@@ -872,15 +879,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountBudgetPosts)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_budget_post_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountBudgetPostCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_budget_post_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountBudgetPostWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_budget_post_write_uid_fkey");
 
@@ -907,11 +914,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountCashRoundingCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_cash_rounding_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountCashRoundingWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_cash_rounding_write_uid_fkey");
         });
@@ -922,11 +929,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountCashbookReportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_cashbook_report_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountCashbookReportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_cashbook_report_write_uid_fkey");
 
@@ -989,15 +996,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_chart_template_account_journal_suspense_account_id_fkey");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.AccountChartTemplates)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_chart_template_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountChartTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_chart_template_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.AccountChartTemplates)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_chart_template_currency_id_fkey");
 
@@ -1077,7 +1084,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_chart_template_property_tax_receivable_account_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountChartTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_chart_template_write_uid_fkey");
         });
@@ -1088,15 +1095,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountCommonAccountReports)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_common_account_report_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountCommonAccountReportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_common_account_report_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountCommonAccountReportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_common_account_report_write_uid_fkey");
 
@@ -1171,15 +1178,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountCommonJournalReports)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_common_journal_report_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountCommonJournalReportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_common_journal_report_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountCommonJournalReportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_common_journal_report_write_uid_fkey");
 
@@ -1206,15 +1213,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountCommonPartnerReports)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_common_partner_report_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountCommonPartnerReportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_common_partner_report_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountCommonPartnerReportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_common_partner_report_write_uid_fkey");
 
@@ -1257,15 +1264,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountCommonReports)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_common_report_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountCommonReportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_common_report_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountCommonReportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_common_report_write_uid_fkey");
 
@@ -1292,11 +1299,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountDaybookReportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_daybook_report_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountDaybookReportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_daybook_report_write_uid_fkey");
 
@@ -1343,7 +1350,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_edi_document_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountEdiDocumentCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_edi_document_create_uid_fkey");
 
@@ -1355,7 +1362,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_edi_document_move_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountEdiDocumentWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_edi_document_write_uid_fkey");
         });
@@ -1364,11 +1371,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("account_edi_format_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountEdiFormatCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_edi_format_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountEdiFormatWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_edi_format_write_uid_fkey");
         });
@@ -1383,7 +1390,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_financial_report_account_report_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountFinancialReportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_financial_report_create_uid_fkey");
 
@@ -1391,7 +1398,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_financial_report_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountFinancialReportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_financial_report_write_uid_fkey");
 
@@ -1434,15 +1441,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountFinancialYearOps)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_financial_year_op_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountFinancialYearOpCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_financial_year_op_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountFinancialYearOpWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_financial_year_op_write_uid_fkey");
         });
@@ -1454,23 +1461,23 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountFiscalPositions)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_fiscal_position_company_id_fkey");
 
-            entity.HasOne<ResCountryGroup>().WithMany().HasForeignKey(p => p.CountryGroup)
+            entity.HasOne(d => d.CountryGroup).WithMany(p => p.AccountFiscalPositions)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_country_group_id_fkey");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.AccountFiscalPositions)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountFiscalPositionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountFiscalPositionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_write_uid_fkey");
 
@@ -1505,11 +1512,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_fiscal_position_account_account_src_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountFiscalPositionAccounts)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_account_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountFiscalPositionAccountCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_account_create_uid_fkey");
 
@@ -1517,7 +1524,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_fiscal_position_account_position_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountFiscalPositionAccountWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_account_write_uid_fkey");
         });
@@ -1536,7 +1543,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_fiscal_position_account_template_account_src_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountFiscalPositionAccountTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_account_template_create_uid_fkey");
 
@@ -1544,7 +1551,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_fiscal_position_account_template_position_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountFiscalPositionAccountTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_account_template_write_uid_fkey");
         });
@@ -1555,11 +1562,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountFiscalPositionTaxes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_tax_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountFiscalPositionTaxCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_tax_create_uid_fkey");
 
@@ -1575,7 +1582,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_fiscal_position_tax_tax_src_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountFiscalPositionTaxWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_tax_write_uid_fkey");
         });
@@ -1586,7 +1593,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountFiscalPositionTaxTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_tax_template_create_uid_fkey");
 
@@ -1602,7 +1609,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_fiscal_position_tax_template_tax_src_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountFiscalPositionTaxTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_tax_template_write_uid_fkey");
         });
@@ -1618,19 +1625,19 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_fiscal_position_template_chart_template_id_fkey");
 
-            entity.HasOne<ResCountryGroup>().WithMany().HasForeignKey(p => p.CountryGroup)
+            entity.HasOne(d => d.CountryGroup).WithMany(p => p.AccountFiscalPositionTemplates)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_template_country_group_id_fkey");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.AccountFiscalPositionTemplates)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_template_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountFiscalPositionTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_template_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountFiscalPositionTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_position_template_write_uid_fkey");
 
@@ -1657,15 +1664,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountFiscalYears)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_fiscal_year_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountFiscalYearCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_year_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountFiscalYearWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_fiscal_year_write_uid_fkey");
         });
@@ -1676,7 +1683,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountFullReconcileCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_full_reconcile_create_uid_fkey");
 
@@ -1684,7 +1691,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_full_reconcile_exchange_move_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountFullReconcileWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_full_reconcile_write_uid_fkey");
         });
@@ -1695,11 +1702,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountGroups)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_group_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountGroupCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_group_create_uid_fkey");
 
@@ -1707,7 +1714,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_group_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountGroupWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_group_write_uid_fkey");
         });
@@ -1722,7 +1729,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_group_template_chart_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountGroupTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_group_template_create_uid_fkey");
 
@@ -1730,7 +1737,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_group_template_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountGroupTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_group_template_write_uid_fkey");
         });
@@ -1741,11 +1748,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountIncotermCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_incoterms_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountIncotermWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_incoterms_write_uid_fkey");
         });
@@ -1760,7 +1767,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_invoice_send_composer_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountInvoiceSendCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_invoice_send_create_uid_fkey");
 
@@ -1768,7 +1775,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_invoice_send_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountInvoiceSendWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_invoice_send_write_uid_fkey");
 
@@ -1804,15 +1811,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_journal_bank_account_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountJournals)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_journal_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountJournalCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_journal_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.AccountJournals)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_journal_currency_id_fkey");
 
@@ -1836,7 +1843,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_journal_sale_activity_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.SaleActivityUser)
+            entity.HasOne(d => d.SaleActivityUser).WithMany(p => p.AccountJournalSaleActivityUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_journal_sale_activity_user_id_fkey");
 
@@ -1848,7 +1855,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_journal_suspense_account_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountJournalWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_journal_write_uid_fkey");
 
@@ -1892,15 +1899,15 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountJournalGroups)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_journal_group_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountJournalGroupCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_journal_group_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountJournalGroupWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_journal_group_write_uid_fkey");
 
@@ -1958,15 +1965,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_move_commercial_partner_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountMoves)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountMoveCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.AccountMoves)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_move_currency_id_fkey");
 
@@ -1986,11 +1993,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_invoice_payment_term_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.InvoiceUser)
+            entity.HasOne(d => d.InvoiceUser).WithMany(p => p.AccountMoveInvoiceUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_invoice_user_id_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.AccountMoves)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_move_journal_id_fkey");
 
@@ -2006,7 +2013,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_partner_bank_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.AccountMovePartners)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_move_partner_id_fkey");
 
@@ -2050,7 +2057,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountMoveWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_write_uid_fkey");
 
@@ -2096,7 +2103,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
+            entity.HasOne(d => d.Account).WithMany(p => p.AccountMoveLines)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_move_line_account_id_fkey");
 
@@ -2104,19 +2111,19 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_line_asset_category_id_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.CompanyCurrency)
+            entity.HasOne(d => d.CompanyCurrency).WithMany(p => p.AccountMoveLineCompanyCurrencies)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_line_company_currency_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountMoveLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_line_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountMoveLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_line_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.AccountMoveLineCurrencies)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_move_line_currency_id_fkey");
 
@@ -2136,7 +2143,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_line_group_tax_id_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.AccountMoveLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_line_journal_id_fkey");
 
@@ -2144,7 +2151,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_move_line_move_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.AccountMoveLines)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_move_line_partner_id_fkey");
 
@@ -2192,7 +2199,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_line_vehicle_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountMoveLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_line_write_uid_fkey");
 
@@ -2252,19 +2259,19 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountMoveReversals)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_move_reversal_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountMoveReversalCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_reversal_create_uid_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.AccountMoveReversals)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_move_reversal_journal_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountMoveReversalWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_move_reversal_write_uid_fkey");
 
@@ -2287,7 +2294,8 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasKey("ReversalId", "MoveId").HasName("account_move_reversal_move_pkey");
                         j.ToTable("account_move_reversal_move");
                         j.HasIndex(new[] { "MoveId", "ReversalId" }, "account_move_reversal_move_move_id_reversal_id_idx");
-                    });
+                    }); 
+
             modelBuilder.SharedTypeEntity<Dictionary<string, object>>("AccountMoveReversalNewMove", builder =>
             {
                 builder.Property<Guid>("ReversalId");
@@ -2305,9 +2313,12 @@ public static class CoreDbtModelCreatingExtensions
                     j =>
                     {
                         j.HasKey("ReversalId", "NewMoveId").HasName("account_move_reversal_new_move_pkey");
+                        //j.HasKey(pc => new { "ReversalId", "NewMoveId" }).HasName("account_move_reversal_new_move_pkey");
+                        //j.HasKey(pc => new { "ReversalId", pc.ReversalsNavigation }).HasName("account_move_reversal_new_move_pkey");
                         j.ToTable("account_move_reversal_new_move");
                         j.HasIndex(new[] { "NewMoveId", "ReversalId" }, "account_move_reversal_new_move_new_move_id_reversal_id_idx");
                     });
+                    
         });
 
         modelBuilder.Entity<AccountPartialReconcile>(entity =>
@@ -2316,15 +2327,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountPartialReconciles)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_partial_reconcile_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountPartialReconcileCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_partial_reconcile_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.CreditCurrency)
+            entity.HasOne(d => d.CreditCurrency).WithMany(p => p.AccountPartialReconcileCreditCurrencies)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_partial_reconcile_credit_currency_id_fkey");
 
@@ -2332,7 +2343,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_partial_reconcile_credit_move_id_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.DebitCurrency)
+            entity.HasOne(d => d.DebitCurrency).WithMany(p => p.AccountPartialReconcileDebitCurrencies)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_partial_reconcile_debit_currency_id_fkey");
 
@@ -2348,7 +2359,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_partial_reconcile_full_reconcile_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountPartialReconcileWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_partial_reconcile_write_uid_fkey");
         });
@@ -2359,11 +2370,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountPaymentCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.AccountPayments)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_currency_id_fkey");
 
@@ -2399,7 +2410,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_partner_bank_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.AccountPayments)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_payment_partner_id_fkey");
 
@@ -2431,7 +2442,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_source_payment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountPaymentWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_write_uid_fkey");
         });
@@ -2442,11 +2453,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountPaymentMethodCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_method_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountPaymentMethodWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_method_write_uid_fkey");
         });
@@ -2458,11 +2469,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountPaymentMethodLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_method_line_create_uid_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.AccountPaymentMethodLines)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_payment_method_line_journal_id_fkey");
 
@@ -2478,7 +2489,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_method_line_payment_provider_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountPaymentMethodLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_method_line_write_uid_fkey");
         });
@@ -2489,19 +2500,19 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountPaymentRegisters)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_register_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountPaymentRegisterCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_register_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.AccountPaymentRegisterCurrencies)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_register_currency_id_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.AccountPaymentRegisters)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_register_journal_id_fkey");
 
@@ -2509,7 +2520,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_register_partner_bank_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.AccountPaymentRegisters)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_payment_register_partner_id_fkey");
 
@@ -2521,11 +2532,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_register_payment_token_id_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.SourceCurrency)
+            entity.HasOne(d => d.SourceCurrency).WithMany(p => p.AccountPaymentRegisterSourceCurrencies)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_register_source_currency_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountPaymentRegisterWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_register_write_uid_fkey");
 
@@ -2557,15 +2568,15 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountPaymentTerms)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_term_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountPaymentTermCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_term_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountPaymentTermWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_term_write_uid_fkey");
         });
@@ -2576,7 +2587,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountPaymentTermLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_term_line_create_uid_fkey");
 
@@ -2584,7 +2595,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_payment_term_line_payment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountPaymentTermLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_payment_term_line_write_uid_fkey");
         });
@@ -2595,15 +2606,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountPrintJournals)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_print_journal_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountPrintJournalCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_print_journal_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountPrintJournalWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_print_journal_write_uid_fkey");
 
@@ -2631,11 +2642,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountReconcileModels)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_reconcile_model_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountReconcileModelCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_create_uid_fkey");
 
@@ -2643,7 +2654,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountReconcileModelWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_write_uid_fkey");
 
@@ -2705,19 +2716,19 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
+            entity.HasOne(d => d.Account).WithMany(p => p.AccountReconcileModelLines)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_reconcile_model_line_account_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountReconcileModelLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_line_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountReconcileModelLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_line_create_uid_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.AccountReconcileModelLines)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_reconcile_model_line_journal_id_fkey");
 
@@ -2725,7 +2736,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_reconcile_model_line_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountReconcileModelLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_line_write_uid_fkey");
 
@@ -2754,11 +2765,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
+            entity.HasOne(d => d.Account).WithMany(p => p.AccountReconcileModelLineTemplates)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_reconcile_model_line_template_account_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountReconcileModelLineTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_line_template_create_uid_fkey");
 
@@ -2766,7 +2777,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_line_template_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountReconcileModelLineTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_line_template_write_uid_fkey");
 
@@ -2794,7 +2805,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountReconcileModelPartnerMappingCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_partner_mapping_create_uid_fkey");
 
@@ -2802,11 +2813,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_reconcile_model_partner_mapping_model_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.AccountReconcileModelPartnerMappings)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_reconcile_model_partner_mapping_partner_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountReconcileModelPartnerMappingWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_partner_mapping_write_uid_fkey");
         });
@@ -2822,11 +2833,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_reconcile_model_template_chart_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountReconcileModelTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_template_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountReconcileModelTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_reconcile_model_template_write_uid_fkey");
 
@@ -2885,19 +2896,19 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountRecurringTemplates)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_recurring_template_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountRecurringTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_recurring_template_create_uid_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.AccountRecurringTemplates)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_recurring_template_journal_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountRecurringTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_recurring_template_write_uid_fkey");
         });
@@ -2912,11 +2923,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_chart_template_id_fkey");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.AccountReports)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountReportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_create_uid_fkey");
 
@@ -2924,7 +2935,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_root_report_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountReportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_write_uid_fkey");
         });
@@ -2935,7 +2946,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountReportColumnCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_column_create_uid_fkey");
 
@@ -2947,7 +2958,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_column_report_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountReportColumnWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_column_write_uid_fkey");
         });
@@ -2958,7 +2969,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountReportExpressionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_expression_create_uid_fkey");
 
@@ -2966,7 +2977,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_report_expression_report_line_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountReportExpressionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_expression_write_uid_fkey");
         });
@@ -2981,11 +2992,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_external_value_carryover_origin_report_line_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountReportExternalValues)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_report_external_value_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountReportExternalValueCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_external_value_create_uid_fkey");
 
@@ -2997,7 +3008,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_report_external_value_target_report_expression_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountReportExternalValueWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_external_value_write_uid_fkey");
         });
@@ -3008,15 +3019,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountReportGeneralLedgers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_report_general_ledger_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountReportGeneralLedgerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_general_ledger_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountReportGeneralLedgerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_general_ledger_write_uid_fkey");
 
@@ -3091,7 +3102,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountReportLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_line_create_uid_fkey");
 
@@ -3103,7 +3114,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_report_line_report_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountReportLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_line_write_uid_fkey");
         });
@@ -3114,15 +3125,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountReportPartnerLedgers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_report_partner_ledger_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountReportPartnerLedgerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_partner_ledger_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountReportPartnerLedgerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_report_partner_ledger_write_uid_fkey");
 
@@ -3165,11 +3176,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountResequenceWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_resequence_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountResequenceWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_resequence_wizard_write_uid_fkey");
 
@@ -3196,7 +3207,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountSetupBankManualConfigCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_setup_bank_manual_config_create_uid_fkey");
 
@@ -3204,7 +3215,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_setup_bank_manual_config_res_partner_bank_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountSetupBankManualConfigWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_setup_bank_manual_config_write_uid_fkey");
         });
@@ -3220,15 +3231,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_cash_basis_transition_account_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountTaxes)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_tax_company_id_fkey");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.AccountTaxes)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_tax_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountTaxCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_create_uid_fkey");
 
@@ -3236,7 +3247,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_tax_tax_group_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountTaxWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_write_uid_fkey");
 
@@ -3280,15 +3291,15 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.AccountTaxGroups)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_group_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountTaxGroupCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_group_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountTaxGroupWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_group_write_uid_fkey");
         });
@@ -3300,15 +3311,15 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
+            entity.HasOne(d => d.Account).WithMany(p => p.AccountTaxRepartitionLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_repartition_line_account_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountTaxRepartitionLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_repartition_line_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountTaxRepartitionLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_repartition_line_create_uid_fkey");
 
@@ -3320,7 +3331,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_tax_repartition_line_refund_tax_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountTaxRepartitionLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_repartition_line_write_uid_fkey");
 
@@ -3347,11 +3358,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
+            entity.HasOne(d => d.Account).WithMany(p => p.AccountTaxRepartitionLineTemplates)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_repartition_line_template_account_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountTaxRepartitionLineTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_repartition_line_template_create_uid_fkey");
 
@@ -3363,7 +3374,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_repartition_line_template_refund_tax_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountTaxRepartitionLineTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_repartition_line_template_write_uid_fkey");
 
@@ -3382,7 +3393,7 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("account_tax_repartition_financial_tags");
                         j.HasIndex(new[] { "AccountAccountTagId", "AccountTaxRepartitionLineTemplateId" }, "account_tax_repartition_finan_account_account_tag_id_accoun_idx");
                     });
-
+            
             modelBuilder.SharedTypeEntity<Dictionary<string, object>>("AccountTaxRepTemplateMinu", builder =>
             {
                 builder.Property<Guid>("AccountTaxRepartitionLineTemplateId");
@@ -3403,7 +3414,6 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("account_tax_rep_template_minus");
                         j.HasIndex(new[] { "AccountReportExpressionId", "AccountTaxRepartitionLineTemplateId" }, "account_tax_rep_template_minu_account_report_expression_id__idx");
                     });
-
             modelBuilder.SharedTypeEntity<Dictionary<string, object>>("AccountTaxRepTemplatePlu", builder =>
             {
                 builder.Property<Guid>("AccountTaxRepartitionLineTemplateId");
@@ -3432,15 +3442,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountTaxReportWizards)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("account_tax_report_wizard_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountTaxReportWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_report_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountTaxReportWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_report_wizard_write_uid_fkey");
 
@@ -3476,7 +3486,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("account_tax_template_chart_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountTaxTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_template_create_uid_fkey");
 
@@ -3484,7 +3494,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_template_tax_group_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountTaxTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tax_template_write_uid_fkey");
 
@@ -3527,11 +3537,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountTourUploadBillCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tour_upload_bill_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountTourUploadBillWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tour_upload_bill_write_uid_fkey");
 
@@ -3558,11 +3568,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountTourUploadBillEmailConfirmCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tour_upload_bill_email_confirm_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountTourUploadBillEmailConfirmWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_tour_upload_bill_email_confirm_write_uid_fkey");
         });
@@ -3573,11 +3583,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountUnreconcileCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_unreconcile_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountUnreconcileWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("account_unreconcile_write_uid_fkey");
         });
@@ -3592,15 +3602,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("accounting_report_account_report_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.AccountingReports)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("accounting_report_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AccountingReportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("accounting_report_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AccountingReportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("accounting_report_write_uid_fkey");
 
@@ -3627,7 +3637,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ApplicantGetRefuseReasonCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("applicant_get_refuse_reason_create_uid_fkey");
 
@@ -3639,7 +3649,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("applicant_get_refuse_reason_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ApplicantGetRefuseReasonWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("applicant_get_refuse_reason_write_uid_fkey");
 
@@ -3670,7 +3680,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("applicant_send_mail_author_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ApplicantSendMailCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("applicant_send_mail_create_uid_fkey");
 
@@ -3678,7 +3688,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("applicant_send_mail_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ApplicantSendMailWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("applicant_send_mail_write_uid_fkey");
 
@@ -3705,11 +3715,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AssetDepreciationConfirmationWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("asset_depreciation_confirmation_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AssetDepreciationConfirmationWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("asset_depreciation_confirmation_wizard_write_uid_fkey");
         });
@@ -3720,11 +3730,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AssetModifyCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("asset_modify_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AssetModifyWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("asset_modify_write_uid_fkey");
         });
@@ -3736,7 +3746,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.CreationTime).HasDefaultValueSql("(now() AT TIME ZONE 'utc'::text)");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User);
+            entity.HasOne(d => d.User).WithMany(p => p.AuthTotpDevices).HasConstraintName("auth_totp_device_user_id_fkey");
         });
 
         modelBuilder.Entity<AuthTotpWizard>(entity =>
@@ -3745,15 +3755,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.AuthTotpWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("auth_totp_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.AuthTotpWizardUsers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("auth_totp_wizard_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.AuthTotpWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("auth_totp_wizard_write_uid_fkey");
         });
@@ -3762,11 +3772,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("barcode_nomenclature_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BarcodeNomenclatureCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("barcode_nomenclature_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BarcodeNomenclatureWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("barcode_nomenclature_write_uid_fkey");
         });
@@ -3786,11 +3796,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("barcode_rule_barcode_nomenclature_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BarcodeRuleCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("barcode_rule_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BarcodeRuleWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("barcode_rule_write_uid_fkey");
         });
@@ -3801,11 +3811,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.BaseDocumentLayouts)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("base_document_layout_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseDocumentLayoutCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_document_layout_create_uid_fkey");
 
@@ -3813,7 +3823,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_document_layout_report_layout_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseDocumentLayoutWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_document_layout_write_uid_fkey");
         });
@@ -3824,11 +3834,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseEnableProfilingWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_enable_profiling_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseEnableProfilingWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_enable_profiling_wizard_write_uid_fkey");
         });
@@ -3839,11 +3849,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportImportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_import_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportImportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_import_write_uid_fkey");
         });
@@ -3854,11 +3864,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportMappingCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_mapping_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportMappingWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_mapping_write_uid_fkey");
         });
@@ -3869,11 +3879,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsCharCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_char_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsCharWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_char_write_uid_fkey");
         });
@@ -3884,11 +3894,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsCharNoreadonlyCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_char_noreadonly_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsCharNoreadonlyWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_char_noreadonly_write_uid_fkey");
         });
@@ -3899,11 +3909,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsCharReadonlyCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_char_readonly_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsCharReadonlyWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_char_readonly_write_uid_fkey");
         });
@@ -3914,11 +3924,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsCharRequiredCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_char_required_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsCharRequiredWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_char_required_write_uid_fkey");
         });
@@ -3929,11 +3939,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsCharStateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_char_states_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsCharStateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_char_states_write_uid_fkey");
         });
@@ -3944,11 +3954,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsCharStillreadonlyCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_char_stillreadonly_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsCharStillreadonlyWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_char_stillreadonly_write_uid_fkey");
         });
@@ -3959,15 +3969,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsComplexCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_complex_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.BaseImportTestsModelsComplexes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_complex_currency_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsComplexWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_complex_write_uid_fkey");
         });
@@ -3978,15 +3988,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsFloatCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_float_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.BaseImportTestsModelsFloats)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_float_currency_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsFloatWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_float_write_uid_fkey");
         });
@@ -3997,7 +4007,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsM2oCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_m2o_create_uid_fkey");
 
@@ -4005,7 +4015,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_m2o_value_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsM2oWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_m2o_write_uid_fkey");
         });
@@ -4016,11 +4026,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsM2oRelatedCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_m2o_related_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsM2oRelatedWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_m2o_related_write_uid_fkey");
         });
@@ -4031,7 +4041,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsM2oRequiredCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_m2o_required_create_uid_fkey");
 
@@ -4039,7 +4049,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("base_import_tests_models_m2o_required_value_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsM2oRequiredWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_m2o_required_write_uid_fkey");
         });
@@ -4050,11 +4060,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsM2oRequiredRelatedCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_m2o_required_related_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsM2oRequiredRelatedWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_m2o_required_related_write_uid_fkey");
         });
@@ -4065,11 +4075,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsO2mCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_o2m_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsO2mWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_o2m_write_uid_fkey");
         });
@@ -4080,7 +4090,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsO2mChildCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_o2m_child_create_uid_fkey");
 
@@ -4088,7 +4098,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_o2m_child_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsO2mChildWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_o2m_child_write_uid_fkey");
         });
@@ -4099,11 +4109,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseImportTestsModelsPreviewCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_preview_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseImportTestsModelsPreviewWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_import_tests_models_preview_write_uid_fkey");
         });
@@ -4114,11 +4124,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseLanguageExportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_language_export_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseLanguageExportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_language_export_write_uid_fkey");
 
@@ -4145,11 +4155,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseLanguageImportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_language_import_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseLanguageImportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_language_import_write_uid_fkey");
         });
@@ -4160,11 +4170,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseLanguageInstallCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_language_install_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseLanguageInstallWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_language_install_write_uid_fkey");
 
@@ -4207,7 +4217,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseModuleInstallRequestCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_module_install_request_create_uid_fkey");
 
@@ -4215,11 +4225,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("base_module_install_request_module_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.BaseModuleInstallRequestUsers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("base_module_install_request_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseModuleInstallRequestWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_module_install_request_write_uid_fkey");
         });
@@ -4230,7 +4240,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseModuleInstallReviewCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_module_install_review_create_uid_fkey");
 
@@ -4238,7 +4248,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("base_module_install_review_module_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseModuleInstallReviewWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_module_install_review_write_uid_fkey");
         });
@@ -4249,7 +4259,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseModuleUninstallCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_module_uninstall_create_uid_fkey");
 
@@ -4257,7 +4267,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("base_module_uninstall_module_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseModuleUninstallWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_module_uninstall_write_uid_fkey");
         });
@@ -4268,11 +4278,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseModuleUpdateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_module_update_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseModuleUpdateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_module_update_write_uid_fkey");
         });
@@ -4283,11 +4293,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BaseModuleUpgradeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_module_upgrade_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BaseModuleUpgradeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_module_upgrade_write_uid_fkey");
         });
@@ -4298,7 +4308,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BasePartnerMergeAutomaticWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_partner_merge_automatic_wizard_create_uid_fkey");
 
@@ -4310,7 +4320,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_partner_merge_automatic_wizard_dst_partner_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BasePartnerMergeAutomaticWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_partner_merge_automatic_wizard_write_uid_fkey");
 
@@ -4337,7 +4347,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BasePartnerMergeLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_partner_merge_line_create_uid_fkey");
 
@@ -4345,7 +4355,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_partner_merge_line_wizard_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BasePartnerMergeLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("base_partner_merge_line_write_uid_fkey");
         });
@@ -4356,11 +4366,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.BusBuCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("bus_bus_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.BusBuWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("bus_bus_write_uid_fkey");
         });
@@ -4392,7 +4402,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CalendarAlarmCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_alarm_create_uid_fkey");
 
@@ -4404,7 +4414,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_alarm_sms_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CalendarAlarmWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_alarm_write_uid_fkey");
         });
@@ -4415,7 +4425,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CalendarAttendeeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_attendee_create_uid_fkey");
 
@@ -4423,11 +4433,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("calendar_attendee_event_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.CalendarAttendees)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("calendar_attendee_partner_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CalendarAttendeeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_attendee_write_uid_fkey");
         });
@@ -4444,7 +4454,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_event_applicant_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CalendarEventCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_event_create_uid_fkey");
 
@@ -4464,7 +4474,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("calendar_event_res_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.CalendarEventUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_event_user_id_fkey");
 
@@ -4472,7 +4482,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_event_videocall_channel_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CalendarEventWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_event_write_uid_fkey");
 
@@ -4514,11 +4524,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("calendar_event_type_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CalendarEventTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_event_type_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CalendarEventTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_event_type_write_uid_fkey");
         });
@@ -4529,19 +4539,19 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CalendarFilterCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_filters_create_uid_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.CalendarFilters)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("calendar_filters_partner_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.CalendarFilterUsers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("calendar_filters_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CalendarFilterWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_filters_write_uid_fkey");
         });
@@ -4552,11 +4562,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CalendarProviderConfigCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_provider_config_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CalendarProviderConfigWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_provider_config_write_uid_fkey");
         });
@@ -4571,11 +4581,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_recurrence_base_event_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CalendarRecurrenceCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_recurrence_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CalendarRecurrenceWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("calendar_recurrence_write_uid_fkey");
         });
@@ -4586,15 +4596,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ChangeLockDates)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("change_lock_date_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ChangeLockDateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("change_lock_date_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ChangeLockDateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("change_lock_date_write_uid_fkey");
         });
@@ -4605,11 +4615,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ChangePasswordOwnCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("change_password_own_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ChangePasswordOwnWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("change_password_own_write_uid_fkey");
         });
@@ -4620,11 +4630,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ChangePasswordUserCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("change_password_user_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.ChangePasswordUserUsers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("change_password_user_user_id_fkey");
 
@@ -4632,7 +4642,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("change_password_user_wizard_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ChangePasswordUserWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("change_password_user_write_uid_fkey");
         });
@@ -4643,11 +4653,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ChangePasswordWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("change_password_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ChangePasswordWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("change_password_wizard_write_uid_fkey");
         });
@@ -4658,7 +4668,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ChangeProductionQtyCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("change_production_qty_create_uid_fkey");
 
@@ -4666,7 +4676,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("change_production_qty_mo_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ChangeProductionQtyWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("change_production_qty_write_uid_fkey");
         });
@@ -4677,11 +4687,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ConfirmStockSmCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("confirm_stock_sms_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ConfirmStockSmWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("confirm_stock_sms_write_uid_fkey");
 
@@ -4708,11 +4718,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmIapLeadHelperCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_iap_lead_helpers_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmIapLeadHelperWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_iap_lead_helpers_write_uid_fkey");
         });
@@ -4723,11 +4733,11 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmIapLeadIndustryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_iap_lead_industry_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmIapLeadIndustryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_iap_lead_industry_write_uid_fkey");
         });
@@ -4738,7 +4748,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmIapLeadMiningRequestCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_iap_lead_mining_request_create_uid_fkey");
 
@@ -4754,11 +4764,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_iap_lead_mining_request_team_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.CrmIapLeadMiningRequestUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_iap_lead_mining_request_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmIapLeadMiningRequestWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_iap_lead_mining_request_write_uid_fkey");
 
@@ -4847,11 +4857,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("crm_iap_lead_role_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmIapLeadRoleCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_iap_lead_role_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmIapLeadRoleWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_iap_lead_role_write_uid_fkey");
         });
@@ -4860,11 +4870,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("crm_iap_lead_seniority_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmIapLeadSeniorityCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_iap_lead_seniority_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmIapLeadSeniorityWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_iap_lead_seniority_write_uid_fkey");
         });
@@ -4889,15 +4899,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_campaign_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.CrmLeads)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_company_id_fkey");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.CrmLeads)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmLeadCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_create_uid_fkey");
 
@@ -4921,7 +4931,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.CrmLeads)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_partner_id_fkey");
 
@@ -4949,11 +4959,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_title_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.CrmLeadUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmLeadWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_write_uid_fkey");
 
@@ -4996,7 +5006,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmLead2opportunityPartnerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead2opportunity_partner_create_uid_fkey");
 
@@ -5004,7 +5014,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("crm_lead2opportunity_partner_lead_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.CrmLead2opportunityPartners)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead2opportunity_partner_partner_id_fkey");
 
@@ -5012,11 +5022,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead2opportunity_partner_team_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.CrmLead2opportunityPartnerUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead2opportunity_partner_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmLead2opportunityPartnerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead2opportunity_partner_write_uid_fkey");
 
@@ -5043,7 +5053,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmLead2opportunityPartnerMassCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead2opportunity_partner_mass_create_uid_fkey");
 
@@ -5051,7 +5061,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead2opportunity_partner_mass_lead_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.CrmLead2opportunityPartnerMasses)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead2opportunity_partner_mass_partner_id_fkey");
 
@@ -5059,11 +5069,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead2opportunity_partner_mass_team_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.CrmLead2opportunityPartnerMassUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead2opportunity_partner_mass_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmLead2opportunityPartnerMassWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead2opportunity_partner_mass_write_uid_fkey");
 
@@ -5087,7 +5097,6 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("crm_convert_lead_mass_lead_rel");
                         j.HasIndex(new[] { "CrmLeadId", "CrmLead2opportunityPartnerMassId" }, "crm_convert_lead_mass_lead_re_crm_lead_id_crm_lead2opportun_idx");
                     });
-
             modelBuilder.SharedTypeEntity<Dictionary<string, object>>("CrmLeadCrmLead2opportunityPartnerMassRel", builder =>
             {
                 builder.Property<Guid>("CrmLead2opportunityPartnerMassId");
@@ -5108,7 +5117,7 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("crm_lead_crm_lead2opportunity_partner_mass_rel");
                         j.HasIndex(new[] { "CrmLeadId", "CrmLead2opportunityPartnerMassId" }, "crm_lead_crm_lead2opportunity_crm_lead_id_crm_lead2opportu_idx1");
                     });
-
+            
             entity.HasMany(d => d.ResUsers).WithMany(p => p.CrmLead2opportunityPartnerMasses)
                 .UsingEntity<Dictionary<string, object>>(
                     "CrmLead2opportunityPartnerMassResUsersRel",
@@ -5124,6 +5133,7 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("crm_lead2opportunity_partner_mass_res_users_rel");
                         j.HasIndex(new[] { "ResUsersId", "CrmLead2opportunityPartnerMassId" }, "crm_lead2opportunity_partner__res_users_id_crm_lead2opportu_idx");
                     });
+            
         });
 
         modelBuilder.Entity<CrmLeadLost>(entity =>
@@ -5132,7 +5142,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmLeadLostCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_lost_create_uid_fkey");
 
@@ -5140,7 +5150,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_lost_lost_reason_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmLeadLostWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_lost_write_uid_fkey");
         });
@@ -5151,11 +5161,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmLeadPlsUpdateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_pls_update_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmLeadPlsUpdateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_pls_update_write_uid_fkey");
 
@@ -5182,7 +5192,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmLeadScoringFrequencyCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_scoring_frequency_create_uid_fkey");
 
@@ -5190,7 +5200,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("crm_lead_scoring_frequency_team_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmLeadScoringFrequencyWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_scoring_frequency_write_uid_fkey");
         });
@@ -5201,7 +5211,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmLeadScoringFrequencyFieldCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_scoring_frequency_field_create_uid_fkey");
 
@@ -5209,7 +5219,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("crm_lead_scoring_frequency_field_field_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmLeadScoringFrequencyFieldWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lead_scoring_frequency_field_write_uid_fkey");
         });
@@ -5218,11 +5228,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("crm_lost_reason_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmLostReasonCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lost_reason_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmLostReasonWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_lost_reason_write_uid_fkey");
         });
@@ -5233,7 +5243,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmMergeOpportunityCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_merge_opportunity_create_uid_fkey");
 
@@ -5241,11 +5251,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_merge_opportunity_team_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.CrmMergeOpportunityUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_merge_opportunity_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmMergeOpportunityWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_merge_opportunity_write_uid_fkey");
 
@@ -5272,7 +5282,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmQuotationPartnerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_quotation_partner_create_uid_fkey");
 
@@ -5280,11 +5290,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("crm_quotation_partner_lead_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.CrmQuotationPartners)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_quotation_partner_partner_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmQuotationPartnerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_quotation_partner_write_uid_fkey");
         });
@@ -5296,11 +5306,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmRecurringPlanCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_recurring_plan_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmRecurringPlanWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_recurring_plan_write_uid_fkey");
         });
@@ -5311,7 +5321,7 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmStageCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_stage_create_uid_fkey");
 
@@ -5319,7 +5329,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_stage_team_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmStageWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_stage_write_uid_fkey");
         });
@@ -5328,11 +5338,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("crm_tag_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmTagCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_tag_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmTagWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_tag_write_uid_fkey");
         });
@@ -5348,11 +5358,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("crm_team_alias_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.CrmTeams)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_team_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmTeamCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_team_create_uid_fkey");
 
@@ -5360,15 +5370,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_team_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.CrmTeamUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_team_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmTeamWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_team_write_uid_fkey");
-            /*
-            //entity.HasMany(d => d.Users).WithMany(p => p.Teams)
+
+            entity.HasMany(d => d.Users).WithMany(p => p.Teams)
                 .UsingEntity<Dictionary<string, object>>(
                     "TeamFavoriteUserRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -5383,7 +5393,6 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("team_favorite_user_rel");
                         j.HasIndex(new[] { "UserId", "TeamId" }, "team_favorite_user_rel_user_id_team_id_idx");
                     });
-            */
         });
 
         modelBuilder.Entity<CrmTeamMember>(entity =>
@@ -5392,7 +5401,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrmTeamMemberCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_team_member_create_uid_fkey");
 
@@ -5404,11 +5413,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_team_member_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.CrmTeamMemberUsers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("crm_team_member_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrmTeamMemberWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_team_member_write_uid_fkey");
         });
@@ -5419,11 +5428,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.CrossoveredBudgets)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("crossovered_budget_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrossoveredBudgetCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crossovered_budget_create_uid_fkey");
 
@@ -5431,11 +5440,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crossovered_budget_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.CrossoveredBudgetUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crossovered_budget_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrossoveredBudgetWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crossovered_budget_write_uid_fkey");
         });
@@ -5450,11 +5459,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crossovered_budget_lines_analytic_account_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.CrossoveredBudgetLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crossovered_budget_lines_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.CrossoveredBudgetLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crossovered_budget_lines_create_uid_fkey");
 
@@ -5466,7 +5475,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crossovered_budget_lines_general_budget_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.CrossoveredBudgetLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crossovered_budget_lines_write_uid_fkey");
         });
@@ -5475,11 +5484,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("decimal_precision_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.DecimalPrecisionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("decimal_precision_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.DecimalPrecisionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("decimal_precision_write_uid_fkey");
         });
@@ -5490,20 +5499,19 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.DigestDigests)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("digest_digest_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.DigestDigestCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("digest_digest_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.DigestDigestWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("digest_digest_write_uid_fkey");
 
-            /*
-            //entity.HasMany(d => d.ResUsers).WithMany(p => p.DigestDigests)
+            entity.HasMany(d => d.ResUsers).WithMany(p => p.DigestDigests)
                 .UsingEntity<Dictionary<string, object>>(
                     "DigestDigestResUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -5518,7 +5526,6 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("digest_digest_res_users_rel");
                         j.HasIndex(new[] { "ResUsersId", "DigestDigestId" }, "digest_digest_res_users_rel_res_users_id_digest_digest_id_idx");
                     });
-            */
         });
 
         modelBuilder.Entity<DigestTip>(entity =>
@@ -5528,7 +5535,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.DigestTipCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("digest_tip_create_uid_fkey");
 
@@ -5536,12 +5543,10 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("digest_tip_group_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.DigestTipWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("digest_tip_write_uid_fkey");
 
-            /*
-            //entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.ResUsers)
             entity.HasMany(d => d.ResUsers).WithMany(p => p.DigestTips)
                 .UsingEntity<Dictionary<string, object>>(
                     "DigestTipResUsersRel",
@@ -5557,7 +5562,6 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("digest_tip_res_users_rel");
                         j.HasIndex(new[] { "ResUsersId", "DigestTipId" }, "digest_tip_res_users_rel_res_users_id_digest_tip_id_idx");
                     });
-            */
         });
 
         modelBuilder.Entity<FetchmailServer>(entity =>
@@ -5566,7 +5570,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FetchmailServerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fetchmail_server_create_uid_fkey");
 
@@ -5574,7 +5578,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fetchmail_server_object_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FetchmailServerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fetchmail_server_write_uid_fkey");
         });
@@ -5583,11 +5587,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("fleet_service_type_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FleetServiceTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_service_type_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FleetServiceTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_service_type_write_uid_fkey");
         });
@@ -5606,11 +5610,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_category_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.FleetVehicles)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FleetVehicleCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_create_uid_fkey");
 
@@ -5630,7 +5634,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_future_driver_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.Manager)
+            entity.HasOne(d => d.Manager).WithMany(p => p.FleetVehicleManagers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_manager_id_fkey");
 
@@ -5646,7 +5650,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_state_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FleetVehicleWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_write_uid_fkey");
 
@@ -5673,7 +5677,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FleetVehicleAssignationLogCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_assignation_log_create_uid_fkey");
 
@@ -5689,7 +5693,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fleet_vehicle_assignation_log_vehicle_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FleetVehicleAssignationLogWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_assignation_log_write_uid_fkey");
         });
@@ -5700,7 +5704,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.FleetVehicleLogContracts)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_log_contract_company_id_fkey");
 
@@ -5708,7 +5712,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_log_contract_cost_subtype_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FleetVehicleLogContractCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_log_contract_create_uid_fkey");
 
@@ -5720,7 +5724,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_log_contract_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.FleetVehicleLogContractUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_log_contract_user_id_fkey");
 
@@ -5728,7 +5732,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fleet_vehicle_log_contract_vehicle_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FleetVehicleLogContractWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_log_contract_write_uid_fkey");
 
@@ -5755,15 +5759,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.FleetVehicleLogServices)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_log_services_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FleetVehicleLogServiceCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_log_services_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.Manager)
+            entity.HasOne(d => d.Manager).WithMany(p => p.FleetVehicleLogServiceManagers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_log_services_manager_id_fkey");
 
@@ -5795,7 +5799,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_log_services_vendor_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FleetVehicleLogServiceWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_log_services_write_uid_fkey");
         });
@@ -5814,11 +5818,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_model_category_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FleetVehicleModelCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_model_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FleetVehicleModelWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_model_write_uid_fkey");
 
@@ -5843,11 +5847,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("fleet_vehicle_model_brand_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FleetVehicleModelBrandCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_model_brand_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FleetVehicleModelBrandWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_model_brand_write_uid_fkey");
         });
@@ -5856,11 +5860,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("fleet_vehicle_model_category_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FleetVehicleModelCategoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_model_category_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FleetVehicleModelCategoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_model_category_write_uid_fkey");
         });
@@ -5871,7 +5875,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FleetVehicleOdometerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_odometer_create_uid_fkey");
 
@@ -5879,7 +5883,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fleet_vehicle_odometer_vehicle_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FleetVehicleOdometerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_odometer_write_uid_fkey");
         });
@@ -5890,11 +5894,11 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FleetVehicleStateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_state_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FleetVehicleStateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_state_write_uid_fkey");
         });
@@ -5903,11 +5907,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("fleet_vehicle_tag_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FleetVehicleTagCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_tag_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FleetVehicleTagWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fleet_vehicle_tag_write_uid_fkey");
         });
@@ -5918,15 +5922,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithOne(p => p.FollowupFollowup)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("followup_followup_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FollowupFollowupCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("followup_followup_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FollowupFollowupWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("followup_followup_write_uid_fkey");
         });
@@ -5937,7 +5941,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FollowupLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("followup_line_create_uid_fkey");
 
@@ -5949,11 +5953,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("followup_line_followup_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.ManualActionResponsible)
+            entity.HasOne(d => d.ManualActionResponsible).WithMany(p => p.FollowupLineManualActionResponsibles)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("followup_line_manual_action_responsible_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FollowupLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("followup_line_write_uid_fkey");
         });
@@ -5964,7 +5968,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FollowupPrintCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("followup_print_create_uid_fkey");
 
@@ -5972,7 +5976,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("followup_print_followup_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FollowupPrintWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("followup_print_write_uid_fkey");
         });
@@ -5983,11 +5987,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.FollowupSendingResultCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("followup_sending_results_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.FollowupSendingResultWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("followup_sending_results_write_uid_fkey");
         });
@@ -6006,11 +6010,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_campaign_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.HrApplicants)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrApplicantCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_create_uid_fkey");
 
@@ -6038,7 +6042,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.HrApplicants)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_partner_id_fkey");
 
@@ -6058,11 +6062,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.HrApplicantUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrApplicantWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_write_uid_fkey");
 
@@ -6097,8 +6101,8 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("hr_applicant_hr_skill_rel");
                         j.HasIndex(new[] { "HrSkillId", "HrApplicantId" }, "hr_applicant_hr_skill_rel_hr_skill_id_hr_applicant_id_idx");
                     });
-            /*
-            //entity.HasMany(d => d.ResUsers).WithMany(p => p.HrApplicants)
+
+            entity.HasMany(d => d.ResUsers).WithMany(p => p.HrApplicants)
                 .UsingEntity<Dictionary<string, object>>(
                     "HrApplicantResUsersInterviewersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -6113,18 +6117,17 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("hr_applicant_res_users_interviewers_rel");
                         j.HasIndex(new[] { "ResUsersId", "HrApplicantId" }, "hr_applicant_res_users_intervi_res_users_id_hr_applicant_id_idx");
                     });
-            */
         });
 
         modelBuilder.Entity<HrApplicantCategory>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("hr_applicant_category_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrApplicantCategoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_category_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrApplicantCategoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_category_write_uid_fkey");
         });
@@ -6135,7 +6138,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrApplicantRefuseReasonCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_refuse_reason_create_uid_fkey");
 
@@ -6143,7 +6146,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_refuse_reason_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrApplicantRefuseReasonWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_refuse_reason_write_uid_fkey");
         });
@@ -6158,7 +6161,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("hr_applicant_skill_applicant_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrApplicantSkillCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_skill_create_uid_fkey");
 
@@ -6174,7 +6177,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_applicant_skill_skill_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrApplicantSkillWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_applicant_skill_write_uid_fkey");
         });
@@ -6185,7 +6188,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrAttendanceCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_attendance_create_uid_fkey");
 
@@ -6193,7 +6196,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("hr_attendance_employee_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrAttendanceWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_attendance_write_uid_fkey");
         });
@@ -6208,7 +6211,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrAttendanceOvertimeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_attendance_overtime_create_uid_fkey");
 
@@ -6216,7 +6219,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("hr_attendance_overtime_employee_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrAttendanceOvertimeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_attendance_overtime_write_uid_fkey");
         });
@@ -6227,15 +6230,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.HrContracts)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_contract_company_id_fkey");
 
-            entity.HasOne<HrContractType>().WithMany().HasForeignKey(p => p.ContractType)
+            entity.HasOne(d => d.ContractType).WithMany(p => p.HrContracts)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_contract_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrContractCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_create_uid_fkey");
 
@@ -6247,7 +6250,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_employee_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.HrResponsible)
+            entity.HasOne(d => d.HrResponsible).WithMany(p => p.HrContractHrResponsibles)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_hr_responsible_id_fkey");
 
@@ -6259,15 +6262,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResourceCalendar>().WithMany().HasForeignKey(p => p.ResourceCalendar)
+            entity.HasOne(d => d.ResourceCalendar).WithMany(p => p.HrContracts)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_resource_calendar_id_fkey");
 
-            entity.HasOne<HrPayrollStructureType>().WithMany().HasForeignKey(p => p.StructureType)
+            entity.HasOne(d => d.StructureType).WithMany(p => p.HrContracts)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_structure_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrContractWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_write_uid_fkey");
         });
@@ -6278,11 +6281,11 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrContractTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_type_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrContractTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_contract_type_write_uid_fkey");
         });
@@ -6293,11 +6296,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.HrDepartments)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_department_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrDepartmentCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_department_create_uid_fkey");
 
@@ -6317,7 +6320,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_department_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrDepartmentWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_department_write_uid_fkey");
         });
@@ -6328,11 +6331,11 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrDepartureReasonCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_departure_reason_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrDepartureReasonWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_departure_reason_write_uid_fkey");
         });
@@ -6343,7 +6346,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrDepartureWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_departure_wizard_create_uid_fkey");
 
@@ -6355,7 +6358,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("hr_departure_wizard_employee_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrDepartureWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_departure_wizard_write_uid_fkey");
         });
@@ -6382,7 +6385,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_coach_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.HrEmployees)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_company_id_fkey");
 
@@ -6390,7 +6393,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_contract_id_fkey");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.HrEmployeeCountries)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_country_id_fkey");
 
@@ -6398,7 +6401,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_country_of_birth_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrEmployeeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_create_uid_fkey");
 
@@ -6410,7 +6413,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_employee_departure_reason_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.ExpenseManager)
+            entity.HasOne(d => d.ExpenseManager).WithMany(p => p.HrEmployeeExpenseManagers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_expense_manager_id_fkey");
 
@@ -6422,7 +6425,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_last_attendance_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LeaveManager)
+            entity.HasOne(d => d.LeaveManager).WithMany(p => p.HrEmployeeLeaveManagers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_leave_manager_id_fkey");
 
@@ -6442,7 +6445,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_employee_resource_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.HrEmployeeUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_user_id_fkey");
 
@@ -6454,7 +6457,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_work_location_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrEmployeeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_write_uid_fkey");
 
@@ -6495,11 +6498,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("hr_employee_category_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrEmployeeCategoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_category_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrEmployeeCategoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_category_write_uid_fkey");
         });
@@ -6510,7 +6513,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrEmployeeSkillCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_skill_create_uid_fkey");
 
@@ -6530,7 +6533,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_employee_skill_skill_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrEmployeeSkillWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_skill_write_uid_fkey");
         });
@@ -6541,7 +6544,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrEmployeeSkillLogCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_skill_log_create_uid_fkey");
 
@@ -6565,7 +6568,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_employee_skill_log_skill_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrEmployeeSkillLogWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_employee_skill_log_write_uid_fkey");
         });
@@ -6578,19 +6581,19 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
+            entity.HasOne(d => d.Account).WithMany(p => p.HrExpenses)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_account_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.HrExpenses)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_expense_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrExpenseCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.HrExpenses)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_expense_currency_id_fkey");
 
@@ -6618,7 +6621,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_sheet_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrExpenseWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_write_uid_fkey");
 
@@ -6645,11 +6648,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrExpenseApproveDuplicateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_approve_duplicate_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrExpenseApproveDuplicateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_approve_duplicate_write_uid_fkey");
 
@@ -6692,7 +6695,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrExpenseRefuseWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_refuse_wizard_create_uid_fkey");
 
@@ -6700,7 +6703,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_refuse_wizard_hr_expense_sheet_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrExpenseRefuseWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_refuse_wizard_write_uid_fkey");
 
@@ -6726,8 +6729,8 @@ public static class CoreDbtModelCreatingExtensions
             entity.HasKey(e => e.Id).HasName("hr_expense_sheet_pkey");
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
-            
-            entity.HasOne<AccountMove>().WithMany().HasForeignKey(p => p.AccountMove)
+
+            entity.HasOne(d => d.AccountMove).WithMany(p => p.HrExpenseSheets)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_expense_sheet_account_move_id_fkey");
 
@@ -6739,15 +6742,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_sheet_bank_journal_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.HrExpenseSheets)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_expense_sheet_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrExpenseSheetCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_sheet_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.HrExpenseSheets)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_sheet_currency_id_fkey");
 
@@ -6759,7 +6762,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_expense_sheet_employee_id_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.HrExpenseSheetJournals)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_sheet_journal_id_fkey");
 
@@ -6767,11 +6770,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_sheet_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.HrExpenseSheetUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_sheet_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrExpenseSheetWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_sheet_write_uid_fkey");
         });
@@ -6784,15 +6787,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.HrExpenseSplits)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_split_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrExpenseSplitCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_split_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.HrExpenseSplits)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_split_currency_id_fkey");
 
@@ -6816,7 +6819,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_split_wizard_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrExpenseSplitWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_split_write_uid_fkey");
 
@@ -6843,7 +6846,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrExpenseSplitWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_split_wizard_create_uid_fkey");
 
@@ -6851,7 +6854,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("hr_expense_split_wizard_expense_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrExpenseSplitWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_expense_split_wizard_write_uid_fkey");
         });
@@ -6862,7 +6865,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrHolidaysCancelLeaveCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_holidays_cancel_leave_create_uid_fkey");
 
@@ -6870,7 +6873,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("hr_holidays_cancel_leave_leave_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrHolidaysCancelLeaveWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_holidays_cancel_leave_write_uid_fkey");
         });
@@ -6881,11 +6884,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrHolidaysSummaryEmployeeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_holidays_summary_employee_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrHolidaysSummaryEmployeeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_holidays_summary_employee_write_uid_fkey");
 
@@ -6921,7 +6924,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_job_alias_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.HrJobs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_job_company_id_fkey");
 
@@ -6929,7 +6932,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_job_contract_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrJobCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_job_create_uid_fkey");
 
@@ -6937,7 +6940,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_job_department_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.HrResponsible)
+            entity.HasOne(d => d.HrResponsible).WithMany(p => p.HrJobHrResponsibles)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_job_hr_responsible_id_fkey");
 
@@ -6949,7 +6952,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_job_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.HrJobUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_job_user_id_fkey");
 
@@ -6957,7 +6960,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_job_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrJobWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_job_write_uid_fkey");
 
@@ -6965,7 +6968,7 @@ public static class CoreDbtModelCreatingExtensions
             {
                 builder.Property<Guid>("HrJobId");
                 builder.Property<Guid>("ResUsersId");
-            });            
+            });
             entity.HasMany(d => d.ResUsers).WithMany(p => p.HrJobs)
                 .UsingEntity<Dictionary<string, object>>(
                     "HrJobExtendedInterviewerResUser",
@@ -7029,7 +7032,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_category_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrLeaveCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_create_uid_fkey");
 
@@ -7037,7 +7040,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_department_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.EmployeeCompany)
+            entity.HasOne(d => d.EmployeeCompany).WithMany(p => p.HrLeaveEmployeeCompanies)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_employee_company_id_fkey");
 
@@ -7069,7 +7072,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.ModeCompany)
+            entity.HasOne(d => d.ModeCompany).WithMany(p => p.HrLeaveModeCompanies)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_mode_company_id_fkey");
 
@@ -7085,11 +7088,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_second_approver_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.HrLeaveUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrLeaveWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_write_uid_fkey");
 
@@ -7118,7 +7121,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_leave_accrual_level_accrual_plan_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrLeaveAccrualLevelCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_accrual_level_create_uid_fkey");
 
@@ -7126,7 +7129,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_accrual_level_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrLeaveAccrualLevelWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_accrual_level_write_uid_fkey");
         });
@@ -7137,7 +7140,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrLeaveAccrualPlanCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_accrual_plan_create_uid_fkey");
 
@@ -7145,7 +7148,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_accrual_plan_time_off_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrLeaveAccrualPlanWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_accrual_plan_write_uid_fkey");
         });
@@ -7168,7 +7171,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_allocation_category_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrLeaveAllocationCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_allocation_create_uid_fkey");
 
@@ -7176,7 +7179,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_allocation_department_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.EmployeeCompany)
+            entity.HasOne(d => d.EmployeeCompany).WithMany(p => p.HrLeaveAllocationEmployeeCompanies)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_allocation_employee_company_id_fkey");
 
@@ -7196,7 +7199,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_allocation_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.ModeCompany)
+            entity.HasOne(d => d.ModeCompany).WithMany(p => p.HrLeaveAllocationModeCompanies)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_allocation_mode_company_id_fkey");
 
@@ -7208,7 +7211,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_allocation_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrLeaveAllocationWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_allocation_write_uid_fkey");
 
@@ -7235,11 +7238,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.HrLeaveStressDays)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_leave_stress_day_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrLeaveStressDayCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_stress_day_create_uid_fkey");
 
@@ -7247,7 +7250,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_stress_day_resource_calendar_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrLeaveStressDayWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_stress_day_write_uid_fkey");
 
@@ -7276,11 +7279,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_type_allocation_notif_subtype_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.HrLeaveTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_type_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrLeaveTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_type_create_uid_fkey");
 
@@ -7292,11 +7295,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_type_leave_notif_subtype_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.Responsible)
+            entity.HasOne(d => d.Responsible).WithMany(p => p.HrLeaveTypeResponsibles)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_type_responsible_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrLeaveTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_leave_type_write_uid_fkey");
         });
@@ -7305,11 +7308,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("hr_payroll_structure_type_pkey");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.HrPayrollStructureTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_payroll_structure_type_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrPayrollStructureTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_payroll_structure_type_create_uid_fkey");
 
@@ -7317,7 +7320,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_payroll_structure_type_default_resource_calendar_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrPayrollStructureTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_payroll_structure_type_write_uid_fkey");
         });
@@ -7328,11 +7331,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.HrPlans)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrPlanCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_create_uid_fkey");
 
@@ -7340,7 +7343,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_department_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrPlanWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_write_uid_fkey");
         });
@@ -7353,11 +7356,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_plan_activity_type_activity_type_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.HrPlanActivityTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_activity_type_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrPlanActivityTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_activity_type_create_uid_fkey");
 
@@ -7365,11 +7368,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_activity_type_plan_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.ResponsibleNavigation)
+            entity.HasOne(d => d.ResponsibleNavigation).WithMany(p => p.HrPlanActivityTypeResponsibleNavigations)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_activity_type_responsible_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrPlanActivityTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_activity_type_write_uid_fkey");
         });
@@ -7380,7 +7383,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrPlanWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_wizard_create_uid_fkey");
 
@@ -7388,7 +7391,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_wizard_plan_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrPlanWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_plan_wizard_write_uid_fkey");
 
@@ -7415,11 +7418,11 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrRecruitmentDegreeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_recruitment_degree_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrRecruitmentDegreeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_recruitment_degree_write_uid_fkey");
         });
@@ -7434,7 +7437,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_recruitment_source_alias_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrRecruitmentSourceCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_recruitment_source_create_uid_fkey");
 
@@ -7450,7 +7453,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_recruitment_source_source_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrRecruitmentSourceWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_recruitment_source_write_uid_fkey");
         });
@@ -7461,7 +7464,7 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrRecruitmentStageCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_recruitment_stage_create_uid_fkey");
 
@@ -7469,7 +7472,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_recruitment_stage_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrRecruitmentStageWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_recruitment_stage_write_uid_fkey");
 
@@ -7496,7 +7499,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrResumeLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_resume_line_create_uid_fkey");
 
@@ -7508,7 +7511,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_resume_line_line_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrResumeLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_resume_line_write_uid_fkey");
         });
@@ -7517,11 +7520,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("hr_resume_line_type_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrResumeLineTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_resume_line_type_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrResumeLineTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_resume_line_type_write_uid_fkey");
         });
@@ -7532,7 +7535,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrSkillCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_skill_create_uid_fkey");
 
@@ -7540,7 +7543,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("hr_skill_skill_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrSkillWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_skill_write_uid_fkey");
         });
@@ -7549,7 +7552,7 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("hr_skill_level_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrSkillLevelCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_skill_level_create_uid_fkey");
 
@@ -7557,7 +7560,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("hr_skill_level_skill_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrSkillLevelWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_skill_level_write_uid_fkey");
         });
@@ -7566,11 +7569,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("hr_skill_type_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrSkillTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_skill_type_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrSkillTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_skill_type_write_uid_fkey");
         });
@@ -7585,15 +7588,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_work_location_address_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.HrWorkLocations)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("hr_work_location_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.HrWorkLocationCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_work_location_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.HrWorkLocationWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("hr_work_location_write_uid_fkey");
         });
@@ -7604,16 +7607,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IapAccountCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("iap_account_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IapAccountWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("iap_account_write_uid_fkey");
 
-            /*
-            //entity.HasMany(d => d.ResCompanies).WithMany(p => p.IapAccounts)
+            entity.HasMany(d => d.ResCompanies).WithMany(p => p.IapAccounts)
                 .UsingEntity<Dictionary<string, object>>(
                     "IapAccountResCompanyRel",
                     r => r.HasOne<ResCompany>().WithMany()
@@ -7628,7 +7630,6 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("iap_account_res_company_rel");
                         j.HasIndex(new[] { "ResCompanyId", "IapAccountId" }, "iap_account_res_company_rel_res_company_id_iap_account_id_idx");
                     });
-            */
         });
 
         modelBuilder.Entity<IrActClient>(entity =>
@@ -7641,11 +7642,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_act_client_binding_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrActClientCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_client_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrActClientWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_client_write_uid_fkey");
         });
@@ -7660,7 +7661,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_act_report_xml_binding_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrActReportXmlCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_report_xml_create_uid_fkey");
 
@@ -7668,7 +7669,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_report_xml_paperformat_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrActReportXmlWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_report_xml_write_uid_fkey");
 
@@ -7700,7 +7701,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("ir_act_server_activity_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.ActivityUser)
+            entity.HasOne(d => d.ActivityUser).WithMany(p => p.IrActServerActivityUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_server_activity_user_id_fkey");
 
@@ -7708,7 +7709,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_act_server_binding_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrActServerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_server_create_uid_fkey");
 
@@ -7732,7 +7733,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_server_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrActServerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_server_write_uid_fkey");
 
@@ -7811,11 +7812,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_act_url_binding_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrActUrlCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_url_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrActUrlWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_url_write_uid_fkey");
         });
@@ -7830,7 +7831,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_act_window_binding_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrActWindowCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_window_create_uid_fkey");
 
@@ -7842,7 +7843,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_window_view_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrActWindowWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_window_write_uid_fkey");
 
@@ -7873,7 +7874,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_act_window_view_act_window_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrActWindowViewCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_window_view_create_uid_fkey");
 
@@ -7881,7 +7882,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_window_view_view_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrActWindowViewWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_act_window_view_write_uid_fkey");
         });
@@ -7896,11 +7897,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_actions_binding_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrActionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_actions_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrActionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_actions_write_uid_fkey");
         });
@@ -7912,11 +7913,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrActionsTodoCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_actions_todo_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrActionsTodoWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_actions_todo_write_uid_fkey");
         });
@@ -7928,7 +7929,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrAssetCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_asset_create_uid_fkey");
 
@@ -7940,7 +7941,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_asset_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrAssetWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_asset_write_uid_fkey");
         });
@@ -7953,11 +7954,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.IrAttachments)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_attachment_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrAttachmentCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_attachment_create_uid_fkey");
 
@@ -7973,7 +7974,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_attachment_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrAttachmentWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_attachment_write_uid_fkey");
         });
@@ -7984,11 +7985,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrConfigParameterCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_config_parameter_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrConfigParameterWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_config_parameter_write_uid_fkey");
         });
@@ -7999,7 +8000,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrCronCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_cron_create_uid_fkey");
 
@@ -8007,11 +8008,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("ir_cron_ir_actions_server_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.IrCronUsers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("ir_cron_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrCronWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_cron_write_uid_fkey");
         });
@@ -8022,7 +8023,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrCronTriggerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_cron_trigger_create_uid_fkey");
 
@@ -8030,7 +8031,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_cron_trigger_cron_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrCronTriggerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_cron_trigger_write_uid_fkey");
         });
@@ -8041,11 +8042,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.IrDefaults)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_default_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrDefaultCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_default_create_uid_fkey");
 
@@ -8053,11 +8054,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_default_field_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.IrDefaultUsers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_default_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrDefaultWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_default_write_uid_fkey");
         });
@@ -8068,11 +8069,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrDemoCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_demo_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrDemoWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_demo_write_uid_fkey");
         });
@@ -8083,7 +8084,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrDemoFailureCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_demo_failure_create_uid_fkey");
 
@@ -8095,7 +8096,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_demo_failure_wizard_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrDemoFailureWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_demo_failure_write_uid_fkey");
         });
@@ -8106,11 +8107,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrDemoFailureWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_demo_failure_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrDemoFailureWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_demo_failure_wizard_write_uid_fkey");
         });
@@ -8121,11 +8122,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrExportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_exports_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrExportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_exports_write_uid_fkey");
         });
@@ -8136,7 +8137,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrExportsLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_exports_line_create_uid_fkey");
 
@@ -8144,7 +8145,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_exports_line_export_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrExportsLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_exports_line_write_uid_fkey");
         });
@@ -8155,15 +8156,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrFilterCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_filters_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.IrFilterUsers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_filters_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrFilterWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_filters_write_uid_fkey");
         });
@@ -8182,11 +8183,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrMailServerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_mail_server_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrMailServerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_mail_server_write_uid_fkey");
         });
@@ -8197,7 +8198,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrModelCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_create_uid_fkey");
 
@@ -8205,7 +8206,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_website_form_default_field_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrModelWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_write_uid_fkey");
         });
@@ -8216,7 +8217,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrModelAccessCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_access_create_uid_fkey");
 
@@ -8228,7 +8229,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_model_access_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrModelAccessWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_access_write_uid_fkey");
         });
@@ -8239,7 +8240,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrModelConstraintCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_constraint_create_uid_fkey");
 
@@ -8251,7 +8252,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_model_constraint_module_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrModelConstraintWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_constraint_write_uid_fkey");
         });
@@ -8265,11 +8266,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Noupdate).HasDefaultValueSql("false");
             entity.Property(e => e.LastModificationTime).HasDefaultValueSql("(now() AT TIME ZONE 'UTC'::text)");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrModelDatumCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_data_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrModelDatumWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_data_write_uid_fkey");
         });
@@ -8281,7 +8282,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.WebsiteFormBlacklisted).HasDefaultValueSql("true");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrModelFieldCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_fields_create_uid_fkey");
 
@@ -8297,7 +8298,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_model_fields_relation_field_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrModelFieldWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_fields_write_uid_fkey");
 
@@ -8325,7 +8326,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrModelFieldsSelectionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_fields_selection_create_uid_fkey");
 
@@ -8333,7 +8334,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_model_fields_selection_field_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrModelFieldsSelectionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_fields_selection_write_uid_fkey");
         });
@@ -8344,7 +8345,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrModelRelationCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_relation_create_uid_fkey");
 
@@ -8356,7 +8357,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_model_relation_module_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrModelRelationWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_model_relation_write_uid_fkey");
         });
@@ -8367,7 +8368,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrModuleCategoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_module_category_create_uid_fkey");
 
@@ -8375,7 +8376,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_module_category_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrModuleCategoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_module_category_write_uid_fkey");
         });
@@ -8396,11 +8397,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_module_module_category_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrModuleModuleCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_module_module_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrModuleModuleWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_module_module_write_uid_fkey");
         });
@@ -8423,7 +8424,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrModuleModuleExclusionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_module_module_exclusion_create_uid_fkey");
 
@@ -8431,7 +8432,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_module_module_exclusion_module_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrModuleModuleExclusionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_module_module_exclusion_write_uid_fkey");
         });
@@ -8449,11 +8450,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.IrProperties)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_property_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrPropertyCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_property_create_uid_fkey");
 
@@ -8461,7 +8462,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_property_fields_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrPropertyWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_property_write_uid_fkey");
         });
@@ -8472,7 +8473,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrRuleCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_rule_create_uid_fkey");
 
@@ -8480,7 +8481,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_rule_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrRuleWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_rule_write_uid_fkey");
 
@@ -8508,15 +8509,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.IrSequences)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_sequence_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrSequenceCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_sequence_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrSequenceWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_sequence_write_uid_fkey");
         });
@@ -8527,7 +8528,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrSequenceDateRangeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_sequence_date_range_create_uid_fkey");
 
@@ -8535,7 +8536,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_sequence_date_range_sequence_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrSequenceDateRangeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_sequence_date_range_write_uid_fkey");
         });
@@ -8550,7 +8551,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_server_object_lines_col1_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrServerObjectLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_server_object_lines_create_uid_fkey");
 
@@ -8558,7 +8559,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_server_object_lines_server_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrServerObjectLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_server_object_lines_write_uid_fkey");
         });
@@ -8570,7 +8571,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrUiMenuCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_ui_menu_create_uid_fkey");
 
@@ -8578,7 +8579,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("ir_ui_menu_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrUiMenuWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_ui_menu_write_uid_fkey");
 
@@ -8607,7 +8608,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrUiViewCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_ui_view_create_uid_fkey");
 
@@ -8623,7 +8624,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_ui_view_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrUiViewWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_ui_view_write_uid_fkey");
 
@@ -8650,7 +8651,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.IrUiViewCustomCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_ui_view_custom_create_uid_fkey");
 
@@ -8658,11 +8659,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_ui_view_custom_ref_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.IrUiViewCustomUsers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ir_ui_view_custom_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.IrUiViewCustomWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("ir_ui_view_custom_write_uid_fkey");
         });
@@ -8673,11 +8674,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.LotLabelLayoutCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lot_label_layout_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.LotLabelLayoutWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lot_label_layout_write_uid_fkey");
 
@@ -8704,7 +8705,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.LunchAlertCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_alert_create_uid_fkey");
 
@@ -8712,7 +8713,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("lunch_alert_cron_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.LunchAlertWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_alert_write_uid_fkey");
 
@@ -8739,19 +8740,19 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.LunchCashmoveCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_cashmove_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.LunchCashmoves)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("lunch_cashmove_currency_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.LunchCashmoveUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_cashmove_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.LunchCashmoveWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_cashmove_write_uid_fkey");
         });
@@ -8762,15 +8763,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.LunchLocations)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_location_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.LunchLocationCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_location_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.LunchLocationWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_location_write_uid_fkey");
         });
@@ -8785,15 +8786,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_order_category_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.LunchOrders)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_order_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.LunchOrderCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_order_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.LunchOrders)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_order_currency_id_fkey");
 
@@ -8809,11 +8810,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_order_supplier_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.LunchOrderUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_order_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.LunchOrderWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_order_write_uid_fkey");
 
@@ -8844,11 +8845,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("lunch_product_category_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.LunchProducts)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_product_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.LunchProductCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_product_create_uid_fkey");
 
@@ -8856,11 +8857,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("lunch_product_supplier_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.LunchProductWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_product_write_uid_fkey");
-            /*
-            //entity.HasMany(d => d.Users).WithMany(p => p.Products)
+
+            entity.HasMany(d => d.Users).WithMany(p => p.Products)
                 .UsingEntity<Dictionary<string, object>>(
                     "LunchProductFavoriteUserRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -8875,7 +8876,6 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("lunch_product_favorite_user_rel");
                         j.HasIndex(new[] { "UserId", "ProductId" }, "lunch_product_favorite_user_rel_user_id_product_id_idx");
                     });
-            */
         });
 
         modelBuilder.Entity<LunchProductCategory>(entity =>
@@ -8884,15 +8884,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.LunchProductCategories)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_product_category_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.LunchProductCategoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_product_category_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.LunchProductCategoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_product_category_write_uid_fkey");
         });
@@ -8903,11 +8903,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.LunchSuppliers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_supplier_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.LunchSupplierCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_supplier_create_uid_fkey");
 
@@ -8919,15 +8919,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_supplier_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.LunchSuppliers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("lunch_supplier_partner_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.Responsible)
+            entity.HasOne(d => d.Responsible).WithMany(p => p.LunchSupplierResponsibles)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_supplier_responsible_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.LunchSupplierWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_supplier_write_uid_fkey");
 
@@ -8954,11 +8954,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.LunchToppings)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_topping_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.LunchToppingCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_topping_create_uid_fkey");
 
@@ -8966,7 +8966,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("lunch_topping_supplier_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.LunchToppingWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_topping_write_uid_fkey");
         });
@@ -8985,7 +8985,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_activity_calendar_event_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailActivityCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_activity_create_uid_fkey");
 
@@ -9009,11 +9009,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_activity_res_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.MailActivityUsers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mail_activity_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailActivityWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_activity_write_uid_fkey");
         });
@@ -9024,11 +9024,11 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailActivityTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_activity_type_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.DefaultUser)
+            entity.HasOne(d => d.DefaultUser).WithMany(p => p.MailActivityTypeDefaultUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_activity_type_default_user_id_fkey");
 
@@ -9036,7 +9036,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mail_activity_type_triggered_next_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailActivityTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_activity_type_write_uid_fkey");
 
@@ -9103,15 +9103,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_alias_alias_parent_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.AliasUser)
+            entity.HasOne(d => d.AliasUser).WithMany(p => p.MailAliasAliasUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_alias_alias_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailAliasCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_alias_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailAliasWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_alias_write_uid_fkey");
         });
@@ -9126,7 +9126,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailBlacklistCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_blacklist_create_uid_fkey");
 
@@ -9134,7 +9134,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_blacklist_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailBlacklistWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_blacklist_write_uid_fkey");
         });
@@ -9145,11 +9145,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailBlacklistRemoveCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_blacklist_remove_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailBlacklistRemoveWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_blacklist_remove_write_uid_fkey");
         });
@@ -9160,7 +9160,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailChannelCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_channel_create_uid_fkey");
 
@@ -9172,7 +9172,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_channel_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailChannelWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_channel_write_uid_fkey");
 
@@ -9227,7 +9227,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_channel_member_channel_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailChannelMemberCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_channel_member_create_uid_fkey");
 
@@ -9239,7 +9239,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_channel_member_guest_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.MailChannelMembers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_channel_member_partner_id_fkey");
 
@@ -9251,7 +9251,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_channel_member_seen_message_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailChannelMemberWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_channel_member_write_uid_fkey");
         });
@@ -9270,11 +9270,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_channel_rtc_session_channel_member_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailChannelRtcSessionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_channel_rtc_session_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailChannelRtcSessionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_channel_rtc_session_write_uid_fkey");
         });
@@ -9289,7 +9289,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_compose_message_author_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailComposeMessageCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_compose_message_create_uid_fkey");
 
@@ -9313,7 +9313,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_compose_message_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailComposeMessageWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_compose_message_write_uid_fkey");
 
@@ -9356,7 +9356,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.MailFollowers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_followers_partner_id_fkey");
 
@@ -9383,11 +9383,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailGatewayAllowedCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_gateway_allowed_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailGatewayAllowedWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_gateway_allowed_write_uid_fkey");
         });
@@ -9398,15 +9398,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.MailGuests)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_guest_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailGuestCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_guest_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailGuestWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_guest_write_uid_fkey");
         });
@@ -9417,11 +9417,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailIceServerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_ice_server_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailIceServerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_ice_server_write_uid_fkey");
         });
@@ -9432,7 +9432,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailLinkPreviewCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_link_preview_create_uid_fkey");
 
@@ -9440,7 +9440,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_link_preview_message_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailLinkPreviewWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_link_preview_write_uid_fkey");
         });
@@ -9453,7 +9453,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailMailCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_mail_create_uid_fkey");
 
@@ -9465,7 +9465,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_mail_mail_message_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailMailWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_mail_write_uid_fkey");
 
@@ -9502,7 +9502,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_message_author_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailMessageCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_message_create_uid_fkey");
 
@@ -9522,7 +9522,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_message_subtype_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailMessageWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_message_write_uid_fkey");
 
@@ -9607,7 +9607,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_message_reaction_message_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.MailMessageReactions)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_message_reaction_partner_id_fkey");
         });
@@ -9618,7 +9618,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailMessageScheduleCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_message_schedule_create_uid_fkey");
 
@@ -9626,7 +9626,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_message_schedule_mail_message_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailMessageScheduleWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_message_schedule_write_uid_fkey");
         });
@@ -9637,7 +9637,7 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailMessageSubtypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_message_subtype_create_uid_fkey");
 
@@ -9645,7 +9645,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_message_subtype_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailMessageSubtypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_message_subtype_write_uid_fkey");
         });
@@ -9697,7 +9697,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailResendMessageCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_resend_message_create_uid_fkey");
 
@@ -9705,7 +9705,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_resend_message_mail_message_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailResendMessageWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_resend_message_write_uid_fkey");
 
@@ -9732,11 +9732,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailResendPartnerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_resend_partner_create_uid_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.MailResendPartners)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_resend_partner_partner_id_fkey");
 
@@ -9744,7 +9744,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_resend_partner_resend_wizard_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailResendPartnerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_resend_partner_write_uid_fkey");
         });
@@ -9759,11 +9759,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailShortcodeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_shortcode_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailShortcodeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_shortcode_write_uid_fkey");
         });
@@ -9774,7 +9774,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_template_create_uid_fkey");
 
@@ -9794,7 +9794,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_template_report_template_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_template_write_uid_fkey");
 
@@ -9821,7 +9821,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailTemplatePreviewCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_template_preview_create_uid_fkey");
 
@@ -9829,7 +9829,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_template_preview_mail_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailTemplatePreviewWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_template_preview_write_uid_fkey");
         });
@@ -9840,11 +9840,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailTemplateResetCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_template_reset_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailTemplateResetWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_template_reset_write_uid_fkey");
 
@@ -9871,11 +9871,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailTrackingValueCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_tracking_value_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.MailTrackingValues)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_tracking_value_currency_id_fkey");
 
@@ -9887,7 +9887,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mail_tracking_value_mail_message_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailTrackingValueWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_tracking_value_write_uid_fkey");
         });
@@ -9898,11 +9898,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MailWizardInviteCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_wizard_invite_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MailWizardInviteWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mail_wizard_invite_write_uid_fkey");
 
@@ -9933,11 +9933,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_category_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.MaintenanceEquipments)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MaintenanceEquipmentCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_create_uid_fkey");
 
@@ -9957,19 +9957,19 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.OwnerUser)
+            entity.HasOne(d => d.OwnerUser).WithMany(p => p.MaintenanceEquipmentOwnerUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_owner_user_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.MaintenanceEquipments)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_partner_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.TechnicianUser)
+            entity.HasOne(d => d.TechnicianUser).WithMany(p => p.MaintenanceEquipmentTechnicianUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_technician_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MaintenanceEquipmentWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_write_uid_fkey");
         });
@@ -9982,11 +9982,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("maintenance_equipment_category_alias_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.MaintenanceEquipmentCategories)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_category_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MaintenanceEquipmentCategoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_category_create_uid_fkey");
 
@@ -9994,11 +9994,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_category_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.TechnicianUser)
+            entity.HasOne(d => d.TechnicianUser).WithMany(p => p.MaintenanceEquipmentCategoryTechnicianUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_category_technician_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MaintenanceEquipmentCategoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_equipment_category_write_uid_fkey");
         });
@@ -10013,11 +10013,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_request_category_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.MaintenanceRequests)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_request_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MaintenanceRequestCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_request_create_uid_fkey");
 
@@ -10037,7 +10037,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_request_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.OwnerUser)
+            entity.HasOne(d => d.OwnerUser).WithMany(p => p.MaintenanceRequestOwnerUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_request_owner_user_id_fkey");
 
@@ -10045,11 +10045,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("maintenance_request_stage_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.MaintenanceRequestUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_request_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MaintenanceRequestWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_request_write_uid_fkey");
         });
@@ -10060,11 +10060,11 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MaintenanceStageCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_stage_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MaintenanceStageWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_stage_write_uid_fkey");
         });
@@ -10075,20 +10075,19 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.MaintenanceTeams)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_team_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MaintenanceTeamCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_team_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MaintenanceTeamWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_team_write_uid_fkey");
 
-            /*
-            //entity.HasMany(d => d.ResUsers).WithMany(p => p.MaintenanceTeams)
+            entity.HasMany(d => d.ResUsers).WithMany(p => p.MaintenanceTeams)
                 .UsingEntity<Dictionary<string, object>>(
                     "MaintenanceTeamUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -10103,7 +10102,6 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("maintenance_team_users_rel");
                         j.HasIndex(new[] { "ResUsersId", "MaintenanceTeamId" }, "maintenance_team_users_rel_res_users_id_maintenance_team_id_idx");
                     });
-            */
         });
 
         modelBuilder.Entity<MrpBom>(entity =>
@@ -10113,11 +10111,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.MrpBoms)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_bom_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpBomCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_bom_create_uid_fkey");
 
@@ -10125,7 +10123,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_bom_message_main_attachment_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
+            entity.HasOne(d => d.PickingType).WithMany(p => p.MrpBoms)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_bom_picking_type_id_fkey");
 
@@ -10141,7 +10139,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_bom_product_uom_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpBomWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_bom_write_uid_fkey");
         });
@@ -10157,11 +10155,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mrp_bom_byproduct_bom_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.MrpBomByproducts)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_bom_byproduct_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpBomByproductCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_bom_byproduct_create_uid_fkey");
 
@@ -10177,7 +10175,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_bom_byproduct_product_uom_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpBomByproductWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_bom_byproduct_write_uid_fkey");
 
@@ -10210,11 +10208,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mrp_bom_line_bom_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.MrpBomLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_bom_line_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpBomLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_bom_line_create_uid_fkey");
 
@@ -10234,7 +10232,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_bom_line_product_uom_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpBomLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_bom_line_write_uid_fkey");
 
@@ -10262,11 +10260,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpConsumptionWarningCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_consumption_warning_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpConsumptionWarningWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_consumption_warning_write_uid_fkey");
 
@@ -10293,7 +10291,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpConsumptionWarningLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_consumption_warning_line_create_uid_fkey");
 
@@ -10309,7 +10307,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mrp_consumption_warning_line_product_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpConsumptionWarningLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_consumption_warning_line_write_uid_fkey");
         });
@@ -10320,7 +10318,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpDocumentCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_document_create_uid_fkey");
 
@@ -10328,7 +10326,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mrp_document_ir_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpDocumentWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_document_write_uid_fkey");
         });
@@ -10339,11 +10337,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpImmediateProductionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_immediate_production_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpImmediateProductionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_immediate_production_write_uid_fkey");
 
@@ -10370,7 +10368,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpImmediateProductionLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_immediate_production_line_create_uid_fkey");
 
@@ -10382,7 +10380,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mrp_immediate_production_line_production_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpImmediateProductionLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_immediate_production_line_write_uid_fkey");
         });
@@ -10404,11 +10402,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_bom_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.MrpProductions)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_production_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpProductionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_create_uid_fkey");
 
@@ -10432,7 +10430,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_orderpoint_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
+            entity.HasOne(d => d.PickingType).WithMany(p => p.MrpProductions)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_production_picking_type_id_fkey");
 
@@ -10452,11 +10450,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_production_location_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.MrpProductionUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpProductionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_write_uid_fkey");
         });
@@ -10467,11 +10465,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpProductionBackorderCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_backorder_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpProductionBackorderWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_backorder_write_uid_fkey");
 
@@ -10498,7 +10496,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpProductionBackorderLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_backorder_line_create_uid_fkey");
 
@@ -10510,7 +10508,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mrp_production_backorder_line_mrp_production_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpProductionBackorderLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_backorder_line_write_uid_fkey");
         });
@@ -10521,7 +10519,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpProductionSplitCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_split_create_uid_fkey");
 
@@ -10533,7 +10531,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_split_production_split_multi_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpProductionSplitWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_split_write_uid_fkey");
         });
@@ -10544,7 +10542,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpProductionSplitLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_split_line_create_uid_fkey");
 
@@ -10552,11 +10550,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mrp_production_split_line_mrp_production_split_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.MrpProductionSplitLineUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_split_line_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpProductionSplitLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_split_line_write_uid_fkey");
         });
@@ -10567,11 +10565,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpProductionSplitMultiCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_split_multi_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpProductionSplitMultiWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_production_split_multi_write_uid_fkey");
         });
@@ -10587,7 +10585,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("mrp_routing_workcenter_bom_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpRoutingWorkcenterCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_routing_workcenter_create_uid_fkey");
 
@@ -10595,7 +10593,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_routing_workcenter_workcenter_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpRoutingWorkcenterWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_routing_workcenter_write_uid_fkey");
 
@@ -10659,11 +10657,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_unbuild_bom_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.MrpUnbuilds)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_unbuild_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpUnbuildCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_unbuild_create_uid_fkey");
 
@@ -10695,7 +10693,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_unbuild_product_uom_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpUnbuildWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_unbuild_write_uid_fkey");
         });
@@ -10707,7 +10705,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.MrpWorkcenters)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_company_id_fkey");
 
@@ -10715,7 +10713,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_costs_hour_account_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpWorkcenterCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_create_uid_fkey");
 
@@ -10727,7 +10725,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_workcenter_resource_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpWorkcenterWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_write_uid_fkey");
 
@@ -10786,7 +10784,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpWorkcenterCapacityCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_capacity_create_uid_fkey");
 
@@ -10798,7 +10796,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_workcenter_capacity_workcenter_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpWorkcenterCapacityWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_capacity_write_uid_fkey");
         });
@@ -10809,11 +10807,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.MrpWorkcenterProductivities)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_workcenter_productivity_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpWorkcenterProductivityCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_productivity_create_uid_fkey");
 
@@ -10821,7 +10819,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_workcenter_productivity_loss_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.MrpWorkcenterProductivityUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_productivity_user_id_fkey");
 
@@ -10833,7 +10831,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_productivity_workorder_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpWorkcenterProductivityWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_productivity_write_uid_fkey");
         });
@@ -10845,7 +10843,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpWorkcenterProductivityLossCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_productivity_loss_create_uid_fkey");
 
@@ -10853,7 +10851,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_productivity_loss_loss_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpWorkcenterProductivityLossWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_productivity_loss_write_uid_fkey");
         });
@@ -10862,11 +10860,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("mrp_workcenter_productivity_loss_type_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpWorkcenterProductivityLossTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_productivity_loss_type_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpWorkcenterProductivityLossTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_productivity_loss_type_write_uid_fkey");
         });
@@ -10875,11 +10873,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("mrp_workcenter_tag_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpWorkcenterTagCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_tag_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpWorkcenterTagWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workcenter_tag_write_uid_fkey");
         });
@@ -10890,7 +10888,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.MrpWorkorderCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workorder_create_uid_fkey");
 
@@ -10926,7 +10924,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("mrp_workorder_workcenter_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.MrpWorkorderWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("mrp_workorder_write_uid_fkey");
 
@@ -10970,11 +10968,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.NoteNotes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("note_note_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.NoteNoteCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("note_note_create_uid_fkey");
 
@@ -10982,11 +10980,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("note_note_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.NoteNoteUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("note_note_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.NoteNoteWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("note_note_write_uid_fkey");
 
@@ -11029,15 +11027,15 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.NoteStageCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("note_stage_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.NoteStageUsers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("note_stage_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.NoteStageWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("note_stage_write_uid_fkey");
         });
@@ -11048,11 +11046,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.NoteTagCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("note_tag_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.NoteTagWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("note_tag_write_uid_fkey");
         });
@@ -11071,11 +11069,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PaymentIconCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_icon_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PaymentIconWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_icon_write_uid_fkey");
         });
@@ -11086,19 +11084,19 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PaymentLinkWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_link_wizard_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.PaymentLinkWizards)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_link_wizard_currency_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.PaymentLinkWizards)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_link_wizard_partner_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PaymentLinkWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_link_wizard_write_uid_fkey");
         });
@@ -11109,11 +11107,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.PaymentProviders)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("payment_provider_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PaymentProviderCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_provider_create_uid_fkey");
 
@@ -11141,7 +11139,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("payment_provider_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PaymentProviderWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_provider_write_uid_fkey");
 
@@ -11184,11 +11182,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PaymentProviderOnboardingWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_provider_onboarding_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PaymentProviderOnboardingWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_provider_onboarding_wizard_write_uid_fkey");
         });
@@ -11199,7 +11197,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PaymentRefundWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_refund_wizard_create_uid_fkey");
 
@@ -11207,7 +11205,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_refund_wizard_payment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PaymentRefundWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_refund_wizard_write_uid_fkey");
         });
@@ -11218,15 +11216,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.PaymentTokens)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_token_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PaymentTokenCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_token_create_uid_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.PaymentTokens)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("payment_token_partner_id_fkey");
 
@@ -11234,7 +11232,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("payment_token_provider_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PaymentTokenWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_token_write_uid_fkey");
         });
@@ -11249,15 +11247,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_transaction_callback_model_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.PaymentTransactions)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_transaction_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PaymentTransactionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_transaction_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.PaymentTransactions)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("payment_transaction_currency_id_fkey");
 
@@ -11265,7 +11263,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_transaction_partner_country_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.PaymentTransactions)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("payment_transaction_partner_id_fkey");
 
@@ -11289,7 +11287,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("payment_transaction_token_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PaymentTransactionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("payment_transaction_write_uid_fkey");
 
@@ -11316,7 +11314,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PhoneBlacklistCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("phone_blacklist_create_uid_fkey");
 
@@ -11324,7 +11322,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("phone_blacklist_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PhoneBlacklistWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("phone_blacklist_write_uid_fkey");
         });
@@ -11335,11 +11333,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PhoneBlacklistRemoveCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("phone_blacklist_remove_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PhoneBlacklistRemoveWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("phone_blacklist_remove_write_uid_fkey");
         });
@@ -11350,11 +11348,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PickingLabelTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("picking_label_type_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PickingLabelTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("picking_label_type_write_uid_fkey");
 
@@ -11381,11 +11379,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PortalShareCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("portal_share_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PortalShareWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("portal_share_write_uid_fkey");
 
@@ -11412,11 +11410,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PortalWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("portal_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PortalWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("portal_wizard_write_uid_fkey");
 
@@ -11443,11 +11441,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PortalWizardUserCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("portal_wizard_user_create_uid_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.PortalWizardUsers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("portal_wizard_user_partner_id_fkey");
 
@@ -11455,7 +11453,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("portal_wizard_user_wizard_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PortalWizardUserWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("portal_wizard_user_write_uid_fkey");
         });
@@ -11466,11 +11464,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PosBillCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_bill_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PosBillWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_bill_write_uid_fkey");
         });
@@ -11479,7 +11477,7 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("pos_category_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PosCategoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_category_create_uid_fkey");
 
@@ -11487,7 +11485,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_category_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PosCategoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_category_write_uid_fkey");
         });
@@ -11498,15 +11496,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
+            entity.HasOne(d => d.Account).WithMany(p => p.PosCloseSessionWizards)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_close_session_wizard_account_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PosCloseSessionWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_close_session_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PosCloseSessionWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_close_session_wizard_write_uid_fkey");
         });
@@ -11517,11 +11515,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.PosConfigs)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("pos_config_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PosConfigCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_config_create_uid_fkey");
 
@@ -11553,11 +11551,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_config_invoice_journal_id_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.PosConfigJournals)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("pos_config_journal_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
+            entity.HasOne(d => d.PickingType).WithMany(p => p.PosConfigs)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("pos_config_picking_type_id_fkey");
 
@@ -11589,7 +11587,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("pos_config_warehouse_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PosConfigWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_config_write_uid_fkey");
 
@@ -11696,11 +11694,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PosDetailsWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_details_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PosDetailsWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_details_wizard_write_uid_fkey");
 
@@ -11731,7 +11729,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("pos_make_payment_config_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PosMakePaymentCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_make_payment_create_uid_fkey");
 
@@ -11739,7 +11737,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("pos_make_payment_payment_method_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PosMakePaymentWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_make_payment_write_uid_fkey");
         });
@@ -11757,11 +11755,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_order_account_move_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.PosOrders)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("pos_order_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PosOrderCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_order_create_uid_fkey");
 
@@ -11777,7 +11775,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_order_fiscal_position_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.PosOrders)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_order_partner_id_fkey");
 
@@ -11797,11 +11795,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("pos_order_session_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.PosOrderUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_order_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PosOrderWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_order_write_uid_fkey");
         });
@@ -11812,11 +11810,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.PosOrderLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_order_line_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PosOrderLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_order_line_create_uid_fkey");
 
@@ -11840,7 +11838,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_order_line_sale_order_origin_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PosOrderLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_order_line_write_uid_fkey");
 
@@ -11867,7 +11865,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PosPackOperationLotCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_pack_operation_lot_create_uid_fkey");
 
@@ -11875,7 +11873,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_pack_operation_lot_pos_order_line_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PosPackOperationLotWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_pack_operation_lot_write_uid_fkey");
         });
@@ -11886,15 +11884,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<AccountMove>().WithMany().HasForeignKey(p => p.AccountMove)
+            entity.HasOne(d => d.AccountMove).WithMany(p => p.PosPayments)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_payment_account_move_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.PosPayments)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_payment_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PosPaymentCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_payment_create_uid_fkey");
 
@@ -11910,7 +11908,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_payment_session_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PosPaymentWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_payment_write_uid_fkey");
         });
@@ -11919,15 +11917,15 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("pos_payment_method_pkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.PosPaymentMethods)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_payment_method_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PosPaymentMethodCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_payment_method_create_uid_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.PosPaymentMethods)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("pos_payment_method_journal_id_fkey");
 
@@ -11939,7 +11937,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("pos_payment_method_receivable_account_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PosPaymentMethodWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_payment_method_write_uid_fkey");
         });
@@ -11958,7 +11956,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("pos_session_config_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PosSessionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_session_create_uid_fkey");
 
@@ -11970,11 +11968,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_session_move_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.PosSessionUsers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("pos_session_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PosSessionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_session_write_uid_fkey");
         });
@@ -11985,11 +11983,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PosSessionCheckProductWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_session_check_product_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PosSessionCheckProductWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("pos_session_check_product_wizard_write_uid_fkey");
         });
@@ -12000,15 +11998,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PrivacyLogCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("privacy_log_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.PrivacyLogUsers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("privacy_log_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PrivacyLogWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("privacy_log_write_uid_fkey");
         });
@@ -12019,7 +12017,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PrivacyLookupWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("privacy_lookup_wizard_create_uid_fkey");
 
@@ -12027,7 +12025,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("privacy_lookup_wizard_log_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PrivacyLookupWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("privacy_lookup_wizard_write_uid_fkey");
         });
@@ -12038,7 +12036,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PrivacyLookupWizardLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("privacy_lookup_wizard_line_create_uid_fkey");
 
@@ -12050,7 +12048,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("privacy_lookup_wizard_line_wizard_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PrivacyLookupWizardLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("privacy_lookup_wizard_line_write_uid_fkey");
         });
@@ -12061,11 +12059,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProcurementGroupCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("procurement_group_create_uid_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.ProcurementGroups)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("procurement_group_partner_id_fkey");
 
@@ -12077,7 +12075,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("procurement_group_sale_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProcurementGroupWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("procurement_group_write_uid_fkey");
         });
@@ -12088,11 +12086,11 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductAttributeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_attribute_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductAttributeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_attribute_write_uid_fkey");
 
@@ -12119,7 +12117,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductAttributeCustomValueCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_attribute_custom_value_create_uid_fkey");
 
@@ -12131,7 +12129,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("product_attribute_custom_value_sale_order_line_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductAttributeCustomValueWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_attribute_custom_value_write_uid_fkey");
         });
@@ -12146,11 +12144,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("product_attribute_value_attribute_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductAttributeValueCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_attribute_value_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductAttributeValueWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_attribute_value_write_uid_fkey");
 
@@ -12180,7 +12178,7 @@ public static class CoreDbtModelCreatingExtensions
                 .HasMethod("gin")
                 .HasOperators(new[] { "gin_trgm_ops" });
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductCategoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_category_create_uid_fkey");
 
@@ -12192,7 +12190,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_category_removal_strategy_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductCategoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_category_write_uid_fkey");
         });
@@ -12204,7 +12202,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductImageCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_image_create_uid_fkey");
 
@@ -12216,7 +12214,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("product_image_product_variant_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductImageWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_image_write_uid_fkey");
         });
@@ -12227,11 +12225,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductLabelLayoutCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_label_layout_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductLabelLayoutWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_label_layout_write_uid_fkey");
 
@@ -12291,11 +12289,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ProductPackagings)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_packaging_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductPackagingCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_packaging_create_uid_fkey");
 
@@ -12307,7 +12305,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_packaging_product_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductPackagingWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_packaging_write_uid_fkey");
         });
@@ -12319,15 +12317,15 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ProductPricelists)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_pricelist_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductPricelistCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_pricelist_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.ProductPricelists)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("product_pricelist_currency_id_fkey");
 
@@ -12335,12 +12333,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("product_pricelist_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductPricelistWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_pricelist_write_uid_fkey");
 
-            /*
-            //entity.HasMany(d => d.ResCountryGroups).WithMany(p => p.Pricelists)
+            entity.HasMany(d => d.ResCountryGroups).WithMany(p => p.Pricelists)
                 .UsingEntity<Dictionary<string, object>>(
                     "ResCountryGroupPricelistRel",
                     r => r.HasOne<ResCountryGroup>().WithMany()
@@ -12355,7 +12352,6 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("res_country_group_pricelist_rel");
                         j.HasIndex(new[] { "ResCountryGroupId", "PricelistId" }, "res_country_group_pricelist_r_res_country_group_id_pricelis_idx");
                     });
-            */
         });
 
         modelBuilder.Entity<ProductPricelistItem>(entity =>
@@ -12372,15 +12368,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("product_pricelist_item_categ_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ProductPricelistItems)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_pricelist_item_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductPricelistItemCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_pricelist_item_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.ProductPricelistItems)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_pricelist_item_currency_id_fkey");
 
@@ -12396,7 +12392,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("product_pricelist_item_product_tmpl_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductPricelistItemWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_pricelist_item_write_uid_fkey");
         });
@@ -12417,7 +12413,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_product_base_unit_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductProductCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_product_create_uid_fkey");
 
@@ -12429,7 +12425,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("product_product_product_tmpl_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductProductWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_product_write_uid_fkey");
 
@@ -12489,7 +12485,7 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductPublicCategoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_public_category_create_uid_fkey");
 
@@ -12501,7 +12497,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("product_public_category_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductPublicCategoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_public_category_write_uid_fkey");
 
@@ -12528,11 +12524,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductRemovalCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_removal_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductRemovalWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_removal_write_uid_fkey");
         });
@@ -12543,11 +12539,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ProductReplenishes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_replenish_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductReplenishCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_replenish_create_uid_fkey");
 
@@ -12567,7 +12563,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("product_replenish_warehouse_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductReplenishWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_replenish_write_uid_fkey");
 
@@ -12594,11 +12590,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductRibbonCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_ribbon_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductRibbonWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_ribbon_write_uid_fkey");
         });
@@ -12610,19 +12606,19 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ProductSupplierinfos)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_supplierinfo_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductSupplierinfoCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_supplierinfo_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.ProductSupplierinfos)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("product_supplierinfo_currency_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.ProductSupplierinfos)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("product_supplierinfo_partner_id_fkey");
 
@@ -12634,7 +12630,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("product_supplierinfo_product_tmpl_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductSupplierinfoWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_supplierinfo_write_uid_fkey");
         });
@@ -12643,7 +12639,7 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("product_tag_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductTagCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_tag_create_uid_fkey");
 
@@ -12655,7 +12651,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("product_tag_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductTagWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_tag_write_uid_fkey");
         });
@@ -12675,11 +12671,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("product_template_categ_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ProductTemplates)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_template_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_template_create_uid_fkey");
 
@@ -12707,7 +12703,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_template_website_ribbon_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_template_write_uid_fkey");
 
@@ -12727,7 +12723,7 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "AccountAccountTagId", "ProductTemplateId" }, "account_account_tag_product_t_account_account_tag_id_produc_idx");
                     });
 
-            entity.HasMany(d => d.Dests).WithMany(p => p.Srcs)
+            /*entity.HasMany(d => d.Dests).WithMany(p => p.Srcs)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProductAccessoryRel",
                     r => r.HasOne<ProductProduct>().WithMany()
@@ -12822,6 +12818,7 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("product_optional_rel");
                         j.HasIndex(new[] { "DestId", "SrcId" }, "product_optional_rel_dest_id_src_id_idx");
                     });
+            
 
             entity.HasMany(d => d.Taxes).WithMany(p => p.Prods)
                 .UsingEntity<Dictionary<string, object>>(
@@ -12854,6 +12851,7 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("product_taxes_rel");
                         j.HasIndex(new[] { "TaxId", "ProdId" }, "product_taxes_rel_tax_id_prod_id_idx");
                     });
+                    */
         });
 
         modelBuilder.Entity<ProductTemplateAttributeExclusion>(entity =>
@@ -12862,7 +12860,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductTemplateAttributeExclusionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_template_attribute_exclusion_create_uid_fkey");
 
@@ -12874,7 +12872,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("product_template_attribute_exclusion_product_tmpl_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductTemplateAttributeExclusionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_template_attribute_exclusion_write_uid_fkey");
 
@@ -12905,7 +12903,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("product_template_attribute_line_attribute_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductTemplateAttributeLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_template_attribute_line_create_uid_fkey");
 
@@ -12913,7 +12911,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("product_template_attribute_line_product_tmpl_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductTemplateAttributeLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_template_attribute_line_write_uid_fkey");
         });
@@ -12932,7 +12930,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("product_template_attribute_value_attribute_line_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProductTemplateAttributeValueCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_template_attribute_value_create_uid_fkey");
 
@@ -12944,7 +12942,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_template_attribute_value_product_tmpl_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProductTemplateAttributeValueWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("product_template_attribute_value_write_uid_fkey");
         });
@@ -12955,11 +12953,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProjectCollaboratorCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_collaborator_create_uid_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.ProjectCollaborators)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("project_collaborator_partner_id_fkey");
 
@@ -12967,7 +12965,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("project_collaborator_project_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProjectCollaboratorWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_collaborator_write_uid_fkey");
         });
@@ -12978,7 +12976,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProjectMilestoneCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_milestone_create_uid_fkey");
 
@@ -12994,7 +12992,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_milestone_sale_line_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProjectMilestoneWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_milestone_write_uid_fkey");
         });
@@ -13016,11 +13014,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_project_analytic_account_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ProjectProjects)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("project_project_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProjectProjectCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_project_create_uid_fkey");
 
@@ -13032,7 +13030,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_project_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.ProjectProjects)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_project_partner_id_fkey");
 
@@ -13044,11 +13042,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("project_project_stage_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.ProjectProjectUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_project_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProjectProjectWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_project_write_uid_fkey");
 
@@ -13068,8 +13066,7 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "ProjectTagsId", "ProjectProjectId" }, "project_project_project_tags__project_tags_id_project_proje_idx");
                     });
 
-            /*
-            //entity.HasMany(d => d.Users).WithMany(p => p.Projects)
+            entity.HasMany(d => d.Users).WithMany(p => p.Projects)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProjectFavoriteUserRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -13084,7 +13081,6 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("project_favorite_user_rel");
                         j.HasIndex(new[] { "UserId", "ProjectId" }, "project_favorite_user_rel_user_id_project_id_idx");
                     });
-            */
         });
 
         modelBuilder.Entity<ProjectProjectStage>(entity =>
@@ -13093,7 +13089,7 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProjectProjectStageCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_project_stage_create_uid_fkey");
 
@@ -13105,7 +13101,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_project_stage_sms_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProjectProjectStageWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_project_stage_write_uid_fkey");
         });
@@ -13116,11 +13112,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProjectShareWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_share_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProjectShareWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_share_wizard_write_uid_fkey");
 
@@ -13145,11 +13141,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("project_tags_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProjectTagCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_tags_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProjectTagWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_tags_write_uid_fkey");
         });
@@ -13181,11 +13177,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_ancestor_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ProjectTasks)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("project_task_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProjectTaskCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_create_uid_fkey");
 
@@ -13209,7 +13205,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_parent_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.ProjectTasks)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_partner_id_fkey");
 
@@ -13233,7 +13229,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("project_task_stage_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProjectTaskWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_write_uid_fkey");
 
@@ -13292,11 +13288,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProjectTaskRecurrenceCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_recurrence_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProjectTaskRecurrenceWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_recurrence_write_uid_fkey");
         });
@@ -13307,7 +13303,7 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProjectTaskTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_type_create_uid_fkey");
 
@@ -13323,11 +13319,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_type_sms_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.ProjectTaskTypeUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_type_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProjectTaskTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_type_write_uid_fkey");
 
@@ -13354,11 +13350,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProjectTaskTypeDeleteWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_type_delete_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProjectTaskTypeDeleteWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_type_delete_wizard_write_uid_fkey");
 
@@ -13401,7 +13397,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProjectTaskUserRelCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_user_rel_create_uid_fkey");
 
@@ -13413,11 +13409,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("project_task_user_rel_task_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.ProjectTaskUserRelUsers)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("project_task_user_rel_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProjectTaskUserRelWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_task_user_rel_write_uid_fkey");
         });
@@ -13428,7 +13424,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ProjectUpdateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_update_create_uid_fkey");
 
@@ -13440,11 +13436,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("project_update_project_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.ProjectUpdateUsers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("project_update_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ProjectUpdateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("project_update_write_uid_fkey");
         });
@@ -13459,15 +13455,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.PurchaseOrders)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("purchase_order_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PurchaseOrderCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("purchase_order_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.PurchaseOrders)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("purchase_order_currency_id_fkey");
 
@@ -13491,7 +13487,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("purchase_order_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.PurchaseOrderPartners)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("purchase_order_partner_id_fkey");
 
@@ -13499,15 +13495,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("purchase_order_payment_term_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
+            entity.HasOne(d => d.PickingType).WithMany(p => p.PurchaseOrders)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("purchase_order_picking_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.PurchaseOrderUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("purchase_order_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PurchaseOrderWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("purchase_order_write_uid_fkey");
 
@@ -13559,15 +13555,15 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.PurchaseOrderLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("purchase_order_line_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.PurchaseOrderLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("purchase_order_line_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.PurchaseOrderLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("purchase_order_line_currency_id_fkey");
 
@@ -13579,7 +13575,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("purchase_order_line_orderpoint_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.PurchaseOrderLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("purchase_order_line_partner_id_fkey");
 
@@ -13603,7 +13599,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("purchase_order_line_sale_order_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.PurchaseOrderLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("purchase_order_line_write_uid_fkey");
 
@@ -13630,7 +13626,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.RatingRatingCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("rating_rating_create_uid_fkey");
 
@@ -13642,7 +13638,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("rating_rating_parent_res_model_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.RatingRatingPartners)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("rating_rating_partner_id_fkey");
 
@@ -13658,7 +13654,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("rating_rating_res_model_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.RatingRatingWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("rating_rating_write_uid_fkey");
         });
@@ -13669,15 +13665,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.RecurringPayments)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("recurring_payment_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.RecurringPaymentCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("recurring_payment_create_uid_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.RecurringPayments)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("recurring_payment_partner_id_fkey");
 
@@ -13685,7 +13681,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("recurring_payment_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.RecurringPaymentWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("recurring_payment_write_uid_fkey");
         });
@@ -13696,19 +13692,19 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.RecurringPaymentLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("recurring_payment_line_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.RecurringPaymentLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("recurring_payment_line_create_uid_fkey");
 
-            entity.HasOne<AccountJournal>().WithMany().HasForeignKey(p => p.Journal)
+            entity.HasOne(d => d.Journal).WithMany(p => p.RecurringPaymentLines)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("recurring_payment_line_journal_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.RecurringPaymentLines)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("recurring_payment_line_partner_id_fkey");
 
@@ -13720,7 +13716,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("recurring_payment_line_recurring_payment_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.RecurringPaymentLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("recurring_payment_line_write_uid_fkey");
         });
@@ -13731,11 +13727,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.RepairFees)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_fee_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.RepairFeeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_fee_create_uid_fkey");
 
@@ -13755,7 +13751,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("repair_fee_repair_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.RepairFeeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_fee_write_uid_fkey");
 
@@ -13782,11 +13778,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.RepairLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_line_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.RepairLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_line_create_uid_fkey");
 
@@ -13822,7 +13818,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("repair_line_repair_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.RepairLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_line_write_uid_fkey");
 
@@ -13857,11 +13853,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_order_address_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.RepairOrders)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("repair_order_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.RepairOrderCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_order_create_uid_fkey");
 
@@ -13885,7 +13881,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_order_move_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.RepairOrderPartners)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_order_partner_id_fkey");
 
@@ -13913,11 +13909,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_order_sale_order_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.RepairOrderUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_order_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.RepairOrderWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_order_write_uid_fkey");
 
@@ -13944,11 +13940,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.RepairOrderMakeInvoiceCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_order_make_invoice_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.RepairOrderMakeInvoiceWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_order_make_invoice_write_uid_fkey");
         });
@@ -13957,11 +13953,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("repair_tags_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.RepairTagCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_tags_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.RepairTagWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("repair_tags_write_uid_fkey");
         });
@@ -13972,7 +13968,7 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ReportLayoutCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("report_layout_create_uid_fkey");
 
@@ -13980,7 +13976,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("report_layout_view_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ReportLayoutWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("report_layout_write_uid_fkey");
         });
@@ -13989,11 +13985,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("report_paperformat_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ReportPaperformatCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("report_paperformat_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ReportPaperformatWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("report_paperformat_write_uid_fkey");
         });
@@ -14008,7 +14004,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_bank_country_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResBankCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_bank_create_uid_fkey");
 
@@ -14016,7 +14012,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_bank_state_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResBankWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_bank_write_uid_fkey");
         });
@@ -14083,7 +14079,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_company_company_expense_journal_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResCompanyCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_company_create_uid_fkey");
 
@@ -14091,7 +14087,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_company_currency_exchange_journal_id_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.ResCompanies)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("res_company_currency_id_fkey");
 
@@ -14143,11 +14139,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_company_paperformat_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.Parent)
+            entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_company_parent_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.ResCompanies)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("res_company_partner_id_fkey");
 
@@ -14195,12 +14191,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_company_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResCompanyWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_company_write_uid_fkey");
 
-            /*
-            //entity.HasMany(d => d.User).WithMany(p => p.Cids)
+            entity.HasMany(d => d.Users).WithMany(p => p.Cids)
                 .UsingEntity<Dictionary<string, object>>(
                     "ResCompanyUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -14215,7 +14210,6 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("res_company_users_rel");
                         j.HasIndex(new[] { "UserId", "Cid" }, "res_company_users_rel_user_id_cid_idx");
                     });
-            */
         });
 
         modelBuilder.Entity<ResConfig>(entity =>
@@ -14224,11 +14218,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResConfigCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_config_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResConfigWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_config_write_uid_fkey");
         });
@@ -14239,11 +14233,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResConfigInstallerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_config_installer_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResConfigInstallerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_config_installer_write_uid_fkey");
         });
@@ -14254,7 +14248,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.AuthSignupTemplateUser)
+            entity.HasOne(d => d.AuthSignupTemplateUser).WithMany(p => p.ResConfigSettingAuthSignupTemplateUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_config_settings_auth_signup_template_user_id_fkey");
 
@@ -14262,11 +14256,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_config_settings_chart_template_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ResConfigSettings)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("res_config_settings_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResConfigSettingCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_config_settings_create_uid_fkey");
 
@@ -14306,7 +14300,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("res_config_settings_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResConfigSettingWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_config_settings_write_uid_fkey");
 
@@ -14367,15 +14361,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_country_address_view_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResCountryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_country_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.ResCountries)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_country_currency_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResCountryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_country_write_uid_fkey");
 
@@ -14400,11 +14394,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("res_country_group_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResCountryGroupCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_country_group_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResCountryGroupWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_country_group_write_uid_fkey");
         });
@@ -14413,15 +14407,15 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("res_country_state_pkey");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.ResCountryStates)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("res_country_state_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResCountryStateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_country_state_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResCountryStateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_country_state_write_uid_fkey");
         });
@@ -14430,11 +14424,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("res_currency_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResCurrencyCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_currency_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResCurrencyWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_currency_write_uid_fkey");
         });
@@ -14445,19 +14439,19 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ResCurrencyRates)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_currency_rate_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResCurrencyRateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_currency_rate_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.ResCurrencyRates)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("res_currency_rate_currency_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResCurrencyRateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_currency_rate_write_uid_fkey");
         });
@@ -14472,11 +14466,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_groups_category_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResGroupCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_groups_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResGroupWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_groups_write_uid_fkey");
 
@@ -14512,8 +14506,7 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "Hid", "Gid" }, "res_groups_implied_rel_hid_gid_idx");
                     });
 
-            /*
-            ///entity.HasMany(d => d.UidsNavigation).WithMany(p => p.Gids)
+            entity.HasMany(d => d.UidsNavigation).WithMany(p => p.Gids)
                 .UsingEntity<Dictionary<string, object>>(
                     "ResGroupsUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -14528,18 +14521,17 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("res_groups_users_rel");
                         j.HasIndex(new[] { "Uid", "Gid" }, "res_groups_users_rel_uid_gid_idx");
                     });
-            */
         });
 
         modelBuilder.Entity<ResLang>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("res_lang_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResLangCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_lang_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResLangWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_lang_write_uid_fkey");
         });
@@ -14554,15 +14546,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_commercial_partner_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ResPartners)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_company_id_fkey");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.ResPartners)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("res_partner_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResPartnerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_create_uid_fkey");
 
@@ -14582,7 +14574,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.PaymentResponsible)
+            entity.HasOne(d => d.PaymentResponsible).WithMany(p => p.ResPartnerPaymentResponsibles)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_payment_responsible_id_fkey");
 
@@ -14598,7 +14590,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_title_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.ResPartnerUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_user_id_fkey");
 
@@ -14606,7 +14598,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("res_partner_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResPartnerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_write_uid_fkey");
 
@@ -14633,15 +14625,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResPartnerAutocompleteSyncCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_autocomplete_sync_create_uid_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.ResPartnerAutocompleteSyncs)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("res_partner_autocomplete_sync_partner_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResPartnerAutocompleteSyncWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_autocomplete_sync_write_uid_fkey");
         });
@@ -14657,15 +14649,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_bank_bank_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ResPartnerBanks)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_bank_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResPartnerBankCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_bank_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.ResPartnerBanks)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_bank_currency_id_fkey");
 
@@ -14673,11 +14665,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_bank_message_main_attachment_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.ResPartnerBanks)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("res_partner_bank_partner_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResPartnerBankWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_bank_write_uid_fkey");
         });
@@ -14686,7 +14678,7 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("res_partner_category_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResPartnerCategoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_category_create_uid_fkey");
 
@@ -14694,7 +14686,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("res_partner_category_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResPartnerCategoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_category_write_uid_fkey");
 
@@ -14719,11 +14711,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("res_partner_industry_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResPartnerIndustryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_industry_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResPartnerIndustryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_industry_write_uid_fkey");
         });
@@ -14732,11 +14724,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("res_partner_title_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResPartnerTitleCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_title_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResPartnerTitleWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_partner_title_write_uid_fkey");
         });
@@ -14748,11 +14740,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Active).HasDefaultValueSql("true");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ResUsers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("res_users_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.InverseCreateU)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_create_uid_fkey");
 
@@ -14760,7 +14752,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_last_lunch_location_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.ResUsers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("res_users_partner_id_fkey");
 
@@ -14772,7 +14764,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.InverseWriteU)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_write_uid_fkey");
         });
@@ -14784,7 +14776,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.CreationTime).HasDefaultValueSql("(now() AT TIME ZONE 'utc'::text)");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User);
+            entity.HasOne(d => d.User).WithMany(p => p.ResUsersApikeys).HasConstraintName("res_users_apikeys_user_id_fkey");
         });
 
         modelBuilder.Entity<ResUsersApikeysDescription>(entity =>
@@ -14793,11 +14785,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResUsersApikeysDescriptionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_apikeys_description_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResUsersApikeysDescriptionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_apikeys_description_write_uid_fkey");
         });
@@ -14808,15 +14800,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResUsersDeletionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_deletion_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.ResUsersDeletionUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_deletion_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResUsersDeletionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_deletion_write_uid_fkey");
         });
@@ -14827,11 +14819,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResUsersIdentitycheckCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_identitycheck_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResUsersIdentitycheckWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_identitycheck_write_uid_fkey");
         });
@@ -14842,11 +14834,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResUsersLogCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_log_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResUsersLogWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_log_write_uid_fkey");
         });
@@ -14857,7 +14849,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResUsersSettingCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_settings_create_uid_fkey");
 
@@ -14865,7 +14857,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("res_users_settings_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResUsersSettingWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_settings_write_uid_fkey");
         });
@@ -14884,7 +14876,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResUsersSettingsVolumeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_settings_volumes_create_uid_fkey");
 
@@ -14892,7 +14884,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("res_users_settings_volumes_guest_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.ResUsersSettingsVolumePartners)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("res_users_settings_volumes_partner_id_fkey");
 
@@ -14900,7 +14892,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("res_users_settings_volumes_user_setting_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResUsersSettingsVolumeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_settings_volumes_write_uid_fkey");
         });
@@ -14915,7 +14907,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("reset_view_arch_wizard_compare_view_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResetViewArchWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("reset_view_arch_wizard_create_uid_fkey");
 
@@ -14923,7 +14915,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("reset_view_arch_wizard_view_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResetViewArchWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("reset_view_arch_wizard_write_uid_fkey");
         });
@@ -14934,15 +14926,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ResourceCalendars)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_calendar_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResourceCalendarCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_calendar_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResourceCalendarWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_calendar_write_uid_fkey");
         });
@@ -14958,7 +14950,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("resource_calendar_attendance_calendar_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResourceCalendarAttendanceCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_calendar_attendance_create_uid_fkey");
 
@@ -14966,7 +14958,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_calendar_attendance_resource_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResourceCalendarAttendanceWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_calendar_attendance_write_uid_fkey");
         });
@@ -14981,11 +14973,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_calendar_leaves_calendar_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ResourceCalendarLeaves)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_calendar_leaves_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResourceCalendarLeafCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_calendar_leaves_create_uid_fkey");
 
@@ -14997,7 +14989,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_calendar_leaves_resource_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResourceCalendarLeafWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_calendar_leaves_write_uid_fkey");
         });
@@ -15012,19 +15004,19 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("resource_resource_calendar_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.ResourceResources)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_resource_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ResourceResourceCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_resource_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.ResourceResourceUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_resource_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ResourceResourceWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("resource_resource_write_uid_fkey");
         });
@@ -15035,15 +15027,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.SaleAdvancePaymentInvs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_advance_payment_inv_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SaleAdvancePaymentInvCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_advance_payment_inv_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.SaleAdvancePaymentInvs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_advance_payment_inv_currency_id_fkey");
 
@@ -15055,7 +15047,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_advance_payment_inv_product_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SaleAdvancePaymentInvWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_advance_payment_inv_write_uid_fkey");
 
@@ -15110,15 +15102,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_campaign_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.SaleOrders)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("sale_order_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SaleOrderCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.SaleOrders)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("sale_order_currency_id_fkey");
 
@@ -15142,7 +15134,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_opportunity_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.SaleOrderPartners)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("sale_order_partner_id_fkey");
 
@@ -15182,7 +15174,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_team_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.SaleOrderUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_user_id_fkey");
 
@@ -15194,7 +15186,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SaleOrderWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_write_uid_fkey");
 
@@ -15225,7 +15217,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_cancel_author_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SaleOrderCancelCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_cancel_create_uid_fkey");
 
@@ -15237,7 +15229,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_cancel_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SaleOrderCancelWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_cancel_write_uid_fkey");
         });
@@ -15253,15 +15245,15 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.SaleOrderLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_line_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SaleOrderLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_line_create_uid_fkey");
 
-            entity.HasOne<ResCurrency>().WithMany().HasForeignKey(p => p.Currency)
+            entity.HasOne(d => d.Currency).WithMany(p => p.SaleOrderLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_line_currency_id_fkey");
 
@@ -15297,7 +15289,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("sale_order_line_route_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.Salesman)
+            entity.HasOne(d => d.Salesman).WithMany(p => p.SaleOrderLineSalesmen)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_line_salesman_id_fkey");
 
@@ -15305,7 +15297,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_line_task_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SaleOrderLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_line_write_uid_fkey");
 
@@ -15350,7 +15342,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SaleOrderOptionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_option_create_uid_fkey");
 
@@ -15370,7 +15362,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("sale_order_option_uom_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SaleOrderOptionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_option_write_uid_fkey");
         });
@@ -15381,11 +15373,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.SaleOrderTemplates)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_template_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SaleOrderTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_template_create_uid_fkey");
 
@@ -15393,7 +15385,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_template_mail_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SaleOrderTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_template_write_uid_fkey");
         });
@@ -15405,11 +15397,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.SaleOrderTemplateLines)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_template_line_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SaleOrderTemplateLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_template_line_create_uid_fkey");
 
@@ -15425,7 +15417,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("sale_order_template_line_sale_order_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SaleOrderTemplateLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_template_line_write_uid_fkey");
         });
@@ -15436,11 +15428,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.SaleOrderTemplateOptions)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_template_option_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SaleOrderTemplateOptionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_template_option_create_uid_fkey");
 
@@ -15456,7 +15448,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("sale_order_template_option_uom_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SaleOrderTemplateOptionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_order_template_option_write_uid_fkey");
         });
@@ -15467,11 +15459,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SalePaymentProviderOnboardingWizardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_payment_provider_onboarding_wizard_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SalePaymentProviderOnboardingWizardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sale_payment_provider_onboarding_wizard_write_uid_fkey");
         });
@@ -15482,7 +15474,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SmsComposerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_composer_create_uid_fkey");
 
@@ -15490,7 +15482,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_composer_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SmsComposerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_composer_write_uid_fkey");
         });
@@ -15501,7 +15493,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SmsResendCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_resend_create_uid_fkey");
 
@@ -15509,7 +15501,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("sms_resend_mail_message_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SmsResendWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_resend_write_uid_fkey");
         });
@@ -15520,7 +15512,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SmsResendRecipientCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_resend_recipient_create_uid_fkey");
 
@@ -15532,7 +15524,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("sms_resend_recipient_sms_resend_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SmsResendRecipientWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_resend_recipient_write_uid_fkey");
         });
@@ -15543,7 +15535,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SmsSmCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_sms_create_uid_fkey");
 
@@ -15551,11 +15543,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_sms_mail_message_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.SmsSms)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_sms_partner_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SmsSmWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_sms_write_uid_fkey");
         });
@@ -15566,7 +15558,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SmsTemplateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_template_create_uid_fkey");
 
@@ -15578,7 +15570,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_template_sidebar_action_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SmsTemplateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_template_write_uid_fkey");
         });
@@ -15589,7 +15581,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SmsTemplatePreviewCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_template_preview_create_uid_fkey");
 
@@ -15597,7 +15589,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("sms_template_preview_sms_template_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SmsTemplatePreviewWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_template_preview_write_uid_fkey");
         });
@@ -15608,11 +15600,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SmsTemplateResetCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_template_reset_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SmsTemplateResetWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("sms_template_reset_write_uid_fkey");
 
@@ -15639,7 +15631,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SnailmailConfirmInvoiceCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_confirm_invoice_create_uid_fkey");
 
@@ -15647,7 +15639,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_confirm_invoice_invoice_send_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SnailmailConfirmInvoiceWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_confirm_invoice_write_uid_fkey");
         });
@@ -15662,15 +15654,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("snailmail_letter_attachment_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.SnailmailLetters)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("snailmail_letter_company_id_fkey");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.SnailmailLetters)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SnailmailLetterCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_create_uid_fkey");
 
@@ -15678,7 +15670,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_message_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.SnailmailLetters)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("snailmail_letter_partner_id_fkey");
 
@@ -15690,11 +15682,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_state_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.SnailmailLetterUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SnailmailLetterWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_write_uid_fkey");
         });
@@ -15705,7 +15697,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SnailmailLetterFormatErrorCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_format_error_create_uid_fkey");
 
@@ -15713,7 +15705,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_format_error_message_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SnailmailLetterFormatErrorWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_format_error_write_uid_fkey");
         });
@@ -15724,11 +15716,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.SnailmailLetterMissingRequiredFields)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_missing_required_fields_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SnailmailLetterMissingRequiredFieldCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_missing_required_fields_create_uid_fkey");
 
@@ -15736,7 +15728,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_missing_required_fields_letter_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.SnailmailLetterMissingRequiredFields)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_missing_required_fields_partner_id_fkey");
 
@@ -15744,7 +15736,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_missing_required_fields_state_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SnailmailLetterMissingRequiredFieldWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("snailmail_letter_missing_required_fields_write_uid_fkey");
         });
@@ -15756,7 +15748,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SpreadsheetDashboardCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("spreadsheet_dashboard_create_uid_fkey");
 
@@ -15764,7 +15756,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("spreadsheet_dashboard_dashboard_group_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SpreadsheetDashboardWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("spreadsheet_dashboard_write_uid_fkey");
 
@@ -15791,11 +15783,11 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.SpreadsheetDashboardGroupCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("spreadsheet_dashboard_group_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.SpreadsheetDashboardGroupWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("spreadsheet_dashboard_group_write_uid_fkey");
         });
@@ -15806,7 +15798,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockAssignSerialCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_assign_serial_create_uid_fkey");
 
@@ -15818,7 +15810,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_assign_serial_production_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockAssignSerialWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_assign_serial_write_uid_fkey");
         });
@@ -15829,11 +15821,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockBackorderConfirmationCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_backorder_confirmation_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockBackorderConfirmationWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_backorder_confirmation_write_uid_fkey");
 
@@ -15864,7 +15856,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_backorder_confirmation_lin_backorder_confirmation_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockBackorderConfirmationLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_backorder_confirmation_line_create_uid_fkey");
 
@@ -15872,7 +15864,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_backorder_confirmation_line_picking_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockBackorderConfirmationLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_backorder_confirmation_line_write_uid_fkey");
         });
@@ -15883,7 +15875,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockChangeProductQtyCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_change_product_qty_create_uid_fkey");
 
@@ -15895,7 +15887,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("stock_change_product_qty_product_tmpl_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockChangeProductQtyWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_change_product_qty_write_uid_fkey");
         });
@@ -15906,11 +15898,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockImmediateTransferCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_immediate_transfer_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockImmediateTransferWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_immediate_transfer_write_uid_fkey");
 
@@ -15937,7 +15929,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockImmediateTransferLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_immediate_transfer_line_create_uid_fkey");
 
@@ -15949,7 +15941,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("stock_immediate_transfer_line_picking_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockImmediateTransferLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_immediate_transfer_line_write_uid_fkey");
         });
@@ -15960,11 +15952,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockInventoryAdjustmentNameCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_inventory_adjustment_name_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockInventoryAdjustmentNameWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_inventory_adjustment_name_write_uid_fkey");
 
@@ -15991,11 +15983,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockInventoryConflictCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_inventory_conflict_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockInventoryConflictWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_inventory_conflict_write_uid_fkey");
 
@@ -16047,11 +16039,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockInventoryWarningCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_inventory_warning_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockInventoryWarningWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_inventory_warning_write_uid_fkey");
 
@@ -16078,11 +16070,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockLocations)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_location_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockLocationCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_location_create_uid_fkey");
 
@@ -16110,7 +16102,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_location_warehouse_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockLocationWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_location_write_uid_fkey");
         });
@@ -16125,11 +16117,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockLots)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_lot_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockLotCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_lot_create_uid_fkey");
 
@@ -16145,7 +16137,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_lot_product_uom_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockLotWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_lot_write_uid_fkey");
         });
@@ -16179,7 +16171,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_byproduct_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockMoves)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_move_company_id_fkey");
 
@@ -16187,7 +16179,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_consume_unbuild_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockMoveCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_create_uid_fkey");
 
@@ -16231,7 +16223,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_package_level_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.StockMovePartners)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_partner_id_fkey");
 
@@ -16239,7 +16231,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_picking_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
+            entity.HasOne(d => d.PickingType).WithMany(p => p.StockMoves)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_picking_type_id_fkey");
 
@@ -16295,7 +16287,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_workorder_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockMoveWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_write_uid_fkey");
 
@@ -16356,11 +16348,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockMoveLines)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_move_line_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockMoveLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_line_create_uid_fkey");
 
@@ -16416,7 +16408,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_line_workorder_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockMoveLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_move_line_write_uid_fkey");
 
@@ -16459,11 +16451,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockOrderpointSnoozeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_orderpoint_snooze_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockOrderpointSnoozeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_orderpoint_snooze_write_uid_fkey");
 
@@ -16490,7 +16482,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockPackageDestinationCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_package_destination_create_uid_fkey");
 
@@ -16502,7 +16494,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("stock_package_destination_picking_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockPackageDestinationWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_package_destination_write_uid_fkey");
         });
@@ -16513,11 +16505,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockPackageLevels)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_package_level_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockPackageLevelCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_package_level_create_uid_fkey");
 
@@ -16533,7 +16525,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_package_level_picking_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockPackageLevelWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_package_level_write_uid_fkey");
         });
@@ -16544,15 +16536,15 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockPackageTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_package_type_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockPackageTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_package_type_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockPackageTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_package_type_write_uid_fkey");
         });
@@ -16579,11 +16571,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_backorder_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockPickings)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockPickingCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_create_uid_fkey");
 
@@ -16607,11 +16599,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_owner_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.StockPickingPartners)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_partner_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
+            entity.HasOne(d => d.PickingType).WithMany(p => p.StockPickings)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_picking_picking_type_id_fkey");
 
@@ -16627,7 +16619,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_sale_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.StockPickingUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_user_id_fkey");
 
@@ -16635,7 +16627,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockPickingWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_write_uid_fkey");
         });
@@ -16647,11 +16639,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockPickingTypes)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_picking_type_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockPickingTypeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_type_create_uid_fkey");
 
@@ -16663,11 +16655,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_type_default_location_src_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.ReturnPickingType)
+            entity.HasOne(d => d.ReturnPickingType).WithMany(p => p.InverseReturnPickingType)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_type_return_picking_type_id_fkey");
 
-            entity.HasOne<IrSequence>().WithMany().HasForeignKey(p => p.SequenceNavigation)
+            entity.HasOne(d => d.SequenceNavigation).WithMany(p => p.StockPickingTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_type_sequence_id_fkey");
 
@@ -16675,7 +16667,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("stock_picking_type_warehouse_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockPickingTypeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_picking_type_write_uid_fkey");
         });
@@ -16691,11 +16683,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("stock_putaway_rule_category_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockPutawayRules)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_putaway_rule_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockPutawayRuleCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_putaway_rule_create_uid_fkey");
 
@@ -16715,7 +16707,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("stock_putaway_rule_storage_category_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockPutawayRuleWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_putaway_rule_write_uid_fkey");
 
@@ -16742,11 +16734,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockQuants)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_quant_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockQuantCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_quant_create_uid_fkey");
 
@@ -16774,11 +16766,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_quant_storage_category_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.StockQuantUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_quant_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockQuantWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_quant_write_uid_fkey");
         });
@@ -16793,11 +16785,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockQuantPackages)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_quant_package_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockQuantPackageCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_quant_package_create_uid_fkey");
 
@@ -16809,7 +16801,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_quant_package_package_type_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockQuantPackageWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_quant_package_write_uid_fkey");
         });
@@ -16820,11 +16812,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockQuantityHistoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_quantity_history_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockQuantityHistoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_quantity_history_write_uid_fkey");
         });
@@ -16835,7 +16827,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockReplenishmentInfoCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_replenishment_info_create_uid_fkey");
 
@@ -16843,7 +16835,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_replenishment_info_orderpoint_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockReplenishmentInfoWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_replenishment_info_write_uid_fkey");
 
@@ -16870,7 +16862,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockReplenishmentOptionCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_replenishment_option_create_uid_fkey");
 
@@ -16886,7 +16878,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_replenishment_option_route_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockReplenishmentOptionWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_replenishment_option_write_uid_fkey");
         });
@@ -16897,15 +16889,15 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockRequestCountCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_request_count_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.StockRequestCountUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_request_count_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockRequestCountWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_request_count_write_uid_fkey");
 
@@ -16932,7 +16924,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockReturnPickingCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_return_picking_create_uid_fkey");
 
@@ -16952,7 +16944,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_return_picking_picking_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockReturnPickingWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_return_picking_write_uid_fkey");
         });
@@ -16963,7 +16955,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockReturnPickingLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_return_picking_line_create_uid_fkey");
 
@@ -16979,7 +16971,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_return_picking_line_wizard_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockReturnPickingLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_return_picking_line_write_uid_fkey");
         });
@@ -16991,11 +16983,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockRoutes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_route_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockRouteCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_route_create_uid_fkey");
 
@@ -17007,7 +16999,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_route_supplier_wh_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockRouteWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_route_write_uid_fkey");
 
@@ -17083,11 +17075,11 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockRules)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_rule_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockRuleCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_rule_create_uid_fkey");
 
@@ -17107,7 +17099,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_rule_partner_address_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickingType)
+            entity.HasOne(d => d.PickingType).WithMany(p => p.StockRules)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_rule_picking_type_id_fkey");
 
@@ -17123,7 +17115,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_rule_warehouse_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockRuleWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_rule_write_uid_fkey");
         });
@@ -17134,7 +17126,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockRulesReportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_rules_report_create_uid_fkey");
 
@@ -17146,7 +17138,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("stock_rules_report_product_tmpl_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockRulesReportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_rules_report_write_uid_fkey");
 
@@ -17189,11 +17181,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockSchedulerComputeCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_scheduler_compute_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockSchedulerComputeWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_scheduler_compute_write_uid_fkey");
         });
@@ -17204,11 +17196,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockScraps)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_scrap_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockScrapCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_scrap_create_uid_fkey");
 
@@ -17260,7 +17252,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_scrap_workorder_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockScrapWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_scrap_write_uid_fkey");
         });
@@ -17269,15 +17261,15 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("stock_storage_category_pkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockStorageCategories)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_storage_category_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockStorageCategoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_storage_category_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockStorageCategoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_storage_category_write_uid_fkey");
         });
@@ -17288,7 +17280,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockStorageCategoryCapacityCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_storage_category_capacity_create_uid_fkey");
 
@@ -17304,7 +17296,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("stock_storage_category_capacity_storage_category_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockStorageCategoryCapacityWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_storage_category_capacity_write_uid_fkey");
         });
@@ -17315,11 +17307,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockTraceabilityReportCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_traceability_report_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockTraceabilityReportWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_traceability_report_write_uid_fkey");
         });
@@ -17330,11 +17322,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockTrackConfirmationCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_track_confirmation_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockTrackConfirmationWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_track_confirmation_write_uid_fkey");
 
@@ -17377,7 +17369,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockTrackLineCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_track_line_create_uid_fkey");
 
@@ -17389,7 +17381,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_track_line_wizard_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockTrackLineWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_track_line_write_uid_fkey");
         });
@@ -17408,11 +17400,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_valuation_layer_account_move_line_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockValuationLayers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_valuation_layer_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockValuationLayerCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_valuation_layer_create_uid_fkey");
 
@@ -17428,7 +17420,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_valuation_layer_stock_valuation_layer_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockValuationLayerWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_valuation_layer_write_uid_fkey");
         });
@@ -17439,7 +17431,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<AccountAccount>().WithMany().HasForeignKey(p => p.Account)
+            entity.HasOne(d => d.Account).WithMany(p => p.StockValuationLayerRevaluations)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_valuation_layer_revaluation_account_id_fkey");
 
@@ -17447,11 +17439,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_valuation_layer_revaluation_account_journal_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockValuationLayerRevaluations)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("stock_valuation_layer_revaluation_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockValuationLayerRevaluationCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_valuation_layer_revaluation_create_uid_fkey");
 
@@ -17459,7 +17451,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("stock_valuation_layer_revaluation_product_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockValuationLayerRevaluationWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_valuation_layer_revaluation_write_uid_fkey");
         });
@@ -17475,11 +17467,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_buy_pull_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockWarehouses)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_warehouse_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockWarehouseCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_create_uid_fkey");
 
@@ -17491,11 +17483,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_warehouse_delivery_route_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.InType)
+            entity.HasOne(d => d.InType).WithMany(p => p.StockWarehouseInTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_in_type_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.IntType)
+            entity.HasOne(d => d.IntType).WithMany(p => p.StockWarehouseIntTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_int_type_id_fkey");
 
@@ -17503,7 +17495,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_warehouse_lot_stock_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.ManuType)
+            entity.HasOne(d => d.ManuType).WithMany(p => p.StockWarehouseManuTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_manu_type_id_fkey");
 
@@ -17519,15 +17511,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_mto_pull_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.OutType)
+            entity.HasOne(d => d.OutType).WithMany(p => p.StockWarehouseOutTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_out_type_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PackType)
+            entity.HasOne(d => d.PackType).WithMany(p => p.StockWarehousePackTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_pack_type_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.StockWarehouses)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_partner_id_fkey");
 
@@ -17543,15 +17535,15 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_warehouse_pbm_route_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PbmType)
+            entity.HasOne(d => d.PbmType).WithMany(p => p.StockWarehousePbmTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_pbm_type_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PickType)
+            entity.HasOne(d => d.PickType).WithMany(p => p.StockWarehousePickTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_pick_type_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.PosType)
+            entity.HasOne(d => d.PosType).WithMany(p => p.StockWarehousePosTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_pos_type_id_fkey");
 
@@ -17559,7 +17551,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_warehouse_reception_route_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.ReturnType)
+            entity.HasOne(d => d.ReturnType).WithMany(p => p.StockWarehouseReturnTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_return_type_id_fkey");
 
@@ -17571,7 +17563,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_sam_rule_id_fkey");
 
-            entity.HasOne<StockPickingType>().WithMany().HasForeignKey(p => p.SamType)
+            entity.HasOne(d => d.SamType).WithMany(p => p.StockWarehouseSamTypes)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_sam_type_id_fkey");
 
@@ -17595,7 +17587,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_wh_qc_stock_loc_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockWarehouseWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_write_uid_fkey");
 
@@ -17642,11 +17634,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_orderpoint_bom_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.StockWarehouseOrderpoints)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("stock_warehouse_orderpoint_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockWarehouseOrderpointCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_orderpoint_create_uid_fkey");
 
@@ -17682,7 +17674,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("stock_warehouse_orderpoint_warehouse_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockWarehouseOrderpointWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warehouse_orderpoint_write_uid_fkey");
         });
@@ -17693,7 +17685,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockWarnInsufficientQtyRepairCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warn_insufficient_qty_repair_create_uid_fkey");
 
@@ -17709,7 +17701,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warn_insufficient_qty_repair_repair_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockWarnInsufficientQtyRepairWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warn_insufficient_qty_repair_write_uid_fkey");
         });
@@ -17720,7 +17712,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockWarnInsufficientQtyScrapCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warn_insufficient_qty_scrap_create_uid_fkey");
 
@@ -17736,7 +17728,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warn_insufficient_qty_scrap_scrap_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockWarnInsufficientQtyScrapWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warn_insufficient_qty_scrap_write_uid_fkey");
         });
@@ -17747,7 +17739,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.StockWarnInsufficientQtyUnbuildCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warn_insufficient_qty_unbuild_create_uid_fkey");
 
@@ -17763,7 +17755,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warn_insufficient_qty_unbuild_unbuild_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.StockWarnInsufficientQtyUnbuildWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("stock_warn_insufficient_qty_unbuild_write_uid_fkey");
         });
@@ -17774,11 +17766,11 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ThemeIrAssetCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("theme_ir_asset_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ThemeIrAssetWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("theme_ir_asset_write_uid_fkey");
         });
@@ -17787,11 +17779,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("theme_ir_attachment_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ThemeIrAttachmentCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("theme_ir_attachment_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ThemeIrAttachmentWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("theme_ir_attachment_write_uid_fkey");
         });
@@ -17800,11 +17792,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("theme_ir_ui_view_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ThemeIrUiViewCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("theme_ir_ui_view_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ThemeIrUiViewWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("theme_ir_ui_view_write_uid_fkey");
         });
@@ -17815,7 +17807,7 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ThemeWebsiteMenuCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("theme_website_menu_create_uid_fkey");
 
@@ -17827,7 +17819,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("theme_website_menu_parent_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ThemeWebsiteMenuWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("theme_website_menu_write_uid_fkey");
         });
@@ -17836,7 +17828,7 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("theme_website_page_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ThemeWebsitePageCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("theme_website_page_create_uid_fkey");
 
@@ -17844,7 +17836,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("theme_website_page_view_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ThemeWebsitePageWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("theme_website_page_write_uid_fkey");
         });
@@ -17853,11 +17845,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("uom_category_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.UomCategoryCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("uom_category_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.UomCategoryWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("uom_category_write_uid_fkey");
         });
@@ -17872,11 +17864,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("uom_uom_category_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.UomUomCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("uom_uom_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.UomUomWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("uom_uom_write_uid_fkey");
         });
@@ -17887,11 +17879,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.UtmCampaigns)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("utm_campaign_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.UtmCampaignCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("utm_campaign_create_uid_fkey");
 
@@ -17899,11 +17891,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("utm_campaign_stage_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.UtmCampaignUsers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("utm_campaign_user_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.UtmCampaignWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("utm_campaign_write_uid_fkey");
 
@@ -17930,11 +17922,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.UtmMediumCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("utm_medium_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.UtmMediumWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("utm_medium_write_uid_fkey");
         });
@@ -17945,11 +17937,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.UtmSourceCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("utm_source_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.UtmSourceWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("utm_source_write_uid_fkey");
         });
@@ -17960,11 +17952,11 @@ public static class CoreDbtModelCreatingExtensions
 
             //entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.UtmStageCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("utm_stage_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.UtmStageWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("utm_stage_write_uid_fkey");
         });
@@ -17973,11 +17965,11 @@ public static class CoreDbtModelCreatingExtensions
         {
             entity.HasKey(e => e.Id).HasName("utm_tag_pkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.UtmTagCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("utm_tag_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.UtmTagWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("utm_tag_write_uid_fkey");
         });
@@ -17988,11 +17980,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.ValidateAccountMoveCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("validate_account_move_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.ValidateAccountMoveWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("validate_account_move_write_uid_fkey");
         });
@@ -18003,7 +17995,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WebEditorConverterTestCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("web_editor_converter_test_create_uid_fkey");
 
@@ -18011,7 +18003,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("web_editor_converter_test_many2one_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WebEditorConverterTestWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("web_editor_converter_test_write_uid_fkey");
         });
@@ -18022,11 +18014,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WebEditorConverterTestSubCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("web_editor_converter_test_sub_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WebEditorConverterTestSubWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("web_editor_converter_test_sub_write_uid_fkey");
         });
@@ -18037,7 +18029,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.WebTourTours)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("web_tour_tour_user_id_fkey");
         });
@@ -18053,11 +18045,11 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_cart_recovery_mail_template_id_fkey");
 
-            entity.HasOne<ResCompany>().WithMany().HasForeignKey(p => p.TenantId)
+            entity.HasOne(d => d.Company).WithMany(p => p.Websites)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("website_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WebsiteCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_create_uid_fkey");
 
@@ -18065,7 +18057,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_crm_default_team_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CrmDefaultUser)
+            entity.HasOne(d => d.CrmDefaultUser).WithMany(p => p.WebsiteCrmDefaultUsers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_crm_default_user_id_fkey");
 
@@ -18073,7 +18065,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("website_default_lang_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.Salesperson)
+            entity.HasOne(d => d.Salesperson).WithMany(p => p.WebsiteSalespeople)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_salesperson_id_fkey");
 
@@ -18085,7 +18077,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_theme_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.User)
+            entity.HasOne(d => d.User).WithMany(p => p.WebsiteUsers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("website_user_id_fkey");
 
@@ -18093,7 +18085,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_warehouse_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WebsiteWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_write_uid_fkey");
 
@@ -18120,11 +18112,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WebsiteBaseUnitCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_base_unit_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WebsiteBaseUnitWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_base_unit_write_uid_fkey");
         });
@@ -18136,7 +18128,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WebsiteConfiguratorFeatureCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_configurator_feature_create_uid_fkey");
 
@@ -18148,7 +18140,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("website_configurator_feature_page_view_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WebsiteConfiguratorFeatureWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_configurator_feature_write_uid_fkey");
         });
@@ -18160,7 +18152,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WebsiteMenuCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_menu_create_uid_fkey");
 
@@ -18180,7 +18172,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("website_menu_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WebsiteMenuWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_menu_write_uid_fkey");
         });
@@ -18191,7 +18183,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WebsitePageCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_page_create_uid_fkey");
 
@@ -18207,7 +18199,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("website_page_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WebsitePageWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_page_write_uid_fkey");
         });
@@ -18219,7 +18211,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WebsiteRewriteCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_rewrite_create_uid_fkey");
 
@@ -18231,7 +18223,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("website_rewrite_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WebsiteRewriteWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_rewrite_write_uid_fkey");
         });
@@ -18242,11 +18234,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WebsiteRobotCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_robots_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WebsiteRobotWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_robots_write_uid_fkey");
         });
@@ -18257,11 +18249,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WebsiteRouteCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_route_create_uid_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WebsiteRouteWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_route_write_uid_fkey");
         });
@@ -18273,7 +18265,7 @@ public static class CoreDbtModelCreatingExtensions
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
             entity.Property(e => e.Sequence).ValueGeneratedOnAdd();
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WebsiteSaleExtraFieldCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_sale_extra_field_create_uid_fkey");
 
@@ -18285,7 +18277,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_sale_extra_field_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WebsiteSaleExtraFieldWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_sale_extra_field_write_uid_fkey");
         });
@@ -18300,7 +18292,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("website_snippet_filter_action_server_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WebsiteSnippetFilterCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_snippet_filter_create_uid_fkey");
 
@@ -18312,7 +18304,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("website_snippet_filter_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WebsiteSnippetFilterWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_snippet_filter_write_uid_fkey");
         });
@@ -18346,11 +18338,11 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResCountry>().WithMany().HasForeignKey(p => p.Country)
+            entity.HasOne(d => d.Country).WithMany(p => p.WebsiteVisitors)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_visitor_country_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WebsiteVisitorCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_visitor_create_uid_fkey");
 
@@ -18358,7 +18350,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_visitor_lang_id_fkey");
 
-            entity.HasOne<ResPartner>().WithMany().HasForeignKey(p => p.Partner)
+            entity.HasOne(d => d.Partner).WithMany(p => p.WebsiteVisitors)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_visitor_partner_id_fkey");
 
@@ -18366,7 +18358,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_visitor_website_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WebsiteVisitorWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("website_visitor_write_uid_fkey");
         });
@@ -18377,7 +18369,7 @@ public static class CoreDbtModelCreatingExtensions
 
             entity.Property(e => e.Id).HasDefaultValueSql("next_uuid()");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.WizardIrModelMenuCreateCreateUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("wizard_ir_model_menu_create_create_uid_fkey");
 
@@ -18385,7 +18377,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("wizard_ir_model_menu_create_menu_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
+            entity.HasOne(d => d.WriteU).WithMany(p => p.WizardIrModelMenuCreateWriteUs)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("wizard_ir_model_menu_create_write_uid_fkey");
         });

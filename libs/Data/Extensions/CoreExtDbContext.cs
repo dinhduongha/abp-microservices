@@ -6,6 +6,7 @@ using Bamboo.Core.Entities;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bamboo.Core.EntityFrameworkCore;
+
 // <summary>
 /// Converts <see cref="DateOnly" /> to <see cref="DateTime"/> and vice versa.
 /// </summary>
@@ -33,14 +34,6 @@ public partial class CoreDbContext
     //        .UseNpgsql()
     //        .UseSnakeCaseNamingConvention();
     //}
-    /*
-    protected override void ConfigureConventions(ModelConfigurationBuilder builder)
-    {
-        builder.Properties<DateOnly>()
-            .HaveConversion<DateOnlyConverter>()
-            .HaveColumnType("date");
-    }
-    */
     public virtual DbSet<AccountAccount> AccountAccounts { get; set; }
 
     public virtual DbSet<AccountAccountTag> AccountAccountTags { get; set; }
