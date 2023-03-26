@@ -143,7 +143,7 @@ public partial class StockPickingType: IMultiTenant, IMayHaveCreator, IModificat
     //[InverseProperty("StockPickingTypeWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
-/*
+    /// TODO: DISABLE INVERSE
     [InverseProperty("ReturnPickingType")]
     [NotMapped]
     public virtual ICollection<StockPickingType> InverseReturnPickingType { get; } = new List<StockPickingType>();
@@ -215,5 +215,5 @@ public partial class StockPickingType: IMultiTenant, IMayHaveCreator, IModificat
     [InverseProperty("SamType")]
     [NotMapped]
     public virtual ICollection<StockWarehouse> StockWarehouseSamTypes { get; } = new List<StockWarehouse>();
-*/
+
 }

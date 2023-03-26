@@ -77,7 +77,7 @@ public partial class ResCountry
     //[InverseProperty("ResCountryWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
-
+    /// TODO: DISABLE INVERSE
     [InverseProperty("Country")]
     [NotMapped]
     public virtual ICollection<AccountAccountTag> AccountAccountTags { get; } = new List<AccountAccountTag>();

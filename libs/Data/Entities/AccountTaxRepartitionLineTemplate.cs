@@ -77,7 +77,7 @@ public partial class AccountTaxRepartitionLineTemplate
     [NotMapped]
     public virtual ICollection<AccountReportExpression> AccountReportExpressions { get; } = new List<AccountReportExpression>();
 
-    [ForeignKey("AccountTaxRepartitionLineTemplateId")]
+    //[ForeignKey("AccountTaxRepartitionLineTemplateId")]
     [InverseProperty("AccountTaxRepartitionLineTemplatesNavigation")]
     [NotMapped]
     public virtual ICollection<AccountReportExpression> AccountReportExpressionsNavigation { get; } = new List<AccountReportExpression>();

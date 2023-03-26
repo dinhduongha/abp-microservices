@@ -119,7 +119,7 @@ public partial class ResUser: IMultiTenant, IMayHaveCreator, IModificationAudite
     //[InverseProperty("InverseWriteU")]
     public virtual ResUser? WriteU { get; set; }
 
-/*
+    /// TODO: DISABLE INVERSE
     [InverseProperty("CreateU")]
     [NotMapped]
     public virtual ICollection<AccountAccount> AccountAccountCreateUs { get; } = new List<AccountAccount>();
@@ -4668,5 +4668,5 @@ public partial class ResUser: IMultiTenant, IMayHaveCreator, IModificationAudite
     [InverseProperty("Users")]
     [NotMapped]
     public virtual ICollection<CrmTeam> Teams { get; } = new List<CrmTeam>();
-*/
+
 }

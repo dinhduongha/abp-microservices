@@ -58,6 +58,7 @@ public partial class ResPartnerCategory
     //[InverseProperty("ResPartnerCategoryWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
+    /// TODO: DISABLE INVERSE
     [InverseProperty("PartnerCategory")]
     [NotMapped]
     public virtual ICollection<AccountAnalyticDistributionModel> AccountAnalyticDistributionModels { get; } = new List<AccountAnalyticDistributionModel>();

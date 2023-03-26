@@ -185,12 +185,12 @@ public partial class HrJob: IMultiTenant, IMayHaveCreator, IModificationAuditedO
     [NotMapped]
     public virtual ICollection<HrRecruitmentStage> HrRecruitmentStages { get; } = new List<HrRecruitmentStage>();
 
-    [ForeignKey("HrJobId")]
+    //[ForeignKey("HrJobId")]
     [InverseProperty("HrJobs")]
     [NotMapped]
     public virtual ICollection<ResUser> ResUsers { get; } = new List<ResUser>();
 
-    [ForeignKey("HrJobId")]
+    //[ForeignKey("HrJobId")]
     [InverseProperty("HrJobsNavigation")]
     [NotMapped]
     public virtual ICollection<ResUser> ResUsersNavigation { get; } = new List<ResUser>();

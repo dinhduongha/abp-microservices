@@ -196,12 +196,12 @@ public partial class MailMessage
     [NotMapped]
     public virtual ICollection<IrAttachment> Attachments { get; } = new List<IrAttachment>();
 
-    [ForeignKey("MailMessageId")]
+    //[ForeignKey("MailMessageId")]
     [InverseProperty("MailMessagesNavigation")]
     [NotMapped]
     public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
 
-    [ForeignKey("MailMessageId")]
+    //[ForeignKey("MailMessageId")]
     [InverseProperty("MailMessages1")]
     [NotMapped]
     public virtual ICollection<ResPartner> ResPartnersNavigation { get; } = new List<ResPartner>();

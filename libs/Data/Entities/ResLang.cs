@@ -76,6 +76,8 @@ public partial class ResLang
     //[InverseProperty("ResLangWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
+    /// TODO: DISABLE INVERSE
+
     [InverseProperty("Lang")]
     [NotMapped]
     public virtual ICollection<CrmLead> CrmLeads { get; } = new List<CrmLead>();

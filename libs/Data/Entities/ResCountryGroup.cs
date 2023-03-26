@@ -39,7 +39,8 @@ public partial class ResCountryGroup
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResCountryGroupWriteUs")]
     public virtual ResUser? WriteU { get; set; }
-/*
+    /// TODO: DISABLE INVERSE
+
     [InverseProperty("CountryGroup")]
     [NotMapped]
     public virtual ICollection<AccountFiscalPositionTemplate> AccountFiscalPositionTemplates { get; } = new List<AccountFiscalPositionTemplate>();
@@ -52,7 +53,7 @@ public partial class ResCountryGroup
     [InverseProperty("ResCountryGroups")]
     [NotMapped]
     public virtual ICollection<ProductPricelist> Pricelists { get; } = new List<ProductPricelist>();
-*/
+
     [ForeignKey("ResCountryGroupId")]
     [InverseProperty("ResCountryGroups")]
     [NotMapped]

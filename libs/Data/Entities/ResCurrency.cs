@@ -65,7 +65,7 @@ public partial class ResCurrency
     //[InverseProperty("ResCurrencyWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
-/*
+    /// TODO: DISABLE INVERSE
     [InverseProperty("Currency")]
     [NotMapped]
     public virtual ICollection<AccountAccountTemplate> AccountAccountTemplates { get; } = new List<AccountAccountTemplate>();
@@ -221,6 +221,5 @@ public partial class ResCurrency
     [InverseProperty("Currency")]
     [NotMapped]
     public virtual ICollection<SaleOrder> SaleOrders { get; } = new List<SaleOrder>();
-*/
 
 }

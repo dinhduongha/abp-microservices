@@ -425,7 +425,7 @@ public partial class AccountMove: IMultiTenant, IMayHaveCreator, IModificationAu
     public virtual ICollection<AccountMoveReversal> Reversals { get; } = new List<AccountMoveReversal>();
 
     [ForeignKey("NewMoveId")]
-    [InverseProperty("NewMoves")]
+    //[InverseProperty("NewMoves")]
     [NotMapped]
     public virtual ICollection<AccountMoveReversal> ReversalsNavigation { get; } = new List<AccountMoveReversal>();
 

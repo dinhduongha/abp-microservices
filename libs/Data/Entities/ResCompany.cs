@@ -616,7 +616,7 @@ public partial class ResCompany
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResCompanyWriteUs")]
     public virtual ResUser? WriteU { get; set; }
-/*
+    /// TODO: DISABLE INVERSE
     [InverseProperty("Company")]
     [NotMapped]
     public virtual ICollection<AccountAccount> AccountAccounts { get; } = new List<AccountAccount>();
@@ -1230,5 +1230,5 @@ public partial class ResCompany
     [InverseProperty("Cids")]
     [NotMapped]
     public virtual ICollection<ResUser> Users { get; } = new List<ResUser>();
-*/
+
 }

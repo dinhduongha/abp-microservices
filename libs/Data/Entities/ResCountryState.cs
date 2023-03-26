@@ -51,6 +51,7 @@ public partial class ResCountryState
     //[InverseProperty("ResCountryStateWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
+    /// TODO: DISABLE INVERSE
 
     [InverseProperty("State")]
     [NotMapped]

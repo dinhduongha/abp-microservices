@@ -37,12 +37,12 @@ public partial class StockInventoryConflict
     //[InverseProperty("StockInventoryConflictWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
-    [ForeignKey("StockInventoryConflictId")]
+    //[ForeignKey("StockInventoryConflictId")]
     [InverseProperty("StockInventoryConflicts")]
     [NotMapped]
     public virtual ICollection<StockQuant> StockQuants { get; } = new List<StockQuant>();
 
-    [ForeignKey("StockInventoryConflictId")]
+    //[ForeignKey("StockInventoryConflictId")]
     [InverseProperty("StockInventoryConflictsNavigation")]
     [NotMapped]
     public virtual ICollection<StockQuant> StockQuantsNavigation { get; } = new List<StockQuant>();

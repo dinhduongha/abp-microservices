@@ -64,12 +64,12 @@ public partial class AccountMoveReversal: IMultiTenant, IMayHaveCreator, IModifi
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ReversalId")]
-    [InverseProperty("Reversals")]
+    //[InverseProperty("Reversals")]
     [NotMapped]
     public virtual ICollection<AccountMove> Moves { get; } = new List<AccountMove>();
 
-    [ForeignKey("ReversalId")]
-    [InverseProperty("ReversalsNavigation")]
+    //[ForeignKey("ReversalId")]
+    //[InverseProperty("ReversalsNavigation")]
     [NotMapped]
     public virtual ICollection<AccountMove> NewMoves { get; } = new List<AccountMove>();
 }

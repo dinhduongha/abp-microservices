@@ -306,6 +306,8 @@ public partial class ResPartner: IMultiTenant, IMayHaveCreator, IModificationAud
     //[InverseProperty("ResPartnerWriteUs")]
     public virtual ResUser? WriteU { get; set; }
 
+    /// TODO: DISABLE INVERSE
+    
     [InverseProperty("Partner")]
     [NotMapped]
     public virtual ICollection<AccountAnalyticAccount> AccountAnalyticAccounts { get; } = new List<AccountAnalyticAccount>();
