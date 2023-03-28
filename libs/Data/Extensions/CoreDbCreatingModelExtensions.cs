@@ -5107,8 +5107,9 @@ public static class CoreDbtModelCreatingExtensions
                         j.ToTable("crm_lead_crm_lead2opportunity_partner_mass_rel");
                         j.HasIndex(new[] { "CrmLeadId", "CrmLead2opportunityPartnerMassId" }, "crm_lead_crm_lead2opportunity_crm_lead_id_crm_lead2opportu_idx1");
                     });
-
-            entity.HasMany(d => d.ResUsers).WithMany(p => p.CrmLead2opportunityPartnerMasses)
+            entity.HasMany<ResUser>().WithMany()
+            //
+            //entity.HasMany(d => d.ResUsers).WithMany(p => p.CrmLead2opportunityPartnerMasses)
                 .UsingEntity<Dictionary<string, object>>(
                     "CrmLead2opportunityPartnerMassResUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -5367,7 +5368,8 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("crm_team_write_uid_fkey");
 
-            entity.HasMany(d => d.Users).WithMany(p => p.Teams)
+            entity.HasMany<ResUser>().WithMany()
+            //entity.HasMany(d => d.Users).WithMany(p => p.Teams)
                 .UsingEntity<Dictionary<string, object>>(
                     "TeamFavoriteUserRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -5500,7 +5502,8 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("digest_digest_write_uid_fkey");
 
-            entity.HasMany(d => d.ResUsers).WithMany(p => p.DigestDigests)
+            entity.HasMany<ResUser>().WithMany()
+            //entity.HasMany(d => d.ResUsers).WithMany(p => p.DigestDigests)
                 .UsingEntity<Dictionary<string, object>>(
                     "DigestDigestResUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -5536,8 +5539,8 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("digest_tip_write_uid_fkey");
 
-            //entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.DigestTipId)
-            entity.HasMany(d => d.ResUsers).WithMany(p => p.DigestTips)
+            entity.HasMany<ResUser>().WithMany()
+            //entity.HasMany(d => d.ResUsers).WithMany(p => p.DigestTips)
                 .UsingEntity<Dictionary<string, object>>(
                     "DigestTipResUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -6092,7 +6095,8 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "HrSkillId", "HrApplicantId" }, "hr_applicant_hr_skill_rel_hr_skill_id_hr_applicant_id_idx");
                     });
             
-            entity.HasMany(d => d.ResUsers).WithMany(p => p.HrApplicants)
+            entity.HasMany<ResUser>().WithMany()
+            //entity.HasMany(d => d.ResUsers).WithMany(p => p.HrApplicants)
                 .UsingEntity<Dictionary<string, object>>(
                     "HrApplicantResUsersInterviewersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -6960,7 +6964,8 @@ public static class CoreDbtModelCreatingExtensions
                 builder.Property<Guid>("HrJobId");
                 builder.Property<Guid>("ResUsersId");
             });            
-            entity.HasMany(d => d.ResUsers).WithMany(p => p.HrJobs)
+            entity.HasMany<ResUser>().WithMany()
+            //entity.HasMany(d => d.ResUsers).WithMany(p => p.HrJobs)
                 .UsingEntity<Dictionary<string, object>>(
                     "HrJobExtendedInterviewerResUser",
                     r => r.HasOne<ResUser>().WithMany()
@@ -6980,7 +6985,8 @@ public static class CoreDbtModelCreatingExtensions
                 builder.Property<Guid>("HrJobId");
                 builder.Property<Guid>("ResUsersId");
             });
-            entity.HasMany(d => d.ResUsersNavigation).WithMany(p => p.HrJobsNavigation)
+            entity.HasMany<ResUser>().WithMany()
+            //entity.HasMany(d => d.ResUsersNavigation).WithMany(p => p.HrJobsNavigation)
                 .UsingEntity<Dictionary<string, object>>(
                     "HrJobResUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -6996,7 +7002,8 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "ResUsersId", "HrJobId" }, "hr_job_res_users_rel_res_users_id_hr_job_id_idx");
                     });
 
-            entity.HasMany(d => d.Users).WithMany(p => p.Jobs)
+            entity.HasMany<ResUser>().WithMany()
+            //entity.HasMany(d => d.Users).WithMany(p => p.Jobs)
                 .UsingEntity<Dictionary<string, object>>(
                     "JobFavoriteUserRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -8851,7 +8858,8 @@ public static class CoreDbtModelCreatingExtensions
             entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.LastModifierId)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("lunch_product_write_uid_fkey");
-            entity.HasMany(d => d.Users).WithMany(p => p.Products)
+            entity.HasMany<ResUser>().WithMany()
+            //entity.HasMany(d => d.Users).WithMany(p => p.Products)
                 .UsingEntity<Dictionary<string, object>>(
                     "LunchProductFavoriteUserRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -10077,7 +10085,8 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("maintenance_team_write_uid_fkey");
 
-            entity.HasMany(d => d.ResUsers).WithMany(p => p.MaintenanceTeams)
+            entity.HasMany<ResUser>().WithMany()
+            //entity.HasMany(d => d.ResUsers).WithMany(p => p.MaintenanceTeams)
                 .UsingEntity<Dictionary<string, object>>(
                     "MaintenanceTeamUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -13089,7 +13098,8 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "ProjectTagsId", "ProjectProjectId" }, "project_project_project_tags__project_tags_id_project_proje_idx");
                     });
 
-            entity.HasMany(d => d.Users).WithMany(p => p.Projects)
+            entity.HasMany<ResUser>().WithMany()
+            //entity.HasMany(d => d.Users).WithMany(p => p.Projects)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProjectFavoriteUserRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -14102,7 +14112,7 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_company_company_expense_journal_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne<ResUser>().WithMany().HasForeignKey("CreatorId")
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_company_create_uid_fkey");
 
@@ -14222,7 +14232,8 @@ public static class CoreDbtModelCreatingExtensions
                 builder.Property<Guid>("Cid");
                 builder.Property<Guid>("UserId");
             });
-            entity.HasMany(d => d.Users).WithMany(p => p.Cids)
+            entity.HasMany<ResUser>().WithMany()
+            //entity.HasMany(d => d.Users).WithMany(p => p.Cids)
                 .UsingEntity<Dictionary<string, object>>(
                     "ResCompanyUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -14533,7 +14544,8 @@ public static class CoreDbtModelCreatingExtensions
                         j.HasIndex(new[] { "Hid", "Gid" }, "res_groups_implied_rel_hid_gid_idx");
                     });
 
-            entity.HasMany(d => d.UidsNavigation).WithMany(p => p.Gids)
+            entity.HasMany<ResUser>().WithMany()
+            //entity.HasMany(d => d.UidsNavigation).WithMany(p => p.Gids)
                 .UsingEntity<Dictionary<string, object>>(
                     "ResGroupsUsersRel",
                     r => r.HasOne<ResUser>().WithMany()
@@ -14771,7 +14783,8 @@ public static class CoreDbtModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("res_users_company_id_fkey");
 
-            entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            //entity.HasOne<ResUser>().WithMany().HasForeignKey(p => p.CreatorId)
+            entity.HasOne(d => d.CreateU).WithMany(p => p.InverseCreateU)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("res_users_create_uid_fkey");
 

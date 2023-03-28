@@ -44,7 +44,9 @@ public partial class ResCompany
     public Guid? ExternalReportLayoutId { get; set; }
 
     [Column("create_uid")]
-    public Guid? CreatorId { get; set; }
+    [ForeignKey("CreatorId")]
+    public Guid? CreatorId { get; set; }    
+    public virtual ResUser? CreateU { get; set; }
 
     [Column("write_uid")]
     public Guid? LastModifierId { get; set; }
@@ -498,9 +500,9 @@ public partial class ResCompany
     //[InverseProperty("ResCompanyCompanyExpenseJournals")]
     public virtual AccountJournal? CompanyExpenseJournal { get; set; }
 
-    [ForeignKey("CreatorId")]
     //[InverseProperty("ResCompanyCreateUs")]
-    public virtual ResUser? CreateU { get; set; }
+    //[ForeignKey("CreatorId")]
+    //public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("ResCompanies")]

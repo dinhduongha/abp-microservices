@@ -120,7 +120,10 @@ public partial class ResUser: IMultiTenant, IMayHaveCreator, IModificationAudite
     public virtual ResUser? WriteU { get; set; }
 
     /// TODO: DISABLE INVERSE
-    
+    [InverseProperty("CreateU")]
+    [NotMapped]
+    public virtual ICollection<ResUser> InverseCreateU { get; } = new List<ResUser>();
+    /*
     [InverseProperty("CreateU")]
     [NotMapped]
     public virtual ICollection<AccountAccount> AccountAccountCreateUs { get; } = new List<AccountAccount>();
@@ -142,12 +145,12 @@ public partial class ResUser: IMultiTenant, IMayHaveCreator, IModificationAudite
     public virtual ICollection<AccountAccountTemplate> AccountAccountTemplateWriteUs { get; } = new List<AccountAccountTemplate>();
 
     //[InverseProperty("CreateU")]
-    [NotMapped]
-    public virtual ICollection<AccountAccountType> AccountAccountTypeCreateUs { get; } = new List<AccountAccountType>();
+    //[NotMapped]
+    //public virtual ICollection<AccountAccountType> AccountAccountTypeCreateUs { get; } = new List<AccountAccountType>();
 
-    [InverseProperty("WriteU")]
-    [NotMapped]
-    public virtual ICollection<AccountAccountType> AccountAccountTypeWriteUs { get; } = new List<AccountAccountType>();
+    //[InverseProperty("WriteU")]
+    //[NotMapped]
+    //public virtual ICollection<AccountAccountType> AccountAccountTypeWriteUs { get; } = new List<AccountAccountType>();
 
     [InverseProperty("WriteU")]
     [NotMapped]
@@ -4669,5 +4672,5 @@ public partial class ResUser: IMultiTenant, IMayHaveCreator, IModificationAudite
     [InverseProperty("Users")]
     [NotMapped]
     public virtual ICollection<CrmTeam> Teams { get; } = new List<CrmTeam>();
-    
+    */   
 }
