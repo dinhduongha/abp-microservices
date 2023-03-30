@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
+using Newtonsoft.Json;
 using Volo.Abp.Threading;
 
 public partial class Utils
@@ -53,5 +54,11 @@ public partial class Utils
         var mm = BitConverter.GetBytes(micros % 1000);
         var ret = new[] { mb[5], mb[4], mb[3], mb[2], mb[1], mb[0], mm[1], mm[0] };                                  // Drop byte 6 & 7
         return ret;
+    }
+
+    public static TDestination JsonMap<TSource, TDestination>(TSource source)
+    {
+        var serialized = Newtonsoft.Json.JsonConvert.SerializeObject(source);
+        return Newtonsoft.Json.JsonConvert.DeserializeObject<TDestination>(serialized);
     }
 }
