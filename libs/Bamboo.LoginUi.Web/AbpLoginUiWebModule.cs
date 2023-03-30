@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.Extensions.DependencyInjection;
+
+using OpenIddict.Validation.AspNetCore;
 
 using Volo.Abp.Account.Localization;
 using Volo.Abp.Account.Web;
