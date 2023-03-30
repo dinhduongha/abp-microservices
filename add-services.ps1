@@ -317,7 +317,7 @@ function CreateServices {
 		}
 
 		dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference ./$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
-		dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql
+		dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql -v $abpver
 		#dotnet remove ./services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.SqlServer
 		
 		dotnet add ./$name/services/$folder/src/"$name.$service".EntityFrameworkCore/"$name.$service".EntityFrameworkCore.csproj reference ./$shared_common/$name.Shared.EfCore/$name.Shared.EfCore.csproj
@@ -504,6 +504,7 @@ function CreateServices {
 			}
 		}
 		if ($service -eq $admin_name) {
+		
 			Copy-Item -Path "./libs/Bamboo.Authentication" -Destination ./$name/services/$folder/src/$name.Authentication -recurse -Force
 			Move-Item -Path "./$name/services/$folder/src/$name.Authentication/Bamboo.Authentication.csproj" -Destination "./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj" -Force
 			Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination ./$name/services/$folder/src/$name.LoginUi.Web -recurse -Force
@@ -514,10 +515,11 @@ function CreateServices {
 			#dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "..\..\src\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference ./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference ./$name/services/$folder/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj
-			
+			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql -v $abpver
+					
 			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.OpenIddict.AspNetCore -v $abpver
 			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.BackgroundJobs.HangFire -v $abpver
-			dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference ./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj
+			dotnet add ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj reference ./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj
 			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference ./$name/services/$folder/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj
 			
 			dotnet sln "./$name/services/$folder/$name.$service.sln" add (Get-ChildItem -r ./$name/services/$folder/src/**/*.csproj)

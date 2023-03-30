@@ -24,6 +24,7 @@ using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.Account.Settings;
 using Volo.Abp.Identity.Settings;
 using Volo.Abp.Settings;
+using Volo.Abp.SettingManagement;
 
 using Bamboo.Abp.LoginUi.Web.Localization;
 namespace Bamboo.Abp.LoginUi.Web;
@@ -55,7 +56,36 @@ public class AbpLoginUiWebModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         var configuration = context.Services.GetConfiguration();
+        // https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
+        context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
+        // https://learn.microsoft.com/en-us/aspnet/core/security/authentication/social/?view=aspnetcore-6.0&tabs=visual-studio
+        context.Services.AddAuthentication()
+            .AddFacebook(options =>
+            {
+                options.AppId = configuration["Authentication:Facebook:AppId"];
+                options.AppSecret = configuration["Authentication:Facebook:AppSecret"];
+                options.Scope.Add("email");
+                options.Scope.Add("public_profile");
+                options.SaveTokens = true;
+                // sigin-facebook
+            })
+            .AddGoogle(options =>
+            {
+                options.ClientId = configuration["Authentication:Google:ClientId"];
+                options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+                //options.Scope.Add("email");
+                //options.Scope.Add("openid");
+            })
+            //.AddMicrosoftAccount(options =>
+            //{
+            //    options.ClientId = "8208d98e-400d-4ce9-89ba-d92610c67e13";
+            //    options.ClientSecret = "hsrMP46|_kfkcYCWSW516?%";
+            //})
+            //.AddDefaultSocial(configuration)
+            ;
+            
         Configure<AbpVirtualFileSystemOptions>(options =>
         {
             options.FileSets.AddEmbedded<AbpLoginUiWebModule>();
@@ -186,17 +216,17 @@ public class AbpLoginUiWebModule : AbpModule
     }
 
     */
-    public override Task OnApplicationInitializationAsync(Volo.Abp.ApplicationInitializationContext context)
+    public async override Task OnApplicationInitializationAsync(Volo.Abp.ApplicationInitializationContext context)
     {
         var app = context.GetApplicationBuilder();
         var env = context.GetEnvironment();
-        //GlobalSettingManagementProvider settingManagementProvider = context.ServiceProvider.GetRequiredService<GlobalSettingManagementProvider>();
-        //SettingDefinitionManager settingDefinitionManager = context.ServiceProvider.GetRequiredService<SettingDefinitionManager>();
-        //settingManagementProvider.SetAsync(
-        //    settingDefinitionManager.Get(AccountSettingNames.IsSelfRegistrationEnabled),
-        //    true.ToString(),
-        //    GlobalSettingValueProvider.ProviderName
-        //);
+        GlobalSettingManagementProvider settingManagementProvider = context.ServiceProvider.GetRequiredService<GlobalSettingManagementProvider>();
+        SettingDefinitionManager settingDefinitionManager = context.ServiceProvider.GetRequiredService<SettingDefinitionManager>();
+        await settingManagementProvider.SetAsync(
+           settingDefinitionManager.Get(AccountSettingNames.IsSelfRegistrationEnabled),
+           true.ToString(),
+           GlobalSettingValueProvider.ProviderName
+        );
 
         //settingManagementProvider.SetAsync(
         //    settingDefinitionManager.Get(IdentitySettingNames.Password.RequireNonAlphanumeric),
@@ -227,6 +257,6 @@ public class AbpLoginUiWebModule : AbpModule
 
         // https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-        return base.OnApplicationInitializationAsync(context);
+        await base.OnApplicationInitializationAsync(context);
     }
 }
