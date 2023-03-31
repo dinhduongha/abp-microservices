@@ -25,6 +25,7 @@ using Twilio.Types;
 using Twilio.AspNet.Common;
 using Twilio.AspNet.Core;
 using Twilio.TwiML;
+
 using Bamboo.Abp.VerificationCode;
 
 namespace Bamboo.Authentication.Controllers;
@@ -81,7 +82,7 @@ public class TwilioSmsController : TwilioController
         var messagingResponse = new MessagingResponse();
         messagingResponse.Message(incomingMessage.Body);
         var isVerified = await _verificationCodeManager.ValidateReceiveAsync(
-            codeCacheKey: $"Starify:PhoneReceiveVerification:",
+            codeCacheKey: $"Bamboo:PhoneReceiveVerification:",
             verificationCode: incomingMessage.Body,
             configuration: new VerificationCodeConfiguration());
 
@@ -94,5 +95,13 @@ public class TwilioSmsController : TwilioController
 
     }
 
-
+    [HttpPost]
+    [Route("callback")]
+    [AllowAnonymous]
+    [IgnoreAntiforgeryToken]
+    public async Task<TwiMLResult> Index2(SmsRequest incomingMessage)
+    {
+        var rs = await _phoneService.TwilioIncomming(incomingMessage);
+        return rs;
+    }
 }

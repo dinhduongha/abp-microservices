@@ -10,11 +10,11 @@ using Volo.Abp.MultiTenancy;
 using Volo.Abp.Validation;
 
 [Dependency(ReplaceServices = true)]
-[ExposeServices(typeof(IIdentityUserAppService), typeof(IdentityUserAppService), typeof(StarifyIdentityUserAppService))]
-public class StarifyIdentityUserAppService : IdentityUserAppService
+[ExposeServices(typeof(IIdentityUserAppService), typeof(IdentityUserAppService), typeof(BambooIdentityUserAppService))]
+public class BambooIdentityUserAppService : IdentityUserAppService
 {
     //private readonly IDataFilter _dataFilter;
-    public StarifyIdentityUserAppService(
+    public BambooIdentityUserAppService(
         IdentityUserManager userManager,
         IIdentityUserRepository userRepository,
         IIdentityRoleRepository roleRepository,
