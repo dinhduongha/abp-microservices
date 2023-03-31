@@ -172,7 +172,7 @@ function AccountServiceAddReference {
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.AuditLogging.EntityFrameworkCore -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.BackgroundJobs.EntityFrameworkCore -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Microsoft.EntityFrameworkCore.Tools #-v "6.0.5"
+	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Microsoft.EntityFrameworkCore.Tools -v "7.0.1"
 
 	## HTTP API
 	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.Account.HttpApi -v $abpver
