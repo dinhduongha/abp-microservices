@@ -2,8 +2,10 @@
 using System.IO;
 using System.Threading.Tasks;
 
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -13,20 +15,26 @@ using Microsoft.AspNetCore.Extensions.DependencyInjection;
 
 using OpenIddict.Validation.AspNetCore;
 
-using Volo.Abp.Account.Localization;
-using Volo.Abp.Account.Web;
-using Volo.Abp.AspNetCore.Mvc.Localization;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
-using Volo.Abp.Localization;
-using Volo.Abp.Modularity;
-using Volo.Abp.VirtualFileSystem;
-using Volo.Abp.MultiTenancy;
+using Medallion.Threading;
+using Medallion.Threading.Redis;
+using Medallion.Threading.FileSystem;
+using OpenIddict.Validation.AspNetCore;
+using StackExchange.Redis;
 
 using Volo.Abp;
+using Volo.Abp.Caching.StackExchangeRedis;
+using Volo.Abp.Localization;
+using Volo.Abp.Modularity;
+using Volo.Abp.MultiTenancy;
+using Volo.Abp.Settings;
+using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.AspNetCore.Mvc.Localization;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.MultiTenancy;
+using Volo.Abp.Account.Localization;
+using Volo.Abp.Account.Web;
 using Volo.Abp.Account.Settings;
 using Volo.Abp.Identity.Settings;
-using Volo.Abp.Settings;
 using Volo.Abp.SettingManagement;
 
 using Bamboo.Abp.LoginUi.Web.Localization;
