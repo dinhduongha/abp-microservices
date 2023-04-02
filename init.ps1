@@ -180,8 +180,8 @@ function CreateCoreApp  {
 	Move-Item -Path ./temp/$name-angular/$name/angular -Destination ./$name/web_apps/angular/app -Force
 	Move-Item -Path ./temp/$name-angular/$name/react-native -Destination ./$name/mobile/ -Force
 	# MAUI
-	#abp new "Bamboo" -t maui --no-random-port --database-provider ef -dbms PostgreSQL --skip-installing-libs --skip-bundling -o temp/Bamboo-maui
-	abp new "$name.Maui" -t maui --no-random-port --database-provider ef -dbms PostgreSQL  --separate-auth-server --skip-installing-libs -o $name/mobile/maui
+	#abp new "Bamboo.App" -t maui --no-random-port --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs --skip-bundling -o temp/Bamboo-maui
+	abp new "$name.App" -t maui --no-random-port --database-provider ef -dbms PostgreSQL  --separate-auth-server --skip-installing-libs -o $name/mobile/maui
 	
 	# https://gist.github.com/ebicoglu/ce0f0425bab806d0ee1a87d0073af96b
 	# dotnet new web -n "$name.ExternalLogin" -o ./$apps/$name/src/"$name.ExternalLogin"
@@ -199,7 +199,7 @@ function CreateCoreApp  {
 	Copy-Item -Path "./libs/Bamboo.Shared.EfCore/Extensions" -Destination ./$name/$apps/$name/src/$name.EntityFrameworkCore/ -recurse -Force
 	Copy-Item -Path "./libs/Bamboo.Authentication" -Destination ./$name/$apps/$name/src/$name.Authentication -recurse -Force
 	Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination ./$name/$apps/$name/src/$name.LoginUi.Web -recurse -Force
-	dotnet add ./$name/$apps/$name/src/$name.AuthServer reference ./$name/$apps/$name/src/$name.Authentication
+	#dotnet add ./$name/$apps/$name/src/$name.AuthServer reference ./$name/$apps/$name/src/$name.Authentication
 	dotnet add ./$name/$apps/$name/src/$name.AuthServer reference ./$name/$apps/$name/src/$name.LoginUi.Web
 	dotnet add ./$name/$apps/$name/src/$name.HttpApi.Host reference ./$name/$apps/$name/src/$name.Authentication
 	#dotnet add ./$name/$apps/$name/src/$name.HttpApi.Host reference ./$name/$apps/$name/src/$name.LoginUi.Web

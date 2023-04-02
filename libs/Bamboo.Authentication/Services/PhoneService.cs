@@ -22,10 +22,10 @@ using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp;
 using Volo.Abp.EventBus.Distributed;
-
-using Bamboo.Abp.VerificationCode;
 using Volo.Abp.Domain.Entities.Events.Distributed;
 using Volo.Abp.Users;
+
+using Bamboo.Abp.VerificationCode;
 
 namespace Bamboo.Authentication;
 public class PhoneService : ApplicationService
@@ -67,15 +67,14 @@ public class PhoneService : ApplicationService
             codeCacheLifespan: TimeSpan.FromMinutes(5),
             configuration: new VerificationCodeConfiguration());
 
-        //await _smsSender.SendAsync(new SmsMessage(phone, $"Bamboo code is: {code}"));
-        await _distributedEventBus.PublishAsync(
-                new PhoneVerifyEto
-                {
-                    Phone = phone,
-                    Code = code,
-                    Desc = "OTP",
-                }
-            );
+        //await _distributedEventBus.PublishAsync(
+        //        new PhoneVerifyEto
+        //        {
+        //            Phone = phone,
+        //            Code = code,
+        //            Desc = "OTP",
+        //        }
+        //    );
         return code;
     }
 
@@ -154,19 +153,19 @@ public class PhoneService : ApplicationService
 
     protected async Task<IdentityUser?> RegisterByToken(ExternalRegisterOrUpdateDto account)
     {
-        if (!Regex.Match(account.phone, @"^([+]|[00])([0-9]){5,13}$").Success)
+        if (!Regex.Match(account.Phone, @"^([+]|[00])([0-9]){5,13}$").Success)
         {
             throw new UserFriendlyException("Invalid phone number");
         }
 
         var isVerified = await _verificationCodeManager.ValidateAsync(
-            codeCacheKey: $"Bamboo:PhoneVerification:{account.phone}",
-            verificationCode: account.token,
+            codeCacheKey: $"Bamboo:PhoneVerification:{account.Phone}",
+            verificationCode: account.Token,
             configuration: new VerificationCodeConfiguration());
 
         if (isVerified == null)
         {
-            if (account.token != "957233")
+            if (account.Token != "957233")
                 throw new Exception("Invalid phone or code");
         }
         return await Create(account);
@@ -174,18 +173,18 @@ public class PhoneService : ApplicationService
 
     protected async Task<IdentityUser?> ChangePasswordByToken(ExternalRegisterOrUpdateDto account)
     {
-        if (!Regex.Match(account.phone, @"^([+]|[00])([0-9]){5,13}$").Success)
+        if (!Regex.Match(account.Phone, @"^([+]|[00])([0-9]){5,13}$").Success)
         {
             throw new UserFriendlyException("Invalid phone number");
         }
         var isVerified = await _verificationCodeManager.ValidateAsync(
-            codeCacheKey: $"Bamboo:PhoneVerification:{account.phone}",
-            verificationCode: account.token,
+            codeCacheKey: $"Bamboo:PhoneVerification:{account.Phone}",
+            verificationCode: account.Token,
             configuration: new VerificationCodeConfiguration());
 
         if (isVerified == null)
         {
-            if (account.token != "957233")
+            if (account.Token != "957233")
                 throw new Exception("Invalid phone or code");
         }
         return await Update(account);
@@ -212,7 +211,7 @@ public class PhoneService : ApplicationService
     {
         try
         {
-            var phone = account.phone;
+            var phone = account.Phone;
 
             if (!Regex.Match(phone, @"^([+]|[00])([0-9]){5,13}$").Success)
             {
@@ -224,7 +223,7 @@ public class PhoneService : ApplicationService
             {
                 throw new UserFriendlyException("Invalid phone number");
             }
-            var decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(account.token);
+            var decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(account.Token);
             string uid = decodedToken.Uid;
             userRecord = await FirebaseAuth.DefaultInstance.GetUserAsync(decodedToken.Uid);
 
@@ -248,7 +247,7 @@ public class PhoneService : ApplicationService
     {
         try
         {
-            var phone = account.phone;
+            var phone = account.Phone;
 
             if (!Regex.Match(phone, @"^([+]|[00])([0-9]){5,13}$").Success)
             {
@@ -260,7 +259,7 @@ public class PhoneService : ApplicationService
             {
                 throw new UserFriendlyException("Invalid phone number");
             }
-            var decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(account.token);
+            var decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(account.Token);
             string uid = decodedToken.Uid;
             userRecord = await FirebaseAuth.DefaultInstance.GetUserAsync(decodedToken.Uid);
 
@@ -283,7 +282,7 @@ public class PhoneService : ApplicationService
     {
         using (_dataFilter.Disable<IMultiTenant>())
         {
-            string phone = account.phone;
+            string phone = account.Phone;
             var user = await _userManager.FindByNameAsync(phone);
             if (user == null)
             {
@@ -292,7 +291,7 @@ public class PhoneService : ApplicationService
                 user.SetPhoneNumber(phone, true);
                 var u = await _userManager.CreateAsync(user);
                 var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var result = await _userManager.ResetPasswordAsync(user, resetToken, account.password);
+                var result = await _userManager.ResetPasswordAsync(user, resetToken, account.Password);
                 if (result.Succeeded == false)
                 {
                     throw new UserFriendlyException(result.ToString());
@@ -320,7 +319,7 @@ public class PhoneService : ApplicationService
                 if (user.TenantId == null)
                 {
                     var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-                    var result = await _userManager.ResetPasswordAsync(user, resetToken, account.password);
+                    var result = await _userManager.ResetPasswordAsync(user, resetToken, account.Password);
                     if (result.Succeeded == false)
                     {
                         var str = result.ToString();
@@ -354,7 +353,7 @@ public class PhoneService : ApplicationService
     {
         using (_dataFilter.Disable<IMultiTenant>())
         {
-            string phone = account.phone;
+            string phone = account.Phone;
             var user = await _userManager.FindByNameAsync(phone);
             if (user == null)
             {
@@ -363,7 +362,7 @@ public class PhoneService : ApplicationService
                 user.SetPhoneNumber(phone, true);
                 var u = await _userManager.CreateAsync(user);
                 var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var result = await _userManager.ResetPasswordAsync(user, resetToken, account.password);
+                var result = await _userManager.ResetPasswordAsync(user, resetToken, account.Password);
                 //await _identityUserManager.ChangePasswordAsync(user, "", account.Password);
                 if (result.Succeeded == false)
                 {
@@ -376,7 +375,7 @@ public class PhoneService : ApplicationService
                 if (user.TenantId == null)
                 {
                     var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-                    var result = await _userManager.ResetPasswordAsync(user, resetToken, account.password);
+                    var result = await _userManager.ResetPasswordAsync(user, resetToken, account.Password);
                     if (result.Succeeded == false)
                     {
                         throw new UserFriendlyException(result.ToString());

@@ -101,7 +101,8 @@ public class TwilioSmsController : TwilioController
     [IgnoreAntiforgeryToken]
     public async Task<TwiMLResult> Index2(SmsRequest incomingMessage)
     {
-        var rs = await _phoneService.TwilioIncomming(incomingMessage);
-        return rs;
+        //var rs = await _phoneService.TwilioIncomming(incomingMessage);
+        //return rs;
+        return null;
     }
 }

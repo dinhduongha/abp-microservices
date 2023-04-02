@@ -6,20 +6,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-
-//using Twilio;
-//using Twilio.Rest.Api.V2010.Account;
-//using Twilio.Types;
-//using Twilio.AspNet.Common;
-//using Twilio.TwiML;
-//using Twilio.AspNet.Core;
-//using FirebaseAdmin.Auth;
+using Microsoft.EntityFrameworkCore;
 
 using Volo.Abp;
 using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.Domain.Entities.Events.Distributed;
 using Volo.Abp.Users;
 using Volo.Abp.DependencyInjection;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Data;
 using Volo.Abp.Identity;
@@ -28,20 +22,32 @@ using Volo.Abp.Domain.Repositories;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Identity.AspNetCore;
 using Volo.Abp.TenantManagement;
-using Volo.Abp.Application.Dtos;
 using Volo.Abp.ObjectExtending;
+using Volo.Abp.Identity.EntityFrameworkCore;
+
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
 
-using Bamboo.EntityFrameworkCore;
 using Bamboo.Abp.VerificationCode;
 
 namespace Bamboo.Authentication;
 
+public class IdentityUserRoleExtension : IdentityUserRole
+{
+    public IdentityUserRoleExtension(Guid userId, Guid roleId, Guid tenantId)
+        : base(userId, roleId, tenantId)
+    {
+    }
+    //public static IdentityUser AddExtRole(this IdentityUser user, Guid roleId, Guid tenantId)
+    //{
+    //    user.Roles.Add(new IdentityUserRole(user.Id, roleId, tenantId));
+    //    return user;
+    //}
+}
+
 [Authorize]
-public class VendorService : ApplicationService
+public class TenantService : ApplicationService
 {
     IConfiguration _configuration;
-    //private readonly IVerificationCodeManager _verificationCodeManager;
 
     protected IDistributedEventBus _distributedEventBus { get; }
 
@@ -57,21 +63,23 @@ public class VendorService : ApplicationService
     protected IIdentityRoleRepository _roleRepository { get; }
     protected IIdentityUserRepository _userRepository { get; }
     protected IIdentityLinkUserRepository _identityLinkUserRepository { get; }
+
+    // The below repository not exists
     //protected readonly IRepository<IdentityUserRole> _userRoleRepository;
 
 
     protected IHttpClientFactory _httpClientFactory;
     protected IDataSeeder _dataSeeder { get; }
     protected IDataFilter _dataFilter;
-    protected IDbContextProvider<BambooDbContext> _dbContextProvider;
+    protected IDbContextProvider<IdentityDbContext> _dbContextProvider;
 
     protected ILookupNormalizer LookupNormalizer { get; }
-    protected AbpSignInManager SignInManager { get; }
+    //protected AbpSignInManager SignInManager { get; }
     protected AbpUserClaimsPrincipalFactory _abpUserClaimsPrincipalFactory;
     protected ITenantAppService TenantAppService { get; }
 
-    public VendorService(IConfiguration configuration,
-                            IDbContextProvider<BambooDbContext> dbContextProvider,
+    public TenantService(IConfiguration configuration,
+                            IDbContextProvider<IdentityDbContext> dbContextProvider,
                             IDistributedEventBus distributedEventBus,
                             ITenantManager tenantManager,
                             IdentityRoleManager roleManager,
@@ -81,7 +89,7 @@ public class VendorService : ApplicationService
                             IIdentityRoleRepository roleRepository,
                             IIdentityUserRepository userRepository,
                             IIdentityLinkUserRepository identityLinkUserRepository,
-                            AbpSignInManager signInManager,
+                            //AbpSignInManager signInManager,
                             IDataSeeder dataSeeder,
                             IDataFilter dataFilter,
                             AbpUserClaimsPrincipalFactory abpUserClaimsPrincipalFactory,
@@ -104,7 +112,7 @@ public class VendorService : ApplicationService
         _dataSeeder = dataSeeder;
         _httpClientFactory = httpClientFactory;
         _distributedEventBus = distributedEventBus;
-        SignInManager = signInManager;
+        //SignInManager = signInManager;
         TenantAppService = tenantAppService;
         //_linkAppService = linkAppService;
         LookupNormalizer = lookupNormalizer;
@@ -140,7 +148,6 @@ public class VendorService : ApplicationService
                 );
             var tenants = queryable.ToList();
             var totalCount = queryable.LongCount();
-
             return new PagedResultDto<TenantDto>(
                 totalCount,
                 ObjectMapper.Map<List<Tenant>, List<TenantDto>>(tenants)
@@ -237,9 +244,9 @@ public class VendorService : ApplicationService
                 var adminRole = await _roleRepository.FindByNormalizedNameAsync(LookupNormalizer.NormalizeName(adminRoleName));
                 try
                 {
-                    BambooDbContext _ctx = await _dbContextProvider.GetDbContextAsync();
+                    IdentityDbContext _ctx = await _dbContextProvider.GetDbContextAsync();
                     var sql = $"INSERT INTO public.\"AbpUserRoles\"(\n\t\"UserId\", \"RoleId\", \"TenantId\")\n\tVALUES ('{currentUser.Id}', '{adminRole.Id}', '{tenant.Id}');";
-                    _ctx.ExcuteSql(sql);
+                    await _ctx.Database.ExecuteSqlRawAsync( sql);
                     //var newObj = new IdentityUserRoleExtension(currentUser.Id, adminRole.Id, tenant.Id);
                     //var role = newObj as IdentityUserRole;
                     //if (role == null)
@@ -274,15 +281,15 @@ public class VendorService : ApplicationService
                            Name = tenant.Name,                       
                        }
                     ));
-                await _distributedEventBus.PublishAsync(
-                       new VendorRoleEto
-                       {
-                           VendorId = tenant.Id,
-                           RoleId = adminRole.Id,
-                           UserId = currentUser.Id,
-                           RoleName = adminRole.Name,
-                       }
-                    );
+                //await _distributedEventBus.PublishAsync(
+                //       new VendorRoleEto
+                //       {
+                //           VendorId = tenant.Id,
+                //           RoleId = adminRole.Id,
+                //           UserId = currentUser.Id,
+                //           RoleName = adminRole.Name,
+                //       }
+                //    );
             }
         }
         catch (Exception e)
@@ -337,16 +344,15 @@ public class VendorService : ApplicationService
         }
     }
 
-    public async Task<bool> VendorUserRoleAddAsync(Guid vendorId, VendorRoleCreateDto dto)
+    public async Task<bool> TenantUserRoleAddAsync(Guid tenantId, TenantRoleCreateDto dto)
     {
 
         Volo.Abp.Identity.IdentityUser currentUser; // await _userRepository.GetAsync((Guid)CurrentUser.Id);
-
         using (CurrentTenant.Change(null))
         {
             currentUser = await _userRepository.GetAsync((Guid)CurrentUser.Id);
         }
-        Guid userId = dto.user;
+        Guid userId = dto.UserId;
         using (_dataFilter.Disable<IMultiTenant>())
         {
             var lstRole = await _userRepository.GetRolesAsync(currentUser.Id);            
@@ -354,7 +360,7 @@ public class VendorService : ApplicationService
             var linkUsers = await _linkManager.GetListAsync(linkuserinfo);
             if (linkUsers.Count > 0)
             {
-                linkUsers.RemoveAll(x => (x.SourceUserId != userId) || x.TargetTenantId != vendorId);
+                linkUsers.RemoveAll(x => (x.SourceUserId != userId) || x.TargetTenantId != tenantId);
                 foreach (var lnk in linkUsers)
                 {
                     var lstRoleTmp = await _userRepository.GetRolesAsync(lnk.TargetUserId);
@@ -362,30 +368,30 @@ public class VendorService : ApplicationService
                         lstRole.AddRange(lstRoleTmp);
                 }
             }
-            lstRole.RemoveAll(x => (x.TenantId != null && x.TenantId != vendorId));
+            lstRole.RemoveAll(x => (x.TenantId != null && x.TenantId != tenantId));
             lstRole.RemoveAll(x => x.Name.ToLower() != "admin");
             if (lstRole.Count == 0)
             {
-                throw new UserFriendlyException($"Role {dto.name} not found");
+                throw new UserFriendlyException($"Role {dto.RoleName} not found");
             }
         }
 
-        using (CurrentTenant.Change(vendorId, null))
+        using (CurrentTenant.Change(tenantId, null))
         {
-            var userRole = await _roleRepository.FindByNormalizedNameAsync(LookupNormalizer.NormalizeName(dto.name));
+            var userRole = await _roleRepository.FindByNormalizedNameAsync(LookupNormalizer.NormalizeName(dto.RoleName));
             if (userRole == null)
             {
-                throw new UserFriendlyException($"Role {dto.name} not found");
+                throw new UserFriendlyException($"Role {dto.RoleName} not found");
             }
             try
             {
-                if (userRole.TenantId != vendorId)
+                if (userRole.TenantId != tenantId)
                 {
-                    throw new UserFriendlyException($"Role {dto.name} is invalid");
+                    throw new UserFriendlyException($"Role {dto.RoleName} is invalid");
                 }
-                BambooDbContext _ctx = await _dbContextProvider.GetDbContextAsync();
-                var sql = $"INSERT INTO public.\"AbpUserRoles\"(\n\t\"UserId\", \"RoleId\", \"TenantId\")\n\tVALUES ('{userId}', '{userRole.Id}', '{vendorId}');";
-                _ctx.ExcuteSql(sql);
+                var _ctx = await _dbContextProvider.GetDbContextAsync();
+                var sql = $"INSERT INTO public.\"AbpUserRoles\"(\n\t\"UserId\", \"RoleId\", \"TenantId\")\n\tVALUES ('{userId}', '{userRole.Id}', '{tenantId}');";
+                await _ctx.Database.ExecuteSqlRawAsync(sql);
                 //var newObj = new IdentityUserRoleExtension(currentUser.Id, adminRole.Id, tenant.Id);
                 //var role = newObj as IdentityUserRole;
                 //if (role == null)
@@ -395,15 +401,15 @@ public class VendorService : ApplicationService
                 //{
                 //    await _userRoleRepository.InsertAsync(role);
                 //}
-                await _distributedEventBus.PublishAsync(
-                       new VendorRoleEto
-                       {
-                           VendorId = vendorId,
-                           RoleId = userRole.Id,
-                           UserId = userId,
-                           RoleName = dto.name,
-                       }
-                    );
+                //await _distributedEventBus.PublishAsync(
+                //       new VendorRoleEto
+                //       {
+                //           VendorId = vendorId,
+                //           RoleId = userRole.Id,
+                //           UserId = userId,
+                //           RoleName = dto.name,
+                //       }
+                //    );
             }
             catch (Exception e)
             {
@@ -415,7 +421,7 @@ public class VendorService : ApplicationService
         return true;
     }
 
-    public async Task<bool> VendorUserRoleRemoveAsync(Guid vendorId, Guid userId)
+    public async Task<bool> TenantUserRoleRemoveAsync(Guid tenantId, Guid userId)
     {
         Volo.Abp.Identity.IdentityUser currentUser;
         using (CurrentTenant.Change(null))
@@ -433,7 +439,7 @@ public class VendorService : ApplicationService
             var linkUsers = await _linkManager.GetListAsync(linkuserinfo);
             if (linkUsers.Count > 0)
             {
-                linkUsers.RemoveAll(x => (x.SourceUserId != userId) || x.TargetTenantId != vendorId);
+                linkUsers.RemoveAll(x => (x.SourceUserId != userId) || x.TargetTenantId != tenantId);
                 foreach (var lnk in linkUsers)
                 {
                     var lstRoleTmp = await _userRepository.GetRolesAsync(lnk.TargetUserId);
@@ -441,15 +447,15 @@ public class VendorService : ApplicationService
                         lstRole.AddRange(lstRoleTmp);
                 }
             }
-            lstRole.RemoveAll(x => (x.TenantId != null && x.TenantId != vendorId));
+            lstRole.RemoveAll(x => (x.TenantId != null && x.TenantId != tenantId));
             lstRole.RemoveAll(x => x.Name.ToLower() != "admin");
             if (lstRole.Count == 0)
             {
                 throw new UserFriendlyException($"No Access");
             }
-            BambooDbContext _ctx = await _dbContextProvider.GetDbContextAsync();
-            var sql = $"DELETE FROM public.\"AbpUserRoles\"(\n\t\"UserId\", \"RoleId\", \"TenantId\")\n\t WHERE \"UserId\"='{userId}' AND \"TenantId\" = '{vendorId}');";
-            _ctx.ExcuteSql(sql);
+            IdentityDbContext _ctx = await _dbContextProvider.GetDbContextAsync();
+            var sql = $"DELETE FROM public.\"AbpUserRoles\"(\n\t\"UserId\", \"RoleId\", \"TenantId\")\n\t WHERE \"UserId\"='{userId}' AND \"TenantId\" = '{tenantId}');";
+            await _ctx.Database.ExecuteSqlRawAsync(sql);
         }
         return true;
     }

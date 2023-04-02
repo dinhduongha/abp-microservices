@@ -116,13 +116,15 @@ public class AbpLoginUiWebModule : AbpModule
         });
 
         // context.Services.AddSameSiteCookiePolicy();
-        // ConfigureRedis(context, configuration);        
+        ConfigureTenantResolver(context, configuration);
+        ConfigureRedis(context, configuration);
+        ConfigureDataProtection(context, configuration);
+        ConfigureDistributedLock(context, configuration);
         context.Services.Configure<AbpAspNetCoreMultiTenancyOptions>(options =>
         {
             options.TenantKey = configuration["App:TenantKey"] ??"tenant";
         });
 
-        //ConfigureTenantResolver(context, configuration);
         context.Services.Configure<ForwardedHeadersOptions>(options =>
         {
             options.ForwardedHeaders = ForwardedHeaders.XForwardedFor
@@ -155,7 +157,6 @@ public class AbpLoginUiWebModule : AbpModule
             options.TenantResolvers.Add(new CurrentUserTenantResolveContributor());
         });
     }
-    /*
     private void ConfigureRedis(ServiceConfigurationContext context, IConfiguration configuration)
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
@@ -179,54 +180,78 @@ public class AbpLoginUiWebModule : AbpModule
             });
         }
 
-        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("Bamboo");
         //if (!hostingEnvironment.IsDevelopment())
-        if (enabledRedis)
-        {
-            var redis = ConnectionMultiplexer.Connect(redisOptions);
-            //var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
-            dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "Bamboo-Protection-Keys");
-        }
+        //if (enabledRedis)
+        //{
+        //    var redis = ConnectionMultiplexer.Connect(redisOptions);
+        //    //var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
+        //    var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("Bamboo");
+        //    dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "Bamboo-Protection-Keys");
+        //}
 
+        //context.Services.AddSingleton<IDistributedLockProvider>(sp =>
+        //{
+        //    //if (hostingEnvironment.IsDevelopment())
+        //    if (!enabledRedis)
+        //    {
+        //        DirectoryInfo lockFileDirectory = new DirectoryInfo($".bamboocache");
+        //        return new FileDistributedSynchronizationProvider(lockFileDirectory);
+        //    }
+        //    else
+        //    {
+        //        //var redisOptions = ConfigurationOptions.Parse(configuration["Redis:Configuration"]);
+        //        //redisOptions.User = configuration["Redis:User"];
+        //        //redisOptions.Password = configuration["Redis:Password"];
+        //        //var connection = ConnectionMultiplexer
+        //        //    .Connect(configuration["Redis:Configuration"]);
+
+        //        var connection = ConnectionMultiplexer
+        //            .Connect(redisOptions);
+        //        return new RedisDistributedSynchronizationProvider(connection.GetDatabase());
+        //    }
+        //});
+    }
+
+    private void ConfigureDistributedLock(ServiceConfigurationContext context, IConfiguration configuration)
+    {
         context.Services.AddSingleton<IDistributedLockProvider>(sp =>
         {
-            //if (hostingEnvironment.IsDevelopment())
+            var redisOptions = ConfigurationOptions.Parse(configuration["Redis:Configuration"]);
+            bool enabledRedis = Convert.ToBoolean(configuration["Redis:IsEnabled"]);
             if (!enabledRedis)
             {
-                DirectoryInfo lockFileDirectory = new DirectoryInfo($"/tmp/bamboocache");
+                DirectoryInfo lockFileDirectory = new DirectoryInfo($".bamboocache");
                 return new FileDistributedSynchronizationProvider(lockFileDirectory);
+
             }
             else
             {
-                //var redisOptions = ConfigurationOptions.Parse(configuration["Redis:Configuration"]);
-                //redisOptions.User = configuration["Redis:User"];
-                //redisOptions.Password = configuration["Redis:Password"];
-                //var connection = ConnectionMultiplexer
-                //    .Connect(configuration["Redis:Configuration"]);
-
-                var connection = ConnectionMultiplexer
-                    .Connect(redisOptions);
-                return new RedisDistributedSynchronizationProvider(connection.GetDatabase());
+                redisOptions.User = configuration["Redis:User"];
+                redisOptions.Password = configuration["Redis:Password"];
+                var redis = ConnectionMultiplexer.Connect(redisOptions);
+                return new RedisDistributedSynchronizationProvider(redis.GetDatabase());
             }
         });
     }
 
     private void ConfigureDataProtection(ServiceConfigurationContext context, IConfiguration configuration)
     {
-        var hostingEnvironment = context.Services.GetHostingEnvironment();
         var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("Bamboo");
-        if (!hostingEnvironment.IsDevelopment())
+        //var hostingEnvironment = context.Services.GetHostingEnvironment();
+        //if (!hostingEnvironment.IsDevelopment())
         {
             var redisOptions = ConfigurationOptions.Parse(configuration["Redis:Configuration"]);
             bool enabledRedis = Convert.ToBoolean(configuration["Redis:IsEnabled"]);
-            redisOptions.User = configuration["Redis:User"];
-            redisOptions.Password = configuration["Redis:Password"];
-            var redis = ConnectionMultiplexer.Connect(redisOptions);
-            dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "Bamboo-Protection-Keys");
+            if (enabledRedis)
+            {
+                redisOptions.User = configuration["Redis:User"];
+                redisOptions.Password = configuration["Redis:Password"];
+                var redis = ConnectionMultiplexer.Connect(redisOptions);
+                dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "Bamboo-Protection-Keys");
+            }
         }
     }
-
-    */
+        
     public async override Task OnApplicationInitializationAsync(Volo.Abp.ApplicationInitializationContext context)
     {
         var app = context.GetApplicationBuilder();
@@ -254,17 +279,17 @@ public class AbpLoginUiWebModule : AbpModule
         //app.UseHttpMethodOverride();
         app.UseForwardedHeaders();
         //app.UseHttpLogging();
-        
+
         ///// Always behind ssl proxy
-        //app.Use((context, next) =>
-        //{
-        //    var xproto = context.Request.Headers["X-Forwarded-Proto"].ToString();
-        //    if (xproto != null && xproto.StartsWith("https", StringComparison.OrdinalIgnoreCase))
-        //    {
-        //        context.Request.Scheme = "https";
-        //    }
-        //    return next();
-        //});
+        app.Use((context, next) =>
+        {
+            var xproto = context.Request.Headers["X-Forwarded-Proto"].ToString();
+            if (xproto != null && xproto.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+            {
+                context.Request.Scheme = "https";
+            }
+            return next();
+        });
 
         // https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
