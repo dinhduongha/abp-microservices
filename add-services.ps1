@@ -438,7 +438,7 @@ function CreateServices {
 		# DBMigrator
 		if ($service -eq $admin_name) 
 		{
-			$migrator_path = "./$name/services/$folder/src"
+			$migrator_path = "./$name/services/$folder/host"
 			dotnet new console -n "$name.$service.DbMigrator" -o $migrator_path/$name.$service.DbMigrator
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Microsoft.Extensions.Hosting -v "7.0.*"
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Extensions.Logging -v "3.1.0"
@@ -535,7 +535,7 @@ function CreateServices {
 
 			# Host	
 			dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package DistributedLock.Redis -v 1.0.2
-			dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package package Volo.Abp.DistributedLocking -v $abpver
+			dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.DistributedLocking -v $abpver
 			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.OpenIddict.AspNetCore -v $abpver
 			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.BackgroundJobs.HangFire -v $abpver
 			dotnet add ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj reference ./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj
