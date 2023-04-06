@@ -28,7 +28,8 @@ public class AdminDbContextFactory : IDesignTimeDbContextFactory<AdminDbContext>
     private static IConfigurationRoot BuildConfiguration()
     {
         var builder = new ConfigurationBuilder()
-            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../Bamboo.Admin.DbMigrator/"))
+            //.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../Bamboo.Admin.DbMigrator/"))
+            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../src/Bamboo.Admin.DbMigrator/"))
             .AddJsonFile("appsettings.json", optional: false);
 
         return builder.Build();

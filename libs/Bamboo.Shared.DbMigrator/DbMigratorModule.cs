@@ -2,6 +2,8 @@
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Modularity;
 
+using Volo.Abp.EntityFrameworkCore;
+
 /*
 User must change "Administration" to module's name
 */
@@ -16,5 +18,9 @@ public class DbMigratorModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         Configure<AbpBackgroundJobOptions>(options => options.IsJobExecutionEnabled = false);
+        Configure<AbpDbContextOptions>(options =>
+        {
+            options.UseNpgsql();
+        });
     }
 }

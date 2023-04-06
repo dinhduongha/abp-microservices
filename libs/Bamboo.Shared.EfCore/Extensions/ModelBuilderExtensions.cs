@@ -28,19 +28,20 @@ public class TimeOnlyConverter : ValueConverter<TimeOnly, TimeSpan>
     }
 }
 /*
- DbContext:
-protected override void OnModelCreating(ModelBuilder modelBuilder)
+In the DbContext we add the converters (coming up below)
+protected override void ConfigureConventions(ModelConfigurationBuilder builder)
 {
-    modelBuilder.Entity<Post>(builder =>
-    {
-        // Date is a DateOnly property and date on database
-        builder.Property(x => x.Date)
-            .HasConversion<DateOnlyConverter, DateOnlyComparer>();
- 
-        // Time is a TimeOnly property and time on database
-        builder.Property(x => x.Time)
-            .HasConversion<TimeOnlyConverter, TimeOnlyComparer>();
-    });
+
+    builder.Properties<DateOnly>()
+        .HaveConversion<DateOnlyConverter>()
+        .HaveColumnType("date");
+
+    builder.Properties<TimeOnly>()
+        .HaveConversion<TimeOnlyConverter>()
+        .HaveColumnType("time");
+
+    base.ConfigureConventions(builder);
+
 }
 */
 public static partial class ModelConfigurationBuilderExtensions
