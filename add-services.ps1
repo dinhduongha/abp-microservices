@@ -11,7 +11,7 @@ $admin_name = "Admin"
 $services = @{}
 $services.Add('Admin', 'admin')
 #$services.Add('Base', 'base')
-$services.Add('Core', 'core')
+#$services.Add('Core', 'core')
 #$services.Add('Crm', 'crm')
 #$services.Add('Sales', 'sales')
 #$services.Add('Pos', 'pos')
@@ -122,27 +122,27 @@ function AccountServiceAddReference {
 		$shared_folder = "./$name/services/$folder/src"		
 	}
 	$admin = $admin_name
-	
-	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.Identity.Domain.Shared -v $abpver
-	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.BackgroundJobs.Domain.Shared -v $abpver
+
 	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.AuditLogging.Domain.Shared -v $abpver
-	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.TenantManagement.Domain.Shared -v $abpver
+	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.BackgroundJobs.Domain.Shared -v $abpver
 	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.FeatureManagement.Domain.Shared -v $abpver
-	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.SettingManagement.Domain.Shared -v $abpver
-	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.OpenIddict.Domain.Shared -v $abpver
 	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.PermissionManagement.Domain.Shared -v $abpver
+	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.SettingManagement.Domain.Shared -v $abpver
+	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.Identity.Domain.Shared -v $abpver
+	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.OpenIddict.Domain.Shared -v $abpver
+	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.TenantManagement.Domain.Shared -v $abpver
 	
 	## Domain
 	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.Emailing -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.Identity.Domain -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.BackgroundJobs.Domain -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.AuditLogging.Domain -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.TenantManagement.Domain -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.BackgroundJobs.Domain -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.FeatureManagement.Domain -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.SettingManagement.Domain -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.OpenIddict.Domain -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.PermissionManagement.Domain.Identity -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.PermissionManagement.Domain.OpenIddict -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.SettingManagement.Domain -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.Identity.Domain -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.OpenIddict.Domain -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.TenantManagement.Domain -v $abpver
 
 	## Application.Contracts
 	#dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.ObjectExtending -v $abpver
@@ -151,8 +151,8 @@ function AccountServiceAddReference {
 	dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.Identity.Application.Contracts -v $abpver
 	dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.TenantManagement.Application.Contracts -v $abpver
 	dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.FeatureManagement.Application.Contracts -v $abpver
-	dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.SettingManagement.Application.Contracts -v $abpver
 	dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.PermissionManagement.Application.Contracts -v $abpver
+	dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.SettingManagement.Application.Contracts -v $abpver
 	
 	## Application
 	dotnet add $name/services/$folder/src/$name.$admin.Application/$name.$admin.Application.csproj package Volo.Abp.Account.Application -v $abpver
@@ -163,32 +163,33 @@ function AccountServiceAddReference {
 	dotnet add $name/services/$folder/src/$name.$admin.Application/$name.$admin.Application.csproj package Volo.Abp.PermissionManagement.Application -v $abpver
 	
 	## EntityFrameworkCore
+	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.Identity.EntityFrameworkCore -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.PermissionManagement.EntityFrameworkCore -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.TenantManagement.EntityFrameworkCore -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.FeatureManagement.EntityFrameworkCore -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.SettingManagement.EntityFrameworkCore -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.OpenIddict.EntityFrameworkCore -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.TenantManagement.EntityFrameworkCore -v $abpver	
+	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.FeatureManagement.EntityFrameworkCore -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.PermissionManagement.EntityFrameworkCore -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.SettingManagement.EntityFrameworkCore -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.AuditLogging.EntityFrameworkCore -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.BackgroundJobs.EntityFrameworkCore -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.BlobStoring.Database.EntityFrameworkCore -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Microsoft.EntityFrameworkCore.Tools -v "7.0.1"
 
 	## HTTP API
 	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.Account.HttpApi -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.Identity.HttpApi -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.PermissionManagement.HttpApi -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.TenantManagement.HttpApi -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.FeatureManagement.HttpApi -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.PermissionManagement.HttpApi -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.SettingManagement.HttpApi -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.Identity.HttpApi -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.OpenIddict.AspNetCore -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.TenantManagement.HttpApi -v $abpver
 
 	## HTTP API CLIENT
 	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.Account.HttpApi.Client -v $abpver
 	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.Identity.HttpApi.Client -v $abpver
-	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.PermissionManagement.HttpApi.Client -v $abpver
 	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.TenantManagement.HttpApi.Client -v $abpver
 	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.FeatureManagement.HttpApi.Client -v $abpver
+	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.PermissionManagement.HttpApi.Client -v $abpver
 	dotnet add $shared_folder/$name.$admin.HttpApi.Client/$name.$admin.HttpApi.Client.csproj package Volo.Abp.SettingManagement.HttpApi.Client -v $abpver
 }
 
@@ -311,73 +312,80 @@ function CreateServices {
 			new-item "./$name/web_apps/$folder/host" -itemtype directory
 	        Copy-Item "./common.props*" -Destination "./$name/web_apps/$folder/" -Force
 			#abp new "Bamboo.Base" -t module -o Bamboo/services/base --skip-installing-libs
-			abp new "$name.$service" -t module -o $name/services/$folder --skip-installing-libs
+			abp new "$name.$service" -t module -o $name/services/$folder --skip-installing-libs -v $abpver
 		} else {
-			abp new "$name.$service" -t module --no-ui -o $name/services/$folder --skip-installing-libs			
+			abp new "$name.$service" -t module --no-ui -o $name/services/$folder --skip-installing-libs	-v $abpver		
 		}
 
-		dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference ./$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
-		dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql -v $abpver
-		#dotnet remove ./services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.SqlServer
+		dotnet add ./$name/services/$folder/src/$name.$service.Application/$name.$service.Application.csproj package Volo.Abp.BackgroundJobs -v $abpver
+		#dotnet add ./$name/services/$folder/src/$name.$service.Application/$name.$service.Application.csproj package Volo.Abp.BlobStoring -v $abpver
+		#dotnet add ./$name/services/$folder/src/$name.$service.Application/$name.$service.Application.csproj package Volo.Abp.AutoMapper -v $abpver
+		#dotnet add ./$name/services/$folder/src/$name.$service.Application/$name.$service.Application.csproj package Volo.Abp.Ddd.Application -v $abpver
+		#dotnet add ./$name/services/$folder/src/$name.$service.Application/$name.$service.Application.csproj package NPOI -v "2.6.0"
+
+		dotnet add ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj reference ./$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
+		dotnet add ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql -v $abpver
+		#dotnet remove ./services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.SqlServer
 		
-		dotnet add ./$name/services/$folder/src/"$name.$service".EntityFrameworkCore/"$name.$service".EntityFrameworkCore.csproj reference ./$shared_common/$name.Shared.EfCore/$name.Shared.EfCore.csproj
-		#dotnet add ./services/$folder/src/"$name.$service".Domain/"$name.$service".Domain.csproj reference ./$shared_common/$name.Shared.Domain/$name.Shared.Domain.csproj
+		dotnet add ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj reference ./$shared_common/$name.Shared.EfCore/$name.Shared.EfCore.csproj
+		#dotnet add ./$name/services/$folder/src/$name.$service.Domain/$name.$service.Domain.csproj reference ./$shared_common/$name.Shared.Domain/$name.Shared.Domain.csproj
 		
 		if ($service -ne $admin_name) {
-			dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj)			
+			dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj)
+			#dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.Host.Shared/$name.$service.Host.Shared.csproj)			
 		}
 		if ($use_share  -eq "True") {
-			dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Domain.Shared/$name.$service.Domain.Shared.csproj)
-			dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj)
-			dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.HttpApi.Client/$name.$service.HttpApi.Client.csproj)
+			dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Domain.Shared/$name.$service.Domain.Shared.csproj)
+			dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj)
+			dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.HttpApi.Client/$name.$service.HttpApi.Client.csproj)
 			if ($ui_enable -eq "True") {
-				dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Blazor/$name.$service.Blazor.csproj)
-				dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Blazor.WebAssembly/$name.$service.Blazor.WebAssembly.csproj)
-				dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Blazor.Server/$name.$service.Blazor.Server.csproj)
-				dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Web/$name.$service.Web.csproj)
+				dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Blazor/$name.$service.Blazor.csproj)
+				dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Blazor.WebAssembly/$name.$service.Blazor.WebAssembly.csproj)
+				dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Blazor.Server/$name.$service.Blazor.Server.csproj)
+				dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Web/$name.$service.Web.csproj)
 
-                dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.Blazor.Host/$name.$service.Blazor.Host.csproj)
-                dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.Blazor.Server.Host/$name.$service.Blazor.Server.Host.csproj)
-                dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.Web.Host/$name.$service.Web.Host.csproj)
-                dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.Web.Unified/$name.$service.Web.Unified.csproj)
-				#dotnet sln "./$name/services/$folder/$name.$service.sln" remove (Get-ChildItem -r ./$name/services/$folder/test/$name.$service.HttpApi.Client.ConsoleTestApp/$name.$service.HttpApi.Client.ConsoleTestApp.csproj)
+                dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.Blazor.Host/$name.$service.Blazor.Host.csproj)
+                dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.Blazor.Server.Host/$name.$service.Blazor.Server.Host.csproj)
+                dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.Web.Host/$name.$service.Web.Host.csproj)
+                dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.Web.Unified/$name.$service.Web.Unified.csproj)
+				#dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/test/$name.$service.HttpApi.Client.ConsoleTestApp/$name.$service.HttpApi.Client.ConsoleTestApp.csproj)
 			}
 			
 			# Remove reference
-			dotnet remove ./$name/services/$folder/src/"$name.$service".Domain/"$name.$service".Domain.csproj reference "..\$name.$service.Domain.Shared\$name.$service.Domain.Shared.csproj"
-			#dotnet remove ./services/$folder/src/"$name.$service".Domain/"$name.$service".Domain.csproj reference ./services/$folder/"$name.$service".Domain.Shared/"$name.$service".Domain.Shared.csproj
-			dotnet remove ./$name/services/$folder/src/"$name.$service".Application/"$name.$service".Application.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
-			dotnet remove ./$name/services/$folder/src/"$name.$service".HttpApi/"$name.$service".HttpApi.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
-			#dotnet remove ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
+			dotnet remove ./$name/services/$folder/src/$name.$service.Domain/$name.$service.Domain.csproj reference "..\$name.$service.Domain.Shared\$name.$service.Domain.Shared.csproj"
+			#dotnet remove ./services/$folder/src/$name.$service.Domain/$name.$service.Domain.csproj reference ./services/$folder/"$name.$service".Domain.Shared/"$name.$service".Domain.Shared.csproj
+			dotnet remove ./$name/services/$folder/src/$name.$service.Application/$name.$service.Application.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
+			dotnet remove ./$name/services/$folder/src/$name.$service.HttpApi/$name.$service.HttpApi.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
+			dotnet remove ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
 			if ($ui_enable -eq "True") {
-				dotnet remove ./$name/services/$folder/src/"$name.$service".Blazor/"$name.$service".Blazor.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
-				dotnet remove ./$name/services/$folder/src/"$name.$service".Blazor.WebAssembly/"$name.$service".Blazor.WebAssembly.csproj reference "..\$name.$service.HttpApi.Client\$name.$service.HttpApi.Client.csproj"
-				dotnet remove ./$name/services/$folder/src/"$name.$service".Web/"$name.$service".Web.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
+				dotnet remove ./$name/services/$folder/src/$name.$service.Blazor/$name.$service.Blazor.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
+				dotnet remove ./$name/services/$folder/src/$name.$service.Blazor.WebAssembly/$name.$service.Blazor.WebAssembly.csproj reference "..\$name.$service.HttpApi.Client\$name.$service.HttpApi.Client.csproj"
+				dotnet remove ./$name/services/$folder/src/$name.$service.Web/$name.$service.Web.csproj reference "..\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
 
-                dotnet remove ./$name/services/$folder/host/"$name.$service".Blazor.Host/"$name.$service".Blazor.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
+                dotnet remove ./$name/services/$folder/host/$name.$service.Blazor.Host/$name.$service.Blazor.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
                 
-                dotnet remove ./$name/services/$folder/host/"$name.$service".Blazor.Server.Host/"$name.$service".Blazor.Server.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
-                dotnet remove ./$name/services/$folder/host/"$name.$service".Blazor.Server.Host/"$name.$service".Blazor.Server.Host.csproj reference  "..\..\src\$name.$service.Application\$name.$service.Application.csproj"
-                dotnet remove ./$name/services/$folder/host/"$name.$service".Blazor.Server.Host/"$name.$service".Blazor.Server.Host.csproj reference  "..\..\src\$name.$service.EntityFrameworkCore\$name.$service.EntityFrameworkCore.csproj"
-                dotnet remove ./$name/services/$folder/host/"$name.$service".Blazor.Server.Host/"$name.$service".Blazor.Server.Host.csproj reference  "..\..\src\$name.$service.HttpApi\$name.$service.HttpApi.csproj"
+                dotnet remove ./$name/services/$folder/host/$name.$service.Blazor.Server.Host/$name.$service.Blazor.Server.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
+                dotnet remove ./$name/services/$folder/host/$name.$service.Blazor.Server.Host/$name.$service.Blazor.Server.Host.csproj reference  "..\..\src\$name.$service.Application\$name.$service.Application.csproj"
+                dotnet remove ./$name/services/$folder/host/$name.$service.Blazor.Server.Host/$name.$service.Blazor.Server.Host.csproj reference  "..\..\src\$name.$service.EntityFrameworkCore\$name.$service.EntityFrameworkCore.csproj"
+                dotnet remove ./$name/services/$folder/host/$name.$service.Blazor.Server.Host/$name.$service.Blazor.Server.Host.csproj reference  "..\..\src\$name.$service.HttpApi\$name.$service.HttpApi.csproj"
 
-                dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Host/"$name.$service".Web.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
-                dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Host/"$name.$service".Web.Host.csproj reference  "..\..\src\$name.$service.HttpApi.Client\$name.$service.HttpApi.Client.csproj"
-                dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Host/"$name.$service".Web.Host.csproj reference  "..\..\src\$name.$service.HttpApi\$name.$service.HttpApi.csproj"                                                				
+                dotnet remove ./$name/services/$folder/host/$name.$service.Web.Host/$name.$service.Web.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
+                dotnet remove ./$name/services/$folder/host/$name.$service.Web.Host/$name.$service.Web.Host.csproj reference  "..\..\src\$name.$service.HttpApi.Client\$name.$service.HttpApi.Client.csproj"
+                dotnet remove ./$name/services/$folder/host/$name.$service.Web.Host/$name.$service.Web.Host.csproj reference  "..\..\src\$name.$service.HttpApi\$name.$service.HttpApi.csproj"                                                				
                 
-				dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Unified/"$name.$service".Web.Unified.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
-                dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Unified/"$name.$service".Web.Unified.csproj reference  "..\..\src\$name.$service.Application\$name.$service.Application.csproj"
-                dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Unified/"$name.$service".Web.Unified.csproj reference  "..\..\src\$name.$service.EntityFrameworkCore\$name.$service.EntityFrameworkCore.csproj"
-                dotnet remove ./$name/services/$folder/host/"$name.$service".Web.Unified/"$name.$service".Web.Unified.csproj reference  "..\..\src\$name.$service.HttpApi\$name.$service.HttpApi.csproj"
+				dotnet remove ./$name/services/$folder/host/$name.$service.Web.Unified/$name.$service.Web.Unified.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
+                dotnet remove ./$name/services/$folder/host/$name.$service.Web.Unified/$name.$service.Web.Unified.csproj reference  "..\..\src\$name.$service.Application\$name.$service.Application.csproj"
+                dotnet remove ./$name/services/$folder/host/$name.$service.Web.Unified/$name.$service.Web.Unified.csproj reference  "..\..\src\$name.$service.EntityFrameworkCore\$name.$service.EntityFrameworkCore.csproj"
+                dotnet remove ./$name/services/$folder/host/$name.$service.Web.Unified/$name.$service.Web.Unified.csproj reference  "..\..\src\$name.$service.HttpApi\$name.$service.HttpApi.csproj"
 				
 				dotnet remove ./$name/services/$folder/test/$name.$service.HttpApi.Client.ConsoleTestApp/$name.$service.HttpApi.Client.ConsoleTestApp.csproj reference  "..\..\src\$name.$service.HttpApi.Client\$name.$service.HttpApi.Client.csproj"
 
 			}
 
 			## Move Project
-			Move-Item -Path "./$name/services/$folder/src/$name.$service.Domain.Shared" -Destination $shared_folder"/$name.$service.Domain.Shared" -Force
-			Move-Item -Path "./$name/services/$folder/src/$name.$service.Application.Contracts" -Destination $shared_folder"/$name.$service.Application.Contracts" -Force
-			Move-Item -Path "./$name/services/$folder/src/$name.$service.HttpApi.Client" -Destination $shared_folder"/$name.$service.HttpApi.Client" -Force
+			Move-Item -Path ./$name/services/$folder/src/$name.$service.Domain.Shared -Destination $shared_folder"/$name.$service.Domain.Shared" -Force
+			Move-Item -Path ./$name/services/$folder/src/$name.$service.Application.Contracts -Destination $shared_folder"/$name.$service.Application.Contracts" -Force
+			Move-Item -Path ./$name/services/$folder/src/$name.$service.HttpApi.Client -Destination $shared_folder"/$name.$service.HttpApi.Client" -Force
 
 			if ($ui_enable -eq "True") {
 				Move-Item -Path "./$name/services/$folder/src/$name.$service.Blazor" -Destination "./$name/web_apps/$folder/src/$name.$service.Blazor" -Force
@@ -496,22 +504,23 @@ function CreateServices {
 				dotnet add ./$name/web_apps/$name.BlazorServer/$name.BlazorServer.csproj reference ./$name/web_apps/$folder/src/$name.$service.Blazor.Server/$name.$service.Blazor.Server.csproj
 				
 				# MVC
-				dotnet sln "./$name/web_apps/$name.Web.MVC.sln" add --solution-folder "ui" (Get-ChildItem -r ./$name/web_apps/$folder/src/*.Web.csproj)
-				dotnet sln "./$name/web_apps/$name.Web.MVC.sln" add --solution-folder "modules_shared" (Get-ChildItem -r $shared_folder/**/*.csproj)
-				dotnet sln "./$name/web_apps/$name.Web.MVC.sln" add --solution-folder "modules_shared" ./$name/services/$folder/src/$name.$service.HttpApi/$name.$service.HttpApi.csproj
+				dotnet sln ./$name/web_apps/$name.Web.MVC.sln add --solution-folder "ui" (Get-ChildItem -r ./$name/web_apps/$folder/src/*.Web.csproj)
+				dotnet sln ./$name/web_apps/$name.Web.MVC.sln add --solution-folder "modules_shared" (Get-ChildItem -r $shared_folder/**/*.csproj)
+				dotnet sln ./$name/web_apps/$name.Web.MVC.sln add --solution-folder "modules_shared" ./$name/services/$folder/src/$name.$service.HttpApi/$name.$service.HttpApi.csproj
 				dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference ./$name/web_apps/$folder/src/$name.$service.Web/$name.$service.Web.csproj
 				dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference ./$name/services/$folder/src/$name.$service.HttpApi/$name.$service.HttpApi.csproj
 			}
 		}
-		if ($service -eq $admin_name) {
-		
+
+		if ($service -eq $admin_name) {		
 			Copy-Item -Path "./libs/Bamboo.Authentication" -Destination ./$name/services/$folder/src/$name.Authentication -recurse -Force
 			Move-Item -Path "./$name/services/$folder/src/$name.Authentication/Bamboo.Authentication.csproj" -Destination "./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj" -Force
 			Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination ./$name/services/$folder/src/$name.LoginUi.Web -recurse -Force
 			Move-Item -Path "./$name/services/$folder/src/$name.LoginUi.Web/Bamboo.LoginUi.Web.csproj" -Destination "./$name/services/$folder/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj" -Force
+			Copy-Item -Path "./libs/Data/AdminDbExtensions" -Destination ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/ -recurse -Force
 			AccountServiceAddReference
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql -v $abpver
-			dotnet remove ./$name/services/$folder/host/"$name.$service".AuthServer/"$name.$service".AuthServer.csproj reference "..\..\src\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
+			dotnet remove ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "..\..\src\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
 			#dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "..\..\src\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference ./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj
