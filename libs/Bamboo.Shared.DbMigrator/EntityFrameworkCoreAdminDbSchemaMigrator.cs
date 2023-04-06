@@ -2,13 +2,12 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Bamboo.Admin.Data;
 using Volo.Abp.DependencyInjection;
 
 namespace Bamboo.Admin.EntityFrameworkCore;
 
 public class EntityFrameworkCoreAdminDbSchemaMigrator
-    : IAdminDbSchemaMigrator, ITransientDependency
+    : IDbSchemaMigrator, ITransientDependency
 {
     private readonly IServiceProvider _serviceProvider;
 
