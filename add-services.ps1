@@ -438,7 +438,7 @@ function CreateServices {
 		# DBMigrator
 		if ($service -eq $admin_name) 
 		{
-			$migrator_path = "./$name/services/$folder/host"
+			$migrator_path = "./$name/services/$folder/src"
 			dotnet new console -n "$name.$service.DbMigrator" -o $migrator_path/$name.$service.DbMigrator
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Microsoft.Extensions.Hosting -v "7.0.*"
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Extensions.Logging -v "3.1.0"
@@ -459,7 +459,7 @@ function CreateServices {
 			} else {
 				dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./$name/services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj
 			}
-			dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder host $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj
+			dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder src $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj
 		}
 		# End DBMigrator
 

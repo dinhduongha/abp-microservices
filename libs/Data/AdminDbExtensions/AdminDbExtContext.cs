@@ -28,12 +28,12 @@ namespace Bamboo.Admin.EntityFrameworkCore;
 //[ConnectionStringName("Default")]
 public partial class AdminDbContext :
     AbpDbContext<AdminDbContext>,
-    IAuditLoggingDbContext,
-    IBackgroundJobsDbContext,
-    IBlobStoringDbContext,
-    IFeatureManagementDbContext,
-    IPermissionManagementDbContext,
-    ISettingManagementDbContext,
+    //IAuditLoggingDbContext,
+    //IBackgroundJobsDbContext,
+    //IBlobStoringDbContext,
+    //IFeatureManagementDbContext,
+    //IPermissionManagementDbContext,
+    //ISettingManagementDbContext,
     IIdentityDbContext,
     ITenantManagementDbContext
 {
@@ -65,20 +65,20 @@ public partial class AdminDbContext :
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
     // Settings Management
-    public DbSet<Setting> Settings { get; set; }
+    //public DbSet<Setting> Settings { get; set; }
 
-    public DbSet<PermissionGrant> PermissionGrants { get; set; }
-    public DbSet<PermissionGroupDefinitionRecord> PermissionGroups { get; set; }
-    public DbSet<PermissionDefinitionRecord> Permissions { get; set; }
+    //public DbSet<PermissionGrant> PermissionGrants { get; set; }
+    //public DbSet<PermissionGroupDefinitionRecord> PermissionGroups { get; set; }
+    //public DbSet<PermissionDefinitionRecord> Permissions { get; set; }
 
-    public DbSet<FeatureValue> FeatureValues { get; set; }
-    public DbSet<FeatureGroupDefinitionRecord> FeatureGroups { get; set; }
-    public DbSet<FeatureDefinitionRecord> Features { get; set; }
+    //public DbSet<FeatureValue> FeatureValues { get; set; }
+    //public DbSet<FeatureGroupDefinitionRecord> FeatureGroups { get; set; }
+    //public DbSet<FeatureDefinitionRecord> Features { get; set; }
 
-    public DbSet<AuditLog> AuditLogs { get; set; }
-    public DbSet<BackgroundJobRecord> BackgroundJobs { get; set; }
-    public DbSet<DatabaseBlobContainer> BlobContainers { get; set; }
-    public DbSet<DatabaseBlob> Blobs { get; set; }
+    //public DbSet<AuditLog> AuditLogs { get; set; }
+    //public DbSet<BackgroundJobRecord> BackgroundJobs { get; set; }
+    //public DbSet<DatabaseBlobContainer> BlobContainers { get; set; }
+    //public DbSet<DatabaseBlob> Blobs { get; set; }
 
     #endregion
 
