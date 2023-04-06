@@ -20,25 +20,17 @@ using Volo.Abp.TenantManagement.EntityFrameworkCore;
 
 namespace Bamboo.Admin.EntityFrameworkCore;
 
-public static class AdminDbModelCreatingExtensions
+public static class AdminEfCoreEntityExtensionMappings
 {
-    public static void ConfigureAdminExt(this ModelBuilder builder)
-    {
-        //builder.InitPostgreSQLExtension();
-        builder.ConfigurePermissionManagement();
-        builder.ConfigureSettingManagement();
-        builder.ConfigureIdentity();
-        builder.ConfigureOpenIddict();
-        builder.ConfigureFeatureManagement();
-        builder.ConfigureTenantManagement();
-        builder.ConfigureAuditLogging();
-        builder.ConfigureBackgroundJobs();
-        builder.ConfigureBlobStoring();
-        //builder.PostgreSQLDataType();
-    }
+    private static readonly OneTimeRunner OneTimeRunner = new OneTimeRunner();
 
     public static void ConfigureExtraProperties()
     {
+       // AdminGlobalFeatureConfigurator.Configure();
+       // AdminModuleExtensionConfigurator.Configure();
+
+        OneTimeRunner.Run(() =>
+        {
         ObjectExtensionManager.Instance
             .MapEfCoreProperty<IdentityUser, string>(
                 "SocialSecurityNumber",
@@ -65,5 +57,21 @@ public static class AdminDbModelCreatingExtensions
                     propertyBuilder.HasColumnName("OwnerId");
                 }
             );
+        });
+    }
+    
+    public static void ConfigureAdminExt(this ModelBuilder builder)
+    {
+        //builder.InitPostgreSQLExtension();
+        builder.ConfigurePermissionManagement();
+        builder.ConfigureSettingManagement();
+        builder.ConfigureIdentity();
+        builder.ConfigureOpenIddict();
+        builder.ConfigureFeatureManagement();
+        builder.ConfigureTenantManagement();
+        builder.ConfigureAuditLogging();
+        builder.ConfigureBackgroundJobs();
+        builder.ConfigureBlobStoring();
+        //builder.PostgreSQLDataType();
     }
 }

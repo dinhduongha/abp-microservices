@@ -41,7 +41,7 @@ public class AdminExtEntityFrameworkCoreModule : AbpModule
         // https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-        AdminDbModelCreatingExtensions.ConfigureExtraProperties();
+        AdminEfCoreEntityExtensionMappings.ConfigureExtraProperties();
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)

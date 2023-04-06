@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 //using Volo.Abp.EntityFrameworkCore.PostgreSql;
 // <summary>
 /// Converts <see cref="DateOnly" /> to <see cref="DateTime"/> and vice versa.
@@ -18,9 +19,33 @@ public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
     { }
 }
 
+public class TimeOnlyConverter : ValueConverter<TimeOnly, TimeSpan>
+{
+    public TimeOnlyConverter() : base(
+            timeOnly => timeOnly.ToTimeSpan(),
+            timeSpan => TimeOnly.FromTimeSpan(timeSpan))
+    {
+    }
+}
+/*
+ DbContext:
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Post>(builder =>
+    {
+        // Date is a DateOnly property and date on database
+        builder.Property(x => x.Date)
+            .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+ 
+        // Time is a TimeOnly property and time on database
+        builder.Property(x => x.Time)
+            .HasConversion<TimeOnlyConverter, TimeOnlyComparer>();
+    });
+}
+*/
 public static partial class ModelConfigurationBuilderExtensions
 {
-    public override void ConfigureConventions(this ModelConfigurationBuilder builder)
+    public static void ConfigureConventions(this ModelConfigurationBuilder builder)
     {
         builder.Properties<DateOnly>()
             .HaveConversion<DateOnlyConverter>()

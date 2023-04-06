@@ -133,16 +133,16 @@ function AccountServiceAddReference {
 	dotnet add $shared_folder/$name.$admin.Domain.Shared/$name.$admin.Domain.Shared.csproj package Volo.Abp.TenantManagement.Domain.Shared -v $abpver
 	
 	## Domain
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.Emailing -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.AuditLogging.Domain -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.BackgroundJobs.Domain -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.FeatureManagement.Domain -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.PermissionManagement.Domain.Identity -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.PermissionManagement.Domain.OpenIddict -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.SettingManagement.Domain -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.Identity.Domain -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.OpenIddict.Domain -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.TenantManagement.Domain -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.Emailing -n -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.AuditLogging.Domain -n -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.BackgroundJobs.Domain -n -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.FeatureManagement.Domain -n -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.PermissionManagement.Domain.Identity -n -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.PermissionManagement.Domain.OpenIddict -n -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.SettingManagement.Domain -n -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.Identity.Domain -n -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.OpenIddict.Domain -n -v $abpver
+	dotnet add $name/services/$folder/src/$name.$admin.Domain/$name.$admin.Domain.csproj package Volo.Abp.TenantManagement.Domain -n -v $abpver
 
 	## Application.Contracts
 	#dotnet add $shared_folder/$name.$admin.Application.Contracts/$name.$admin.Application.Contracts.csproj package Volo.Abp.ObjectExtending -v $abpver
@@ -438,27 +438,28 @@ function CreateServices {
 		# DBMigrator
 		if ($service -eq $admin_name) 
 		{
-			dotnet new console -n "$name.$service.DbMigrator" -o ./$name/services/$folder/host/$name.$service.DbMigrator
-			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Microsoft.Extensions.Hosting -v "7.0.*"
-			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Extensions.Logging -v "3.1.0"
-			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.Async -v "1.5.0"
-			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.File -v "5.0.0"
-			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.ColoredConsole -v "3.0.1"	
-			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Autofac -v $abpver	
-			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.BackgroundJobs -v $abpver
-			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Identity.Domain -v $abpver
-			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.TenantManagement.Domain -v $abpver	
-			dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj
-			Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination ./$name/services/$folder/host/$name.$service.DbMigrator/ -recurse -Force
+			$migrator_path = "./$name/services/$folder/src"
+			dotnet new console -n "$name.$service.DbMigrator" -o $migrator_path/$name.$service.DbMigrator
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Microsoft.Extensions.Hosting -v "7.0.*"
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Extensions.Logging -v "3.1.0"
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.Async -v "1.5.0"
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.File -v "5.0.0"
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.ColoredConsole -v "3.0.1"	
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Autofac -v $abpver	
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.BackgroundJobs -v $abpver
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Identity.Domain -v $abpver
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.TenantManagement.Domain -v $abpver	
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj
+			Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination $migrator_path/$name.$service.DbMigrator/ -recurse -Force
 			if ($service -ne $admin_name) {
-				Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination ./$name/services/$folder/host/$name.$service.DbMigrator/ -recurse -Force
+				Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination $migrator_path/$name.$service.DbMigrator/ -recurse -Force
 			}
 			if ($use_share  -eq "True") {
-				dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"			
+				dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
 			} else {
-				dotnet add ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./$name/services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj
+				dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./$name/services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj
 			}
-			dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder host ./$name/services/$folder/host/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj
+			dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder host $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj
 		}
 		# End DBMigrator
 
@@ -519,14 +520,22 @@ function CreateServices {
 			Move-Item -Path "./$name/services/$folder/src/$name.LoginUi.Web/Bamboo.LoginUi.Web.csproj" -Destination "./$name/services/$folder/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj" -Force
 			Copy-Item -Path "./libs/Data/AdminDbExtensions" -Destination ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/ -recurse -Force
 			AccountServiceAddReference
+
+			# AuthServer
+			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj package DistributedLock.Redis -v 1.0.2
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql -v $abpver
+			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj package Volo.Abp.DistributedLocking -v $abpver
+
 			dotnet remove ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "..\..\src\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
 			#dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "..\..\src\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference ./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference ./$name/services/$folder/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
-					
+
+			# Host	
+			dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package DistributedLock.Redis -v 1.0.2
+			dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package package Volo.Abp.DistributedLocking -v $abpver
 			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.OpenIddict.AspNetCore -v $abpver
 			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.BackgroundJobs.HangFire -v $abpver
 			dotnet add ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj reference ./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj

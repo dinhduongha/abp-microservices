@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Volo.Abp;
+using Volo.Abp.Data;
 
 public class DbMigratorHostedService : IHostedService
 {

@@ -31,7 +31,7 @@ using Bamboo.Authentication;
 
 //[Area(IntegrateRemoteServiceConsts.ModuleName)]
 //[RemoteService(Name = IntegrateRemoteServiceConsts.RemoteServiceName)]
-[Route("api/tenantsx/")]
+[Route("api/tenant-management/")]
 //[Authorize]
 //[AllowAnonymous]
 public class TenantController : AbpController
