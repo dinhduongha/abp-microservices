@@ -270,7 +270,8 @@ function CreateCoreApp  {
 	dotnet remove ./$name/web_apps/$name.Web/$name.Web.csproj reference "..\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
 	dotnet remove ./$name/web_apps/$name.Web/$name.Web.csproj reference "..\$name.HttpApi\$name.HttpApi.csproj"	
 	dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference $name/$shared_app/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj
-	dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference $name/$shared_app/$app_name.HttpApi/$app_name.HttpApi.csproj
+	#dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference $name/$shared_app/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj
+	#dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference $name/$shared_app/$app_name.HttpApi/$app_name.HttpApi.csproj
 	#dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference $app_path/$app_name/src/$name.HttpApi/$name.HttpApi.csproj
 	dotnet sln ./$name/web_apps/$sln_webs.MVC.sln add --solution-folder shared (Get-ChildItem -r $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
 	dotnet sln ./$name/web_apps/$sln_webs.MVC.sln add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj)
