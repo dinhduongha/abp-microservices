@@ -9,9 +9,9 @@ $ui_enable = "True"
 $admin_name = "Admin"
 
 $services = @{}
-$services.Add('Admin', 'admin')
+#$services.Add('Admin', 'admin') # Use Core App
 #$services.Add('Base', 'base')
-#$services.Add('Core', 'core')
+$services.Add('Core', 'core')
 #$services.Add('Crm', 'crm')
 #$services.Add('Sales', 'sales')
 #$services.Add('Pos', 'pos')

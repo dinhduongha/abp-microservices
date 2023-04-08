@@ -7,7 +7,7 @@
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
     <IsPackable>true</IsPackable>
     <OutputType>Library</OutputType>
-    <RootNamespace>EasyAbp.Abp.LoginUi.Web</RootNamespace>
+    <RootNamespace>Abp.LoginUi.Web</RootNamespace>
     <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
   </PropertyGroup>
 
@@ -44,21 +44,10 @@
     <EmbeddedResource Include="Components\**\*.js" />
     <EmbeddedResource Include="Components\**\*.css" />
     <EmbeddedResource Include="wwwroot\**\*.*" />
-    <Compile Remove="Localization\EasyAbp\**" />
-    <Content Remove="Localization\EasyAbp\**" />
     <Content Remove="Pages\**\*.css" />
     <Content Remove="Pages\**\*.js" />
     <Content Remove="Components\**\*.js" />
     <Content Remove="Components\**\*.css" />
     <Content Remove="wwwroot\**\*.*" />
-    <EmbeddedResource Remove="Localization\EasyAbp\**" />
-    <None Remove="Localization\EasyAbp\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Volo.Abp.TenantManagement.Application" />
-    <None Remove="Volo.Abp.Identity.Web" />
-    <None Remove="Volo.Abp.TenantManagement.Web" />
-    <None Remove="Volo.Abp.Account.HttpApi" />
   </ItemGroup>
 </Project>

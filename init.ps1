@@ -8,7 +8,6 @@ $shared_common = "shared/common"
 $app_name = "Bamboo.Admin"
 $shared_app = "shared/admin"
 $app_path = "$name/services/admin"
-#$app_path = "$name/$apps"
 $sln_account = "$name.App.Host"
 $sln_service = "$name.Services.All"
 $sln_gateways = "$name.Gateways"
@@ -105,7 +104,6 @@ function CreateCoreLibs {
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.Identity.Application -v $abpver	
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.TenantManagement.Application -v $abpver	
 
-
 	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.AuditLogging.EntityFrameworkCore -v $abpver
 	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.BackgroundJobs.EntityFrameworkCore -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj reference ./$name/$shared_common/$name.Shared.Hosting/$name.Shared.Hosting.csproj
@@ -168,12 +166,13 @@ function CreateCoreApp  {
 	dotnet new sln -n "$sln_webs.BlazorServer" -o ./$name/web_apps
 	dotnet new sln -n "$sln_webs.MVC" -o ./$name/web_apps
 
+	# No Layer application
 	# abp new "Bamboo.Server" -t app-nolayers --no-random-port --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -u none --skip-bundling -o Bamboo/apps
 	# abp new "$name.Server" -t app-nolayers --no-random-port --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -u none --skip-bundling -o $name/$apps -v $abpver
 
-	## Blazor
+	## Blazor Client
 	# abp new "Bamboo" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o temp/$name-blazor
-	# abp new "Bamboo" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o $name/$apps
+	# abp new "Bamboo.Admin" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o $name/$apps
 	abp new "$app_name" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o $app_path -v $abpver
 	Remove-Item -Recurse -Force $app_path/$app_name/src/$app_name.Blazor
 	#Move-Item -Path $name/$apps/$name/src/$name.Blazor -Destination ./$name/web_apps/"$name.Blazor" -Force
@@ -182,7 +181,7 @@ function CreateCoreApp  {
 	#abp new "$name" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -m none -o temp/$name-blazor-sis
 	#abp new "$app_name" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -m none -o $app_path -v $abpver
 	#Remove-Item -Recurse -Force $app_path/$app_name/src/$app_name.Blazor
-	#Move-Item -Path $app_path/$app_name/src/$app_name.Blazor -Destination ./$name/web_apps/"$name.Blazor" -Force
+	#Copy-Item -Path $app_path/$app_name/src/$app_name.Blazor -Destination ./$name/web_apps/"$name.Blazor" -recurse -Force
 	#Move-Item -Path $app_path/$app_name/src/$app_name.HttpApi.Saas.Host/$name.HttpApi.Host.csproj -Destination $app_path/$app_name/src/"$name.HttpApi.Saas.Host.csproj" -Force
 
 	abp new "$app_name" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -m none -o temp/$name-blazor-sis -v $abpver
@@ -194,6 +193,7 @@ function CreateCoreApp  {
 	abp new "$name" -t app --no-random-port -u angular --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server  --skip-installing-libs -m react-native -o temp/$name-angular -v $abpver
 	Move-Item -Path ./temp/$name-angular/$name/angular -Destination ./$name/web_apps/angular/app -Force
 	Move-Item -Path ./temp/$name-angular/$name/react-native -Destination ./$name/mobile/ -Force
+	
 	# MAUI
 	#abp new "Bamboo.App" -t maui --no-random-port --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs --skip-bundling -o temp/Bamboo-maui
 	abp new "$name.App" -t maui --no-random-port --database-provider ef -dbms PostgreSQL  --separate-auth-server --skip-installing-libs -o $name/mobile/maui -v $abpver
@@ -212,15 +212,17 @@ function CreateCoreApp  {
 	Copy-Item -Path "./libs/Bamboo.Shared.Common/Filter" -Destination $app_path/$app_name/src/$app_name.Domain.Shared/ -recurse -Force
 	Copy-Item -Path "./libs/Bamboo.Shared.Common/Utils" -Destination $app_path/$app_name/src/$app_name.Domain.Shared/ -recurse -Force
 	Copy-Item -Path "./libs/Bamboo.Shared.EfCore/Extensions" -Destination $app_path/$app_name/src/$app_name.EntityFrameworkCore/ -recurse -Force
+
 	Copy-Item -Path "./libs/Bamboo.Authentication" -Destination $app_path/$app_name/src/$name.Authentication -recurse -Force
 	Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination $app_path/$app_name/src/$name.LoginUi.Web -recurse -Force
 	#dotnet add $app_path/$app_name/src/$name.AuthServer reference $app_path/$app_name/src/$name.Authentication
 	dotnet add $app_path/$app_name/src/$app_name.AuthServer reference $app_path/$app_name/src/$name.LoginUi.Web
 	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.Authentication
-	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
-	#dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.LoginUi.Web
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.LoginUi.Web
 	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Sis.Host reference $app_path/$app_name/src/$name.Authentication
-	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Sis.Host reference $name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
+
+	#dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
+	#dotnet add $app_path/$app_name/src/$app_name.HttpApi.Sis.Host reference $name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
 
 	if ($use_share -eq "True") {	
 		Copy-Item -Path "$app_path/$app_name/src/$app_name.Domain.Shared" -Destination "./$name/$shared_app/" -recurse -Force
@@ -228,18 +230,18 @@ function CreateCoreApp  {
 		Copy-Item -Path "$app_path/$app_name/src/$app_name.HttpApi.Client" -Destination "./$name/$shared_app/" -recurse -Force
 		
 		# For MVC
-		Copy-Item -Path "$app_path/$app_name/src/$app_name.HttpApi" -Destination "./$name/$shared_app/" -recurse -Force
+		# Copy-Item -Path "$app_path/$app_name/src/$app_name.HttpApi" -Destination "./$name/$shared_app/" -recurse -Force
 	}
 	dotnet sln "$app_path/$app_name/$app_name.sln" remove $app_path/$app_name/src/$app_name.Blazor/$app_name.Blazor.csproj
 	dotnet sln "$app_path/$app_name/$app_name.sln" add (Get-ChildItem -r $app_path/$app_name/src/**/*.csproj)
-	dotnet sln "$app_path/$app_name/$app_name.sln" add (Get-ChildItem -r $name/$shared_common/$name.Shared.Microservices/**/*.csproj)
-	dotnet sln "$app_path/$app_name/$app_name.sln" add (Get-ChildItem -r $name/$shared_common/$name.Shared.Hosting/**/*.csproj)
+	#dotnet sln "$app_path/$app_name/$app_name.sln" add --solution-folder src (Get-ChildItem -r $name/$shared_common/$name.Shared.Microservices/**/*.csproj)
+	#dotnet sln "$app_path/$app_name/$app_name.sln" add --solution-folder src (Get-ChildItem -r $name/$shared_common/$name.Shared.Hosting/**/*.csproj)
 
 	dotnet sln "./$name/$apps/$sln_account.sln" add (Get-ChildItem -r $app_path/$app_name/src/**/*.csproj)	
 	
 	## Blazor Client
 	abp new "$name" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o temp/$name-blazor-client -v $abpver
-	Move-Item -Path temp/$name-blazor-client/$name/src/$name.Blazor -Destination ./$name/web_apps/"$name.Blazor" -Force
+	Copy-Item -Path temp/$name-blazor-client/$name/src/$name.Blazor -Destination ./$name/web_apps/"$name.Blazor" -recurse -Force
 
 	dotnet remove ./$name/web_apps/$name.Blazor/$name.Blazor.csproj reference "..\..\src\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
 	dotnet add ./$name/web_apps/$name.Blazor/$name.Blazor.csproj reference $name/$shared_app/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj	
@@ -253,7 +255,7 @@ function CreateCoreApp  {
 	## Blazor Server
 	# abp new "Bamboo" -t app --no-random-port -u blazor-server -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder -o temp/blazor-server --skip-installing-libs
 	abp new "$name" -t app --no-random-port -u blazor-server -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -o temp/$name-blazor-server -v $abpver
-	Move-Item -Path ./temp/$name-blazor-server/$name/src/$name.Blazor -Destination ./$name/web_apps/$name.BlazorServer -Force
+	Copy-Item -Path ./temp/$name-blazor-server/$name/src/$name.Blazor -Destination ./$name/web_apps/$name.BlazorServer -recurse -Force
 	dotnet remove ./$name/web_apps/$name.BlazorServer/$name.Blazor.csproj reference "..\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
 	dotnet add ./$name/web_apps/$name.BlazorServer/$name.Blazor.csproj reference $name/$shared_app/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj	
 	Move-Item ./$name/web_apps/$name.BlazorServer/$name.Blazor.csproj -Destination "./$name/web_apps/$name.BlazorServer/$name.BlazorServer.csproj" -Force
@@ -266,7 +268,7 @@ function CreateCoreApp  {
 	## MVC
 	# abp new "Bamboo" -t app --no-random-port -u mvc -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder -o ./temp/mvc --skip-installing-libs
 	abp new "$name" -t app --no-random-port -u mvc -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -o ./temp/$name-mvc -v $abpver
-	Move-Item -Path ./temp/$name-mvc/$name/src/$name.Web -Destination ./$name/web_apps/ -Force
+	Copy-Item -Path ./temp/$name-mvc/$name/src/$name.Web -Destination ./$name/web_apps/ -recurse -Force
 	dotnet remove ./$name/web_apps/$name.Web/$name.Web.csproj reference "..\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
 	dotnet remove ./$name/web_apps/$name.Web/$name.Web.csproj reference "..\$name.HttpApi\$name.HttpApi.csproj"	
 	dotnet add ./$name/web_apps/$name.Web/$name.Web.csproj reference $name/$shared_app/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj
@@ -277,14 +279,14 @@ function CreateCoreApp  {
 	dotnet sln ./$name/web_apps/$sln_webs.MVC.sln add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj)
 	dotnet sln ./$name/web_apps/$sln_webs.MVC.sln add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$app_name.Application.Contracts/$app_name.Application.Contracts.csproj)
 	dotnet sln ./$name/web_apps/$sln_webs.MVC.sln add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj)
-	#dotnet sln ./$name/web_apps/$sln_webs.MVC.sln add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.HttpApi/$name.HttpApi.csproj)
-	#dotnet sln ./$name/web_apps/$sln_webs.MVC.sln add --solution-folder shared (Get-ChildItem -r $app_path/$app_name/src/$app_name.HttpApi/$app_name.HttpApi.csproj)
 	dotnet sln ./$name/web_apps/$sln_webs.MVC.sln add (Get-ChildItem -r ./$name/web_apps/$name.Web/**/*.csproj)
 	
+	# MVC use 
+	#dotnet sln ./$name/web_apps/$sln_webs.MVC.sln add --solution-folder shared (Get-ChildItem -r $name/$shared_app/$name.HttpApi/$name.HttpApi.csproj)
+	#dotnet sln ./$name/web_apps/$sln_webs.MVC.sln add --solution-folder shared (Get-ChildItem -r $app_path/$app_name/src/$app_name.HttpApi/$app_name.HttpApi.csproj)
 	#dotnet sln "./$name/web_apps/$sln_webs.sln" add (Get-ChildItem -r ./$apps/$name/src/$name.Domain/$name.Domain.csproj)
 	#dotnet sln "./$name/web_apps/$sln_webs.sln" add (Get-ChildItem -r ./$apps/$name/src/$name.Application/$name.Application.csproj)
 	
-
 	## Un-comment to use Newtonsoft.Json and Volo.Abp.Guids at client side
 	#dotnet add ./$name/web_apps/$name.Blazor/$name.Blazor.csproj package Newtonsoft.Json -v $ntsver
 	#dotnet add ./$name/web_apps/$name.Blazor/$name.Blazor.csproj package Volo.Abp.Guids -v $abpver
@@ -301,7 +303,6 @@ function CreateCoreApp  {
 	dotnet sln ./$name/web_apps/$sln_webs.MVC.sln add --solution-folder shared $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
 	
 	## ATTENTION: Remember to REMOVE un-use reference in Web projects
-	
 	#Remove-Item -Recurse -Force ./temp/sas/
 	#Remove-Item -Recurse -Force ./temp/blazor-server/
 	#Remove-Item -Recurse -Force ./temp/mvc/
