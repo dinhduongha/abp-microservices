@@ -19,7 +19,7 @@ namespace Bamboo.OpenIddict;
 /* Creates initial data that is needed to property run the application
  * and make client-to-server communication possible.
  */
-public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDependency
+public class DefaultOpenIddictDataSeedContributor : IDataSeedContributor, ITransientDependency
 {
     private readonly IConfiguration _configuration;
     private readonly IAbpApplicationManager _applicationManager;
@@ -27,7 +27,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
     private readonly IPermissionDataSeeder _permissionDataSeeder;
     private readonly IStringLocalizer<OpenIddictResponse> L;
 
-    public OpenIddictDataSeedContributor(
+    public DefaultOpenIddictDataSeedContributor(
         IConfiguration configuration,
         IAbpApplicationManager applicationManager,
         IOpenIddictScopeManager scopeManager,

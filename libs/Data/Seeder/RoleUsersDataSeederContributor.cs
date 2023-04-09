@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Guids;
 using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.Uow;
 
 class DefaultRolesDataSeederContributor
         : IDataSeedContributor, ITransientDependency
@@ -15,7 +17,8 @@ class DefaultRolesDataSeederContributor
     private readonly IGuidGenerator _guidGenerator;
     public DefaultRolesDataSeederContributor(IdentityUserManager identityUserManager,
         IdentityRoleManager identityRoleManager,
-        ICurrentTenant currentTenant, IGuidGenerator guidGenerator)
+        ICurrentTenant currentTenant, 
+        IGuidGenerator guidGenerator)
     {
         _identityUserManager = identityUserManager;
         _identityRoleManager = identityRoleManager;
@@ -23,39 +26,32 @@ class DefaultRolesDataSeederContributor
         _guidGenerator = guidGenerator;
     }
 
+    [UnitOfWork]
     public async Task SeedAsync(DataSeedContext context)
     {
-        // Add Role
-        IdentityRole role = new IdentityRole(Guid.NewGuid(), "admin", _currentTenant.Id)
+        var lstRoles = new List<string>()
         {
-            IsStatic = true,
-            IsPublic = true
+            "admin",
+            "manager",
+            "sales",
+            "pos",
+            "customer",
+            "readonly"
         };
-        await _identityRoleManager.CreateAsync(role);
-        //role = new IdentityRole(_guidGenerator.Create(), "owner", _currentTenant.Id)
-        //{
-        //    IsStatic = true,
-        //    IsPublic = true
-        //};
-        //await _identityRoleManager.CreateAsync(role);
-        role = new IdentityRole(_guidGenerator.Create(), "manager", _currentTenant.Id)
+        foreach (var roleName in lstRoles)
         {
-            IsStatic = true,
-            IsPublic = true
-        };
-        await _identityRoleManager.CreateAsync(role);
-        role = new IdentityRole(_guidGenerator.Create(), "customer", _currentTenant.Id)
-        {
-            IsStatic = true,
-            IsPublic = true
-        };
-        await _identityRoleManager.CreateAsync(role);
-        role = new IdentityRole(_guidGenerator.Create(), "readonly", _currentTenant.Id)
-        {
-            IsStatic = true,
-            IsPublic = true
-        };
-        await _identityRoleManager.CreateAsync(role);
+            var r = await _identityRoleManager.FindByNameAsync(roleName);
+            if (r == null)
+            {
+                r = new IdentityRole(Guid.NewGuid(), roleName, context.TenantId)
+                {
+                    IsStatic = true,
+                    IsPublic = true
+                };
+                await _identityRoleManager.CreateAsync(r);
+            }
+        }
+
         //IdentityRole role = new IdentityRole(Guid.NewGuid(), "owner", _currentTenant.Id);
         //await _identityRoleManager.CreateAsync(role);
         // Add user

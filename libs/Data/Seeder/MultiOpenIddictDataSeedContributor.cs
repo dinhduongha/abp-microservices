@@ -16,10 +16,23 @@ using Volo.Abp.Uow;
 
 namespace Bamboo.OpenIddict.Multi;
 
+public class ServiceClient
+{
+    public string ClientId { get; set; }
+    public string ClientSecret { get; set; }
+    public string ClientUri { get; set; }
+    public string[] RootUrls { get; set; }
+    public string[] Scopes { get; set; }
+    public string[] GrantTypes { get; set; }
+    public string[] RedirectUris { get; set; }
+    public string[] PostLogoutRedirectUris { get; set; }
+    public string[] AllowedCorsOrigins { get; set; }
+}
+
 /* Creates initial data that is needed to property run the application
  * and make client-to-server communication possible.
  */
-public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDependency
+public class MultiOpenIddictDataSeedContributor : IDataSeedContributor, ITransientDependency
 {
     private readonly IConfiguration _configuration;
     private readonly IAbpApplicationManager _applicationManager;
@@ -27,7 +40,8 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
     private readonly IPermissionDataSeeder _permissionDataSeeder;
     private readonly IStringLocalizer<OpenIddictResponse> L;
 
-    public OpenIddictDataSeedContributor(
+
+    public MultiOpenIddictDataSeedContributor(
         IConfiguration configuration,
         IAbpApplicationManager applicationManager,
         IOpenIddictScopeManager scopeManager,
@@ -82,15 +96,15 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         {            
             var isClientSecretAvailable = !string.IsNullOrEmpty(client.ClientSecret);
 
-            await CreateClientAsync(
+            await CreateApplicationAsync(
                     client.ClientId,
                     displayName: client.ClientId,
                     secret: isClientSecretAvailable ? client.ClientSecret : null,
                     type: isClientSecretAvailable ? OpenIddictConstants.ClientTypes.Confidential : OpenIddictConstants.ClientTypes.Public,
                     scopes: commonScopes.Union(client.Scopes).ToList(),
                     grantTypes: client.GrantTypes.ToList(),
-                    redirectUris: client.RedirectUris,
-                    postLogoutRedirectUris: client.PostLogoutRedirectUris,
+                    redirectUris: client.RedirectUris.ToList(),
+                    postLogoutRedirectUris: client.PostLogoutRedirectUris.ToList(),
                     consentType: OpenIddictConstants.ConsentTypes.Implicit
                 );
         }
@@ -296,11 +310,12 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         List<string> grantTypes,
         List<string> scopes,
         string clientUri = null,
-        string redirectUri = null,
-        string postLogoutRedirectUri = null,
+        string? redirectUri = null,
+        string? postLogoutRedirectUri = null,
         List<string> permissions = null,
         List<string> redirectUris = null,
-		List<string> postLogoutRedirectUris = null)
+        List<string> postLogoutRedirectUris = null
+    )
     {
         if (!string.IsNullOrEmpty(secret) && string.Equals(type, OpenIddictConstants.ClientTypes.Public, StringComparison.OrdinalIgnoreCase))
         {
@@ -345,7 +360,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 }
             }
 
-            if (!redirectUri.IsNullOrWhiteSpace() || !postLogoutRedirectUri.IsNullOrWhiteSpace())
+            if (!redirectUris.IsNullOrEmpty() || !postLogoutRedirectUris.IsNullOrEmpty())
             {
                 application.Permissions.Add(OpenIddictConstants.Permissions.Endpoints.Logout);
             }
@@ -473,7 +488,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                     null
                 );
             }
-            if (redirectUris != null)
+            if (!redirectUris.IsNullOrEmpty())
             {
                 foreach (var redirect in redirectUris)
                 {
@@ -491,15 +506,15 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 }
             }
 			
-			if (postLogoutRedirectUris != null)
+			if (!postLogoutRedirectUris.IsNullOrEmpty())
             {
-                foreach (var postLogoutRedirectUri in postLogoutRedirectUris)
+                foreach (var postLogoutUri in postLogoutRedirectUris)
                 {
-                    if (!postLogoutRedirectUri.IsNullOrEmpty())
+                    if (!postLogoutUri.IsNullOrEmpty())
                     {
-                        if (!Uri.TryCreate(postLogoutRedirectUri, UriKind.Absolute, out var uri) || !uri.IsWellFormedOriginalString())
+                        if (!Uri.TryCreate(postLogoutUri, UriKind.Absolute, out var uri) || !uri.IsWellFormedOriginalString())
                         {
-                            throw new BusinessException(L["InvalidPostLogoutRedirectUri", postLogoutRedirectUri]);
+                            throw new BusinessException(L["InvalidPostLogoutRedirectUri", postLogoutUri]);
                         }
 
                         if (application.PostLogoutRedirectUris.All(x => x != uri))
