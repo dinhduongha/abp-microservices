@@ -87,4 +87,25 @@ public class AbpSharedHostingMicroservicesModule : AbpModule
         });
 		
     }
+    public override void OnApplicationInitialization(ApplicationInitializationContext context)
+    {
+        // app.UseSwagger(options =>
+        // {
+        //     //options.RouteTemplate = "api/v1/myname/swagger/{documentName}/swagger.json";
+        // });
+
+        // app.UseAbpSwaggerUI(options =>
+        // {
+        //     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Support APP API");
+
+        //     //options.SwaggerEndpoint("/api/v1/myname/swagger/v1/swagger.json", "Support APP API");
+        //     //options.RoutePrefix = "api/v1/myname";
+        //     //options.InjectJavascript("/swagger/ui/abp.js");
+        //     //options.InjectJavascript("/swagger/ui/abp.swagger.js");
+
+        //     var configuration = context.GetConfiguration();
+        //     options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
+        //     options.OAuthScopes("Starify");
+        // });
+    }
 }
