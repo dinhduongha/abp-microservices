@@ -1,6 +1,6 @@
 $name = $args[0]
 $name = "Bamboo"
-$abpver = "7.1.0"
+$abpver = "7.2.0-rc.2"
 
 $sln_service = "$name.Services.All"
 $shared_common = "$name/shared/common"

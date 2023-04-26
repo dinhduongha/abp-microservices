@@ -1,6 +1,10 @@
 ﻿using System.Net;
 
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.HttpOverrides;
+
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -22,6 +26,10 @@ using Volo.Abp.Modularity;
 using Volo.Abp.Sms;
 using Volo.Abp.Account;
 using Volo.Abp.Identity;
+using Volo.Abp.AspNetCore.MultiTenancy;
+using Volo.Abp.Account.Settings;
+using Volo.Abp.SettingManagement;
+using Volo.Abp.Settings;
 
 using Bamboo.Abp.VerificationCode;
 
@@ -45,9 +53,15 @@ public class BambooAuthenticationModule : AbpModule
         //ConfigureFirebase(context, configuration);
         //ConfigureTwilio(context, configuration);
 
+        context.Services.Configure<AbpAspNetCoreMultiTenancyOptions>(options =>
+        {
+            options.TenantKey = configuration["App:TenantKey"] ?? "tenant";
+        });
+
+        ConfigureCache(context, configuration);
         ConfigureRedis(context, configuration);
-        ConfigureDataProtection(context, configuration);
         ConfigureDistributedLock(context, configuration);
+        ConfigureDataProtection(context, configuration);
     }
 
     private void ConfigureFirebase(ServiceConfigurationContext context, IConfiguration configuration)
@@ -69,6 +83,13 @@ public class BambooAuthenticationModule : AbpModule
         TwilioClient.Init(accountSid, authToken);
     }
 
+    private void ConfigureCache(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        //Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "Admin:"; });
+        Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = configuration["App:CacheName"] ?? "Bamboo:"; });
+
+    }
+
     private void ConfigureRedis(ServiceConfigurationContext context, IConfiguration configuration)
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
@@ -76,11 +97,11 @@ public class BambooAuthenticationModule : AbpModule
         bool enabledRedis = Convert.ToBoolean(configuration["Redis:IsEnabled"]);
 
         var redisOptions = ConfigurationOptions.Parse(configuration["Redis:Configuration"]);
-        redisOptions.User = configuration["Redis:User"];
-        redisOptions.Password = configuration["Redis:Password"];
 
         if (enabledRedis)
         {
+            redisOptions.User = configuration["Redis:User"];
+            redisOptions.Password = configuration["Redis:Password"];
             Configure<RedisCacheOptions>(options =>
             {
                 //var configurationOptions = ConfigurationOptions.Parse(configuration["Redis:Configuration"]);
@@ -148,9 +169,10 @@ public class BambooAuthenticationModule : AbpModule
 
     private void ConfigureDataProtection(ServiceConfigurationContext context, IConfiguration configuration)
     {
-        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("Bamboo");
-        //var hostingEnvironment = context.Services.GetHostingEnvironment();
-        //if (!hostingEnvironment.IsDevelopment())
+        string appName = configuration["App:Name"] ?? "Bamboo";
+        //string appName = configuration["ApplicationName"] ?? "Bamboo";
+        //string appName = context.Services.GetApplicationName();
+        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName($"{appName}");
         {
             var redisOptions = ConfigurationOptions.Parse(configuration["Redis:Configuration"]);
             bool enabledRedis = Convert.ToBoolean(configuration["Redis:IsEnabled"]);
@@ -159,9 +181,77 @@ public class BambooAuthenticationModule : AbpModule
                 redisOptions.User = configuration["Redis:User"];
                 redisOptions.Password = configuration["Redis:Password"];
                 var redis = ConnectionMultiplexer.Connect(redisOptions);
-                dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "Bamboo-Protection-Keys");
+                dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, $"{appName}-Protection-Keys");
             }
         }
+    }
+
+    private void ConfigureForwardProxy(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        context.Services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor
+                                       | ForwardedHeaders.XForwardedProto
+                                       | ForwardedHeaders.XForwardedHost;
+            options.KnownNetworks.Clear();
+            options.KnownProxies.Clear();
+            options.RequireHeaderSymmetry = false;
+        });
+
+        context.Services.AddHttpLogging(logging =>
+        {
+            logging.LoggingFields = HttpLoggingFields.RequestHeaders
+                                    //| HttpLoggingFields.RequestPropertiesAndHeaders 
+                                    //| HttpLoggingFields.ResponsePropertiesAndHeaders
+                                    //| HttpLoggingFields.ResponseHeaders
+                                    //| HttpLoggingFields.RequestProtocol
+                                    //| HttpLoggingFields.ResponseBody
+                                    //| HttpLoggingFields.RequestBody
+                                    | HttpLoggingFields.RequestPath;
+
+        });
+    }
+
+    public async override Task OnApplicationInitializationAsync(Volo.Abp.ApplicationInitializationContext context)
+    {
+        var app = context.GetApplicationBuilder();
+        var env = context.GetEnvironment();
+        //GlobalSettingManagementProvider settingManagementProvider = context.ServiceProvider.GetRequiredService<GlobalSettingManagementProvider>();
+        //SettingDefinitionManager settingDefinitionManager = context.ServiceProvider.GetRequiredService<SettingDefinitionManager>();
+        //await settingManagementProvider.SetAsync(
+        //   settingDefinitionManager.Get(AccountSettingNames.IsSelfRegistrationEnabled),
+        //   true.ToString(),
+        //   GlobalSettingValueProvider.ProviderName
+        //);
+
+        //settingManagementProvider.SetAsync(
+        //    settingDefinitionManager.Get(IdentitySettingNames.Password.RequireNonAlphanumeric),
+        //    false.ToString(),
+        //    GlobalSettingValueProvider.ProviderName
+        //);
+
+        //settingManagementProvider.SetAsync(
+        //    settingDefinitionManager.Get(IdentitySettingNames.Password.RequireUppercase),
+        //    false.ToString(),
+        //    GlobalSettingValueProvider.ProviderName
+        //);
+
+        //app.UseHttpMethodOverride();
+        app.UseForwardedHeaders();
+        //app.UseHttpLogging();
+        
+        ///// Always behind ssl proxy
+        app.Use((context, next) =>
+        {
+            var xproto = context.Request.Headers["X-Forwarded-Proto"].ToString();
+            if (xproto != null && xproto.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+            {
+                context.Request.Scheme = "https";
+            }
+            return next();
+        });
+
+        await base.OnApplicationInitializationAsync(context);
     }
 }
 

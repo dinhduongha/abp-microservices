@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
 //using Volo.Abp.EntityFrameworkCore.PostgreSql;
 // <summary>
 /// Converts <see cref="DateOnly" /> to <see cref="DateTime"/> and vice versa.
@@ -29,6 +30,7 @@ public class TimeOnlyConverter : ValueConverter<TimeOnly, TimeSpan>
 }
 /*
 In the DbContext we add the converters (coming up below)
+https://github.com/karenpayneoregon/ef-core-dateonly-timeonly
 protected override void ConfigureConventions(ModelConfigurationBuilder builder)
 {
 
@@ -56,7 +58,7 @@ public static partial class ModelConfigurationBuilderExtensions
 
 public static partial class DbContextOptionsBuilderExtensions
 {
-    public override void ConfigureConventions(this DbContextOptionsBuilder optionsBuilder)
+    public static void ConfigureConventions(this DbContextOptionsBuilder optionsBuilder)
     {
         // optionsBuilder
         //     .UseNpgsql()

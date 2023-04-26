@@ -1,11 +1,12 @@
 $name = $args[0]
 $name = "Bamboo"
-$abpver = "7.1.0"
+$abpver = "7.2.0-rc.2"
 $msver = "7.0.0"
 $ntsver = "13.0.1"
 $apps = "apps"
 $shared_common = "shared/common"
-$app_name = "Bamboo.Admin"
+#$app_name = "Bamboo.Admin"
+$app_name = "$name.Admin"
 $shared_app = "shared/admin"
 $app_path = "$name/services/admin"
 $sln_account = "$name.App.Host"
@@ -13,6 +14,11 @@ $sln_service = "$name.Services.All"
 $sln_gateways = "$name.Gateways"
 $sln_webs = "$name.Web"
 $use_share = "True"	
+
+if (-not(Test-Path -Path "$name")) {
+	new-item "$name" -itemtype directory
+	Copy-Item "./common.props*" -Destination ./$name/ -Force
+}
 
 function CreateCoreLibs {
 	if (-not(Test-Path -Path "$name")) {
@@ -110,7 +116,7 @@ function CreateCoreLibs {
 	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj reference ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj
 	Copy-Item -Path "./libs/Bamboo.Shared.Hosting/Microservices/*" -Destination ./$name/$shared_common/$name.Shared.Microservices/ -recurse -Force
 	Remove-Item -Path ./$name/$shared_common/$name.Shared.Microservices/Class1.cs -Force
-
+	
 	Copy-Item "./common.props*" -Destination ./$name/ -Force
 	Copy-Item "./common.props*" -Destination ./$name/shared/ -Force
 	Copy-Item "./common.props*" -Destination ./$name/web_apps/ -Force
@@ -151,7 +157,7 @@ function CreateCoreApp  {
 		new-item "$name/mobile" -itemtype directory
 	}	
 	if (-not(Test-Path -Path "$name/web_apps")){
-		new-item "$name/web_apps" -itemtype directory		
+		new-item "$name/web_apps" -itemtype directory
 	}
 	if (-not(Test-Path -Path "$name/web_apps/angular")){
 		new-item "$name/web_apps/angular" -itemtype directory
@@ -165,17 +171,42 @@ function CreateCoreApp  {
 	dotnet new sln -n "$sln_webs.Blazor" -o ./$name/web_apps
 	dotnet new sln -n "$sln_webs.BlazorServer" -o ./$name/web_apps
 	dotnet new sln -n "$sln_webs.MVC" -o ./$name/web_apps
-
-	# No Layer application
-	# abp new "Bamboo.Server" -t app-nolayers --no-random-port --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -u none --skip-bundling -o Bamboo/apps
-	# abp new "$name.Server" -t app-nolayers --no-random-port --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -u none --skip-bundling -o $name/$apps -v $abpver
-
+	
 	## Blazor Client
 	# abp new "Bamboo" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o temp/$name-blazor
 	# abp new "Bamboo.Admin" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o $name/$apps
 	abp new "$app_name" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o $app_path -v $abpver
 	Remove-Item -Recurse -Force $app_path/$app_name/src/$app_name.Blazor
 	#Move-Item -Path $name/$apps/$name/src/$name.Blazor -Destination ./$name/web_apps/"$name.Blazor" -Force
+
+	Copy-Item -Path "./libs/Bamboo.Authentication" -Destination $app_path/$app_name/src/$name.Authentication -recurse -Force
+	Move-Item -Path $app_path/$app_name/src/$name.Authentication/Bamboo.Authentication.csproj -Destination $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj -Force
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.AspNetCore.Mvc -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.AspNetCore.MultiTenancy -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.Autofac -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.Caching.StackExchangeRedis -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.DistributedLocking -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.Sms -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.Account.Application -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.Account.HttpApi -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.Identity.AspNetCore -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.Identity.Application -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.Identity.HttpApi -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.Identity.EntityFrameworkCore -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.OpenIddict.Domain -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.SettingManagement.Application -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.TenantManagement.Application -v $abpver
+	dotnet add $app_path/$app_name/src/$name.Authentication/$name.Authentication.csproj package Volo.Abp.TenantManagement.HttpApi -v $abpver
+	
+	Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination $app_path/$app_name/src/$name.LoginUi.Web -recurse -Force
+	Move-Item -Path $app_path/$app_name/src/$name.LoginUi.Web/Bamboo.LoginUi.Web.csproj -Destination $app_path/$app_name/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj -Force
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Caching.StackExchangeRedis -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.DistributedLocking -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Account.Web.OpenIddict -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Identity.Web -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.SettingManagement.Application -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.TenantManagement.Application -v $abpver
 
 	## Blazor --separate-identity-server
 	#abp new "$name" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -m none -o temp/$name-blazor-sis
@@ -198,6 +229,10 @@ function CreateCoreApp  {
 	#abp new "Bamboo.App" -t maui --no-random-port --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs --skip-bundling -o temp/Bamboo-maui
 	abp new "$name.App" -t maui --no-random-port --database-provider ef -dbms PostgreSQL  --separate-auth-server --skip-installing-libs -o $name/mobile/maui -v $abpver
 	
+	# No Layer application
+	# abp new "Bamboo.Server" -t app-nolayers --no-random-port --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -u none --skip-bundling -o Bamboo/apps
+	# abp new "$name.Server" -t app-nolayers --no-random-port --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -u none --skip-bundling -o $name/$apps -v $abpver
+
 	# https://gist.github.com/ebicoglu/ce0f0425bab806d0ee1a87d0073af96b
 	# dotnet new web -n "$app_name.ExternalLogin" -o $app_path/$app_name/src/$app_name.ExternalLogin
 	# dotnet add $app_path/$app_name/src/$app_name.EntityFrameworkCore/$app_name.EntityFrameworkCore.csproj reference ./$shared_common/$name.Shared.EfCore/$name.Shared.EfCore.csproj
@@ -213,8 +248,9 @@ function CreateCoreApp  {
 	Copy-Item -Path "./libs/Bamboo.Shared.Common/Utils" -Destination $app_path/$app_name/src/$app_name.Domain.Shared/ -recurse -Force
 	Copy-Item -Path "./libs/Bamboo.Shared.EfCore/Extensions" -Destination $app_path/$app_name/src/$app_name.EntityFrameworkCore/ -recurse -Force
 
-	Copy-Item -Path "./libs/Bamboo.Authentication" -Destination $app_path/$app_name/src/$name.Authentication -recurse -Force
-	Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination $app_path/$app_name/src/$name.LoginUi.Web -recurse -Force
+	#Copy-Item -Path "./libs/Bamboo.Authentication" -Destination $app_path/$app_name/src/$name.Authentication -recurse -Force
+	#Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination $app_path/$app_name/src/$name.LoginUi.Web -recurse -Force
+	
 	#dotnet add $app_path/$app_name/src/$name.AuthServer reference $app_path/$app_name/src/$name.Authentication
 	dotnet add $app_path/$app_name/src/$app_name.AuthServer reference $app_path/$app_name/src/$name.LoginUi.Web
 	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.Authentication
@@ -331,7 +367,7 @@ function AppAddSource {
 	#abp add-module Volo.TenantManagement -s "./$apps/$sln_account.sln" --skip-db-migrations
 }
 
-#CreateCoreLibs
+CreateCoreLibs
 #CreateGateways
 CreateCoreApp
 

@@ -18,10 +18,10 @@ using OpenIddict.Validation.AspNetCore;
 using Medallion.Threading;
 using Medallion.Threading.Redis;
 using Medallion.Threading.FileSystem;
-using OpenIddict.Validation.AspNetCore;
 using StackExchange.Redis;
 
 using Volo.Abp;
+using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
@@ -38,6 +38,7 @@ using Volo.Abp.Identity.Settings;
 using Volo.Abp.SettingManagement;
 
 using Bamboo.Abp.LoginUi.Web.Localization;
+
 namespace Bamboo.Abp.LoginUi.Web;
 
 [DependsOn(
@@ -70,6 +71,47 @@ public class AbpLoginUiWebModule : AbpModule
         // https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
+        
+        Configure<AbpVirtualFileSystemOptions>(options =>
+        {
+            options.FileSets.AddEmbedded<AbpLoginUiWebModule>();
+        });
+
+        Configure<AbpLocalizationOptions>(options =>
+        {
+            options.Resources
+                .Add<AbpLoginUiResource>("en")
+                .AddBaseTypes(typeof(AccountResource))
+                .AddVirtualJson("/Localization/Bamboo/Abp/LoginUi");
+        });
+
+        Configure<RazorPagesOptions>(options =>
+        {
+            //Configure authorization.
+        });
+
+        // context.Services.AddSameSiteCookiePolicy();
+        ConfigureAuthentication(context, configuration);
+        ConfigureTenantResolver(context, configuration);
+        ConfigureCache(context, configuration);
+        ConfigureRedis(context, configuration);
+        ConfigureDistributedLock(context, configuration);
+        ConfigureDataProtection(context, configuration);
+        ConfigureForwardProxy(context, configuration);
+
+    }
+
+
+    private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        //context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        //    .AddJwtBearer(options =>
+        //    {
+        //        options.Authority = configuration["AuthServer:Authority"];
+        //        options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
+        //        options.Audience = "Admin";
+        //    });
+
         context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
         // https://learn.microsoft.com/en-us/aspnet/core/security/authentication/social/?view=aspnetcore-6.0&tabs=visual-studio
         context.Services.AddAuthentication()
@@ -96,79 +138,40 @@ public class AbpLoginUiWebModule : AbpModule
             //})
             //.AddDefaultSocial(configuration)
             ;
-            
-        Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<AbpLoginUiWebModule>();
-        });
-
-        Configure<AbpLocalizationOptions>(options =>
-        {
-            options.Resources
-                .Add<AbpLoginUiResource>("en")
-                .AddBaseTypes(typeof(AccountResource))
-                .AddVirtualJson("/Localization/Bamboo/Abp/LoginUi");
-        });
-
-        Configure<RazorPagesOptions>(options =>
-        {
-            //Configure authorization.
-        });
-
-        // context.Services.AddSameSiteCookiePolicy();
-        ConfigureTenantResolver(context, configuration);
-        ConfigureRedis(context, configuration);
-        ConfigureDataProtection(context, configuration);
-        ConfigureDistributedLock(context, configuration);
-        context.Services.Configure<AbpAspNetCoreMultiTenancyOptions>(options =>
-        {
-            options.TenantKey = configuration["App:TenantKey"] ??"tenant";
-        });
-
-        context.Services.Configure<ForwardedHeadersOptions>(options =>
-        {
-            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor
-                                       | ForwardedHeaders.XForwardedProto
-                                       | ForwardedHeaders.XForwardedHost;
-            options.KnownNetworks.Clear();
-            options.KnownProxies.Clear();
-            options.RequireHeaderSymmetry = false;
-        });
-
-        context.Services.AddHttpLogging(logging =>
-        {
-            logging.LoggingFields = HttpLoggingFields.RequestHeaders
-                                    //| HttpLoggingFields.RequestPropertiesAndHeaders 
-                                    //| HttpLoggingFields.ResponsePropertiesAndHeaders
-                                    //| HttpLoggingFields.ResponseHeaders
-                                    //| HttpLoggingFields.RequestProtocol
-                                    //| HttpLoggingFields.ResponseBody
-                                    //| HttpLoggingFields.RequestBody
-                                    | HttpLoggingFields.RequestPath;
-
-        });
     }
+
     // Disable select tenant when login
     private void ConfigureTenantResolver(ServiceConfigurationContext context, IConfiguration configuration)
     {
+        context.Services.Configure<AbpAspNetCoreMultiTenancyOptions>(options =>
+        {
+            options.TenantKey = configuration["App:TenantKey"] ?? "tenant";
+        });
+
         Configure<AbpTenantResolveOptions>(options =>
         {
             options.TenantResolvers.Clear();
             options.TenantResolvers.Add(new CurrentUserTenantResolveContributor());
         });
     }
+
+    private void ConfigureCache(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        //Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "Admin:"; });
+        Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = configuration["App:CacheName"] ?? "Bamboo:"; });
+
+    }
+
     private void ConfigureRedis(ServiceConfigurationContext context, IConfiguration configuration)
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
-
         bool enabledRedis = Convert.ToBoolean(configuration["Redis:IsEnabled"]);
-
         var redisOptions = ConfigurationOptions.Parse(configuration["Redis:Configuration"]);
-        redisOptions.User = configuration["Redis:User"];
-        redisOptions.Password = configuration["Redis:Password"];
 
         if (enabledRedis)
         {
+            redisOptions.User = configuration["Redis:User"];
+            redisOptions.Password = configuration["Redis:Password"];
             Configure<RedisCacheOptions>(options =>
             {
                 //var configurationOptions = ConfigurationOptions.Parse(configuration["Redis:Configuration"]);
@@ -236,7 +239,10 @@ public class AbpLoginUiWebModule : AbpModule
 
     private void ConfigureDataProtection(ServiceConfigurationContext context, IConfiguration configuration)
     {
-        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("Bamboo");
+        string appName = configuration["App:Name"] ?? "Bamboo";
+        //string appName = configuration["ApplicationName"] ?? "Bamboo";
+        //string appName = context.Services.GetApplicationName();
+        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName($"{appName}");
         //var hostingEnvironment = context.Services.GetHostingEnvironment();
         //if (!hostingEnvironment.IsDevelopment())
         {
@@ -247,11 +253,37 @@ public class AbpLoginUiWebModule : AbpModule
                 redisOptions.User = configuration["Redis:User"];
                 redisOptions.Password = configuration["Redis:Password"];
                 var redis = ConnectionMultiplexer.Connect(redisOptions);
-                dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "Bamboo-Protection-Keys");
+                dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, $"{appName}-Protection-Keys");
             }
         }
     }
-        
+
+    private void ConfigureForwardProxy(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        context.Services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor
+                                       | ForwardedHeaders.XForwardedProto
+                                       | ForwardedHeaders.XForwardedHost;
+            options.KnownNetworks.Clear();
+            options.KnownProxies.Clear();
+            options.RequireHeaderSymmetry = false;
+        });
+
+        context.Services.AddHttpLogging(logging =>
+        {
+            logging.LoggingFields = HttpLoggingFields.RequestHeaders
+                                    //| HttpLoggingFields.RequestPropertiesAndHeaders 
+                                    //| HttpLoggingFields.ResponsePropertiesAndHeaders
+                                    //| HttpLoggingFields.ResponseHeaders
+                                    //| HttpLoggingFields.RequestProtocol
+                                    //| HttpLoggingFields.ResponseBody
+                                    //| HttpLoggingFields.RequestBody
+                                    | HttpLoggingFields.RequestPath;
+
+        });
+    }
+
     public async override Task OnApplicationInitializationAsync(Volo.Abp.ApplicationInitializationContext context)
     {
         var app = context.GetApplicationBuilder();
@@ -291,8 +323,6 @@ public class AbpLoginUiWebModule : AbpModule
             return next();
         });
 
-        // https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
-        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         await base.OnApplicationInitializationAsync(context);
     }
 }
