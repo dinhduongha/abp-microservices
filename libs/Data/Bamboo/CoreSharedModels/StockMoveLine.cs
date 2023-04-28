@@ -104,66 +104,82 @@ public partial class StockMoveLine: Entity<Guid>, IEntityDto<Guid>, IMultiTenant
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockMoveLines")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockMoveLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
     //[InverseProperty("StockMoveLineLocations")]
+    [NotMapped]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("LocationDestId")]
     //[InverseProperty("StockMoveLineLocationDests")]
+    [NotMapped]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("LotId")]
     //[InverseProperty("StockMoveLines")]
+    [NotMapped]
     public virtual StockLot? Lot { get; set; }
 
     [ForeignKey("MoveId")]
     //[InverseProperty("StockMoveLines")]
+    [NotMapped]
     public virtual StockMove? Move { get; set; }
 
     [ForeignKey("OwnerId")]
     //[InverseProperty("StockMoveLines")]
+    [NotMapped]
     public virtual ResPartner? Owner { get; set; }
 
     [ForeignKey("PackageId")]
     //[InverseProperty("StockMoveLinePackages")]
+    [NotMapped]
     public virtual StockQuantPackage? Package { get; set; }
 
     [ForeignKey("PackageLevelId")]
     //[InverseProperty("StockMoveLines")]
+    [NotMapped]
     public virtual StockPackageLevel? PackageLevel { get; set; }
 
     [ForeignKey("PickingId")]
     //[InverseProperty("StockMoveLines")]
+    [NotMapped]
     public virtual StockPicking? Picking { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockMoveLines")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
     //[InverseProperty("StockMoveLines")]
+    [NotMapped]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("ProductionId")]
     //[InverseProperty("StockMoveLines")]
+    [NotMapped]
     public virtual MrpProduction? Production { get; set; }
 
     [ForeignKey("ResultPackageId")]
     //[InverseProperty("StockMoveLineResultPackages")]
+    [NotMapped]
     public virtual StockQuantPackage? ResultPackage { get; set; }
 
     [ForeignKey("WorkorderId")]
     //[InverseProperty("StockMoveLines")]
+    [NotMapped]
     public virtual MrpWorkorder? Workorder { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockMoveLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProduceLineId")]

@@ -66,38 +66,47 @@ public partial class AccountPartialReconcile: Entity<Guid>, IEntityDto<Guid>, IM
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountPartialReconciles")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountPartialReconcileCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CreditCurrencyId")]
     //[InverseProperty("AccountPartialReconcileCreditCurrencies")]
+    [NotMapped]
     public virtual ResCurrency? CreditCurrency { get; set; }
 
     [ForeignKey("CreditMoveId")]
     //[InverseProperty("AccountPartialReconcileCreditMoves")]
+    [NotMapped]
     public virtual AccountMoveLine? CreditMove { get; set; }
 
     [ForeignKey("DebitCurrencyId")]
     //[InverseProperty("AccountPartialReconcileDebitCurrencies")]
+    [NotMapped]
     public virtual ResCurrency? DebitCurrency { get; set; }
 
     [ForeignKey("DebitMoveId")]
     //[InverseProperty("AccountPartialReconcileDebitMoves")]
+    [NotMapped]
     public virtual AccountMoveLine? DebitMove { get; set; }
 
     [ForeignKey("ExchangeMoveId")]
     //[InverseProperty("AccountPartialReconciles")]
+    [NotMapped]
     public virtual AccountMove? ExchangeMove { get; set; }
 
     [ForeignKey("FullReconcileId")]
     //[InverseProperty("AccountPartialReconciles")]
+    [NotMapped]
     public virtual AccountFullReconcile? FullReconcile { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountPartialReconcileWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("TaxCashBasisRec")]

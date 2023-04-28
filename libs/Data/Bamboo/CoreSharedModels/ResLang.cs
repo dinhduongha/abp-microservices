@@ -70,10 +70,12 @@ public partial class ResLang: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResLangCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResLangWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     /// TODO: DISABLE INVERSE

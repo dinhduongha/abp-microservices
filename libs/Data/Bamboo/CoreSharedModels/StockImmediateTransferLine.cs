@@ -40,17 +40,21 @@ public partial class StockImmediateTransferLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockImmediateTransferLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ImmediateTransferId")]
     //[InverseProperty("StockImmediateTransferLines")]
+    [NotMapped]
     public virtual StockImmediateTransfer? ImmediateTransfer { get; set; }
 
     [ForeignKey("PickingId")]
     //[InverseProperty("StockImmediateTransferLines")]
+    [NotMapped]
     public virtual StockPicking? Picking { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockImmediateTransferLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

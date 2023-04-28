@@ -56,18 +56,22 @@ public partial class AccountAnalyticPlan: Entity<Guid>, IEntityDto<Guid>, IMulti
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountAnalyticPlans")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAnalyticPlanCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual AccountAnalyticPlan? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAnalyticPlanWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Plan")]

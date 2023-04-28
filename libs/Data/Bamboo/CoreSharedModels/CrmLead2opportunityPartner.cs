@@ -52,26 +52,32 @@ public partial class CrmLead2opportunityPartner: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CrmLead2opportunityPartnerCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LeadId")]
     //[InverseProperty("CrmLead2opportunityPartners")]
+    [NotMapped]
     public virtual CrmLead? Lead { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("CrmLead2opportunityPartners")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("TeamId")]
     //[InverseProperty("CrmLead2opportunityPartners")]
+    [NotMapped]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("CrmLead2opportunityPartnerUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CrmLead2opportunityPartnerWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CrmLead2opportunityPartnerId")]

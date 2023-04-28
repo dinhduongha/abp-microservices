@@ -40,17 +40,21 @@ public partial class PortalWizardUser: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PortalWizardUserCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("PortalWizardUsers")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("WizardId")]
     //[InverseProperty("PortalWizardUsers")]
+    [NotMapped]
     public virtual PortalWizard? Wizard { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PortalWizardUserWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

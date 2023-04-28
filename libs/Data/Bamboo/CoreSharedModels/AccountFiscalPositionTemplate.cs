@@ -61,22 +61,27 @@ public partial class AccountFiscalPositionTemplate: Entity<Guid>, IEntityDto<Gui
 
     [ForeignKey("ChartTemplateId")]
     //[InverseProperty("AccountFiscalPositionTemplates")]
+    [NotMapped]
     public virtual AccountChartTemplate? ChartTemplate { get; set; }
 
     [ForeignKey("CountryId")]
     //[InverseProperty("AccountFiscalPositionTemplates")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CountryGroupId")]
     //[InverseProperty("AccountFiscalPositionTemplates")]
+    [NotMapped]
     public virtual ResCountryGroup? CountryGroup { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountFiscalPositionTemplateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountFiscalPositionTemplateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Position")]

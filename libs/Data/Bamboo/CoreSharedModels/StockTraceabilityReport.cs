@@ -31,9 +31,11 @@ public partial class StockTraceabilityReport: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockTraceabilityReportCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockTraceabilityReportWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

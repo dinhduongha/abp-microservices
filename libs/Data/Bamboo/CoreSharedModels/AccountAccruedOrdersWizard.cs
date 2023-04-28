@@ -49,21 +49,26 @@ public partial class AccountAccruedOrdersWizard: Entity<Guid>, IEntityDto<Guid>,
 
     [ForeignKey("AccountId")]
     //[InverseProperty("AccountAccruedOrdersWizards")]
+    [NotMapped]
     public virtual AccountAccount? Account { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountAccruedOrdersWizards")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAccruedOrdersWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("AccountAccruedOrdersWizards")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAccruedOrdersWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

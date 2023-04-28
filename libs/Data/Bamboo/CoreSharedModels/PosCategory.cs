@@ -41,14 +41,17 @@ public partial class PosCategory: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PosCategoryCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual PosCategory? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PosCategoryWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Parent")]

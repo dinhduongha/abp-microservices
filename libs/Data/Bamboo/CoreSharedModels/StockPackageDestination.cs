@@ -37,17 +37,21 @@ public partial class StockPackageDestination: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockPackageDestinationCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationDestId")]
     //[InverseProperty("StockPackageDestinations")]
+    [NotMapped]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("PickingId")]
     //[InverseProperty("StockPackageDestinations")]
+    [NotMapped]
     public virtual StockPicking? Picking { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockPackageDestinationWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -94,50 +94,62 @@ public partial class StockWarehouseOrderpoint: Entity<Guid>, IEntityDto<Guid>, I
 
     [ForeignKey("BomId")]
     //[InverseProperty("StockWarehouseOrderpoints")]
+    [NotMapped]
     public virtual MrpBom? Bom { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockWarehouseOrderpoints")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockWarehouseOrderpointCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GroupId")]
     //[InverseProperty("StockWarehouseOrderpoints")]
+    [NotMapped]
     public virtual ProcurementGroup? Group { get; set; }
 
     [ForeignKey("LocationId")]
     //[InverseProperty("StockWarehouseOrderpoints")]
+    [NotMapped]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockWarehouseOrderpoints")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductCategoryId")]
     //[InverseProperty("StockWarehouseOrderpoints")]
+    [NotMapped]
     public virtual ProductCategory? ProductCategory { get; set; }
 
     [ForeignKey("RouteId")]
     //[InverseProperty("StockWarehouseOrderpoints")]
+    [NotMapped]
     public virtual StockRoute? Route { get; set; }
 
     [ForeignKey("SupplierId")]
     //[InverseProperty("StockWarehouseOrderpoints")]
+    [NotMapped]
     public virtual ProductSupplierinfo? Supplier { get; set; }
 
     [ForeignKey("VendorId")]
     //[InverseProperty("StockWarehouseOrderpoints")]
+    [NotMapped]
     public virtual ResPartner? Vendor { get; set; }
 
     [ForeignKey("WarehouseId")]
     //[InverseProperty("StockWarehouseOrderpoints")]
+    [NotMapped]
     public virtual StockWarehouse? Warehouse { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockWarehouseOrderpointWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Orderpoint")]

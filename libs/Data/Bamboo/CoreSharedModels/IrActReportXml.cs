@@ -76,10 +76,12 @@ public partial class IrActReportXml: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("BindingModelId")]
     //[InverseProperty("IrActReportXmls")]
+    [NotMapped]
     public virtual IrModel? BindingModel { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrActReportXmlCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     //[InverseProperty("ReportTemplateNavigation")]
@@ -88,6 +90,7 @@ public partial class IrActReportXml: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("PaperformatId")]
     //[InverseProperty("IrActReportXmls")]
+    [NotMapped]
     public virtual ReportPaperformat? Paperformat { get; set; }
 
     //[InverseProperty("ReportTemplateNavigation")]
@@ -96,6 +99,7 @@ public partial class IrActReportXml: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrActReportXmlWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("Uid")]

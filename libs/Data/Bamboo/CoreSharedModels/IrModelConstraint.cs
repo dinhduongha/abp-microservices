@@ -54,17 +54,21 @@ public partial class IrModelConstraint: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrModelConstraintCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("Model")]
     //[InverseProperty("IrModelConstraints")]
+    [NotMapped]
     public virtual IrModel? ModelNavigation { get; set; }
 
     [ForeignKey("Module")]
     //[InverseProperty("IrModelConstraints")]
+    [NotMapped]
     public virtual IrModuleModule? ModuleNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrModelConstraintWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

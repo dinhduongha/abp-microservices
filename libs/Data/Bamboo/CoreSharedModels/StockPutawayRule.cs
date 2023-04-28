@@ -57,34 +57,42 @@ public partial class StockPutawayRule: Entity<Guid>, IEntityDto<Guid>, IMultiTen
 
     [ForeignKey("CategoryId")]
     //[InverseProperty("StockPutawayRules")]
+    [NotMapped]
     public virtual ProductCategory? Category { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockPutawayRules")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockPutawayRuleCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationInId")]
     //[InverseProperty("StockPutawayRuleLocationIns")]
+    [NotMapped]
     public virtual StockLocation? LocationIn { get; set; }
 
     [ForeignKey("LocationOutId")]
     //[InverseProperty("StockPutawayRuleLocationOuts")]
+    [NotMapped]
     public virtual StockLocation? LocationOut { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockPutawayRules")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("StorageCategoryId")]
     //[InverseProperty("StockPutawayRules")]
+    [NotMapped]
     public virtual StockStorageCategory? StorageCategory { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockPutawayRuleWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockPutawayRuleId")]

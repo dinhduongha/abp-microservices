@@ -38,13 +38,16 @@ public partial class IrModuleModuleExclusion: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrModuleModuleExclusionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModuleId")]
     //[InverseProperty("IrModuleModuleExclusions")]
+    [NotMapped]
     public virtual IrModuleModule? Module { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrModuleModuleExclusionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

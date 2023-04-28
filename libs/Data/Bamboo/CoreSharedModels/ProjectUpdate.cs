@@ -58,22 +58,27 @@ public partial class ProjectUpdate: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProjectUpdateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("ProjectUpdates")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ProjectId")]
     //[InverseProperty("ProjectUpdates")]
+    [NotMapped]
     public virtual ProjectProject? Project { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("ProjectUpdateUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProjectUpdateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("LastUpdate")]

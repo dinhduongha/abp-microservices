@@ -54,21 +54,26 @@ public partial class CrmTeamMember: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CrmTeamMemberCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrmTeamId")]
     //[InverseProperty("CrmTeamMembers")]
+    [NotMapped]
     public virtual CrmTeam? CrmTeam { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("CrmTeamMembers")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("CrmTeamMemberUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CrmTeamMemberWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

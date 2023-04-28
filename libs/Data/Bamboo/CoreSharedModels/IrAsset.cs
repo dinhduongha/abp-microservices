@@ -61,17 +61,21 @@ public partial class IrAsset: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrAssetCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ThemeTemplateId")]
     //[InverseProperty("IrAssets")]
+    [NotMapped]
     public virtual ThemeIrAsset? ThemeTemplate { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("IrAssets")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrAssetWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

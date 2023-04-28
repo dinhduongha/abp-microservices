@@ -25,5 +25,6 @@ public partial class WebTourTour: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("UserId")]
     //[InverseProperty("WebTourTours")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 }

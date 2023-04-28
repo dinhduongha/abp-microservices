@@ -59,13 +59,16 @@ public partial class AccountPaymentTermLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountPaymentTermLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PaymentId")]
     //[InverseProperty("AccountPaymentTermLines")]
+    [NotMapped]
     public virtual AccountPaymentTerm? Payment { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountPaymentTermLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

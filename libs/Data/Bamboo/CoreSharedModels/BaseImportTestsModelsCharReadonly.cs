@@ -34,9 +34,11 @@ public partial class BaseImportTestsModelsCharReadonly: Entity<Guid>, IEntityDto
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BaseImportTestsModelsCharReadonlyCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BaseImportTestsModelsCharReadonlyWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

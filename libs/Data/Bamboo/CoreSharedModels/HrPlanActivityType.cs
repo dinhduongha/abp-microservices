@@ -52,25 +52,31 @@ public partial class HrPlanActivityType: Entity<long>, IEntityDto<long>, IMultiT
 
     [ForeignKey("ActivityTypeId")]
     //[InverseProperty("HrPlanActivityTypes")]
+    [NotMapped]
     public virtual MailActivityType? ActivityType { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("HrPlanActivityTypes")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrPlanActivityTypeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PlanId")]
     //[InverseProperty("HrPlanActivityTypes")]
+    [NotMapped]
     public virtual HrPlan? Plan { get; set; }
 
     [ForeignKey("ResponsibleId")]
     //[InverseProperty("HrPlanActivityTypeResponsibleNavigations")]
+    [NotMapped]
     public virtual ResUser? ResponsibleNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrPlanActivityTypeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

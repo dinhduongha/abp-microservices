@@ -40,17 +40,21 @@ public partial class CrmQuotationPartner: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CrmQuotationPartnerCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LeadId")]
     //[InverseProperty("CrmQuotationPartners")]
+    [NotMapped]
     public virtual CrmLead? Lead { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("CrmQuotationPartners")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CrmQuotationPartnerWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

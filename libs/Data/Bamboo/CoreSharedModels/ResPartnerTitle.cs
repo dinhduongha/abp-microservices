@@ -37,10 +37,12 @@ public partial class ResPartnerTitle: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResPartnerTitleCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResPartnerTitleWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("TitleNavigation")]

@@ -94,46 +94,57 @@ public partial class AccountPaymentRegister: Entity<Guid>, IEntityDto<Guid>, IMu
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountPaymentRegisters")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountPaymentRegisterCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("AccountPaymentRegisterCurrencies")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("AccountPaymentRegisters")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("AccountPaymentRegisters")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PartnerBankId")]
     //[InverseProperty("AccountPaymentRegisters")]
+    [NotMapped]
     public virtual ResPartnerBank? PartnerBank { get; set; }
 
     [ForeignKey("PaymentMethodLineId")]
     //[InverseProperty("AccountPaymentRegisters")]
+    [NotMapped]
     public virtual AccountPaymentMethodLine? PaymentMethodLine { get; set; }
 
     [ForeignKey("PaymentTokenId")]
     //[InverseProperty("AccountPaymentRegisters")]
+    [NotMapped]
     public virtual PaymentToken? PaymentToken { get; set; }
 
     [ForeignKey("SourceCurrencyId")]
     //[InverseProperty("AccountPaymentRegisterSourceCurrencies")]
+    [NotMapped]
     public virtual ResCurrency? SourceCurrency { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountPaymentRegisterWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("WriteoffAccountId")]
     //[InverseProperty("AccountPaymentRegisters")]
+    [NotMapped]
     public virtual AccountAccount? WriteoffAccount { get; set; }
 
     [ForeignKey("WizardId")]

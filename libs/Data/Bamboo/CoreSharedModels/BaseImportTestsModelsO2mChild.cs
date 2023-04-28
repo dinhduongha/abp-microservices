@@ -37,13 +37,16 @@ public partial class BaseImportTestsModelsO2mChild: Entity<Guid>, IEntityDto<Gui
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BaseImportTestsModelsO2mChildCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("BaseImportTestsModelsO2mChildren")]
+    [NotMapped]
     public virtual BaseImportTestsModelsO2m? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BaseImportTestsModelsO2mChildWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

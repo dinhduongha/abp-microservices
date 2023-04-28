@@ -50,13 +50,16 @@ public partial class ReportLayout: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ReportLayoutCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ViewId")]
     //[InverseProperty("ReportLayouts")]
+    [NotMapped]
     public virtual IrUiView? View { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ReportLayoutWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

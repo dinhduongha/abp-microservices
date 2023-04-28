@@ -34,9 +34,11 @@ public partial class ResUsersApikeysDescription: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResUsersApikeysDescriptionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResUsersApikeysDescriptionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

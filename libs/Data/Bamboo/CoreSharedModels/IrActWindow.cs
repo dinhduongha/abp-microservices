@@ -82,22 +82,27 @@ public partial class IrActWindow: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("BindingModelId")]
     //[InverseProperty("IrActWindows")]
+    [NotMapped]
     public virtual IrModel? BindingModel { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrActWindowCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("SearchViewId")]
     //[InverseProperty("IrActWindowSearchViews")]
+    [NotMapped]
     public virtual IrUiView? SearchView { get; set; }
 
     [ForeignKey("ViewId")]
     //[InverseProperty("IrActWindowViews")]
+    [NotMapped]
     public virtual IrUiView? View { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrActWindowWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("CustomAuditAction")]

@@ -37,13 +37,16 @@ public partial class PosPackOperationLot: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PosPackOperationLotCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PosOrderLineId")]
     //[InverseProperty("PosPackOperationLots")]
+    [NotMapped]
     public virtual PosOrderLine? PosOrderLine { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PosPackOperationLotWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

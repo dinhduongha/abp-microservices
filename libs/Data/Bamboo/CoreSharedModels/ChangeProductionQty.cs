@@ -37,13 +37,16 @@ public partial class ChangeProductionQty: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ChangeProductionQtyCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MoId")]
     //[InverseProperty("ChangeProductionQties")]
+    [NotMapped]
     public virtual MrpProduction? Mo { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ChangeProductionQtyWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

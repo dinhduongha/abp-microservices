@@ -37,10 +37,12 @@ public partial class AccountAccountType: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAccountTypeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAccountTypeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountTypeId")]

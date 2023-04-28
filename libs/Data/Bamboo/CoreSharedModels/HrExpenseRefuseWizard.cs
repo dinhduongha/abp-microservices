@@ -37,14 +37,17 @@ public partial class HrExpenseRefuseWizard: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrExpenseRefuseWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("HrExpenseSheetId")]
     //[InverseProperty("HrExpenseRefuseWizards")]
+    [NotMapped]
     public virtual HrExpenseSheet? HrExpenseSheet { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrExpenseRefuseWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrExpenseRefuseWizardId")]

@@ -60,22 +60,27 @@ public partial class ProductPackaging: Entity<Guid>, IEntityDto<Guid>, IMultiTen
 
     [ForeignKey("TenantId")]
     //[InverseProperty("ProductPackagings")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProductPackagingCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PackageTypeId")]
     //[InverseProperty("ProductPackagings")]
+    [NotMapped]
     public virtual StockPackageType? PackageType { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("ProductPackagings")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProductPackagingWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ProductPackaging")]

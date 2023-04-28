@@ -58,9 +58,11 @@ public partial class SalePaymentProviderOnboardingWizard: Entity<Guid>, IEntityD
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SalePaymentProviderOnboardingWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SalePaymentProviderOnboardingWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

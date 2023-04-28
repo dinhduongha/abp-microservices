@@ -51,18 +51,22 @@ public partial class MailChannelRtcSession: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("ChannelId")]
     //[InverseProperty("MailChannelRtcSessions")]
+    [NotMapped]
     public virtual MailChannel? Channel { get; set; }
 
     [ForeignKey("ChannelMemberId")]
     //[InverseProperty("MailChannelRtcSession")]
+    [NotMapped]
     public virtual MailChannelMember? ChannelMember { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailChannelRtcSessionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailChannelRtcSessionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("RtcInvitingSession")]

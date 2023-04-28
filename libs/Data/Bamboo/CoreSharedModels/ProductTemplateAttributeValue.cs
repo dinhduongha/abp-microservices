@@ -57,26 +57,32 @@ public partial class ProductTemplateAttributeValue: Entity<Guid>, IEntityDto<Gui
 
     [ForeignKey("AttributeId")]
     //[InverseProperty("ProductTemplateAttributeValues")]
+    [NotMapped]
     public virtual ProductAttribute? Attribute { get; set; }
 
     [ForeignKey("AttributeLineId")]
     //[InverseProperty("ProductTemplateAttributeValues")]
+    [NotMapped]
     public virtual ProductTemplateAttributeLine? AttributeLine { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProductTemplateAttributeValueCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductAttributeValueId")]
     //[InverseProperty("ProductTemplateAttributeValues")]
+    [NotMapped]
     public virtual ProductAttributeValue? ProductAttributeValue { get; set; }
 
     [ForeignKey("ProductTmplId")]
     //[InverseProperty("ProductTemplateAttributeValues")]
+    [NotMapped]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProductTemplateAttributeValueWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("CustomProductTemplateAttributeValue")]

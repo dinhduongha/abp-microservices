@@ -43,25 +43,31 @@ public partial class HrRecruitmentSource: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AliasId")]
     //[InverseProperty("HrRecruitmentSources")]
+    [NotMapped]
     public virtual MailAlias? Alias { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrRecruitmentSourceCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JobId")]
     //[InverseProperty("HrRecruitmentSources")]
+    [NotMapped]
     public virtual HrJob? Job { get; set; }
 
     [ForeignKey("MediumId")]
     //[InverseProperty("HrRecruitmentSources")]
+    [NotMapped]
     public virtual UtmMedium? Medium { get; set; }
 
     [ForeignKey("SourceId")]
     //[InverseProperty("HrRecruitmentSources")]
+    [NotMapped]
     public virtual UtmSource? Source { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrRecruitmentSourceWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

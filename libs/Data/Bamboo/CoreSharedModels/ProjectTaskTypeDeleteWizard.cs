@@ -31,10 +31,12 @@ public partial class ProjectTaskTypeDeleteWizard: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProjectTaskTypeDeleteWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProjectTaskTypeDeleteWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProjectTaskTypeDeleteWizardId")]

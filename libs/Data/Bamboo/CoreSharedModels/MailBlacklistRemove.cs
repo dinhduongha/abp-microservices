@@ -37,9 +37,11 @@ public partial class MailBlacklistRemove: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailBlacklistRemoveCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailBlacklistRemoveWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

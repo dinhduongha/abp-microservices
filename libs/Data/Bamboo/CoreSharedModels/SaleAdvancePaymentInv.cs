@@ -55,26 +55,32 @@ public partial class SaleAdvancePaymentInv: Entity<Guid>, IEntityDto<Guid>, IMul
 
     [ForeignKey("TenantId")]
     //[InverseProperty("SaleAdvancePaymentInvs")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SaleAdvancePaymentInvCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("SaleAdvancePaymentInvs")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("DepositAccountId")]
     //[InverseProperty("SaleAdvancePaymentInvs")]
+    [NotMapped]
     public virtual AccountAccount? DepositAccount { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("SaleAdvancePaymentInvs")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SaleAdvancePaymentInvWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("SaleAdvancePaymentInvId")]

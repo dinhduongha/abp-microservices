@@ -58,26 +58,32 @@ public partial class PosPaymentMethod: Entity<long>, IEntityDto<long>, IMultiTen
 
     [ForeignKey("TenantId")]
     //[InverseProperty("PosPaymentMethods")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PosPaymentMethodCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("PosPaymentMethods")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("OutstandingAccountId")]
     //[InverseProperty("PosPaymentMethodOutstandingAccounts")]
+    [NotMapped]
     public virtual AccountAccount? OutstandingAccount { get; set; }
 
     [ForeignKey("ReceivableAccountId")]
     //[InverseProperty("PosPaymentMethodReceivableAccounts")]
+    [NotMapped]
     public virtual AccountAccount? ReceivableAccount { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PosPaymentMethodWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("PosPaymentMethod")]

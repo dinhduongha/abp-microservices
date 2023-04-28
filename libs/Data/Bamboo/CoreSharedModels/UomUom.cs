@@ -49,14 +49,17 @@ public partial class UomUom: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CategoryId")]
     //[InverseProperty("UomUoms")]
+    [NotMapped]
     public virtual UomCategory? Category { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("UomUomCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("UomUomWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ProductUom")]

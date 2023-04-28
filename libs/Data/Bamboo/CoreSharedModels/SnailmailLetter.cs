@@ -91,42 +91,52 @@ public partial class SnailmailLetter: Entity<Guid>, IEntityDto<Guid>, IMultiTena
 
     [ForeignKey("AttachmentId")]
     //[InverseProperty("SnailmailLetters")]
+    [NotMapped]
     public virtual IrAttachment? Attachment { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("SnailmailLetters")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CountryId")]
     //[InverseProperty("SnailmailLetters")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SnailmailLetterCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageId")]
     //[InverseProperty("SnailmailLetters")]
+    [NotMapped]
     public virtual MailMessage? Message { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("SnailmailLetters")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("ReportTemplate")]
     //[InverseProperty("SnailmailLetters")]
+    [NotMapped]
     public virtual IrActReportXml? ReportTemplateNavigation { get; set; }
 
     [ForeignKey("StateId")]
     //[InverseProperty("SnailmailLetters")]
+    [NotMapped]
     public virtual ResCountryState? StateNavigation { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("SnailmailLetterUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SnailmailLetterWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Letter")]

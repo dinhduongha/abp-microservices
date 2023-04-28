@@ -225,94 +225,117 @@ public partial class HrEmployee: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, I
 
     [ForeignKey("AddressId")]
     //[InverseProperty("HrEmployeeAddresses")]
+    [NotMapped]
     public virtual ResPartner? Address { get; set; }
 
     [ForeignKey("AddressHomeId")]
     //[InverseProperty("HrEmployeeAddressHomes")]
+    [NotMapped]
     public virtual ResPartner? AddressHome { get; set; }
 
     [ForeignKey("BankAccountId")]
     //[InverseProperty("HrEmployees")]
+    [NotMapped]
     public virtual ResPartnerBank? BankAccount { get; set; }
 
     [ForeignKey("CoachId")]
     //[InverseProperty("InverseCoach")]
+    [NotMapped]
     public virtual HrEmployee? Coach { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("HrEmployees")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("ContractId")]
     //[InverseProperty("HrEmployees")]
+    [NotMapped]
     public virtual HrContract? Contract { get; set; }
 
     [ForeignKey("CountryId")]
     //[InverseProperty("HrEmployeeCountries")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CountryOfBirth")]
     //[InverseProperty("HrEmployeeCountryOfBirthNavigations")]
+    [NotMapped]
     public virtual ResCountry? CountryOfBirthNavigation { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrEmployeeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartmentId")]
     //[InverseProperty("HrEmployees")]
+    [NotMapped]
     public virtual HrDepartment? Department { get; set; }
 
     [ForeignKey("DepartureReasonId")]
     //[InverseProperty("HrEmployees")]
+    [NotMapped]
     public virtual HrDepartureReason? DepartureReason { get; set; }
 
     [ForeignKey("ExpenseManagerId")]
     //[InverseProperty("HrEmployeeExpenseManagers")]
+    [NotMapped]
     public virtual ResUser? ExpenseManager { get; set; }
 
     [ForeignKey("JobId")]
     //[InverseProperty("HrEmployees")]
+    [NotMapped]
     public virtual HrJob? Job { get; set; }
 
     [ForeignKey("LastAttendanceId")]
     //[InverseProperty("HrEmployees")]
+    [NotMapped]
     public virtual HrAttendance? LastAttendance { get; set; }
 
     [ForeignKey("LeaveManagerId")]
     //[InverseProperty("HrEmployeeLeaveManagers")]
+    [NotMapped]
     public virtual ResUser? LeaveManager { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("HrEmployees")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual HrEmployee? Parent { get; set; }
 
     [ForeignKey("ResourceId")]
     //[InverseProperty("HrEmployees")]
+    [NotMapped]
     public virtual ResourceResource? Resource { get; set; }
 
     [ForeignKey("ResourceCalendarId")]
     //[InverseProperty("HrEmployees")]
+    [NotMapped]
     public virtual ResourceCalendar? ResourceCalendar { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("HrEmployeeUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("WorkContactId")]
     //[InverseProperty("HrEmployeeWorkContacts")]
+    [NotMapped]
     public virtual ResPartner? WorkContact { get; set; }
 
     [ForeignKey("WorkLocationId")]
     //[InverseProperty("HrEmployees")]
+    [NotMapped]
     public virtual HrWorkLocation? WorkLocation { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrEmployeeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("DriverEmployee")]

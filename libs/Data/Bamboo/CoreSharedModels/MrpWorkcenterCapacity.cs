@@ -47,17 +47,21 @@ public partial class MrpWorkcenterCapacity: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpWorkcenterCapacityCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("MrpWorkcenterCapacities")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("WorkcenterId")]
     //[InverseProperty("MrpWorkcenterCapacities")]
+    [NotMapped]
     public virtual MrpWorkcenter? Workcenter { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpWorkcenterCapacityWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

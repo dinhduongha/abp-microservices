@@ -40,17 +40,21 @@ public partial class MrpImmediateProductionLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpImmediateProductionLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ImmediateProductionId")]
     //[InverseProperty("MrpImmediateProductionLines")]
+    [NotMapped]
     public virtual MrpImmediateProduction? ImmediateProduction { get; set; }
 
     [ForeignKey("ProductionId")]
     //[InverseProperty("MrpImmediateProductionLines")]
+    [NotMapped]
     public virtual MrpProduction? Production { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpImmediateProductionLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

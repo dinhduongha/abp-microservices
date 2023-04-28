@@ -40,13 +40,16 @@ public partial class AccountSetupBankManualConfig: Entity<Guid>, IEntityDto<Guid
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountSetupBankManualConfigCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ResPartnerBankId")]
     //[InverseProperty("AccountSetupBankManualConfigs")]
+    [NotMapped]
     public virtual ResPartnerBank? ResPartnerBank { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountSetupBankManualConfigWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

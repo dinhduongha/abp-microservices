@@ -45,13 +45,16 @@ public partial class IrModelFieldsSelection: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrModelFieldsSelectionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FieldId")]
     //[InverseProperty("IrModelFieldsSelections")]
+    [NotMapped]
     public virtual IrModelField? Field { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrModelFieldsSelectionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

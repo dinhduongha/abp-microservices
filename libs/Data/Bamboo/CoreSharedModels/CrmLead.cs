@@ -216,74 +216,92 @@ public partial class CrmLead: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IMay
 
     [ForeignKey("CampaignId")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual UtmCampaign? Campaign { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CountryId")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CrmLeadCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LangId")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual ResLang? Lang { get; set; }
 
     [ForeignKey("LeadMiningRequestId")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual CrmIapLeadMiningRequest? LeadMiningRequest { get; set; }
 
     [ForeignKey("LostReasonId")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual CrmLostReason? LostReason { get; set; }
 
     [ForeignKey("MediumId")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual UtmMedium? Medium { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("RecurringPlan")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual CrmRecurringPlan? RecurringPlanNavigation { get; set; }
 
     [ForeignKey("SourceId")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual UtmSource? Source { get; set; }
 
     [ForeignKey("StageId")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual CrmStage? Stage { get; set; }
 
     [ForeignKey("StateId")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual ResCountryState? State { get; set; }
 
     [ForeignKey("TeamId")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("Title")]
     //[InverseProperty("CrmLeads")]
+    [NotMapped]
     public virtual ResPartnerTitle? TitleNavigation { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("CrmLeadUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CrmLeadWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Opportunity")]

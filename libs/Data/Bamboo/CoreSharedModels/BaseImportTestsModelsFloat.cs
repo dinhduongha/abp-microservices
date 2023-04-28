@@ -40,13 +40,16 @@ public partial class BaseImportTestsModelsFloat: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BaseImportTestsModelsFloatCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("BaseImportTestsModelsFloats")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BaseImportTestsModelsFloatWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -41,14 +41,17 @@ public partial class AccountJournalGroup: Entity<Guid>, IEntityDto<Guid>, IMulti
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountJournalGroups")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountJournalGroupCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountJournalGroupWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountJournalGroupId")]

@@ -65,22 +65,27 @@ public partial class StockRoute: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, I
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockRoutes")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockRouteCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("SuppliedWhId")]
     //[InverseProperty("StockRouteSuppliedWhs")]
+    [NotMapped]
     public virtual StockWarehouse? SuppliedWh { get; set; }
 
     [ForeignKey("SupplierWhId")]
     //[InverseProperty("StockRouteSupplierWhs")]
+    [NotMapped]
     public virtual StockWarehouse? SupplierWh { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockRouteWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Route")]

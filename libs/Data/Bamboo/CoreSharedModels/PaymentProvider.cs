@@ -122,38 +122,47 @@ public partial class PaymentProvider: Entity<Guid>, IEntityDto<Guid>, IMultiTena
 
     [ForeignKey("TenantId")]
     //[InverseProperty("PaymentProviders")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PaymentProviderCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ExpressCheckoutFormViewId")]
     //[InverseProperty("PaymentProviderExpressCheckoutFormViews")]
+    [NotMapped]
     public virtual IrUiView? ExpressCheckoutFormView { get; set; }
 
     [ForeignKey("InlineFormViewId")]
     //[InverseProperty("PaymentProviderInlineFormViews")]
+    [NotMapped]
     public virtual IrUiView? InlineFormView { get; set; }
 
     [ForeignKey("ModuleId")]
     //[InverseProperty("PaymentProviders")]
+    [NotMapped]
     public virtual IrModuleModule? Module { get; set; }
 
     [ForeignKey("RedirectFormViewId")]
     //[InverseProperty("PaymentProviderRedirectFormViews")]
+    [NotMapped]
     public virtual IrUiView? RedirectFormView { get; set; }
 
     [ForeignKey("TokenInlineFormViewId")]
     //[InverseProperty("PaymentProviderTokenInlineFormViews")]
+    [NotMapped]
     public virtual IrUiView? TokenInlineFormView { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("PaymentProviders")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PaymentProviderWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("PaymentProvider")]

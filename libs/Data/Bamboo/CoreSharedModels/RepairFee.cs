@@ -67,30 +67,37 @@ public partial class RepairFee: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IM
 
     [ForeignKey("TenantId")]
     //[InverseProperty("RepairFees")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("RepairFeeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InvoiceLineId")]
     //[InverseProperty("RepairFees")]
+    [NotMapped]
     public virtual AccountMoveLine? InvoiceLine { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("RepairFees")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUom")]
     //[InverseProperty("RepairFees")]
+    [NotMapped]
     public virtual UomUom? ProductUomNavigation { get; set; }
 
     [ForeignKey("RepairId")]
     //[InverseProperty("RepairFees")]
+    [NotMapped]
     public virtual RepairOrder? Repair { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("RepairFeeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("RepairFeeLineId")]

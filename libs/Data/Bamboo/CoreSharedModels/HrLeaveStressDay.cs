@@ -49,18 +49,22 @@ public partial class HrLeaveStressDay: Entity<Guid>, IEntityDto<Guid>, IMultiTen
 
     [ForeignKey("TenantId")]
     //[InverseProperty("HrLeaveStressDays")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrLeaveStressDayCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ResourceCalendarId")]
     //[InverseProperty("HrLeaveStressDays")]
+    [NotMapped]
     public virtual ResourceCalendar? ResourceCalendar { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrLeaveStressDayWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrLeaveStressDayId")]

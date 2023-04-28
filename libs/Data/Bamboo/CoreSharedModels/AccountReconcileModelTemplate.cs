@@ -109,14 +109,17 @@ public partial class AccountReconcileModelTemplate: Entity<Guid>, IEntityDto<Gui
 
     [ForeignKey("ChartTemplateId")]
     //[InverseProperty("AccountReconcileModelTemplates")]
+    [NotMapped]
     public virtual AccountChartTemplate? ChartTemplate { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountReconcileModelTemplateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountReconcileModelTemplateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Model")]

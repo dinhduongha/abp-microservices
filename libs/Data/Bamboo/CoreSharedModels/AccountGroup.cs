@@ -51,18 +51,22 @@ public partial class AccountGroup: Entity<Guid>, IEntityDto<Guid>, IMultiTenant,
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountGroups")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountGroupCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual AccountGroup? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountGroupWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Group")]

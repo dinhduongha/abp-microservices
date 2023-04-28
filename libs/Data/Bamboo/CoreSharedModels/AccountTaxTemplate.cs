@@ -80,22 +80,27 @@ public partial class AccountTaxTemplate: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CashBasisTransitionAccountId")]
     //[InverseProperty("AccountTaxTemplates")]
+    [NotMapped]
     public virtual AccountAccountTemplate? CashBasisTransitionAccount { get; set; }
 
     [ForeignKey("ChartTemplateId")]
     //[InverseProperty("AccountTaxTemplates")]
+    [NotMapped]
     public virtual AccountChartTemplate? ChartTemplate { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountTaxTemplateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TaxGroupId")]
     //[InverseProperty("AccountTaxTemplates")]
+    [NotMapped]
     public virtual AccountTaxGroup? TaxGroup { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountTaxTemplateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("TaxDest")]

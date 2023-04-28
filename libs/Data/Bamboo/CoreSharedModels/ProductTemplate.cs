@@ -223,46 +223,57 @@ public partial class ProductTemplate: Entity<Guid>, IEntityDto<Guid>, IMultiTena
 
     [ForeignKey("BaseUnitId")]
     //[InverseProperty("ProductTemplates")]
+    [NotMapped]
     public virtual WebsiteBaseUnit? BaseUnit { get; set; }
 
     [ForeignKey("CategId")]
     //[InverseProperty("ProductTemplates")]
+    [NotMapped]
     public virtual ProductCategory? Categ { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("ProductTemplates")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProductTemplateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("ProductTemplates")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PosCategId")]
     //[InverseProperty("ProductTemplates")]
+    [NotMapped]
     public virtual PosCategory? PosCateg { get; set; }
 
     [ForeignKey("UomId")]
     //[InverseProperty("ProductTemplateUoms")]
+    [NotMapped]
     public virtual UomUom? Uom { get; set; }
 
     [ForeignKey("UomPoId")]
     //[InverseProperty("ProductTemplateUomPos")]
+    [NotMapped]
     public virtual UomUom? UomPo { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("ProductTemplates")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("WebsiteRibbonId")]
     //[InverseProperty("ProductTemplates")]
+    [NotMapped]
     public virtual ProductRibbon? WebsiteRibbon { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProductTemplateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ProductTmpl")]

@@ -37,13 +37,16 @@ public partial class ResPartnerAutocompleteSync: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResPartnerAutocompleteSyncCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("ResPartnerAutocompleteSyncs")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResPartnerAutocompleteSyncWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

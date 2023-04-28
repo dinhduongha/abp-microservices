@@ -86,37 +86,46 @@ public partial class ResUser: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IMay
     public Guid? LastLunchLocationId { get; set; }
 
     //[InverseProperty("User")]
+    [NotMapped]
     public virtual BusPresence? BusPresence { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("ResUsers")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("InverseCreateU")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastLunchLocationId")]
     //[InverseProperty("ResUsers")]
+    [NotMapped]
     public virtual LunchLocation? LastLunchLocation { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("ResUsers")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     //[InverseProperty("User")]
+    [NotMapped]
     public virtual ResUsersSetting? ResUsersSettingUser { get; set; }
 
     [ForeignKey("SaleTeamId")]
     //[InverseProperty("ResUsers")]
+    [NotMapped]
     public virtual CrmTeam? SaleTeam { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("ResUsers")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("InverseWriteU")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     /// TODO: DISABLE INVERSE
@@ -146,11 +155,13 @@ public partial class ResUser: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IMay
 
     //[InverseProperty("CreateU")]
     //[NotMapped]
-    //public virtual ICollection<AccountAccountType> AccountAccountTypeCreateUs { get; } = new List<AccountAccountType>();
+    //[NotMapped]
+    public virtual ICollection<AccountAccountType> AccountAccountTypeCreateUs { get; } = new List<AccountAccountType>();
 
     //[InverseProperty("WriteU")]
     //[NotMapped]
-    //public virtual ICollection<AccountAccountType> AccountAccountTypeWriteUs { get; } = new List<AccountAccountType>();
+    //[NotMapped]
+    public virtual ICollection<AccountAccountType> AccountAccountTypeWriteUs { get; } = new List<AccountAccountType>();
 
     //[InverseProperty("WriteU")]
     [NotMapped]

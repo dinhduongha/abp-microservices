@@ -61,14 +61,17 @@ public partial class MailMessageSubtype: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailMessageSubtypeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual MailMessageSubtype? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailMessageSubtypeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("AllocationNotifSubtype")]

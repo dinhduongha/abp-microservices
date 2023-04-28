@@ -34,14 +34,17 @@ public partial class HrExpenseSplitWizard: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrExpenseSplitWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ExpenseId")]
     //[InverseProperty("HrExpenseSplitWizards")]
+    [NotMapped]
     public virtual HrExpense? Expense { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrExpenseSplitWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Wizard")]

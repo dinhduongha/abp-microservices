@@ -95,26 +95,32 @@ public partial class MailTemplate: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailTemplateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailServerId")]
     //[InverseProperty("MailTemplates")]
+    [NotMapped]
     public virtual IrMailServer? MailServer { get; set; }
 
     [ForeignKey("ModelId")]
     //[InverseProperty("MailTemplates")]
+    [NotMapped]
     public virtual IrModel? ModelNavigation { get; set; }
 
     [ForeignKey("RefIrActWindow")]
     //[InverseProperty("MailTemplates")]
+    [NotMapped]
     public virtual IrActWindow? RefIrActWindowNavigation { get; set; }
 
     [ForeignKey("ReportTemplate")]
     //[InverseProperty("MailTemplates")]
+    [NotMapped]
     public virtual IrActReportXml? ReportTemplateNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailTemplateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Template")]

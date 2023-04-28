@@ -106,30 +106,37 @@ public partial class LunchSupplier: Entity<Guid>, IEntityDto<Guid>, IMultiTenant
 
     [ForeignKey("TenantId")]
     //[InverseProperty("LunchSuppliers")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("LunchSupplierCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CronId")]
     //[InverseProperty("LunchSuppliers")]
+    [NotMapped]
     public virtual IrCron? Cron { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("LunchSuppliers")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("LunchSuppliers")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("ResponsibleId")]
     //[InverseProperty("LunchSupplierResponsibles")]
+    [NotMapped]
     public virtual ResUser? Responsible { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("LunchSupplierWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Supplier")]

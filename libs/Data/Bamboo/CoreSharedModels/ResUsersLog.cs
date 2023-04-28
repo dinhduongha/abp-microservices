@@ -31,9 +31,11 @@ public partial class ResUsersLog: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResUsersLogCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResUsersLogWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

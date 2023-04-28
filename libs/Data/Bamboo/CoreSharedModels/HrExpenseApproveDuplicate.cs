@@ -31,10 +31,12 @@ public partial class HrExpenseApproveDuplicate: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrExpenseApproveDuplicateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrExpenseApproveDuplicateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrExpenseApproveDuplicateId")]

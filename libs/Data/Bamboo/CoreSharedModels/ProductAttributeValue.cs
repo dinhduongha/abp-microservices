@@ -52,14 +52,17 @@ public partial class ProductAttributeValue: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AttributeId")]
     //[InverseProperty("ProductAttributeValues")]
+    [NotMapped]
     public virtual ProductAttribute? Attribute { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProductAttributeValueCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProductAttributeValueWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ProductAttributeValue")]

@@ -40,17 +40,21 @@ public partial class StockBackorderConfirmationLine: Entity<Guid>, IEntityDto<Gu
 
     [ForeignKey("BackorderConfirmationId")]
     //[InverseProperty("StockBackorderConfirmationLines")]
+    [NotMapped]
     public virtual StockBackorderConfirmation? BackorderConfirmation { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockBackorderConfirmationLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PickingId")]
     //[InverseProperty("StockBackorderConfirmationLines")]
+    [NotMapped]
     public virtual StockPicking? Picking { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockBackorderConfirmationLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

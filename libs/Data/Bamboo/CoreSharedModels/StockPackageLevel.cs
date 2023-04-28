@@ -44,26 +44,32 @@ public partial class StockPackageLevel: Entity<Guid>, IEntityDto<Guid>, IMultiTe
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockPackageLevels")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockPackageLevelCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationDestId")]
     //[InverseProperty("StockPackageLevels")]
+    [NotMapped]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("PackageId")]
     //[InverseProperty("StockPackageLevels")]
+    [NotMapped]
     public virtual StockQuantPackage? Package { get; set; }
 
     [ForeignKey("PickingId")]
     //[InverseProperty("StockPackageLevels")]
+    [NotMapped]
     public virtual StockPicking? Picking { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockPackageLevelWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("PackageLevel")]

@@ -46,18 +46,22 @@ public partial class HrWorkLocation: Entity<Guid>, IEntityDto<Guid>, IMultiTenan
 
     [ForeignKey("AddressId")]
     //[InverseProperty("HrWorkLocations")]
+    [NotMapped]
     public virtual ResPartner? Address { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("HrWorkLocations")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrWorkLocationCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrWorkLocationWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("WorkLocation")]

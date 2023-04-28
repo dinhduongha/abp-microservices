@@ -37,18 +37,22 @@ public partial class CrmMergeOpportunity: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CrmMergeOpportunityCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TeamId")]
     //[InverseProperty("CrmMergeOpportunities")]
+    [NotMapped]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("CrmMergeOpportunityUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CrmMergeOpportunityWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("MergeId")]

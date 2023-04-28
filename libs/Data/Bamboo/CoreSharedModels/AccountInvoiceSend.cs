@@ -49,18 +49,22 @@ public partial class AccountInvoiceSend: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("ComposerId")]
     //[InverseProperty("AccountInvoiceSends")]
+    [NotMapped]
     public virtual MailComposeMessage? Composer { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountInvoiceSendCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TemplateId")]
     //[InverseProperty("AccountInvoiceSends")]
+    [NotMapped]
     public virtual MailTemplate? Template { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountInvoiceSendWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("InvoiceSend")]

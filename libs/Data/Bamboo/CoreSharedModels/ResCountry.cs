@@ -63,18 +63,22 @@ public partial class ResCountry: Entity<long>, IEntityDto<long>
 
     [ForeignKey("AddressViewId")]
     //[InverseProperty("ResCountries")]
+    [NotMapped]
     public virtual IrUiView? AddressView { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResCountryCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("ResCountries")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResCountryWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     /// TODO: DISABLE INVERSE

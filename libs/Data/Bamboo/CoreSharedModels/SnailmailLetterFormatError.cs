@@ -37,13 +37,16 @@ public partial class SnailmailLetterFormatError: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SnailmailLetterFormatErrorCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageId")]
     //[InverseProperty("SnailmailLetterFormatErrors")]
+    [NotMapped]
     public virtual MailMessage? Message { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SnailmailLetterFormatErrorWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -67,30 +67,37 @@ public partial class HrDepartment: Entity<Guid>, IEntityDto<Guid>, IMultiTenant,
 
     [ForeignKey("TenantId")]
     //[InverseProperty("HrDepartments")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrDepartmentCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ManagerId")]
     //[InverseProperty("HrDepartments")]
+    [NotMapped]
     public virtual HrEmployee? Manager { get; set; }
 
     [ForeignKey("MasterDepartmentId")]
     //[InverseProperty("InverseMasterDepartment")]
+    [NotMapped]
     public virtual HrDepartment? MasterDepartment { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("HrDepartments")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual HrDepartment? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrDepartmentWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Department")]

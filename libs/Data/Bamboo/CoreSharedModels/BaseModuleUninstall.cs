@@ -37,13 +37,16 @@ public partial class BaseModuleUninstall: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BaseModuleUninstallCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModuleId")]
     //[InverseProperty("BaseModuleUninstalls")]
+    [NotMapped]
     public virtual IrModuleModule? Module { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BaseModuleUninstallWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

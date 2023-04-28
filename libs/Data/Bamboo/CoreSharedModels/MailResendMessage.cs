@@ -34,14 +34,17 @@ public partial class MailResendMessage: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailResendMessageCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailMessageId")]
     //[InverseProperty("MailResendMessages")]
+    [NotMapped]
     public virtual MailMessage? MailMessage { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailResendMessageWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ResendWizard")]

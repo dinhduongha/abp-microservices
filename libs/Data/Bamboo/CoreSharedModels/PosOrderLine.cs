@@ -89,34 +89,42 @@ public partial class PosOrderLine: Entity<Guid>, IEntityDto<Guid>, IMultiTenant,
 
     [ForeignKey("TenantId")]
     //[InverseProperty("PosOrderLines")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PosOrderLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("OrderId")]
     //[InverseProperty("PosOrderLines")]
+    [NotMapped]
     public virtual PosOrder? Order { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("PosOrderLines")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("RefundedOrderlineId")]
     //[InverseProperty("InverseRefundedOrderline")]
+    [NotMapped]
     public virtual PosOrderLine? RefundedOrderline { get; set; }
 
     [ForeignKey("SaleOrderLineId")]
     //[InverseProperty("PosOrderLines")]
+    [NotMapped]
     public virtual SaleOrderLine? SaleOrderLine { get; set; }
 
     [ForeignKey("SaleOrderOriginId")]
     //[InverseProperty("PosOrderLines")]
+    [NotMapped]
     public virtual SaleOrder? SaleOrderOrigin { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PosOrderLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("RefundedOrderline")]

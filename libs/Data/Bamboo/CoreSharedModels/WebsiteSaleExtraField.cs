@@ -40,17 +40,21 @@ public partial class WebsiteSaleExtraField: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("WebsiteSaleExtraFieldCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FieldId")]
     //[InverseProperty("WebsiteSaleExtraFields")]
+    [NotMapped]
     public virtual IrModelField? Field { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("WebsiteSaleExtraFields")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("WebsiteSaleExtraFieldWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

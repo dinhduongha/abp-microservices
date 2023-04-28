@@ -39,18 +39,22 @@ public partial class ProductTemplateAttributeExclusion: Entity<Guid>, IEntityDto
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProductTemplateAttributeExclusionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductTemplateAttributeValueId")]
     //[InverseProperty("ProductTemplateAttributeExclusionsNavigation")]
+    [NotMapped]
     public virtual ProductTemplateAttributeValue? ProductTemplateAttributeValue { get; set; }
 
     [ForeignKey("ProductTmplId")]
     //[InverseProperty("ProductTemplateAttributeExclusions")]
+    [NotMapped]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProductTemplateAttributeExclusionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductTemplateAttributeExclusionId")]

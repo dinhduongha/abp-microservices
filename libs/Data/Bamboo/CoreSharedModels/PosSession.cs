@@ -87,30 +87,37 @@ public partial class PosSession: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CashJournalId")]
     //[InverseProperty("PosSessions")]
+    [NotMapped]
     public virtual AccountJournal? CashJournal { get; set; }
 
     [ForeignKey("ConfigId")]
     //[InverseProperty("PosSessions")]
+    [NotMapped]
     public virtual PosConfig? Config { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PosSessionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("PosSessions")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("MoveId")]
     //[InverseProperty("PosSessions")]
+    [NotMapped]
     public virtual AccountMove? Move { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("PosSessionUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PosSessionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
     
     //[InverseProperty("PosSession")]

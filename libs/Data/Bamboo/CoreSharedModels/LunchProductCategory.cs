@@ -40,14 +40,17 @@ public partial class LunchProductCategory: Entity<Guid>, IEntityDto<Guid>, IMult
 
     [ForeignKey("TenantId")]
     //[InverseProperty("LunchProductCategories")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("LunchProductCategoryCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("LunchProductCategoryWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Category")]

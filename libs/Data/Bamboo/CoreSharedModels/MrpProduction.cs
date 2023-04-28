@@ -142,66 +142,82 @@ public partial class MrpProduction: Entity<Guid>, IEntityDto<Guid>, IMultiTenant
 
     [ForeignKey("AnalyticAccountId")]
     //[InverseProperty("MrpProductions")]
+    [NotMapped]
     public virtual AccountAnalyticAccount? AnalyticAccount { get; set; }
 
     [ForeignKey("BomId")]
     //[InverseProperty("MrpProductions")]
+    [NotMapped]
     public virtual MrpBom? Bom { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("MrpProductions")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpProductionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationDestId")]
     //[InverseProperty("MrpProductionLocationDests")]
+    [NotMapped]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("LocationSrcId")]
     //[InverseProperty("MrpProductionLocationSrcs")]
+    [NotMapped]
     public virtual StockLocation? LocationSrc { get; set; }
 
     [ForeignKey("LotProducingId")]
     //[InverseProperty("MrpProductions")]
+    [NotMapped]
     public virtual StockLot? LotProducing { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("MrpProductions")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("OrderpointId")]
     //[InverseProperty("MrpProductions")]
+    [NotMapped]
     public virtual StockWarehouseOrderpoint? Orderpoint { get; set; }
 
     [ForeignKey("PickingTypeId")]
     //[InverseProperty("MrpProductions")]
+    [NotMapped]
     public virtual StockPickingType? PickingType { get; set; }
 
     [ForeignKey("ProcurementGroupId")]
     //[InverseProperty("MrpProductions")]
+    [NotMapped]
     public virtual ProcurementGroup? ProcurementGroup { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("MrpProductions")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
     //[InverseProperty("MrpProductions")]
+    [NotMapped]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("ProductionLocationId")]
     //[InverseProperty("MrpProductionProductionLocations")]
+    [NotMapped]
     public virtual StockLocation? ProductionLocation { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("MrpProductionUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpProductionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Mo")]

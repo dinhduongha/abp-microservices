@@ -59,22 +59,27 @@ public partial class MailAlias: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AliasModelId")]
     //[InverseProperty("MailAliasAliasModels")]
+    [NotMapped]
     public virtual IrModel? AliasModel { get; set; }
 
     [ForeignKey("AliasParentModelId")]
     //[InverseProperty("MailAliasAliasParentModels")]
+    [NotMapped]
     public virtual IrModel? AliasParentModel { get; set; }
 
     [ForeignKey("AliasUserId")]
     //[InverseProperty("MailAliasAliasUsers")]
+    [NotMapped]
     public virtual ResUser? AliasUser { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailAliasCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailAliasWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Alias")]

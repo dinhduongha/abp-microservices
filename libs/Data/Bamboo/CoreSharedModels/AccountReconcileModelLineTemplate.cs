@@ -52,18 +52,22 @@ public partial class AccountReconcileModelLineTemplate: Entity<Guid>, IEntityDto
 
     [ForeignKey("AccountId")]
     //[InverseProperty("AccountReconcileModelLineTemplates")]
+    [NotMapped]
     public virtual AccountAccountTemplate? Account { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountReconcileModelLineTemplateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModelId")]
     //[InverseProperty("AccountReconcileModelLineTemplates")]
+    [NotMapped]
     public virtual AccountReconcileModelTemplate? Model { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountReconcileModelLineTemplateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountReconcileModelLineTemplateId")]

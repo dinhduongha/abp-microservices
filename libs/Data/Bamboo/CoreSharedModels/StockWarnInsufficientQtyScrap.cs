@@ -46,21 +46,26 @@ public partial class StockWarnInsufficientQtyScrap: Entity<Guid>, IEntityDto<Gui
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockWarnInsufficientQtyScrapCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
     //[InverseProperty("StockWarnInsufficientQtyScraps")]
+    [NotMapped]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockWarnInsufficientQtyScraps")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ScrapId")]
     //[InverseProperty("StockWarnInsufficientQtyScraps")]
+    [NotMapped]
     public virtual StockScrap? Scrap { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockWarnInsufficientQtyScrapWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

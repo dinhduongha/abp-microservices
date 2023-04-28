@@ -34,9 +34,11 @@ public partial class AssetDepreciationConfirmationWizard: Entity<Guid>, IEntityD
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AssetDepreciationConfirmationWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AssetDepreciationConfirmationWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

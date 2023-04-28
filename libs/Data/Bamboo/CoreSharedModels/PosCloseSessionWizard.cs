@@ -43,13 +43,16 @@ public partial class PosCloseSessionWizard: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AccountId")]
     //[InverseProperty("PosCloseSessionWizards")]
+    [NotMapped]
     public virtual AccountAccount? Account { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PosCloseSessionWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PosCloseSessionWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

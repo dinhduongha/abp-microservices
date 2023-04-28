@@ -40,17 +40,21 @@ public partial class ResetViewArchWizard: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CompareViewId")]
     //[InverseProperty("ResetViewArchWizardCompareViews")]
+    [NotMapped]
     public virtual IrUiView? CompareView { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResetViewArchWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ViewId")]
     //[InverseProperty("ResetViewArchWizardViews")]
+    [NotMapped]
     public virtual IrUiView? View { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResetViewArchWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

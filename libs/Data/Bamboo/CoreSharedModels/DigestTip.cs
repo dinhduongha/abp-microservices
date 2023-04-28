@@ -43,14 +43,17 @@ public partial class DigestTip: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("DigestTipCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GroupId")]
     //[InverseProperty("DigestTips")]
+    [NotMapped]
     public virtual ResGroup? Group { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("DigestTipWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("DigestTipId")]

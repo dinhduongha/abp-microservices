@@ -91,46 +91,57 @@ public partial class StockRule: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IM
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockRules")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockRuleCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GroupId")]
     //[InverseProperty("StockRules")]
+    [NotMapped]
     public virtual ProcurementGroup? Group { get; set; }
 
     [ForeignKey("LocationDestId")]
     //[InverseProperty("StockRuleLocationDests")]
+    [NotMapped]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("LocationSrcId")]
     //[InverseProperty("StockRuleLocationSrcs")]
+    [NotMapped]
     public virtual StockLocation? LocationSrc { get; set; }
 
     [ForeignKey("PartnerAddressId")]
     //[InverseProperty("StockRules")]
+    [NotMapped]
     public virtual ResPartner? PartnerAddress { get; set; }
 
     [ForeignKey("PickingTypeId")]
     //[InverseProperty("StockRules")]
+    [NotMapped]
     public virtual StockPickingType? PickingType { get; set; }
 
     [ForeignKey("PropagateWarehouseId")]
     //[InverseProperty("StockRulePropagateWarehouses")]
+    [NotMapped]
     public virtual StockWarehouse? PropagateWarehouse { get; set; }
 
     [ForeignKey("RouteId")]
     //[InverseProperty("StockRules")]
+    [NotMapped]
     public virtual StockRoute? Route { get; set; }
 
     [ForeignKey("WarehouseId")]
     //[InverseProperty("StockRuleWarehouses")]
+    [NotMapped]
     public virtual StockWarehouse? Warehouse { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockRuleWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Rule")]

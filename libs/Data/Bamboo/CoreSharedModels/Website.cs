@@ -188,50 +188,62 @@ public partial class Website: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IMay
 
     [ForeignKey("CartRecoveryMailTemplateId")]
     //[InverseProperty("Websites")]
+    [NotMapped]
     public virtual MailTemplate? CartRecoveryMailTemplate { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("Websites")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("WebsiteCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrmDefaultTeamId")]
     //[InverseProperty("WebsiteCrmDefaultTeams")]
+    [NotMapped]
     public virtual CrmTeam? CrmDefaultTeam { get; set; }
 
     [ForeignKey("CrmDefaultUserId")]
     //[InverseProperty("WebsiteCrmDefaultUsers")]
+    [NotMapped]
     public virtual ResUser? CrmDefaultUser { get; set; }
 
     [ForeignKey("DefaultLangId")]
     //[InverseProperty("Websites")]
+    [NotMapped]
     public virtual ResLang? DefaultLang { get; set; }
 
     [ForeignKey("SalespersonId")]
     //[InverseProperty("WebsiteSalespeople")]
+    [NotMapped]
     public virtual ResUser? Salesperson { get; set; }
 
     [ForeignKey("SalesteamId")]
     //[InverseProperty("WebsiteSalesteams")]
+    [NotMapped]
     public virtual CrmTeam? Salesteam { get; set; }
 
     [ForeignKey("ThemeId")]
     //[InverseProperty("Websites")]
+    [NotMapped]
     public virtual IrModuleModule? Theme { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("WebsiteUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("WarehouseId")]
     //[InverseProperty("Websites")]
+    [NotMapped]
     public virtual StockWarehouse? Warehouse { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("WebsiteWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Website")]

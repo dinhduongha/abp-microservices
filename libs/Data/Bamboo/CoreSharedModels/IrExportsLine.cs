@@ -38,13 +38,16 @@ public partial class IrExportsLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrExportsLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ExportId")]
     //[InverseProperty("IrExportsLines")]
+    [NotMapped]
     public virtual IrExport? Export { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrExportsLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

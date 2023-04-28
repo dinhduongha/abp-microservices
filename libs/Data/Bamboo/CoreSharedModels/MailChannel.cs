@@ -56,18 +56,22 @@ public partial class MailChannel: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailChannelCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GroupPublicId")]
     //[InverseProperty("MailChannels")]
+    [NotMapped]
     public virtual ResGroup? GroupPublic { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("MailChannels")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailChannelWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("VideocallChannel")]

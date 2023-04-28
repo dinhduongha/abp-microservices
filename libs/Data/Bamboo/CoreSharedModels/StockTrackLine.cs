@@ -37,17 +37,21 @@ public partial class StockTrackLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockTrackLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockTrackLines")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("WizardId")]
     //[InverseProperty("StockTrackLines")]
+    [NotMapped]
     public virtual StockTrackConfirmation? Wizard { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockTrackLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

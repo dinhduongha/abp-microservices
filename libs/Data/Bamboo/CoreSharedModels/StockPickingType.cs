@@ -113,34 +113,42 @@ public partial class StockPickingType: Entity<Guid>, IEntityDto<Guid>, IMultiTen
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockPickingTypes")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockPickingTypeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DefaultLocationDestId")]
     //[InverseProperty("StockPickingTypeDefaultLocationDests")]
+    [NotMapped]
     public virtual StockLocation? DefaultLocationDest { get; set; }
 
     [ForeignKey("DefaultLocationSrcId")]
     //[InverseProperty("StockPickingTypeDefaultLocationSrcs")]
+    [NotMapped]
     public virtual StockLocation? DefaultLocationSrc { get; set; }
 
     [ForeignKey("ReturnPickingTypeId")]
     //[InverseProperty("InverseReturnPickingType")]
+    [NotMapped]
     public virtual StockPickingType? ReturnPickingType { get; set; }
 
     [ForeignKey("SequenceId")]
     //[InverseProperty("StockPickingTypes")]
+    [NotMapped]
     public virtual IrSequence? SequenceNavigation { get; set; }
 
     [ForeignKey("WarehouseId")]
     //[InverseProperty("StockPickingTypes")]
+    [NotMapped]
     public virtual StockWarehouse? Warehouse { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockPickingTypeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     /// TODO: DISABLE INVERSE

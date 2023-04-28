@@ -40,17 +40,21 @@ public partial class MrpProductionBackorderLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpProductionBackorderLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MrpProductionId")]
     //[InverseProperty("MrpProductionBackorderLines")]
+    [NotMapped]
     public virtual MrpProduction? MrpProduction { get; set; }
 
     [ForeignKey("MrpProductionBackorderId")]
     //[InverseProperty("MrpProductionBackorderLines")]
+    [NotMapped]
     public virtual MrpProductionBackorder? MrpProductionBackorder { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpProductionBackorderLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

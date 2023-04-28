@@ -34,10 +34,12 @@ public partial class BaseImportTestsModelsM2oRelated: Entity<Guid>, IEntityDto<G
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BaseImportTestsModelsM2oRelatedCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BaseImportTestsModelsM2oRelatedWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ValueNavigation")]

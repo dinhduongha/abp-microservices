@@ -214,78 +214,97 @@ public partial class PosConfig: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IM
 
     [ForeignKey("TenantId")]
     //[InverseProperty("PosConfigs")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PosConfigCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrmTeamId")]
     //[InverseProperty("PosConfigs")]
+    [NotMapped]
     public virtual CrmTeam? CrmTeam { get; set; }
 
     [ForeignKey("DefaultFiscalPositionId")]
     //[InverseProperty("PosConfigsNavigation")]
+    [NotMapped]
     public virtual AccountFiscalPosition? DefaultFiscalPosition { get; set; }
 
     [ForeignKey("DownPaymentProductId")]
     //[InverseProperty("PosConfigDownPaymentProducts")]
+    [NotMapped]
     public virtual ProductProduct? DownPaymentProduct { get; set; }
 
     [ForeignKey("GroupPosManagerId")]
     //[InverseProperty("PosConfigGroupPosManagers")]
+    [NotMapped]
     public virtual ResGroup? GroupPosManager { get; set; }
 
     [ForeignKey("GroupPosUserId")]
     //[InverseProperty("PosConfigGroupPosUsers")]
+    [NotMapped]
     public virtual ResGroup? GroupPosUser { get; set; }
 
     [ForeignKey("IfaceStartCategId")]
     //[InverseProperty("PosConfigsNavigation")]
+    [NotMapped]
     public virtual PosCategory? IfaceStartCateg { get; set; }
 
     [ForeignKey("InvoiceJournalId")]
     //[InverseProperty("PosConfigInvoiceJournals")]
+    [NotMapped]
     public virtual AccountJournal? InvoiceJournal { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("PosConfigJournals")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("PickingTypeId")]
     //[InverseProperty("PosConfigs")]
+    [NotMapped]
     public virtual StockPickingType? PickingType { get; set; }
 
     [ForeignKey("PricelistId")]
     //[InverseProperty("PosConfigs")]
+    [NotMapped]
     public virtual ProductPricelist? Pricelist { get; set; }
 
     [ForeignKey("RoundingMethod")]
     //[InverseProperty("PosConfigs")]
+    [NotMapped]
     public virtual AccountCashRounding? RoundingMethodNavigation { get; set; }
 
     [ForeignKey("RouteId")]
     //[InverseProperty("PosConfigs")]
+    [NotMapped]
     public virtual StockRoute? Route { get; set; }
 
     [ForeignKey("SequenceId")]
     //[InverseProperty("PosConfigSequences")]
+    [NotMapped]
     public virtual IrSequence? Sequence { get; set; }
 
     [ForeignKey("SequenceLineId")]
     //[InverseProperty("PosConfigSequenceLines")]
+    [NotMapped]
     public virtual IrSequence? SequenceLine { get; set; }
 
     [ForeignKey("TipProductId")]
     //[InverseProperty("PosConfigTipProducts")]
+    [NotMapped]
     public virtual ProductProduct? TipProduct { get; set; }
 
     [ForeignKey("WarehouseId")]
     //[InverseProperty("PosConfigs")]
+    [NotMapped]
     public virtual StockWarehouse? Warehouse { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PosConfigWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Config")]

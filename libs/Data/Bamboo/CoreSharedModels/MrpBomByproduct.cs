@@ -57,30 +57,37 @@ public partial class MrpBomByproduct: Entity<Guid>, IEntityDto<Guid>, IMultiTena
 
     [ForeignKey("BomId")]
     //[InverseProperty("MrpBomByproducts")]
+    [NotMapped]
     public virtual MrpBom? Bom { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("MrpBomByproducts")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpBomByproductCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("OperationId")]
     //[InverseProperty("MrpBomByproducts")]
+    [NotMapped]
     public virtual MrpRoutingWorkcenter? Operation { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("MrpBomByproducts")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
     //[InverseProperty("MrpBomByproducts")]
+    [NotMapped]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpBomByproductWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Byproduct")]

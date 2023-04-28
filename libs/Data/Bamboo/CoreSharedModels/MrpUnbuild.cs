@@ -68,46 +68,57 @@ public partial class MrpUnbuild: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, I
 
     [ForeignKey("BomId")]
     //[InverseProperty("MrpUnbuilds")]
+    [NotMapped]
     public virtual MrpBom? Bom { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("MrpUnbuilds")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpUnbuildCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
     //[InverseProperty("MrpUnbuildLocations")]
+    [NotMapped]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("LocationDestId")]
     //[InverseProperty("MrpUnbuildLocationDests")]
+    [NotMapped]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("LotId")]
     //[InverseProperty("MrpUnbuilds")]
+    [NotMapped]
     public virtual StockLot? Lot { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("MrpUnbuilds")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("MoId")]
     //[InverseProperty("MrpUnbuilds")]
+    [NotMapped]
     public virtual MrpProduction? Mo { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("MrpUnbuilds")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
     //[InverseProperty("MrpUnbuilds")]
+    [NotMapped]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpUnbuildWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ConsumeUnbuild")]

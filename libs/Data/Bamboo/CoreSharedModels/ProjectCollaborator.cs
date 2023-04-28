@@ -38,17 +38,21 @@ public partial class ProjectCollaborator: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProjectCollaboratorCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("ProjectCollaborators")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("ProjectId")]
     //[InverseProperty("ProjectCollaborators")]
+    [NotMapped]
     public virtual ProjectProject? Project { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProjectCollaboratorWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

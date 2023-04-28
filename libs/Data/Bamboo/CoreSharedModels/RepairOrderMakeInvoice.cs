@@ -34,9 +34,11 @@ public partial class RepairOrderMakeInvoice: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("RepairOrderMakeInvoiceCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("RepairOrderMakeInvoiceWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

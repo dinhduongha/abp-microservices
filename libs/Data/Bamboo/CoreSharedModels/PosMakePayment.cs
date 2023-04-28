@@ -46,17 +46,21 @@ public partial class PosMakePayment: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("ConfigId")]
     //[InverseProperty("PosMakePayments")]
+    [NotMapped]
     public virtual PosConfig? Config { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PosMakePaymentCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PaymentMethodId")]
     //[InverseProperty("PosMakePayments")]
+    [NotMapped]
     public virtual PosPaymentMethod? PaymentMethod { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PosMakePaymentWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

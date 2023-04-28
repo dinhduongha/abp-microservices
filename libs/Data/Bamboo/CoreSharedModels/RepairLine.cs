@@ -86,46 +86,57 @@ public partial class RepairLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("TenantId")]
     //[InverseProperty("RepairLines")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("RepairLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InvoiceLineId")]
     //[InverseProperty("RepairLines")]
+    [NotMapped]
     public virtual AccountMoveLine? InvoiceLine { get; set; }
 
     [ForeignKey("LocationId")]
     //[InverseProperty("RepairLineLocations")]
+    [NotMapped]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("LocationDestId")]
     //[InverseProperty("RepairLineLocationDests")]
+    [NotMapped]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("LotId")]
     //[InverseProperty("RepairLines")]
+    [NotMapped]
     public virtual StockLot? Lot { get; set; }
 
     [ForeignKey("MoveId")]
     //[InverseProperty("RepairLines")]
+    [NotMapped]
     public virtual StockMove? Move { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("RepairLines")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUom")]
     //[InverseProperty("RepairLines")]
+    [NotMapped]
     public virtual UomUom? ProductUomNavigation { get; set; }
 
     [ForeignKey("RepairId")]
     //[InverseProperty("RepairLines")]
+    [NotMapped]
     public virtual RepairOrder? Repair { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("RepairLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("RepairOperationLineId")]

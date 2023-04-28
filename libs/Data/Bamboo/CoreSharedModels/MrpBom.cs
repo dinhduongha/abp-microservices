@@ -76,34 +76,42 @@ public partial class MrpBom: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IMayH
 
     [ForeignKey("TenantId")]
     //[InverseProperty("MrpBoms")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpBomCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("MrpBoms")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PickingTypeId")]
     //[InverseProperty("MrpBoms")]
+    [NotMapped]
     public virtual StockPickingType? PickingType { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("MrpBoms")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductTmplId")]
     //[InverseProperty("MrpBoms")]
+    [NotMapped]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("ProductUomId")]
     //[InverseProperty("MrpBoms")]
+    [NotMapped]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpBomWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Bom")]

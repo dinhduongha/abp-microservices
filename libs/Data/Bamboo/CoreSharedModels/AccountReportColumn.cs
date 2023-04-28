@@ -55,17 +55,21 @@ public partial class AccountReportColumn: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountReportColumnCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CustomAuditActionId")]
     //[InverseProperty("AccountReportColumns")]
+    [NotMapped]
     public virtual IrActWindow? CustomAuditAction { get; set; }
 
     [ForeignKey("ReportId")]
     //[InverseProperty("AccountReportColumns")]
+    [NotMapped]
     public virtual AccountReport? Report { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountReportColumnWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

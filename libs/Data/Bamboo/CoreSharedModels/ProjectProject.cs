@@ -129,46 +129,57 @@ public partial class ProjectProject: Entity<Guid>, IEntityDto<Guid>, IMultiTenan
 
     [ForeignKey("AliasId")]
     //[InverseProperty("ProjectProjects")]
+    [NotMapped]
     public virtual MailAlias? Alias { get; set; }
 
     [ForeignKey("AnalyticAccountId")]
     //[InverseProperty("ProjectProjects")]
+    [NotMapped]
     public virtual AccountAnalyticAccount? AnalyticAccount { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("ProjectProjects")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProjectProjectCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastUpdateId")]
     //[InverseProperty("ProjectProjects")]
+    [NotMapped]
     public virtual ProjectUpdate? LastUpdate { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("ProjectProjects")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("ProjectProjects")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("SaleLineId")]
     //[InverseProperty("ProjectProjects")]
+    [NotMapped]
     public virtual SaleOrderLine? SaleLine { get; set; }
 
     [ForeignKey("StageId")]
     //[InverseProperty("ProjectProjects")]
+    [NotMapped]
     public virtual ProjectProjectStage? Stage { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("ProjectProjectUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProjectProjectWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Project")]

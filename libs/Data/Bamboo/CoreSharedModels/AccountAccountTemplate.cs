@@ -58,22 +58,27 @@ public partial class AccountAccountTemplate: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("ChartTemplateId")]
     //[InverseProperty("AccountAccountTemplates")]
+    [NotMapped]
     public virtual AccountChartTemplate? ChartTemplate { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAccountTemplateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("AccountAccountTemplates")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("AccountAccountTemplates")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAccountTemplateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("AccountJournalEarlyPayDiscountGainAccount")]

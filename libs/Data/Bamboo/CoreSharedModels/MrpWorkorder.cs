@@ -100,42 +100,52 @@ public partial class MrpWorkorder: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpWorkorderCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LeaveId")]
     //[InverseProperty("MrpWorkorders")]
+    [NotMapped]
     public virtual ResourceCalendarLeaf? Leave { get; set; }
 
     [ForeignKey("MoAnalyticAccountLineId")]
     //[InverseProperty("MrpWorkorderMoAnalyticAccountLines")]
+    [NotMapped]
     public virtual AccountAnalyticLine? MoAnalyticAccountLine { get; set; }
 
     [ForeignKey("OperationId")]
     //[InverseProperty("MrpWorkorders")]
+    [NotMapped]
     public virtual MrpRoutingWorkcenter? Operation { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("MrpWorkorders")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
     //[InverseProperty("MrpWorkorders")]
+    [NotMapped]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("ProductionId")]
     //[InverseProperty("MrpWorkorders")]
+    [NotMapped]
     public virtual MrpProduction? Production { get; set; }
 
     [ForeignKey("WcAnalyticAccountLineId")]
     //[InverseProperty("MrpWorkorderWcAnalyticAccountLines")]
+    [NotMapped]
     public virtual AccountAnalyticLine? WcAnalyticAccountLine { get; set; }
 
     [ForeignKey("WorkcenterId")]
     //[InverseProperty("MrpWorkorders")]
+    [NotMapped]
     public virtual MrpWorkcenter? Workcenter { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpWorkorderWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Workorder")]

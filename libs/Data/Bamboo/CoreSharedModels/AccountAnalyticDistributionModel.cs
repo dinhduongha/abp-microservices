@@ -52,29 +52,36 @@ public partial class AccountAnalyticDistributionModel: Entity<Guid>, IEntityDto<
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountAnalyticDistributionModels")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAnalyticDistributionModelCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("AccountAnalyticDistributionModels")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PartnerCategoryId")]
     //[InverseProperty("AccountAnalyticDistributionModels")]
+    [NotMapped]
     public virtual ResPartnerCategory? PartnerCategory { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("AccountAnalyticDistributionModels")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductCategId")]
     //[InverseProperty("AccountAnalyticDistributionModels")]
+    [NotMapped]
     public virtual ProductCategory? ProductCateg { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAnalyticDistributionModelWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -40,17 +40,21 @@ public partial class BaseModuleInstallRequest: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BaseModuleInstallRequestCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModuleId")]
     //[InverseProperty("BaseModuleInstallRequests")]
+    [NotMapped]
     public virtual IrModuleModule? Module { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("BaseModuleInstallRequestUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BaseModuleInstallRequestWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -37,13 +37,16 @@ public partial class CrmLeadLost: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CrmLeadLostCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LostReasonId")]
     //[InverseProperty("CrmLeadLosts")]
+    [NotMapped]
     public virtual CrmLostReason? LostReason { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CrmLeadLostWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

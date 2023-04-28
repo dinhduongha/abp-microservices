@@ -43,9 +43,11 @@ public partial class MailIceServer: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailIceServerCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailIceServerWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

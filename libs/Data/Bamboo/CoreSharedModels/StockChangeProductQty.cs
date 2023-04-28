@@ -40,17 +40,21 @@ public partial class StockChangeProductQty: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockChangeProductQtyCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockChangeProductQties")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductTmplId")]
     //[InverseProperty("StockChangeProductQties")]
+    [NotMapped]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockChangeProductQtyWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

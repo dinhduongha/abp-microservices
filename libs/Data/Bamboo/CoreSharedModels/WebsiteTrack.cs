@@ -37,13 +37,16 @@ public partial class WebsiteTrack: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("PageId")]
     //[InverseProperty("WebsiteTracks")]
+    [NotMapped]
     public virtual WebsitePage? Page { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("WebsiteTracks")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("VisitorId")]
     //[InverseProperty("WebsiteTracks")]
+    [NotMapped]
     public virtual WebsiteVisitor? Visitor { get; set; }
 }

@@ -34,9 +34,11 @@ public partial class AccountTourUploadBillEmailConfirm: Entity<Guid>, IEntityDto
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountTourUploadBillEmailConfirmCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountTourUploadBillEmailConfirmWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

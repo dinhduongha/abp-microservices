@@ -40,14 +40,17 @@ public partial class SpreadsheetDashboard: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SpreadsheetDashboardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DashboardGroupId")]
     //[InverseProperty("SpreadsheetDashboards")]
+    [NotMapped]
     public virtual SpreadsheetDashboardGroup? DashboardGroup { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SpreadsheetDashboardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("SpreadsheetDashboardId")]

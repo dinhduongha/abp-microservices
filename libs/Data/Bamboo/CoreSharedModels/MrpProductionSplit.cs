@@ -40,18 +40,22 @@ public partial class MrpProductionSplit: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpProductionSplitCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductionId")]
     //[InverseProperty("MrpProductionSplits")]
+    [NotMapped]
     public virtual MrpProduction? Production { get; set; }
 
     [ForeignKey("ProductionSplitMultiId")]
     //[InverseProperty("MrpProductionSplits")]
+    [NotMapped]
     public virtual MrpProductionSplitMulti? ProductionSplitMulti { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpProductionSplitWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("MrpProductionSplit")]

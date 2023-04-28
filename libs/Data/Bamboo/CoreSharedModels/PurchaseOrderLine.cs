@@ -123,50 +123,62 @@ public partial class PurchaseOrderLine: Entity<Guid>, IEntityDto<Guid>, IMultiTe
 
     [ForeignKey("TenantId")]
     //[InverseProperty("PurchaseOrderLines")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PurchaseOrderLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("PurchaseOrderLines")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("OrderId")]
     //[InverseProperty("PurchaseOrderLines")]
+    [NotMapped]
     public virtual PurchaseOrder? Order { get; set; }
 
     [ForeignKey("OrderpointId")]
     //[InverseProperty("PurchaseOrderLines")]
+    [NotMapped]
     public virtual StockWarehouseOrderpoint? Orderpoint { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("PurchaseOrderLines")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("PurchaseOrderLines")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductPackagingId")]
     //[InverseProperty("PurchaseOrderLines")]
+    [NotMapped]
     public virtual ProductPackaging? ProductPackaging { get; set; }
 
     [ForeignKey("ProductUom")]
     //[InverseProperty("PurchaseOrderLines")]
+    [NotMapped]
     public virtual UomUom? ProductUomNavigation { get; set; }
 
     [ForeignKey("SaleLineId")]
     //[InverseProperty("PurchaseOrderLines")]
+    [NotMapped]
     public virtual SaleOrderLine? SaleLine { get; set; }
 
     [ForeignKey("SaleOrderId")]
     //[InverseProperty("PurchaseOrderLines")]
+    [NotMapped]
     public virtual SaleOrder? SaleOrder { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PurchaseOrderLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("PurchaseLine")]

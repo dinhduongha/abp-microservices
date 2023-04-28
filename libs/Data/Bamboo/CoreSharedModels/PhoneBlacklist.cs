@@ -41,13 +41,16 @@ public partial class PhoneBlacklist: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PhoneBlacklistCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("PhoneBlacklists")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PhoneBlacklistWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

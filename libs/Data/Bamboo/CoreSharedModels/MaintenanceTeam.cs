@@ -43,14 +43,17 @@ public partial class MaintenanceTeam: Entity<Guid>, IEntityDto<Guid>, IMultiTena
 
     [ForeignKey("TenantId")]
     //[InverseProperty("MaintenanceTeams")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MaintenanceTeamCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MaintenanceTeamWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("MaintenanceTeam")]

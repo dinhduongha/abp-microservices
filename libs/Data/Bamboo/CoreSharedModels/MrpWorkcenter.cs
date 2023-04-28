@@ -85,26 +85,32 @@ public partial class MrpWorkcenter: Entity<Guid>, IEntityDto<Guid>, IMultiTenant
 
     [ForeignKey("TenantId")]
     //[InverseProperty("MrpWorkcenters")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CostsHourAccountId")]
     //[InverseProperty("MrpWorkcenters")]
+    [NotMapped]
     public virtual AccountAnalyticAccount? CostsHourAccount { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpWorkcenterCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ResourceId")]
     //[InverseProperty("MrpWorkcenters")]
+    [NotMapped]
     public virtual ResourceResource? Resource { get; set; }
 
     [ForeignKey("ResourceCalendarId")]
     //[InverseProperty("MrpWorkcenters")]
+    [NotMapped]
     public virtual ResourceCalendar? ResourceCalendar { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpWorkcenterWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Workcenter")]

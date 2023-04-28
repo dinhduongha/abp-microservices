@@ -34,13 +34,16 @@ public partial class AccountFinancialYearOp: Entity<Guid>, IEntityDto<Guid>, IMu
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountFinancialYearOps")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountFinancialYearOpCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountFinancialYearOpWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

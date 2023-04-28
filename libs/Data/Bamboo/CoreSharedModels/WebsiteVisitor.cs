@@ -56,26 +56,32 @@ public partial class WebsiteVisitor: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CountryId")]
     //[InverseProperty("WebsiteVisitors")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("WebsiteVisitorCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LangId")]
     //[InverseProperty("WebsiteVisitors")]
+    [NotMapped]
     public virtual ResLang? Lang { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("WebsiteVisitors")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("WebsiteVisitors")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("WebsiteVisitorWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Visitor")]

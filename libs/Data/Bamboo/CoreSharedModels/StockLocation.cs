@@ -105,38 +105,47 @@ public partial class StockLocation: Entity<Guid>, IEntityDto<Guid>, IMultiTenant
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockLocations")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockLocationCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
     //[InverseProperty("InverseLocation")]
+    [NotMapped]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("RemovalStrategyId")]
     //[InverseProperty("StockLocations")]
+    [NotMapped]
     public virtual ProductRemoval? RemovalStrategy { get; set; }
 
     [ForeignKey("StorageCategoryId")]
     //[InverseProperty("StockLocations")]
+    [NotMapped]
     public virtual StockStorageCategory? StorageCategory { get; set; }
 
     [ForeignKey("ValuationInAccountId")]
     //[InverseProperty("StockLocationValuationInAccounts")]
+    [NotMapped]
     public virtual AccountAccount? ValuationInAccount { get; set; }
 
     [ForeignKey("ValuationOutAccountId")]
     //[InverseProperty("StockLocationValuationOutAccounts")]
+    [NotMapped]
     public virtual AccountAccount? ValuationOutAccount { get; set; }
 
     [ForeignKey("WarehouseId")]
     //[InverseProperty("StockLocations")]
+    [NotMapped]
     public virtual StockWarehouse? Warehouse { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockLocationWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Location")]

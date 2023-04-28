@@ -54,14 +54,17 @@ public partial class IrUiMenu: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrUiMenuCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual IrUiMenu? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrUiMenuWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Parent")]

@@ -48,14 +48,17 @@ public partial class ResPartnerCategory: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResPartnerCategoryCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual ResPartnerCategory? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResPartnerCategoryWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     /// TODO: DISABLE INVERSE

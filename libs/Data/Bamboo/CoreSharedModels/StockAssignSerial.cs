@@ -61,17 +61,21 @@ public partial class StockAssignSerial: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockAssignSerialCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MoveId")]
     //[InverseProperty("StockAssignSerials")]
+    [NotMapped]
     public virtual StockMove? Move { get; set; }
 
     [ForeignKey("ProductionId")]
     //[InverseProperty("StockAssignSerials")]
+    [NotMapped]
     public virtual MrpProduction? Production { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockAssignSerialWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

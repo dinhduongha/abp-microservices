@@ -46,21 +46,26 @@ public partial class StockWarnInsufficientQtyRepair: Entity<Guid>, IEntityDto<Gu
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockWarnInsufficientQtyRepairCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
     //[InverseProperty("StockWarnInsufficientQtyRepairs")]
+    [NotMapped]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockWarnInsufficientQtyRepairs")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("RepairId")]
     //[InverseProperty("StockWarnInsufficientQtyRepairs")]
+    [NotMapped]
     public virtual RepairOrder? Repair { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockWarnInsufficientQtyRepairWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

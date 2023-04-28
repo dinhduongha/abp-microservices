@@ -40,18 +40,22 @@ public partial class StockRulesReport: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockRulesReportCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockRulesReports")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductTmplId")]
     //[InverseProperty("StockRulesReports")]
+    [NotMapped]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockRulesReportWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockRulesReportId")]

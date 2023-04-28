@@ -68,18 +68,22 @@ public partial class ProductPublicCategory: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProductPublicCategoryCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual ProductPublicCategory? Parent { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("ProductPublicCategories")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProductPublicCategoryWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Parent")]

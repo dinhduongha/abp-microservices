@@ -31,13 +31,16 @@ public partial class MailMessageReaction: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("GuestId")]
     //[InverseProperty("MailMessageReactions")]
+    [NotMapped]
     public virtual MailGuest? Guest { get; set; }
 
     [ForeignKey("MessageId")]
     //[InverseProperty("MailMessageReactions")]
+    [NotMapped]
     public virtual MailMessage? Message { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("MailMessageReactions")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 }

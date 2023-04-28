@@ -44,14 +44,17 @@ public partial class HrAttendance: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrAttendanceCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EmployeeId")]
     //[InverseProperty("HrAttendances")]
+    [NotMapped]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrAttendanceWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("LastAttendance")]

@@ -120,66 +120,82 @@ public partial class StockPicking: Entity<Guid>, IEntityDto<Guid>, IMultiTenant,
 
     [ForeignKey("BackorderId")]
     //[InverseProperty("InverseBackorder")]
+    [NotMapped]
     public virtual StockPicking? Backorder { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockPickingCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GroupId")]
     //[InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual ProcurementGroup? Group { get; set; }
 
     [ForeignKey("LocationId")]
     //[InverseProperty("StockPickingLocations")]
+    [NotMapped]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("LocationDestId")]
     //[InverseProperty("StockPickingLocationDests")]
+    [NotMapped]
     public virtual StockLocation? LocationDest { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("OwnerId")]
     //[InverseProperty("StockPickingOwners")]
+    [NotMapped]
     public virtual ResPartner? Owner { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("StockPickingPartners")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PickingTypeId")]
     //[InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual StockPickingType? PickingType { get; set; }
 
     [ForeignKey("PosOrderId")]
     //[InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual PosOrder? PosOrder { get; set; }
 
     [ForeignKey("PosSessionId")]
     //[InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual PosSession? PosSession { get; set; }
 
     [ForeignKey("SaleId")]
     //[InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual SaleOrder? Sale { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("StockPickingUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("StockPickings")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockPickingWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Backorder")]

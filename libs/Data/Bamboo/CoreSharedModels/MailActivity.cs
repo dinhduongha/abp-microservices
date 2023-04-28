@@ -81,41 +81,51 @@ public partial class MailActivity: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("ActivityTypeId")]
     //[InverseProperty("MailActivityActivityTypes")]
+    [NotMapped]
     public virtual MailActivityType? ActivityType { get; set; }
 
     [ForeignKey("CalendarEventId")]
     //[InverseProperty("MailActivities")]
+    [NotMapped]
     public virtual CalendarEvent? CalendarEvent { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailActivityCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("NoteId")]
     //[InverseProperty("MailActivities")]
+    [NotMapped]
     public virtual NoteNote? NoteNavigation { get; set; }
 
     [ForeignKey("PreviousActivityTypeId")]
     //[InverseProperty("MailActivityPreviousActivityTypes")]
+    [NotMapped]
     public virtual MailActivityType? PreviousActivityType { get; set; }
 
     [ForeignKey("RecommendedActivityTypeId")]
     //[InverseProperty("MailActivityRecommendedActivityTypes")]
+    [NotMapped]
     public virtual MailActivityType? RecommendedActivityType { get; set; }
 
     [ForeignKey("RequestPartnerId")]
     //[InverseProperty("MailActivities")]
+    [NotMapped]
     public virtual ResPartner? RequestPartner { get; set; }
 
     [ForeignKey("ResModelId")]
     //[InverseProperty("MailActivities")]
+    [NotMapped]
     public virtual IrModel? ResModelNavigation { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("MailActivityUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailActivityWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -108,38 +108,47 @@ public partial class CalendarEvent: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("ApplicantId")]
     //[InverseProperty("CalendarEvents")]
+    [NotMapped]
     public virtual HrApplicant? Applicant { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CalendarEventCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("CalendarEvents")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("OpportunityId")]
     //[InverseProperty("CalendarEvents")]
+    [NotMapped]
     public virtual CrmLead? Opportunity { get; set; }
 
     [ForeignKey("RecurrenceId")]
     //[InverseProperty("CalendarEvents")]
+    [NotMapped]
     public virtual CalendarRecurrence? Recurrence { get; set; }
 
     [ForeignKey("ResModelId")]
     //[InverseProperty("CalendarEvents")]
+    [NotMapped]
     public virtual IrModel? ResModelNavigation { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("CalendarEventUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("VideocallChannelId")]
     //[InverseProperty("CalendarEvents")]
+    [NotMapped]
     public virtual MailChannel? VideocallChannel { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CalendarEventWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Event")]

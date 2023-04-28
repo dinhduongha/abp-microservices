@@ -91,6 +91,7 @@ public partial class CalendarRecurrence: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("BaseEventId")]
     //[InverseProperty("CalendarRecurrences")]
+    [NotMapped]
     public virtual CalendarEvent? BaseEvent { get; set; }
 
     //[InverseProperty("Recurrence")]
@@ -99,9 +100,11 @@ public partial class CalendarRecurrence: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CalendarRecurrenceCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CalendarRecurrenceWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

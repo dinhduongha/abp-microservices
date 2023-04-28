@@ -40,14 +40,17 @@ public partial class HrLeaveAccrualPlan: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrLeaveAccrualPlanCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TimeOffTypeId")]
     //[InverseProperty("HrLeaveAccrualPlans")]
+    [NotMapped]
     public virtual HrLeaveType? TimeOffType { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrLeaveAccrualPlanWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("AccrualPlan")]

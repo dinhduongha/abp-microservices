@@ -37,9 +37,11 @@ public partial class PhoneBlacklistRemove: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PhoneBlacklistRemoveCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PhoneBlacklistRemoveWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

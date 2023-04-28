@@ -46,14 +46,17 @@ public partial class AccountBalanceReport: Entity<Guid>, IEntityDto<Guid>, IMult
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountBalanceReports")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountBalanceReportCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountBalanceReportWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountBalanceReportId")]

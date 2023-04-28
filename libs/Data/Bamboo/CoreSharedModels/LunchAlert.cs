@@ -82,14 +82,17 @@ public partial class LunchAlert: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("LunchAlertCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CronId")]
     //[InverseProperty("LunchAlerts")]
+    [NotMapped]
     public virtual IrCron? Cron { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("LunchAlertWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("LunchAlertId")]

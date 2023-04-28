@@ -46,21 +46,26 @@ public partial class StockStorageCategoryCapacity: Entity<Guid>, IEntityDto<Guid
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockStorageCategoryCapacityCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PackageTypeId")]
     //[InverseProperty("StockStorageCategoryCapacities")]
+    [NotMapped]
     public virtual StockPackageType? PackageType { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockStorageCategoryCapacities")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("StorageCategoryId")]
     //[InverseProperty("StockStorageCategoryCapacities")]
+    [NotMapped]
     public virtual StockStorageCategory? StorageCategory { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockStorageCategoryCapacityWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

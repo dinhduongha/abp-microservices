@@ -31,9 +31,11 @@ public partial class CrmIapLeadHelper: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CrmIapLeadHelperCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CrmIapLeadHelperWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

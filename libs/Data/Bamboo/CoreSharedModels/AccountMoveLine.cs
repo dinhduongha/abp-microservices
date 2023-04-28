@@ -216,102 +216,127 @@ public partial class AccountMoveLine: Entity<Guid>, IEntityDto<Guid>, IMultiTena
 
     [ForeignKey("AccountId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual AccountAccount? Account { get; set; }
 
     [ForeignKey("AssetCategoryId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual AccountAssetCategory? AssetCategory { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CompanyCurrencyId")]
     //[InverseProperty("AccountMoveLineCompanyCurrencies")]
+    [NotMapped]
     public virtual ResCurrency? CompanyCurrency { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountMoveLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("AccountMoveLineCurrencies")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("ExpenseId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual HrExpense? Expense { get; set; }
 
     [ForeignKey("FollowupLineId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual FollowupLine? FollowupLine { get; set; }
 
     [ForeignKey("FullReconcileId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual AccountFullReconcile? FullReconcile { get; set; }
 
     [ForeignKey("GroupTaxId")]
     //[InverseProperty("AccountMoveLineGroupTaxes")]
+    [NotMapped]
     public virtual AccountTax? GroupTax { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("MoveId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual AccountMove? Move { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PaymentId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual AccountPayment? Payment { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("PurchaseLineId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual PurchaseOrderLine? PurchaseLine { get; set; }
 
     [ForeignKey("ReconcileModelId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual AccountReconcileModel? ReconcileModel { get; set; }
 
     [ForeignKey("StatementId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual AccountBankStatement? Statement { get; set; }
 
     [ForeignKey("StatementLineId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual AccountBankStatementLine? StatementLine { get; set; }
 
     [ForeignKey("TaxGroupId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual AccountTaxGroup? TaxGroup { get; set; }
 
     [ForeignKey("TaxLineId")]
     //[InverseProperty("AccountMoveLineTaxLines")]
+    [NotMapped]
     public virtual AccountTax? TaxLine { get; set; }
 
     [ForeignKey("TaxRepartitionLineId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual AccountTaxRepartitionLine? TaxRepartitionLine { get; set; }
 
     [ForeignKey("VehicleId")]
     //[InverseProperty("AccountMoveLines")]
+    [NotMapped]
     public virtual FleetVehicle? Vehicle { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountMoveLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("MoveLine")]

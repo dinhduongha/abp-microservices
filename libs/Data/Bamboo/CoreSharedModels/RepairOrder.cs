@@ -126,70 +126,87 @@ public partial class RepairOrder: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AddressId")]
     //[InverseProperty("RepairOrderAddresses")]
+    [NotMapped]
     public virtual ResPartner? Address { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("RepairOrders")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("RepairOrderCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InvoiceId")]
     //[InverseProperty("RepairOrders")]
+    [NotMapped]
     public virtual AccountMove? Invoice { get; set; }
 
     [ForeignKey("LocationId")]
     //[InverseProperty("RepairOrders")]
+    [NotMapped]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("LotId")]
     //[InverseProperty("RepairOrders")]
+    [NotMapped]
     public virtual StockLot? Lot { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("RepairOrders")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("MoveId")]
     //[InverseProperty("RepairOrders")]
+    [NotMapped]
     public virtual StockMove? Move { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("RepairOrderPartners")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PartnerInvoiceId")]
     //[InverseProperty("RepairOrderPartnerInvoices")]
+    [NotMapped]
     public virtual ResPartner? PartnerInvoice { get; set; }
 
     [ForeignKey("PickingId")]
     //[InverseProperty("RepairOrders")]
+    [NotMapped]
     public virtual StockPicking? Picking { get; set; }
 
     [ForeignKey("PricelistId")]
     //[InverseProperty("RepairOrders")]
+    [NotMapped]
     public virtual ProductPricelist? Pricelist { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("RepairOrders")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUom")]
     //[InverseProperty("RepairOrders")]
+    [NotMapped]
     public virtual UomUom? ProductUomNavigation { get; set; }
 
     [ForeignKey("SaleOrderId")]
     //[InverseProperty("RepairOrders")]
+    [NotMapped]
     public virtual SaleOrder? SaleOrder { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("RepairOrderUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("RepairOrderWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Repair")]

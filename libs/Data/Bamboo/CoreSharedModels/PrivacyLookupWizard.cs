@@ -43,14 +43,17 @@ public partial class PrivacyLookupWizard: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PrivacyLookupWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LogId")]
     //[InverseProperty("PrivacyLookupWizards")]
+    [NotMapped]
     public virtual PrivacyLog? Log { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PrivacyLookupWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Wizard")]

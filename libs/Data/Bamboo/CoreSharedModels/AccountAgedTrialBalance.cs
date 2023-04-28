@@ -49,14 +49,17 @@ public partial class AccountAgedTrialBalance: Entity<Guid>, IEntityDto<Guid>, IM
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountAgedTrialBalances")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAgedTrialBalanceCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAgedTrialBalanceWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountAgedTrialBalanceId")]

@@ -34,13 +34,16 @@ public partial class BaseModuleInstallReview: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BaseModuleInstallReviewCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModuleId")]
     //[InverseProperty("BaseModuleInstallReviews")]
+    [NotMapped]
     public virtual IrModuleModule? Module { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BaseModuleInstallReviewWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

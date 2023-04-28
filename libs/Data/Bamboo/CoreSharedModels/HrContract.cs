@@ -87,46 +87,57 @@ public partial class HrContract: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, I
 
     [ForeignKey("TenantId")]
     //[InverseProperty("HrContracts")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("ContractTypeId")]
     //[InverseProperty("HrContracts")]
+    [NotMapped]
     public virtual HrContractType? ContractType { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrContractCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartmentId")]
     //[InverseProperty("HrContracts")]
+    [NotMapped]
     public virtual HrDepartment? Department { get; set; }
 
     [ForeignKey("EmployeeId")]
     //[InverseProperty("HrContracts")]
+    [NotMapped]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("HrResponsibleId")]
     //[InverseProperty("HrContractHrResponsibles")]
+    [NotMapped]
     public virtual ResUser? HrResponsible { get; set; }
 
     [ForeignKey("JobId")]
     //[InverseProperty("HrContracts")]
+    [NotMapped]
     public virtual HrJob? Job { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("HrContracts")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ResourceCalendarId")]
     //[InverseProperty("HrContracts")]
+    [NotMapped]
     public virtual ResourceCalendar? ResourceCalendar { get; set; }
 
     [ForeignKey("StructureTypeId")]
     //[InverseProperty("HrContracts")]
+    [NotMapped]
     public virtual HrPayrollStructureType? StructureType { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrContractWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Contract")]

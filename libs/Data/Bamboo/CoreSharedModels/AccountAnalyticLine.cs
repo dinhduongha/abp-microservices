@@ -92,58 +92,72 @@ public partial class AccountAnalyticLine: Entity<Guid>, IEntityDto<Guid>, IMulti
 
     [ForeignKey("AccountId")]
     //[InverseProperty("AccountAnalyticLines")]
+    [NotMapped]
     public virtual AccountAnalyticAccount? Account { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountAnalyticLines")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAnalyticLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("AccountAnalyticLines")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("GeneralAccountId")]
     //[InverseProperty("AccountAnalyticLines")]
+    [NotMapped]
     public virtual AccountAccount? GeneralAccount { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("AccountAnalyticLines")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("MoveLineId")]
     //[InverseProperty("AccountAnalyticLines")]
+    [NotMapped]
     public virtual AccountMoveLine? MoveLine { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("AccountAnalyticLines")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PlanId")]
     //[InverseProperty("AccountAnalyticLines")]
+    [NotMapped]
     public virtual AccountAnalyticPlan? Plan { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("AccountAnalyticLines")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
     //[InverseProperty("AccountAnalyticLines")]
+    [NotMapped]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("SoLine")]
     //[InverseProperty("AccountAnalyticLines")]
+    [NotMapped]
     public virtual SaleOrderLine? SoLineNavigation { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("AccountAnalyticLineUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAnalyticLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("MoAnalyticAccountLine")]

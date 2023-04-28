@@ -121,54 +121,67 @@ public partial class PosOrder: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IMa
 
     [ForeignKey("AccountMove")]
     //[InverseProperty("PosOrders")]
+    [NotMapped]
     public virtual AccountMove? AccountMoveNavigation { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("PosOrders")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PosOrderCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrmTeamId")]
     //[InverseProperty("PosOrders")]
+    [NotMapped]
     public virtual CrmTeam? CrmTeam { get; set; }
 
     [ForeignKey("EmployeeId")]
     //[InverseProperty("PosOrders")]
+    [NotMapped]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("FiscalPositionId")]
     //[InverseProperty("PosOrders")]
+    [NotMapped]
     public virtual AccountFiscalPosition? FiscalPosition { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("PosOrders")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PricelistId")]
     //[InverseProperty("PosOrders")]
+    [NotMapped]
     public virtual ProductPricelist? Pricelist { get; set; }
 
     [ForeignKey("ProcurementGroupId")]
     //[InverseProperty("PosOrders")]
+    [NotMapped]
     public virtual ProcurementGroup? ProcurementGroup { get; set; }
 
     [ForeignKey("SaleJournal")]
     //[InverseProperty("PosOrders")]
+    [NotMapped]
     public virtual AccountJournal? SaleJournalNavigation { get; set; }
 
     [ForeignKey("SessionId")]
     //[InverseProperty("PosOrders")]
+    [NotMapped]
     public virtual PosSession? Session { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("PosOrderUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PosOrderWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
     
     //[InverseProperty("Order")]

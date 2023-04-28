@@ -56,30 +56,37 @@ public partial class AccountAnalyticAccount: Entity<Guid>, IEntityDto<Guid>, IMu
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountAnalyticAccounts")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAnalyticAccountCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("AccountAnalyticAccounts")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("AccountAnalyticAccounts")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PlanId")]
     //[InverseProperty("AccountAnalyticAccountPlans")]
+    [NotMapped]
     public virtual AccountAnalyticPlan? Plan { get; set; }
 
     [ForeignKey("RootPlanId")]
     //[InverseProperty("AccountAnalyticAccountRootPlans")]
+    [NotMapped]
     public virtual AccountAnalyticPlan? RootPlan { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAnalyticAccountWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("AnalyticAccount")]

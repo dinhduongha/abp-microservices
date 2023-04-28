@@ -37,17 +37,21 @@ public partial class BaseDocumentLayout: Entity<Guid>, IEntityDto<Guid>, IMultiT
 
     [ForeignKey("TenantId")]
     //[InverseProperty("BaseDocumentLayouts")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BaseDocumentLayoutCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ReportLayoutId")]
     //[InverseProperty("BaseDocumentLayouts")]
+    [NotMapped]
     public virtual ReportLayout? ReportLayout { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BaseDocumentLayoutWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

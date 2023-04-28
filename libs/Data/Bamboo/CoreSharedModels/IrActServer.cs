@@ -118,42 +118,52 @@ public partial class IrActServer: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("ActivityTypeId")]
     //[InverseProperty("IrActServers")]
+    [NotMapped]
     public virtual MailActivityType? ActivityType { get; set; }
 
     [ForeignKey("ActivityUserId")]
     //[InverseProperty("IrActServerActivityUsers")]
+    [NotMapped]
     public virtual ResUser? ActivityUser { get; set; }
 
     [ForeignKey("BindingModelId")]
     //[InverseProperty("IrActServerBindingModels")]
+    [NotMapped]
     public virtual IrModel? BindingModel { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrActServerCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrudModelId")]
     //[InverseProperty("IrActServerCrudModels")]
+    [NotMapped]
     public virtual IrModel? CrudModel { get; set; }
 
     [ForeignKey("LinkFieldId")]
     //[InverseProperty("IrActServers")]
+    [NotMapped]
     public virtual IrModelField? LinkField { get; set; }
 
     [ForeignKey("ModelId")]
     //[InverseProperty("IrActServerModels")]
+    [NotMapped]
     public virtual IrModel? Model { get; set; }
 
     [ForeignKey("SmsTemplateId")]
     //[InverseProperty("IrActServers")]
+    [NotMapped]
     public virtual SmsTemplate? SmsTemplate { get; set; }
 
     [ForeignKey("TemplateId")]
     //[InverseProperty("IrActServers")]
+    [NotMapped]
     public virtual MailTemplate? Template { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrActServerWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("IrActionsServer")]

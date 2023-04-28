@@ -50,21 +50,26 @@ public partial class AccountEdiDocument: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AttachmentId")]
     //[InverseProperty("AccountEdiDocuments")]
+    [NotMapped]
     public virtual IrAttachment? Attachment { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountEdiDocumentCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EdiFormatId")]
     //[InverseProperty("AccountEdiDocuments")]
+    [NotMapped]
     public virtual AccountEdiFormat? EdiFormat { get; set; }
 
     [ForeignKey("MoveId")]
     //[InverseProperty("AccountEdiDocuments")]
+    [NotMapped]
     public virtual AccountMove? Move { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountEdiDocumentWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

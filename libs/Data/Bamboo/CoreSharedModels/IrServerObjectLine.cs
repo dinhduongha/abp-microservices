@@ -43,17 +43,21 @@ public partial class IrServerObjectLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("Col1")]
     //[InverseProperty("IrServerObjectLines")]
+    [NotMapped]
     public virtual IrModelField? Col1Navigation { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrServerObjectLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ServerId")]
     //[InverseProperty("IrServerObjectLines")]
+    [NotMapped]
     public virtual IrActServer? Server { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrServerObjectLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

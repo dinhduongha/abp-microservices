@@ -43,17 +43,21 @@ public partial class IrUiViewCustom: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrUiViewCustomCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("RefId")]
     //[InverseProperty("IrUiViewCustoms")]
+    [NotMapped]
     public virtual IrUiView? Ref { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("IrUiViewCustomUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrUiViewCustomWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

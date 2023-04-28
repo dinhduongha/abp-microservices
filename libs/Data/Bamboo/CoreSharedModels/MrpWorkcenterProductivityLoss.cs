@@ -46,14 +46,17 @@ public partial class MrpWorkcenterProductivityLoss: Entity<Guid>, IEntityDto<Gui
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpWorkcenterProductivityLossCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LossId")]
     //[InverseProperty("MrpWorkcenterProductivityLosses")]
+    [NotMapped]
     public virtual MrpWorkcenterProductivityLossType? Loss { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpWorkcenterProductivityLossWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Loss")]

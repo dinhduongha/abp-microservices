@@ -67,18 +67,22 @@ public partial class BasePartnerMergeAutomaticWizard: Entity<Guid>, IEntityDto<G
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BasePartnerMergeAutomaticWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrentLineId")]
     //[InverseProperty("BasePartnerMergeAutomaticWizards")]
+    [NotMapped]
     public virtual BasePartnerMergeLine? CurrentLine { get; set; }
 
     [ForeignKey("DstPartnerId")]
     //[InverseProperty("BasePartnerMergeAutomaticWizards")]
+    [NotMapped]
     public virtual ResPartner? DstPartner { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BasePartnerMergeAutomaticWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Wizard")]

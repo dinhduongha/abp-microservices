@@ -40,21 +40,26 @@ public partial class StockReplenishmentOption: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockReplenishmentOptionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockReplenishmentOptions")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ReplenishmentInfoId")]
     //[InverseProperty("StockReplenishmentOptions")]
+    [NotMapped]
     public virtual StockReplenishmentInfo? ReplenishmentInfo { get; set; }
 
     [ForeignKey("RouteId")]
     //[InverseProperty("StockReplenishmentOptions")]
+    [NotMapped]
     public virtual StockRoute? Route { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockReplenishmentOptionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

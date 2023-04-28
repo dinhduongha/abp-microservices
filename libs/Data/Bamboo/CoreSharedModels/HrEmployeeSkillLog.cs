@@ -53,29 +53,36 @@ public partial class HrEmployeeSkillLog: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrEmployeeSkillLogCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartmentId")]
     //[InverseProperty("HrEmployeeSkillLogs")]
+    [NotMapped]
     public virtual HrDepartment? Department { get; set; }
 
     [ForeignKey("EmployeeId")]
     //[InverseProperty("HrEmployeeSkillLogs")]
+    [NotMapped]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("SkillId")]
     //[InverseProperty("HrEmployeeSkillLogs")]
+    [NotMapped]
     public virtual HrSkill? Skill { get; set; }
 
     [ForeignKey("SkillLevelId")]
     //[InverseProperty("HrEmployeeSkillLogs")]
+    [NotMapped]
     public virtual HrSkillLevel? SkillLevel { get; set; }
 
     [ForeignKey("SkillTypeId")]
     //[InverseProperty("HrEmployeeSkillLogs")]
+    [NotMapped]
     public virtual HrSkillType? SkillType { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrEmployeeSkillLogWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

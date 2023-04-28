@@ -37,9 +37,11 @@ public partial class ResUsersIdentitycheck: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResUsersIdentitycheckCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResUsersIdentitycheckWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

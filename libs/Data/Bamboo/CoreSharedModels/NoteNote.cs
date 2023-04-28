@@ -58,22 +58,27 @@ public partial class NoteNote: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IMa
 
     [ForeignKey("TenantId")]
     //[InverseProperty("NoteNotes")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("NoteNoteCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("NoteNotes")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("NoteNoteUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("NoteNoteWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("NoteNavigation")]

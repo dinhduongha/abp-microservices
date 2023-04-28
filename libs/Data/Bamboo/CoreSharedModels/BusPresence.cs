@@ -34,9 +34,11 @@ public partial class BusPresence: Entity<long>, IEntityDto<long>
 
     [ForeignKey("GuestId")]
     //[InverseProperty("BusPresence")]
+    [NotMapped]
     public virtual MailGuest? Guest { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("BusPresence")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 }

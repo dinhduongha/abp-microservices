@@ -46,17 +46,21 @@ public partial class AccountAnalyticApplicability: Entity<Guid>, IEntityDto<Guid
 
     [ForeignKey("AnalyticPlanId")]
     //[InverseProperty("AccountAnalyticApplicabilities")]
+    [NotMapped]
     public virtual AccountAnalyticPlan? AnalyticPlan { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAnalyticApplicabilityCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductCategId")]
     //[InverseProperty("AccountAnalyticApplicabilities")]
+    [NotMapped]
     public virtual ProductCategory? ProductCateg { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAnalyticApplicabilityWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

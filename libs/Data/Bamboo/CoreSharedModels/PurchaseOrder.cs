@@ -137,54 +137,67 @@ public partial class PurchaseOrder: Entity<Guid>, IEntityDto<Guid>, IMultiTenant
 
     [ForeignKey("TenantId")]
     //[InverseProperty("PurchaseOrders")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PurchaseOrderCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("PurchaseOrders")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("DestAddressId")]
     //[InverseProperty("PurchaseOrderDestAddresses")]
+    [NotMapped]
     public virtual ResPartner? DestAddress { get; set; }
 
     [ForeignKey("FiscalPositionId")]
     //[InverseProperty("PurchaseOrders")]
+    [NotMapped]
     public virtual AccountFiscalPosition? FiscalPosition { get; set; }
 
     [ForeignKey("GroupId")]
     //[InverseProperty("PurchaseOrders")]
+    [NotMapped]
     public virtual ProcurementGroup? Group { get; set; }
 
     [ForeignKey("IncotermId")]
     //[InverseProperty("PurchaseOrders")]
+    [NotMapped]
     public virtual AccountIncoterm? Incoterm { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("PurchaseOrders")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("PurchaseOrderPartners")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PaymentTermId")]
     //[InverseProperty("PurchaseOrders")]
+    [NotMapped]
     public virtual AccountPaymentTerm? PaymentTerm { get; set; }
 
     [ForeignKey("PickingTypeId")]
     //[InverseProperty("PurchaseOrders")]
+    [NotMapped]
     public virtual StockPickingType? PickingType { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("PurchaseOrderUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PurchaseOrderWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Order")]

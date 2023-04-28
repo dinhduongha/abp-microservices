@@ -35,14 +35,17 @@ public partial class FollowupFollowup: Entity<Guid>, IEntityDto<Guid>, IMultiTen
 
     [ForeignKey("TenantId")]
     //[InverseProperty("FollowupFollowup")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("FollowupFollowupCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("FollowupFollowupWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
     
     //[InverseProperty("Followup")]

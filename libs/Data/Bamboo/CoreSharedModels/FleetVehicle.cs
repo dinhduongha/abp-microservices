@@ -160,54 +160,67 @@ public partial class FleetVehicle: Entity<Guid>, IEntityDto<Guid>, IMultiTenant,
 
     [ForeignKey("BrandId")]
     //[InverseProperty("FleetVehicles")]
+    [NotMapped]
     public virtual FleetVehicleModelBrand? Brand { get; set; }
 
     [ForeignKey("CategoryId")]
     //[InverseProperty("FleetVehicles")]
+    [NotMapped]
     public virtual FleetVehicleModelCategory? Category { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("FleetVehicles")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("FleetVehicleCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DriverId")]
     //[InverseProperty("FleetVehicleDrivers")]
+    [NotMapped]
     public virtual ResPartner? Driver { get; set; }
 
     [ForeignKey("DriverEmployeeId")]
     //[InverseProperty("FleetVehicleDriverEmployees")]
+    [NotMapped]
     public virtual HrEmployee? DriverEmployee { get; set; }
 
     [ForeignKey("FutureDriverId")]
     //[InverseProperty("FleetVehicleFutureDrivers")]
+    [NotMapped]
     public virtual ResPartner? FutureDriver { get; set; }
 
     [ForeignKey("FutureDriverEmployeeId")]
     //[InverseProperty("FleetVehicleFutureDriverEmployees")]
+    [NotMapped]
     public virtual HrEmployee? FutureDriverEmployee { get; set; }
 
     [ForeignKey("ManagerId")]
     //[InverseProperty("FleetVehicleManagers")]
+    [NotMapped]
     public virtual ResUser? Manager { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("FleetVehicles")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ModelId")]
     //[InverseProperty("FleetVehicles")]
+    [NotMapped]
     public virtual FleetVehicleModel? Model { get; set; }
 
     [ForeignKey("StateId")]
     //[InverseProperty("FleetVehicles")]
+    [NotMapped]
     public virtual FleetVehicleState? State { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("FleetVehicleWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Vehicle")]

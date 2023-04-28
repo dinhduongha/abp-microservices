@@ -31,9 +31,11 @@ public partial class IrDemo: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrDemoCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrDemoWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

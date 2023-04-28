@@ -87,21 +87,26 @@ public partial class MailTrackingValue: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailTrackingValueCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("MailTrackingValues")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("Field")]
     //[InverseProperty("MailTrackingValues")]
+    [NotMapped]
     public virtual IrModelField? FieldNavigation { get; set; }
 
     [ForeignKey("MailMessageId")]
     //[InverseProperty("MailTrackingValues")]
+    [NotMapped]
     public virtual MailMessage? MailMessage { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailTrackingValueWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

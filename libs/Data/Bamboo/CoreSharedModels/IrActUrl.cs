@@ -55,13 +55,16 @@ public partial class IrActUrl: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("BindingModelId")]
     //[InverseProperty("IrActUrls")]
+    [NotMapped]
     public virtual IrModel? BindingModel { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrActUrlCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrActUrlWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

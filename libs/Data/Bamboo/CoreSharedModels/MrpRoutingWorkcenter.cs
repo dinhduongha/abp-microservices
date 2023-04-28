@@ -65,18 +65,22 @@ public partial class MrpRoutingWorkcenter: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("BomId")]
     //[InverseProperty("MrpRoutingWorkcenters")]
+    [NotMapped]
     public virtual MrpBom? Bom { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpRoutingWorkcenterCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("WorkcenterId")]
     //[InverseProperty("MrpRoutingWorkcenters")]
+    [NotMapped]
     public virtual MrpWorkcenter? Workcenter { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpRoutingWorkcenterWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Operation")]

@@ -49,13 +49,16 @@ public partial class IrAction: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("BindingModelId")]
     //[InverseProperty("IrActions")]
+    [NotMapped]
     public virtual IrModel? BindingModel { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrActionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrActionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

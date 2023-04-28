@@ -71,14 +71,17 @@ public partial class IrModel: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrModelCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("WebsiteFormDefaultFieldId")]
     //[InverseProperty("IrModels")]
+    [NotMapped]
     public virtual IrModelField? WebsiteFormDefaultField { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrModelWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ResModelNavigation")]

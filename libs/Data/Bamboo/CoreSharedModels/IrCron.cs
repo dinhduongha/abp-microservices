@@ -64,18 +64,22 @@ public partial class IrCron: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrCronCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("IrActionsServerId")]
     //[InverseProperty("IrCrons")]
+    [NotMapped]
     public virtual IrActServer? IrActionsServer { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("IrCronUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrCronWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
     
     //[InverseProperty("Cron")]

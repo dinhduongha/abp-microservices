@@ -105,58 +105,72 @@ public partial class HrLeaveAllocation: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AccrualPlanId")]
     //[InverseProperty("HrLeaveAllocations")]
+    [NotMapped]
     public virtual HrLeaveAccrualPlan? AccrualPlan { get; set; }
 
     [ForeignKey("ApproverId")]
     //[InverseProperty("HrLeaveAllocationApprovers")]
+    [NotMapped]
     public virtual HrEmployee? Approver { get; set; }
 
     [ForeignKey("CategoryId")]
     //[InverseProperty("HrLeaveAllocations")]
+    [NotMapped]
     public virtual HrEmployeeCategory? Category { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrLeaveAllocationCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartmentId")]
     //[InverseProperty("HrLeaveAllocations")]
+    [NotMapped]
     public virtual HrDepartment? Department { get; set; }
 
     [ForeignKey("EmployeeId")]
     //[InverseProperty("HrLeaveAllocationEmployees")]
+    [NotMapped]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("EmployeeCompanyId")]
     //[InverseProperty("HrLeaveAllocationEmployeeCompanies")]
+    [NotMapped]
     public virtual ResCompany? EmployeeCompany { get; set; }
 
     [ForeignKey("HolidayStatusId")]
     //[InverseProperty("HrLeaveAllocations")]
+    [NotMapped]
     public virtual HrLeaveType? HolidayStatus { get; set; }
 
     [ForeignKey("ManagerId")]
     //[InverseProperty("HrLeaveAllocationManagers")]
+    [NotMapped]
     public virtual HrEmployee? Manager { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("HrLeaveAllocations")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ModeCompanyId")]
     //[InverseProperty("HrLeaveAllocationModeCompanies")]
+    [NotMapped]
     public virtual ResCompany? ModeCompany { get; set; }
 
     [ForeignKey("OvertimeId")]
     //[InverseProperty("HrLeaveAllocations")]
+    [NotMapped]
     public virtual HrAttendanceOvertime? Overtime { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual HrLeaveAllocation? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrLeaveAllocationWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("HolidayAllocation")]

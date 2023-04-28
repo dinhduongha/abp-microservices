@@ -46,22 +46,27 @@ public partial class ProcurementGroup: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProcurementGroupCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("ProcurementGroups")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PosOrderId")]
     //[InverseProperty("ProcurementGroups")]
+    [NotMapped]
     public virtual PosOrder? PosOrder { get; set; }
 
     [ForeignKey("SaleId")]
     //[InverseProperty("ProcurementGroups")]
+    [NotMapped]
     public virtual SaleOrder? Sale { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProcurementGroupWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ProcurementGroup")]

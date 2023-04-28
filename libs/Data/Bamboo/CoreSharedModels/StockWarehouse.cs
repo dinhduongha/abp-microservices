@@ -150,130 +150,162 @@ public partial class StockWarehouse: Entity<Guid>, IEntityDto<Guid>, IMultiTenan
 
     [ForeignKey("BuyPullId")]
     //[InverseProperty("StockWarehouseBuyPulls")]
+    [NotMapped]
     public virtual StockRule? BuyPull { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockWarehouses")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockWarehouseCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrossdockRouteId")]
     //[InverseProperty("StockWarehouseCrossdockRoutes")]
+    [NotMapped]
     public virtual StockRoute? CrossdockRoute { get; set; }
 
     [ForeignKey("DeliveryRouteId")]
     //[InverseProperty("StockWarehouseDeliveryRoutes")]
+    [NotMapped]
     public virtual StockRoute? DeliveryRoute { get; set; }
 
     [ForeignKey("InTypeId")]
     //[InverseProperty("StockWarehouseInTypes")]
+    [NotMapped]
     public virtual StockPickingType? InType { get; set; }
 
     [ForeignKey("IntTypeId")]
     //[InverseProperty("StockWarehouseIntTypes")]
+    [NotMapped]
     public virtual StockPickingType? IntType { get; set; }
 
     [ForeignKey("LotStockId")]
     //[InverseProperty("StockWarehouseLotStocks")]
+    [NotMapped]
     public virtual StockLocation? LotStock { get; set; }
 
     [ForeignKey("ManuTypeId")]
     //[InverseProperty("StockWarehouseManuTypes")]
+    [NotMapped]
     public virtual StockPickingType? ManuType { get; set; }
 
     [ForeignKey("ManufactureMtoPullId")]
     //[InverseProperty("StockWarehouseManufactureMtoPulls")]
+    [NotMapped]
     public virtual StockRule? ManufactureMtoPull { get; set; }
 
     [ForeignKey("ManufacturePullId")]
     //[InverseProperty("StockWarehouseManufacturePulls")]
+    [NotMapped]
     public virtual StockRule? ManufacturePull { get; set; }
 
     [ForeignKey("MtoPullId")]
     //[InverseProperty("StockWarehouseMtoPulls")]
+    [NotMapped]
     public virtual StockRule? MtoPull { get; set; }
 
     [ForeignKey("OutTypeId")]
     //[InverseProperty("StockWarehouseOutTypes")]
+    [NotMapped]
     public virtual StockPickingType? OutType { get; set; }
 
     [ForeignKey("PackTypeId")]
     //[InverseProperty("StockWarehousePackTypes")]
+    [NotMapped]
     public virtual StockPickingType? PackType { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("StockWarehouses")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PbmLocId")]
     //[InverseProperty("StockWarehousePbmLocs")]
+    [NotMapped]
     public virtual StockLocation? PbmLoc { get; set; }
 
     [ForeignKey("PbmMtoPullId")]
     //[InverseProperty("StockWarehousePbmMtoPulls")]
+    [NotMapped]
     public virtual StockRule? PbmMtoPull { get; set; }
 
     [ForeignKey("PbmRouteId")]
     //[InverseProperty("StockWarehousePbmRoutes")]
+    [NotMapped]
     public virtual StockRoute? PbmRoute { get; set; }
 
     [ForeignKey("PbmTypeId")]
     //[InverseProperty("StockWarehousePbmTypes")]
+    [NotMapped]
     public virtual StockPickingType? PbmType { get; set; }
 
     [ForeignKey("PickTypeId")]
     //[InverseProperty("StockWarehousePickTypes")]
+    [NotMapped]
     public virtual StockPickingType? PickType { get; set; }
 
     [ForeignKey("PosTypeId")]
     //[InverseProperty("StockWarehousePosTypes")]
+    [NotMapped]
     public virtual StockPickingType? PosType { get; set; }
 
     [ForeignKey("ReceptionRouteId")]
     //[InverseProperty("StockWarehouseReceptionRoutes")]
+    [NotMapped]
     public virtual StockRoute? ReceptionRoute { get; set; }
 
     [ForeignKey("ReturnTypeId")]
     //[InverseProperty("StockWarehouseReturnTypes")]
+    [NotMapped]
     public virtual StockPickingType? ReturnType { get; set; }
 
     [ForeignKey("SamLocId")]
     //[InverseProperty("StockWarehouseSamLocs")]
+    [NotMapped]
     public virtual StockLocation? SamLoc { get; set; }
 
     [ForeignKey("SamRuleId")]
     //[InverseProperty("StockWarehouseSamRules")]
+    [NotMapped]
     public virtual StockRule? SamRule { get; set; }
 
     [ForeignKey("SamTypeId")]
     //[InverseProperty("StockWarehouseSamTypes")]
+    [NotMapped]
     public virtual StockPickingType? SamType { get; set; }
 
     [ForeignKey("ViewLocationId")]
     //[InverseProperty("StockWarehouseViewLocations")]
+    [NotMapped]
     public virtual StockLocation? ViewLocation { get; set; }
 
     [ForeignKey("WhInputStockLocId")]
     //[InverseProperty("StockWarehouseWhInputStockLocs")]
+    [NotMapped]
     public virtual StockLocation? WhInputStockLoc { get; set; }
 
     [ForeignKey("WhOutputStockLocId")]
     //[InverseProperty("StockWarehouseWhOutputStockLocs")]
+    [NotMapped]
     public virtual StockLocation? WhOutputStockLoc { get; set; }
 
     [ForeignKey("WhPackStockLocId")]
     //[InverseProperty("StockWarehouseWhPackStockLocs")]
+    [NotMapped]
     public virtual StockLocation? WhPackStockLoc { get; set; }
 
     [ForeignKey("WhQcStockLocId")]
     //[InverseProperty("StockWarehouseWhQcStockLocs")]
+    [NotMapped]
     public virtual StockLocation? WhQcStockLoc { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockWarehouseWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Warehouse")]

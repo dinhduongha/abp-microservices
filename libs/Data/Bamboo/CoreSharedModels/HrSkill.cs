@@ -40,14 +40,17 @@ public partial class HrSkill: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrSkillCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("SkillTypeId")]
     //[InverseProperty("HrSkills")]
+    [NotMapped]
     public virtual HrSkillType? SkillType { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrSkillWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Skill")]

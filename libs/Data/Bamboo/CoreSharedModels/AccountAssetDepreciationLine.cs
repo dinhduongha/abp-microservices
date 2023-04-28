@@ -63,17 +63,21 @@ public partial class AccountAssetDepreciationLine: Entity<Guid>, IEntityDto<Guid
 
     [ForeignKey("AssetId")]
     //[InverseProperty("AccountAssetDepreciationLines")]
+    [NotMapped]
     public virtual AccountAssetAsset? Asset { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAssetDepreciationLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MoveId")]
     //[InverseProperty("AccountAssetDepreciationLines")]
+    [NotMapped]
     public virtual AccountMove? Move { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAssetDepreciationLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

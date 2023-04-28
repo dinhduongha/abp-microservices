@@ -49,14 +49,17 @@ public partial class AccountAccountTag: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CountryId")]
     //[InverseProperty("AccountAccountTags")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAccountTagCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAccountTagWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountAccountTagId")]

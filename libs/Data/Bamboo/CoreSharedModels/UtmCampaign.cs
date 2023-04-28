@@ -53,22 +53,27 @@ public partial class UtmCampaign: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, 
 
     [ForeignKey("TenantId")]
     //[InverseProperty("UtmCampaigns")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("UtmCampaignCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("StageId")]
     //[InverseProperty("UtmCampaigns")]
+    [NotMapped]
     public virtual UtmStage? Stage { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("UtmCampaignUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("UtmCampaignWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Campaign")]

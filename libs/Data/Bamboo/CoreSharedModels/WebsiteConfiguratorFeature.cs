@@ -64,17 +64,21 @@ public partial class WebsiteConfiguratorFeature: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("WebsiteConfiguratorFeatureCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModuleId")]
     //[InverseProperty("WebsiteConfiguratorFeatures")]
+    [NotMapped]
     public virtual IrModuleModule? Module { get; set; }
 
     [ForeignKey("PageViewId")]
     //[InverseProperty("WebsiteConfiguratorFeatures")]
+    [NotMapped]
     public virtual IrUiView? PageView { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("WebsiteConfiguratorFeatureWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

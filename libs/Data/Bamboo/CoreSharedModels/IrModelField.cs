@@ -131,22 +131,27 @@ public partial class IrModelField: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrModelFieldCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModelId")]
     //[InverseProperty("IrModelFields")]
+    [NotMapped]
     public virtual IrModel? ModelNavigation { get; set; }
 
     [ForeignKey("RelatedFieldId")]
     //[InverseProperty("InverseRelatedField")]
+    [NotMapped]
     public virtual IrModelField? RelatedField { get; set; }
 
     [ForeignKey("RelationFieldId")]
     //[InverseProperty("InverseRelationFieldNavigation")]
+    [NotMapped]
     public virtual IrModelField? RelationFieldNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrModelFieldWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Field")]

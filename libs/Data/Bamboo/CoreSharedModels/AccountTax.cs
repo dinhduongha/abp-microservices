@@ -86,26 +86,32 @@ public partial class AccountTax: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, I
 
     [ForeignKey("CashBasisTransitionAccountId")]
     //[InverseProperty("AccountTaxes")]
+    [NotMapped]
     public virtual AccountAccount? CashBasisTransitionAccount { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountTaxes")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CountryId")]
     //[InverseProperty("AccountTaxes")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountTaxCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TaxGroupId")]
     //[InverseProperty("AccountTaxes")]
+    [NotMapped]
     public virtual AccountTaxGroup? TaxGroup { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountTaxWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("TaxDest")]

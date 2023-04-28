@@ -38,5 +38,6 @@ public partial class AuthTotpDevice: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("UserId")]
     //[InverseProperty("AuthTotpDevices")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 }

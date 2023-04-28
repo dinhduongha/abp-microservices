@@ -46,17 +46,21 @@ public partial class CalendarFilter: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CalendarFilterCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("CalendarFilters")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("CalendarFilterUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CalendarFilterWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

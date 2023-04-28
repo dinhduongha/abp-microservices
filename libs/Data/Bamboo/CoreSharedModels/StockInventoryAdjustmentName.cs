@@ -37,10 +37,12 @@ public partial class StockInventoryAdjustmentName: Entity<Guid>, IEntityDto<Guid
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockInventoryAdjustmentNameCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockInventoryAdjustmentNameWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockInventoryAdjustmentNameId")]

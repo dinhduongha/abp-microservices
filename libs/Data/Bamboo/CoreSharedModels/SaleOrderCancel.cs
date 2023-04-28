@@ -53,21 +53,26 @@ public partial class SaleOrderCancel: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AuthorId")]
     //[InverseProperty("SaleOrderCancels")]
+    [NotMapped]
     public virtual ResPartner? Author { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SaleOrderCancelCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("OrderId")]
     //[InverseProperty("SaleOrderCancels")]
+    [NotMapped]
     public virtual SaleOrder? Order { get; set; }
 
     [ForeignKey("TemplateId")]
     //[InverseProperty("SaleOrderCancels")]
+    [NotMapped]
     public virtual MailTemplate? Template { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SaleOrderCancelWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

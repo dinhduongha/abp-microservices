@@ -82,38 +82,47 @@ public partial class LunchOrder: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, I
 
     [ForeignKey("CategoryId")]
     //[InverseProperty("LunchOrders")]
+    [NotMapped]
     public virtual LunchProductCategory? Category { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("LunchOrders")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("LunchOrderCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("LunchOrders")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("LunchLocationId")]
     //[InverseProperty("LunchOrders")]
+    [NotMapped]
     public virtual LunchLocation? LunchLocation { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("LunchOrders")]
+    [NotMapped]
     public virtual LunchProduct? Product { get; set; }
 
     [ForeignKey("SupplierId")]
     //[InverseProperty("LunchOrders")]
+    [NotMapped]
     public virtual LunchSupplier? Supplier { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("LunchOrderUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("LunchOrderWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("OrderId")]

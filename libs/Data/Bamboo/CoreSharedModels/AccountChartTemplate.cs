@@ -136,114 +136,142 @@ public partial class AccountChartTemplate: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AccountJournalEarlyPayDiscountGainAccountId")]
     //[InverseProperty("AccountChartTemplateAccountJournalEarlyPayDiscountGainAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? AccountJournalEarlyPayDiscountGainAccount { get; set; }
 
     [ForeignKey("AccountJournalEarlyPayDiscountLossAccountId")]
     //[InverseProperty("AccountChartTemplateAccountJournalEarlyPayDiscountLossAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? AccountJournalEarlyPayDiscountLossAccount { get; set; }
 
     [ForeignKey("AccountJournalPaymentCreditAccountId")]
     //[InverseProperty("AccountChartTemplateAccountJournalPaymentCreditAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? AccountJournalPaymentCreditAccount { get; set; }
 
     [ForeignKey("AccountJournalPaymentDebitAccountId")]
     //[InverseProperty("AccountChartTemplateAccountJournalPaymentDebitAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? AccountJournalPaymentDebitAccount { get; set; }
 
     [ForeignKey("AccountJournalSuspenseAccountId")]
     //[InverseProperty("AccountChartTemplateAccountJournalSuspenseAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? AccountJournalSuspenseAccount { get; set; }
 
     [ForeignKey("CountryId")]
     //[InverseProperty("AccountChartTemplates")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountChartTemplateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("AccountChartTemplates")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("DefaultCashDifferenceExpenseAccountId")]
     //[InverseProperty("AccountChartTemplateDefaultCashDifferenceExpenseAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? DefaultCashDifferenceExpenseAccount { get; set; }
 
     [ForeignKey("DefaultCashDifferenceIncomeAccountId")]
     //[InverseProperty("AccountChartTemplateDefaultCashDifferenceIncomeAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? DefaultCashDifferenceIncomeAccount { get; set; }
 
     [ForeignKey("DefaultPosReceivableAccountId")]
     //[InverseProperty("AccountChartTemplateDefaultPosReceivableAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? DefaultPosReceivableAccount { get; set; }
 
     [ForeignKey("ExpenseCurrencyExchangeAccountId")]
     //[InverseProperty("AccountChartTemplateExpenseCurrencyExchangeAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? ExpenseCurrencyExchangeAccount { get; set; }
 
     [ForeignKey("IncomeCurrencyExchangeAccountId")]
     //[InverseProperty("AccountChartTemplateIncomeCurrencyExchangeAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? IncomeCurrencyExchangeAccount { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual AccountChartTemplate? Parent { get; set; }
 
     [ForeignKey("PropertyAccountExpenseId")]
     //[InverseProperty("AccountChartTemplatePropertyAccountExpenses")]
+    [NotMapped]
     public virtual AccountAccountTemplate? PropertyAccountExpense { get; set; }
 
     [ForeignKey("PropertyAccountExpenseCategId")]
     //[InverseProperty("AccountChartTemplatePropertyAccountExpenseCategs")]
+    [NotMapped]
     public virtual AccountAccountTemplate? PropertyAccountExpenseCateg { get; set; }
 
     [ForeignKey("PropertyAccountIncomeId")]
     //[InverseProperty("AccountChartTemplatePropertyAccountIncomes")]
+    [NotMapped]
     public virtual AccountAccountTemplate? PropertyAccountIncome { get; set; }
 
     [ForeignKey("PropertyAccountIncomeCategId")]
     //[InverseProperty("AccountChartTemplatePropertyAccountIncomeCategs")]
+    [NotMapped]
     public virtual AccountAccountTemplate? PropertyAccountIncomeCateg { get; set; }
 
     [ForeignKey("PropertyAccountPayableId")]
     //[InverseProperty("AccountChartTemplatePropertyAccountPayables")]
+    [NotMapped]
     public virtual AccountAccountTemplate? PropertyAccountPayable { get; set; }
 
     [ForeignKey("PropertyAccountReceivableId")]
     //[InverseProperty("AccountChartTemplatePropertyAccountReceivables")]
+    [NotMapped]
     public virtual AccountAccountTemplate? PropertyAccountReceivable { get; set; }
 
     [ForeignKey("PropertyAdvanceTaxPaymentAccountId")]
     //[InverseProperty("AccountChartTemplatePropertyAdvanceTaxPaymentAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? PropertyAdvanceTaxPaymentAccount { get; set; }
 
     [ForeignKey("PropertyCashBasisBaseAccountId")]
     //[InverseProperty("AccountChartTemplatePropertyCashBasisBaseAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? PropertyCashBasisBaseAccount { get; set; }
 
     [ForeignKey("PropertyStockAccountInputCategId")]
     //[InverseProperty("AccountChartTemplatePropertyStockAccountInputCategs")]
+    [NotMapped]
     public virtual AccountAccountTemplate? PropertyStockAccountInputCateg { get; set; }
 
     [ForeignKey("PropertyStockAccountOutputCategId")]
     //[InverseProperty("AccountChartTemplatePropertyStockAccountOutputCategs")]
+    [NotMapped]
     public virtual AccountAccountTemplate? PropertyStockAccountOutputCateg { get; set; }
 
     [ForeignKey("PropertyStockValuationAccountId")]
     //[InverseProperty("AccountChartTemplatePropertyStockValuationAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? PropertyStockValuationAccount { get; set; }
 
     [ForeignKey("PropertyTaxPayableAccountId")]
     //[InverseProperty("AccountChartTemplatePropertyTaxPayableAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? PropertyTaxPayableAccount { get; set; }
 
     [ForeignKey("PropertyTaxReceivableAccountId")]
     //[InverseProperty("AccountChartTemplatePropertyTaxReceivableAccounts")]
+    [NotMapped]
     public virtual AccountAccountTemplate? PropertyTaxReceivableAccount { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountChartTemplateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ChartTemplate")]

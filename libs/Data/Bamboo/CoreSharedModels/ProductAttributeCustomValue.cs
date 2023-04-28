@@ -41,17 +41,21 @@ public partial class ProductAttributeCustomValue: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProductAttributeCustomValueCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CustomProductTemplateAttributeValueId")]
     //[InverseProperty("ProductAttributeCustomValues")]
+    [NotMapped]
     public virtual ProductTemplateAttributeValue? CustomProductTemplateAttributeValue { get; set; }
 
     [ForeignKey("SaleOrderLineId")]
     //[InverseProperty("ProductAttributeCustomValues")]
+    [NotMapped]
     public virtual SaleOrderLine? SaleOrderLine { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProductAttributeCustomValueWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

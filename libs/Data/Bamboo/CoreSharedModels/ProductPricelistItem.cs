@@ -96,37 +96,46 @@ public partial class ProductPricelistItem: Entity<Guid>, IEntityDto<Guid>, IMult
 
     [ForeignKey("BasePricelistId")]
     //[InverseProperty("ProductPricelistItemBasePricelists")]
+    [NotMapped]
     public virtual ProductPricelist? BasePricelist { get; set; }
 
     [ForeignKey("CategId")]
     //[InverseProperty("ProductPricelistItems")]
+    [NotMapped]
     public virtual ProductCategory? Categ { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("ProductPricelistItems")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProductPricelistItemCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("ProductPricelistItems")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("PricelistId")]
     //[InverseProperty("ProductPricelistItemPricelists")]
+    [NotMapped]
     public virtual ProductPricelist? Pricelist { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("ProductPricelistItems")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductTmplId")]
     //[InverseProperty("ProductPricelistItems")]
+    [NotMapped]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProductPricelistItemWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

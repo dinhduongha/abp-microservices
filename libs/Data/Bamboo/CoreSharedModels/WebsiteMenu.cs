@@ -66,26 +66,32 @@ public partial class WebsiteMenu: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("WebsiteMenuCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PageId")]
     //[InverseProperty("WebsiteMenus")]
+    [NotMapped]
     public virtual WebsitePage? Page { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual WebsiteMenu? Parent { get; set; }
 
     [ForeignKey("ThemeTemplateId")]
     //[InverseProperty("WebsiteMenus")]
+    [NotMapped]
     public virtual ThemeWebsiteMenu? ThemeTemplate { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("WebsiteMenus")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("WebsiteMenuWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Parent")]

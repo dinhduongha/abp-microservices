@@ -55,18 +55,22 @@ public partial class AccountRecurringTemplate: Entity<Guid>, IEntityDto<Guid>, I
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountRecurringTemplates")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountRecurringTemplateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("AccountRecurringTemplates")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountRecurringTemplateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Template")]

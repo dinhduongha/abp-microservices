@@ -118,50 +118,62 @@ public partial class HrJob: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IMayHa
 
     [ForeignKey("AddressId")]
     //[InverseProperty("HrJobs")]
+    [NotMapped]
     public virtual ResPartner? Address { get; set; }
 
     [ForeignKey("AliasId")]
     //[InverseProperty("HrJobs")]
+    [NotMapped]
     public virtual MailAlias? Alias { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("HrJobs")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("ContractTypeId")]
     //[InverseProperty("HrJobs")]
+    [NotMapped]
     public virtual HrContractType? ContractType { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrJobCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartmentId")]
     //[InverseProperty("HrJobs")]
+    [NotMapped]
     public virtual HrDepartment? Department { get; set; }
 
     [ForeignKey("HrResponsibleId")]
     //[InverseProperty("HrJobHrResponsibles")]
+    [NotMapped]
     public virtual ResUser? HrResponsible { get; set; }
 
     [ForeignKey("ManagerId")]
     //[InverseProperty("HrJobs")]
+    [NotMapped]
     public virtual HrEmployee? Manager { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("HrJobs")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("HrJobUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("HrJobs")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrJobWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Job")]

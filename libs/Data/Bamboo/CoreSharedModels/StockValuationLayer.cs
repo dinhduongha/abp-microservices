@@ -73,34 +73,42 @@ public partial class StockValuationLayer: Entity<Guid>, IEntityDto<Guid>, IMulti
 
     [ForeignKey("AccountMoveId")]
     //[InverseProperty("StockValuationLayers")]
+    [NotMapped]
     public virtual AccountMove? AccountMove { get; set; }
 
     [ForeignKey("AccountMoveLineId")]
     //[InverseProperty("StockValuationLayers")]
+    [NotMapped]
     public virtual AccountMoveLine? AccountMoveLine { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockValuationLayers")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockValuationLayerCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockValuationLayers")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("StockMoveId")]
     //[InverseProperty("StockValuationLayers")]
+    [NotMapped]
     public virtual StockMove? StockMove { get; set; }
 
     [ForeignKey("StockValuationLayerId")]
     //[InverseProperty("InverseStockValuationLayerNavigation")]
+    [NotMapped]
     public virtual StockValuationLayer? StockValuationLayerNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockValuationLayerWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("StockValuationLayerNavigation")]

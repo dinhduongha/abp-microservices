@@ -34,14 +34,17 @@ public partial class HrPlanWizard: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrPlanWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PlanId")]
     //[InverseProperty("HrPlanWizards")]
+    [NotMapped]
     public virtual HrPlan? Plan { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrPlanWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("EmployeeId")]

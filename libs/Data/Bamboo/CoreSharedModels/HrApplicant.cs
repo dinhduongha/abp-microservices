@@ -142,66 +142,82 @@ public partial class HrApplicant: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, 
 
     [ForeignKey("CampaignId")]
     //[InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual UtmCampaign? Campaign { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrApplicantCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartmentId")]
     //[InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual HrDepartment? Department { get; set; }
 
     [ForeignKey("EmpId")]
     //[InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual HrEmployee? Emp { get; set; }
 
     [ForeignKey("JobId")]
     //[InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual HrJob? Job { get; set; }
 
     [ForeignKey("LastStageId")]
     //[InverseProperty("HrApplicantLastStages")]
+    [NotMapped]
     public virtual HrRecruitmentStage? LastStage { get; set; }
 
     [ForeignKey("MediumId")]
     //[InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual UtmMedium? Medium { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("RefuseReasonId")]
     //[InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual HrApplicantRefuseReason? RefuseReason { get; set; }
 
     [ForeignKey("SourceId")]
     //[InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual UtmSource? Source { get; set; }
 
     [ForeignKey("StageId")]
     //[InverseProperty("HrApplicantStages")]
+    [NotMapped]
     public virtual HrRecruitmentStage? Stage { get; set; }
 
     [ForeignKey("TypeId")]
     //[InverseProperty("HrApplicants")]
+    [NotMapped]
     public virtual HrRecruitmentDegree? Type { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("HrApplicantUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrApplicantWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Applicant")]

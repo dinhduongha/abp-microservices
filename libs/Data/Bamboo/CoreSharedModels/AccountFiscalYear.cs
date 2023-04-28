@@ -43,13 +43,16 @@ public partial class AccountFiscalYear: Entity<Guid>, IEntityDto<Guid>, IMultiTe
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountFiscalYears")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountFiscalYearCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountFiscalYearWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

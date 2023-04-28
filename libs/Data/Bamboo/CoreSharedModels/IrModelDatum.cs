@@ -48,9 +48,11 @@ public partial class IrModelDatum: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrModelDatumCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrModelDatumWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -64,13 +64,16 @@ public partial class IrActClient: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("BindingModelId")]
     //[InverseProperty("IrActClients")]
+    [NotMapped]
     public virtual IrModel? BindingModel { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrActClientCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrActClientWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

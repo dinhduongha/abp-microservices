@@ -67,29 +67,36 @@ public partial class MrpWorkcenterProductivity: Entity<Guid>, IEntityDto<Guid>, 
 
     [ForeignKey("TenantId")]
     //[InverseProperty("MrpWorkcenterProductivities")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpWorkcenterProductivityCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LossId")]
     //[InverseProperty("MrpWorkcenterProductivities")]
+    [NotMapped]
     public virtual MrpWorkcenterProductivityLoss? Loss { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("MrpWorkcenterProductivityUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("WorkcenterId")]
     //[InverseProperty("MrpWorkcenterProductivities")]
+    [NotMapped]
     public virtual MrpWorkcenter? Workcenter { get; set; }
 
     [ForeignKey("WorkorderId")]
     //[InverseProperty("MrpWorkcenterProductivities")]
+    [NotMapped]
     public virtual MrpWorkorder? Workorder { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpWorkcenterProductivityWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

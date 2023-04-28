@@ -37,10 +37,12 @@ public partial class SpreadsheetDashboardGroup: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SpreadsheetDashboardGroupCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SpreadsheetDashboardGroupWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("DashboardGroup")]

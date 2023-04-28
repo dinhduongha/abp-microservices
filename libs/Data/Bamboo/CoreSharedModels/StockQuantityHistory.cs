@@ -34,9 +34,11 @@ public partial class StockQuantityHistory: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockQuantityHistoryCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockQuantityHistoryWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

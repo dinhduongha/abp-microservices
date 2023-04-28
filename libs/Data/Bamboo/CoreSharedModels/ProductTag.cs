@@ -45,18 +45,22 @@ public partial class ProductTag: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProductTagCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("RibbonId")]
     //[InverseProperty("ProductTags")]
+    [NotMapped]
     public virtual ProductRibbon? Ribbon { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("ProductTags")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProductTagWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ProductTagId")]

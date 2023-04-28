@@ -52,17 +52,21 @@ public partial class HrResumeLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrResumeLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EmployeeId")]
     //[InverseProperty("HrResumeLines")]
+    [NotMapped]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("LineTypeId")]
     //[InverseProperty("HrResumeLines")]
+    [NotMapped]
     public virtual HrResumeLineType? LineType { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrResumeLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -114,58 +114,72 @@ public partial class AccountJournal: Entity<Guid>, IEntityDto<Guid>, IMultiTenan
 
     [ForeignKey("AliasId")]
     //[InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual MailAlias? Alias { get; set; }
 
     [ForeignKey("BankAccountId")]
     //[InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ResPartnerBank? BankAccount { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountJournalCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("DefaultAccountId")]
     //[InverseProperty("AccountJournalDefaultAccounts")]
+    [NotMapped]
     public virtual AccountAccount? DefaultAccount { get; set; }
 
     [ForeignKey("LossAccountId")]
     //[InverseProperty("AccountJournalLossAccounts")]
+    [NotMapped]
     public virtual AccountAccount? LossAccount { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ProfitAccountId")]
     //[InverseProperty("AccountJournalProfitAccounts")]
+    [NotMapped]
     public virtual AccountAccount? ProfitAccount { get; set; }
 
     [ForeignKey("SaleActivityTypeId")]
     //[InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual MailActivityType? SaleActivityType { get; set; }
 
     [ForeignKey("SaleActivityUserId")]
     //[InverseProperty("AccountJournalSaleActivityUsers")]
+    [NotMapped]
     public virtual ResUser? SaleActivityUser { get; set; }
 
     [ForeignKey("SecureSequenceId")]
     //[InverseProperty("AccountJournals")]
+    [NotMapped]
     public virtual IrSequence? SecureSequence { get; set; }
 
     [ForeignKey("SuspenseAccountId")]
     //[InverseProperty("AccountJournalSuspenseAccounts")]
+    [NotMapped]
     public virtual AccountAccount? SuspenseAccount { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountJournalWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Journal")]

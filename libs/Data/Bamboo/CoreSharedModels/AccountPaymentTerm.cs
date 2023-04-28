@@ -49,14 +49,17 @@ public partial class AccountPaymentTerm: Entity<Guid>, IEntityDto<Guid>, IMultiT
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountPaymentTerms")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountPaymentTermCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountPaymentTermWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("InvoicePaymentTerm")]

@@ -44,9 +44,11 @@ public partial class IrActionsTodo: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrActionsTodoCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrActionsTodoWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

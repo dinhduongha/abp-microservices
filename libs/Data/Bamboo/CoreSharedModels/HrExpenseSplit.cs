@@ -64,38 +64,47 @@ public partial class HrExpenseSplit: Entity<Guid>, IEntityDto<Guid>, IMultiTenan
 
     [ForeignKey("TenantId")]
     //[InverseProperty("HrExpenseSplits")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrExpenseSplitCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("HrExpenseSplits")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("EmployeeId")]
     //[InverseProperty("HrExpenseSplits")]
+    [NotMapped]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("ExpenseId")]
     //[InverseProperty("HrExpenseSplits")]
+    [NotMapped]
     public virtual HrExpense? Expense { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("HrExpenseSplits")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("SaleOrderId")]
     //[InverseProperty("HrExpenseSplits")]
+    [NotMapped]
     public virtual SaleOrder? SaleOrder { get; set; }
 
     [ForeignKey("WizardId")]
     //[InverseProperty("HrExpenseSplits")]
+    [NotMapped]
     public virtual HrExpenseSplitWizard? Wizard { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrExpenseSplitWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("HrExpenseSplitId")]

@@ -43,14 +43,17 @@ public partial class FleetVehicleOdometer: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("FleetVehicleOdometerCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("VehicleId")]
     //[InverseProperty("FleetVehicleOdometers")]
+    [NotMapped]
     public virtual FleetVehicle? Vehicle { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("FleetVehicleOdometerWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Odometer")]

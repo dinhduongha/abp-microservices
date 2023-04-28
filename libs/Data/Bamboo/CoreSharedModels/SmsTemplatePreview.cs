@@ -40,13 +40,16 @@ public partial class SmsTemplatePreview: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SmsTemplatePreviewCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("SmsTemplateId")]
     //[InverseProperty("SmsTemplatePreviews")]
+    [NotMapped]
     public virtual SmsTemplate? SmsTemplate { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SmsTemplatePreviewWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

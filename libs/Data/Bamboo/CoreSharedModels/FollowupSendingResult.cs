@@ -37,9 +37,11 @@ public partial class FollowupSendingResult: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("FollowupSendingResultCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("FollowupSendingResultWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

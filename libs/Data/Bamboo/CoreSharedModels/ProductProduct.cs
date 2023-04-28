@@ -67,22 +67,27 @@ public partial class ProductProduct: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("BaseUnitId")]
     //[InverseProperty("ProductProducts")]
+    [NotMapped]
     public virtual WebsiteBaseUnit? BaseUnit { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProductProductCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("ProductProducts")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ProductTmplId")]
     //[InverseProperty("ProductProducts")]
+    [NotMapped]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProductProductWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Product")]

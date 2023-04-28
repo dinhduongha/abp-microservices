@@ -43,9 +43,11 @@ public partial class AssetModify: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AssetModifyCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AssetModifyWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

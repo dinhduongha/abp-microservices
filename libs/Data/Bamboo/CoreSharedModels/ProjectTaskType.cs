@@ -71,26 +71,32 @@ public partial class ProjectTaskType: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProjectTaskTypeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailTemplateId")]
     //[InverseProperty("ProjectTaskTypeMailTemplates")]
+    [NotMapped]
     public virtual MailTemplate? MailTemplate { get; set; }
 
     [ForeignKey("RatingTemplateId")]
     //[InverseProperty("ProjectTaskTypeRatingTemplates")]
+    [NotMapped]
     public virtual MailTemplate? RatingTemplate { get; set; }
 
     [ForeignKey("SmsTemplateId")]
     //[InverseProperty("ProjectTaskTypes")]
+    [NotMapped]
     public virtual SmsTemplate? SmsTemplate { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("ProjectTaskTypeUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProjectTaskTypeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Stage")]

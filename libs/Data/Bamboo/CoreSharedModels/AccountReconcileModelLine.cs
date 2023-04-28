@@ -64,26 +64,32 @@ public partial class AccountReconcileModelLine: Entity<Guid>, IEntityDto<Guid>, 
 
     [ForeignKey("AccountId")]
     //[InverseProperty("AccountReconcileModelLines")]
+    [NotMapped]
     public virtual AccountAccount? Account { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountReconcileModelLines")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountReconcileModelLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("AccountReconcileModelLines")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("ModelId")]
     //[InverseProperty("AccountReconcileModelLines")]
+    [NotMapped]
     public virtual AccountReconcileModel? Model { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountReconcileModelLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountReconcileModelLineId")]

@@ -59,25 +59,31 @@ public partial class CrossoveredBudgetLine: Entity<Guid>, IEntityDto<Guid>, IMul
 
     [ForeignKey("AnalyticAccountId")]
     //[InverseProperty("CrossoveredBudgetLines")]
+    [NotMapped]
     public virtual AccountAnalyticAccount? AnalyticAccount { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("CrossoveredBudgetLines")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CrossoveredBudgetLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CrossoveredBudgetId")]
     //[InverseProperty("CrossoveredBudgetLines")]
+    [NotMapped]
     public virtual CrossoveredBudget? CrossoveredBudget { get; set; }
 
     [ForeignKey("GeneralBudgetId")]
     //[InverseProperty("CrossoveredBudgetLines")]
+    [NotMapped]
     public virtual AccountBudgetPost? GeneralBudget { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CrossoveredBudgetLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

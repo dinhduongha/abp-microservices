@@ -55,14 +55,17 @@ public partial class ThemeWebsitePage: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ThemeWebsitePageCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ViewId")]
     //[InverseProperty("ThemeWebsitePages")]
+    [NotMapped]
     public virtual ThemeIrUiView? View { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ThemeWebsitePageWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Page")]

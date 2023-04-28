@@ -60,14 +60,17 @@ public partial class StockPackageType: Entity<long>, IEntityDto<long>, IMultiTen
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockPackageTypes")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockPackageTypeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockPackageTypeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("PackageType")]

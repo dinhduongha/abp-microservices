@@ -54,26 +54,32 @@ public partial class StockLot: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IMa
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockLots")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockLotCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("StockLots")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockLots")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
     //[InverseProperty("StockLots")]
+    [NotMapped]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockLotWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("LotProducing")]

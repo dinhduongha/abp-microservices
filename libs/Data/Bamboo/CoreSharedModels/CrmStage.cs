@@ -49,14 +49,17 @@ public partial class CrmStage: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CrmStageCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TeamId")]
     //[InverseProperty("CrmStages")]
+    [NotMapped]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CrmStageWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Stage")]

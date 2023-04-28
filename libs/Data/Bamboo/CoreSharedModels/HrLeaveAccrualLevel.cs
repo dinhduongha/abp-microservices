@@ -94,18 +94,22 @@ public partial class HrLeaveAccrualLevel: Entity<long>, IEntityDto<long>
 
     [ForeignKey("AccrualPlanId")]
     //[InverseProperty("HrLeaveAccrualLevels")]
+    [NotMapped]
     public virtual HrLeaveAccrualPlan? AccrualPlan { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrLeaveAccrualLevelCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual HrLeaveAccrualLevel? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrLeaveAccrualLevelWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Parent")]

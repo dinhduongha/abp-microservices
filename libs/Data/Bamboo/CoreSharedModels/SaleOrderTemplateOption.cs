@@ -51,25 +51,31 @@ public partial class SaleOrderTemplateOption: Entity<Guid>, IEntityDto<Guid>, IM
 
     [ForeignKey("TenantId")]
     //[InverseProperty("SaleOrderTemplateOptions")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SaleOrderTemplateOptionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("SaleOrderTemplateOptions")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("SaleOrderTemplateId")]
     //[InverseProperty("SaleOrderTemplateOptions")]
+    [NotMapped]
     public virtual SaleOrderTemplate? SaleOrderTemplate { get; set; }
 
     [ForeignKey("UomId")]
     //[InverseProperty("SaleOrderTemplateOptions")]
+    [NotMapped]
     public virtual UomUom? Uom { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SaleOrderTemplateOptionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

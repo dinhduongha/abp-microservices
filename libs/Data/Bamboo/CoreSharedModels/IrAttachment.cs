@@ -94,26 +94,32 @@ public partial class IrAttachment: Entity<Guid>, IEntityDto<Guid>, IMultiTenant,
 
     [ForeignKey("TenantId")]
     //[InverseProperty("IrAttachments")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrAttachmentCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("OriginalId")]
     //[InverseProperty("InverseOriginal")]
+    [NotMapped]
     public virtual IrAttachment? Original { get; set; }
 
     [ForeignKey("ThemeTemplateId")]
     //[InverseProperty("IrAttachments")]
+    [NotMapped]
     public virtual ThemeIrAttachment? ThemeTemplate { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("IrAttachments")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrAttachmentWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
 

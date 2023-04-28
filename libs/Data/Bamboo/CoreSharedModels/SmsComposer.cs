@@ -67,13 +67,16 @@ public partial class SmsComposer: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SmsComposerCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TemplateId")]
     //[InverseProperty("SmsComposers")]
+    [NotMapped]
     public virtual SmsTemplate? Template { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SmsComposerWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

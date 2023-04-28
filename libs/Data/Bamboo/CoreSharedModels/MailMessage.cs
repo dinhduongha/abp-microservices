@@ -97,34 +97,42 @@ public partial class MailMessage: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AuthorId")]
     //[InverseProperty("MailMessages")]
+    [NotMapped]
     public virtual ResPartner? Author { get; set; }
 
     [ForeignKey("AuthorGuestId")]
     //[InverseProperty("MailMessages")]
+    [NotMapped]
     public virtual MailGuest? AuthorGuest { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailMessageCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailActivityTypeId")]
     //[InverseProperty("MailMessages")]
+    [NotMapped]
     public virtual MailActivityType? MailActivityType { get; set; }
 
     [ForeignKey("MailServerId")]
     //[InverseProperty("MailMessages")]
+    [NotMapped]
     public virtual IrMailServer? MailServer { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual MailMessage? Parent { get; set; }
 
     [ForeignKey("SubtypeId")]
     //[InverseProperty("MailMessages")]
+    [NotMapped]
     public virtual MailMessageSubtype? Subtype { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailMessageWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Parent")]

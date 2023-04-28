@@ -66,30 +66,37 @@ public partial class ResPartnerBank: Entity<Guid>, IEntityDto<Guid>, IMultiTenan
 
     [ForeignKey("BankId")]
     //[InverseProperty("ResPartnerBanks")]
+    [NotMapped]
     public virtual ResBank? Bank { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("ResPartnerBanks")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResPartnerBankCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("ResPartnerBanks")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("ResPartnerBanks")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("ResPartnerBanks")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResPartnerBankWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("BankAccount")]

@@ -46,21 +46,26 @@ public partial class MrpConsumptionWarningLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpConsumptionWarningLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MrpConsumptionWarningId")]
     //[InverseProperty("MrpConsumptionWarningLines")]
+    [NotMapped]
     public virtual MrpConsumptionWarning? MrpConsumptionWarning { get; set; }
 
     [ForeignKey("MrpProductionId")]
     //[InverseProperty("MrpConsumptionWarningLines")]
+    [NotMapped]
     public virtual MrpProduction? MrpProduction { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("MrpConsumptionWarningLines")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpConsumptionWarningLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

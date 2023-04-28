@@ -47,13 +47,16 @@ public partial class CrmLeadScoringFrequency: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CrmLeadScoringFrequencyCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TeamId")]
     //[InverseProperty("CrmLeadScoringFrequencies")]
+    [NotMapped]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CrmLeadScoringFrequencyWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

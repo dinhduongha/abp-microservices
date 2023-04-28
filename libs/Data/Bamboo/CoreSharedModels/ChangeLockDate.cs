@@ -43,13 +43,16 @@ public partial class ChangeLockDate: Entity<Guid>, IEntityDto<Guid>, IMultiTenan
 
     [ForeignKey("TenantId")]
     //[InverseProperty("ChangeLockDates")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ChangeLockDateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ChangeLockDateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

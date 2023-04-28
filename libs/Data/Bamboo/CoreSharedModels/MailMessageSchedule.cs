@@ -40,13 +40,16 @@ public partial class MailMessageSchedule: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailMessageScheduleCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailMessageId")]
     //[InverseProperty("MailMessageSchedules")]
+    [NotMapped]
     public virtual MailMessage? MailMessage { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailMessageScheduleWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

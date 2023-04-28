@@ -49,26 +49,32 @@ public partial class AccountPaymentMethodLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountPaymentMethodLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("AccountPaymentMethodLines")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("PaymentAccountId")]
     //[InverseProperty("AccountPaymentMethodLines")]
+    [NotMapped]
     public virtual AccountAccount? PaymentAccount { get; set; }
 
     [ForeignKey("PaymentMethodId")]
     //[InverseProperty("AccountPaymentMethodLines")]
+    [NotMapped]
     public virtual AccountPaymentMethod? PaymentMethod { get; set; }
 
     [ForeignKey("PaymentProviderId")]
     //[InverseProperty("AccountPaymentMethodLines")]
+    [NotMapped]
     public virtual PaymentProvider? PaymentProvider { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountPaymentMethodLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("PaymentMethodLine")]

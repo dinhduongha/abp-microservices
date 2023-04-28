@@ -43,14 +43,17 @@ public partial class AccountTaxReportWizard: Entity<Guid>, IEntityDto<Guid>, IMu
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountTaxReportWizards")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountTaxReportWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountTaxReportWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountTaxReportWizardId")]

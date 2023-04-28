@@ -64,18 +64,22 @@ public partial class AccountingReport: Entity<Guid>, IEntityDto<Guid>, IMultiTen
 
     [ForeignKey("AccountReportId")]
     //[InverseProperty("AccountingReports")]
+    [NotMapped]
     public virtual AccountFinancialReport? AccountReport { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountingReports")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountingReportCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountingReportWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountingReportId")]

@@ -43,9 +43,11 @@ public partial class BaseImportImport: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BaseImportImportCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BaseImportImportWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

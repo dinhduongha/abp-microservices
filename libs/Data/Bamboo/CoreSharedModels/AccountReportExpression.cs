@@ -64,14 +64,17 @@ public partial class AccountReportExpression: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountReportExpressionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ReportLineId")]
     //[InverseProperty("AccountReportExpressions")]
+    [NotMapped]
     public virtual AccountReportLine? ReportLine { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountReportExpressionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("TargetReportExpression")]

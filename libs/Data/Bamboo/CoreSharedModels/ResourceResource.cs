@@ -55,22 +55,27 @@ public partial class ResourceResource: Entity<Guid>, IEntityDto<Guid>, IMultiTen
 
     [ForeignKey("CalendarId")]
     //[InverseProperty("ResourceResources")]
+    [NotMapped]
     public virtual ResourceCalendar? Calendar { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("ResourceResources")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResourceResourceCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("ResourceResourceUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResourceResourceWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Resource")]

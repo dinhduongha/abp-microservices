@@ -52,14 +52,17 @@ public partial class AccountReportPartnerLedger: Entity<Guid>, IEntityDto<Guid>,
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountReportPartnerLedgers")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountReportPartnerLedgerCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountReportPartnerLedgerWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountReportPartnerLedgerId")]

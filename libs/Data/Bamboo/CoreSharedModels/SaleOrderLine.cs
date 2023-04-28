@@ -154,58 +154,72 @@ public partial class SaleOrderLine: Entity<Guid>, IEntityDto<Guid>, IMultiTenant
 
     [ForeignKey("TenantId")]
     //[InverseProperty("SaleOrderLines")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SaleOrderLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("SaleOrderLines")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("LinkedLineId")]
     //[InverseProperty("InverseLinkedLine")]
+    [NotMapped]
     public virtual SaleOrderLine? LinkedLine { get; set; }
 
     [ForeignKey("OrderId")]
     //[InverseProperty("SaleOrderLines")]
+    [NotMapped]
     public virtual SaleOrder? Order { get; set; }
 
     [ForeignKey("OrderPartnerId")]
     //[InverseProperty("SaleOrderLines")]
+    [NotMapped]
     public virtual ResPartner? OrderPartner { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("SaleOrderLines")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductPackagingId")]
     //[InverseProperty("SaleOrderLines")]
+    [NotMapped]
     public virtual ProductPackaging? ProductPackaging { get; set; }
 
     [ForeignKey("ProductUom")]
     //[InverseProperty("SaleOrderLines")]
+    [NotMapped]
     public virtual UomUom? ProductUomNavigation { get; set; }
 
     [ForeignKey("ProjectId")]
     //[InverseProperty("SaleOrderLines")]
+    [NotMapped]
     public virtual ProjectProject? Project { get; set; }
 
     [ForeignKey("RouteId")]
     //[InverseProperty("SaleOrderLines")]
+    [NotMapped]
     public virtual StockRoute? Route { get; set; }
 
     [ForeignKey("SalesmanId")]
     //[InverseProperty("SaleOrderLineSalesmen")]
+    [NotMapped]
     public virtual ResUser? Salesman { get; set; }
 
     [ForeignKey("TaskId")]
     //[InverseProperty("SaleOrderLines")]
+    [NotMapped]
     public virtual ProjectTask? Task { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SaleOrderLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("SoLineNavigation")]

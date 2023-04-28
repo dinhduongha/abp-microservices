@@ -55,26 +55,32 @@ public partial class MaintenanceEquipmentCategory: Entity<long>, IEntityDto<long
 
     [ForeignKey("AliasId")]
     //[InverseProperty("MaintenanceEquipmentCategories")]
+    [NotMapped]
     public virtual MailAlias? Alias { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("MaintenanceEquipmentCategories")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MaintenanceEquipmentCategoryCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("MaintenanceEquipmentCategories")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("TechnicianUserId")]
     //[InverseProperty("MaintenanceEquipmentCategoryTechnicianUsers")]
+    [NotMapped]
     public virtual ResUser? TechnicianUser { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MaintenanceEquipmentCategoryWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Category")]

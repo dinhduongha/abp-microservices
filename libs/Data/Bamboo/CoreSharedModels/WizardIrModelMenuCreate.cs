@@ -37,13 +37,16 @@ public partial class WizardIrModelMenuCreate: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("WizardIrModelMenuCreateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MenuId")]
     //[InverseProperty("WizardIrModelMenuCreates")]
+    [NotMapped]
     public virtual IrUiMenu? Menu { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("WizardIrModelMenuCreateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -83,42 +83,52 @@ public partial class StockQuant: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, I
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockQuants")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockQuantCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
     //[InverseProperty("StockQuants")]
+    [NotMapped]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("LotId")]
     //[InverseProperty("StockQuants")]
+    [NotMapped]
     public virtual StockLot? Lot { get; set; }
 
     [ForeignKey("OwnerId")]
     //[InverseProperty("StockQuants")]
+    [NotMapped]
     public virtual ResPartner? Owner { get; set; }
 
     [ForeignKey("PackageId")]
     //[InverseProperty("StockQuants")]
+    [NotMapped]
     public virtual StockQuantPackage? Package { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockQuants")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("StorageCategoryId")]
     //[InverseProperty("StockQuants")]
+    [NotMapped]
     public virtual StockStorageCategory? StorageCategory { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("StockQuantUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockQuantWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("StockQuantId")]

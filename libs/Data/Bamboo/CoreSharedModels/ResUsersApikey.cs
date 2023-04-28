@@ -38,5 +38,6 @@ public partial class ResUsersApikey: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("UserId")]
     //[InverseProperty("ResUsersApikeys")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 }

@@ -77,26 +77,32 @@ public partial class AccountAccount: Entity<Guid>, IEntityDto<Guid>, IMultiTenan
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountAccounts")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAccountCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("AccountAccounts")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("GroupId")]
     //[InverseProperty("AccountAccounts")]
+    [NotMapped]
     public virtual AccountGroup? Group { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("AccountAccounts")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAccountWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Account")]

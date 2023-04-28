@@ -40,17 +40,21 @@ public partial class IrDemoFailure: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrDemoFailureCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModuleId")]
     //[InverseProperty("IrDemoFailures")]
+    [NotMapped]
     public virtual IrModuleModule? Module { get; set; }
 
     [ForeignKey("WizardId")]
     //[InverseProperty("IrDemoFailures")]
+    [NotMapped]
     public virtual IrDemoFailureWizard? Wizard { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrDemoFailureWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

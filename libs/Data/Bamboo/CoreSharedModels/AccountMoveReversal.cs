@@ -49,18 +49,22 @@ public partial class AccountMoveReversal: Entity<Guid>, IEntityDto<Guid>, IMulti
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountMoveReversals")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountMoveReversalCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("AccountMoveReversals")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountMoveReversalWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ReversalId")]

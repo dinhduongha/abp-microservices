@@ -53,22 +53,27 @@ public partial class CrossoveredBudget: Entity<Guid>, IEntityDto<Guid>, IMultiTe
 
     [ForeignKey("TenantId")]
     //[InverseProperty("CrossoveredBudgets")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CrossoveredBudgetCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("CrossoveredBudgets")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("CrossoveredBudgetUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CrossoveredBudgetWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("CrossoveredBudget")]

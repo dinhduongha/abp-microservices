@@ -66,22 +66,27 @@ public partial class WebsitePage: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("WebsitePageCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ThemeTemplateId")]
     //[InverseProperty("WebsitePages")]
+    [NotMapped]
     public virtual ThemeWebsitePage? ThemeTemplate { get; set; }
 
     [ForeignKey("ViewId")]
     //[InverseProperty("WebsitePages")]
+    [NotMapped]
     public virtual IrUiView? View { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("WebsitePages")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("WebsitePageWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Page")]

@@ -46,21 +46,26 @@ public partial class StockReturnPickingLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockReturnPickingLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MoveId")]
     //[InverseProperty("StockReturnPickingLines")]
+    [NotMapped]
     public virtual StockMove? Move { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockReturnPickingLines")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("WizardId")]
     //[InverseProperty("StockReturnPickingLines")]
+    [NotMapped]
     public virtual StockReturnPicking? Wizard { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockReturnPickingLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

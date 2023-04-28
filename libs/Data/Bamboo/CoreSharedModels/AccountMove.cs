@@ -226,110 +226,137 @@ public partial class AccountMove: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, 
 
     [ForeignKey("AutoPostOriginId")]
     //[InverseProperty("InverseAutoPostOrigin")]
+    [NotMapped]
     public virtual AccountMove? AutoPostOrigin { get; set; }
 
     [ForeignKey("CampaignId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual UtmCampaign? Campaign { get; set; }
 
     [ForeignKey("CommercialPartnerId")]
     //[InverseProperty("AccountMoveCommercialPartners")]
+    [NotMapped]
     public virtual ResPartner? CommercialPartner { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountMoveCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("FiscalPositionId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual AccountFiscalPosition? FiscalPosition { get; set; }
 
     [ForeignKey("InvoiceCashRoundingId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual AccountCashRounding? InvoiceCashRounding { get; set; }
 
     [ForeignKey("InvoiceIncotermId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual AccountIncoterm? InvoiceIncoterm { get; set; }
 
     [ForeignKey("InvoicePaymentTermId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual AccountPaymentTerm? InvoicePaymentTerm { get; set; }
 
     [ForeignKey("InvoiceUserId")]
     //[InverseProperty("AccountMoveInvoiceUsers")]
+    [NotMapped]
     public virtual ResUser? InvoiceUser { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("MediumId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual UtmMedium? Medium { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("AccountMovePartners")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PartnerBankId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual ResPartnerBank? PartnerBank { get; set; }
 
     [ForeignKey("PartnerShippingId")]
     //[InverseProperty("AccountMovePartnerShippings")]
+    [NotMapped]
     public virtual ResPartner? PartnerShipping { get; set; }
 
     [ForeignKey("PaymentId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual AccountPayment? Payment { get; set; }
 
     [ForeignKey("ReversedEntryId")]
     //[InverseProperty("InverseReversedEntry")]
+    [NotMapped]
     public virtual AccountMove? ReversedEntry { get; set; }
 
     [ForeignKey("SourceId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual UtmSource? Source { get; set; }
 
     [ForeignKey("StatementLineId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual AccountBankStatementLine? StatementLine { get; set; }
 
     [ForeignKey("StockMoveId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual StockMove? StockMove { get; set; }
 
     [ForeignKey("TaxCashBasisOriginMoveId")]
     //[InverseProperty("InverseTaxCashBasisOriginMove")]
+    [NotMapped]
     public virtual AccountMove? TaxCashBasisOriginMove { get; set; }
 
     [ForeignKey("TaxCashBasisRecId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual AccountPartialReconcile? TaxCashBasisRec { get; set; }
 
     [ForeignKey("TeamId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("AccountMoves")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountMoveWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Invoice")]

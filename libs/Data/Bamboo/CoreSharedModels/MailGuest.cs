@@ -45,18 +45,22 @@ public partial class MailGuest: Entity<Guid>, IEntityDto<Guid>
     public DateTime? LastModificationTime { get; set; }
 
     //[InverseProperty("Guest")]
+    [NotMapped]
     public virtual BusPresence? BusPresence { get; set; }
 
     [ForeignKey("CountryId")]
     //[InverseProperty("MailGuests")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailGuestCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailGuestWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Guest")]

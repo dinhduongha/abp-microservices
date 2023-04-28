@@ -62,18 +62,22 @@ public partial class AccountBankStatement: Entity<Guid>, IEntityDto<Guid>, IMult
  
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountBankStatements")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountBankStatementCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("AccountBankStatements")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountBankStatementWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Statement")]

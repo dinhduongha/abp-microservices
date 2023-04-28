@@ -40,18 +40,22 @@ public partial class HrPayrollStructureType: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CountryId")]
     //[InverseProperty("HrPayrollStructureTypes")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrPayrollStructureTypeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DefaultResourceCalendarId")]
     //[InverseProperty("HrPayrollStructureTypes")]
+    [NotMapped]
     public virtual ResourceCalendar? DefaultResourceCalendar { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrPayrollStructureTypeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("StructureType")]

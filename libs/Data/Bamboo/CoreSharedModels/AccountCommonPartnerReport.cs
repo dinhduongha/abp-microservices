@@ -46,14 +46,17 @@ public partial class AccountCommonPartnerReport: Entity<Guid>, IEntityDto<Guid>,
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountCommonPartnerReports")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountCommonPartnerReportCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountCommonPartnerReportWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountCommonPartnerReportId")]

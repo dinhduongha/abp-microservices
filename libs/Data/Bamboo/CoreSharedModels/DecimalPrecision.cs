@@ -38,9 +38,11 @@ public partial class DecimalPrecision: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("DecimalPrecisionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("DecimalPrecisionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

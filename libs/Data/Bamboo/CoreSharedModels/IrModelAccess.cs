@@ -58,17 +58,21 @@ public partial class IrModelAccess: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrModelAccessCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GroupId")]
     //[InverseProperty("IrModelAccesses")]
+    [NotMapped]
     public virtual ResGroup? Group { get; set; }
 
     [ForeignKey("ModelId")]
     //[InverseProperty("IrModelAccesses")]
+    [NotMapped]
     public virtual IrModel? Model { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrModelAccessWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

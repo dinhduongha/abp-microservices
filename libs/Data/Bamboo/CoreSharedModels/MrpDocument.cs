@@ -40,13 +40,16 @@ public partial class MrpDocument: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpDocumentCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("IrAttachmentId")]
     //[InverseProperty("MrpDocuments")]
+    [NotMapped]
     public virtual IrAttachment? IrAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpDocumentWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

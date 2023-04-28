@@ -55,25 +55,31 @@ public partial class SnailmailLetterMissingRequiredField: Entity<Guid>, IEntityD
 
     [ForeignKey("CountryId")]
     //[InverseProperty("SnailmailLetterMissingRequiredFields")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SnailmailLetterMissingRequiredFieldCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LetterId")]
     //[InverseProperty("SnailmailLetterMissingRequiredFields")]
+    [NotMapped]
     public virtual SnailmailLetter? Letter { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("SnailmailLetterMissingRequiredFields")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("StateId")]
     //[InverseProperty("SnailmailLetterMissingRequiredFields")]
+    [NotMapped]
     public virtual ResCountryState? State { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SnailmailLetterMissingRequiredFieldWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

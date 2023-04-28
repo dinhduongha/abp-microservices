@@ -84,34 +84,42 @@ public partial class AccountBankStatementLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountBankStatementLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("AccountBankStatementLineCurrencies")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("ForeignCurrencyId")]
     //[InverseProperty("AccountBankStatementLineForeignCurrencies")]
+    [NotMapped]
     public virtual ResCurrency? ForeignCurrency { get; set; }
 
     [ForeignKey("MoveId")]
     //[InverseProperty("AccountBankStatementLines")]
+    [NotMapped]
     public virtual AccountMove? Move { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("AccountBankStatementLines")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PosSessionId")]
     //[InverseProperty("AccountBankStatementLines")]
+    [NotMapped]
     public virtual PosSession? PosSession { get; set; }
 
     [ForeignKey("StatementId")]
     //[InverseProperty("AccountBankStatementLines")]
+    [NotMapped]
     public virtual AccountBankStatement? Statement { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountBankStatementLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("StatementLine")]

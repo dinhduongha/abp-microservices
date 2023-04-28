@@ -76,14 +76,17 @@ public partial class DigestDigest: Entity<Guid>, IEntityDto<Guid>, IMultiTenant,
 
     [ForeignKey("TenantId")]
     //[InverseProperty("DigestDigests")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("DigestDigestCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("DigestDigestWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Digest")]

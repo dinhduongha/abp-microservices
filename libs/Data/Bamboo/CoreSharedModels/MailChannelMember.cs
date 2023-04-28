@@ -70,36 +70,45 @@ public partial class MailChannelMember: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("ChannelId")]
     //[InverseProperty("MailChannelMembers")]
+    [NotMapped]
     public virtual MailChannel? Channel { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailChannelMemberCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FetchedMessageId")]
     //[InverseProperty("MailChannelMemberFetchedMessages")]
+    [NotMapped]
     public virtual MailMessage? FetchedMessage { get; set; }
 
     [ForeignKey("GuestId")]
     //[InverseProperty("MailChannelMembers")]
+    [NotMapped]
     public virtual MailGuest? Guest { get; set; }
 
     //[InverseProperty("ChannelMember")]
+    [NotMapped]
     public virtual MailChannelRtcSession? MailChannelRtcSession { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("MailChannelMembers")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("RtcInvitingSessionId")]
     //[InverseProperty("MailChannelMembers")]
+    [NotMapped]
     public virtual MailChannelRtcSession? RtcInvitingSession { get; set; }
 
     [ForeignKey("SeenMessageId")]
     //[InverseProperty("MailChannelMemberSeenMessages")]
+    [NotMapped]
     public virtual MailMessage? SeenMessage { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailChannelMemberWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

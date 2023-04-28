@@ -65,18 +65,22 @@ public partial class AccountReportLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountReportLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual AccountReportLine? Parent { get; set; }
 
     [ForeignKey("ReportId")]
     //[InverseProperty("AccountReportLines")]
+    [NotMapped]
     public virtual AccountReport? Report { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountReportLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ReportLine")]

@@ -49,22 +49,27 @@ public partial class AccountTaxRepartitionLineTemplate: Entity<Guid>, IEntityDto
 
     [ForeignKey("AccountId")]
     //[InverseProperty("AccountTaxRepartitionLineTemplates")]
+    [NotMapped]
     public virtual AccountAccountTemplate? Account { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountTaxRepartitionLineTemplateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InvoiceTaxId")]
     //[InverseProperty("AccountTaxRepartitionLineTemplateInvoiceTaxes")]
+    [NotMapped]
     public virtual AccountTaxTemplate? InvoiceTax { get; set; }
 
     [ForeignKey("RefundTaxId")]
     //[InverseProperty("AccountTaxRepartitionLineTemplateRefundTaxes")]
+    [NotMapped]
     public virtual AccountTaxTemplate? RefundTax { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountTaxRepartitionLineTemplateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountTaxRepartitionLineTemplateId")]

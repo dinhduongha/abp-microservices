@@ -119,18 +119,22 @@ public partial class AccountReconcileModel: Entity<Guid>, IEntityDto<Guid>, IMul
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountReconcileModels")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountReconcileModelCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("AccountReconcileModels")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountReconcileModelWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ReconcileModel")]

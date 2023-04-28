@@ -48,14 +48,17 @@ public partial class ResGroup: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CategoryId")]
     //[InverseProperty("ResGroups")]
+    [NotMapped]
     public virtual IrModuleCategory? Category { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResGroupCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResGroupWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Group")]

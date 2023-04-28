@@ -55,18 +55,22 @@ public partial class SaleOrderTemplate: Entity<Guid>, IEntityDto<Guid>, IMultiTe
 
     [ForeignKey("TenantId")]
     //[InverseProperty("SaleOrderTemplates")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SaleOrderTemplateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailTemplateId")]
     //[InverseProperty("SaleOrderTemplates")]
+    [NotMapped]
     public virtual MailTemplate? MailTemplate { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SaleOrderTemplateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("SaleOrderTemplate")]

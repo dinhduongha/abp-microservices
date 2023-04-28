@@ -69,17 +69,21 @@ public partial class ResourceCalendarAttendance: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CalendarId")]
     //[InverseProperty("ResourceCalendarAttendances")]
+    [NotMapped]
     public virtual ResourceCalendar? Calendar { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResourceCalendarAttendanceCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ResourceId")]
     //[InverseProperty("ResourceCalendarAttendances")]
+    [NotMapped]
     public virtual ResourceResource? Resource { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResourceCalendarAttendanceWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

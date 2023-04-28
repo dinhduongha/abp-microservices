@@ -85,18 +85,22 @@ public partial class FleetVehicleModel: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("BrandId")]
     //[InverseProperty("FleetVehicleModels")]
+    [NotMapped]
     public virtual FleetVehicleModelBrand Brand { get; set; } = null!;
 
     [ForeignKey("CategoryId")]
     //[InverseProperty("FleetVehicleModels")]
+    [NotMapped]
     public virtual FleetVehicleModelCategory? Category { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("FleetVehicleModelCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("FleetVehicleModelWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Model")]

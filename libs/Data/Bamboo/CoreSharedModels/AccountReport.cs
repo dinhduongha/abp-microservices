@@ -97,22 +97,27 @@ public partial class AccountReport: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("ChartTemplateId")]
     //[InverseProperty("AccountReports")]
+    [NotMapped]
     public virtual AccountChartTemplate? ChartTemplate { get; set; }
 
     [ForeignKey("CountryId")]
     //[InverseProperty("AccountReports")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountReportCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("RootReportId")]
     //[InverseProperty("InverseRootReport")]
+    [NotMapped]
     public virtual AccountReport? RootReport { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountReportWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Report")]

@@ -61,18 +61,22 @@ public partial class AccountFinancialReport: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AccountReportId")]
     //[InverseProperty("InverseAccountReport")]
+    [NotMapped]
     public virtual AccountFinancialReport? AccountReport { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountFinancialReportCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual AccountFinancialReport? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountFinancialReportWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("AccountReport")]

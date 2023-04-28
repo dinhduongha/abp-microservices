@@ -34,10 +34,12 @@ public partial class ResCountryGroup: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResCountryGroupCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResCountryGroupWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
     /// TODO: DISABLE INVERSE
 

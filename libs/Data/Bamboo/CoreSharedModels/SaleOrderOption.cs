@@ -59,25 +59,31 @@ public partial class SaleOrderOption: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SaleOrderOptionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LineId")]
     //[InverseProperty("SaleOrderOptions")]
+    [NotMapped]
     public virtual SaleOrderLine? Line { get; set; }
 
     [ForeignKey("OrderId")]
     //[InverseProperty("SaleOrderOptions")]
+    [NotMapped]
     public virtual SaleOrder? Order { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("SaleOrderOptions")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("UomId")]
     //[InverseProperty("SaleOrderOptions")]
+    [NotMapped]
     public virtual UomUom? Uom { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SaleOrderOptionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

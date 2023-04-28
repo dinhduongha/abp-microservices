@@ -49,13 +49,16 @@ public partial class BaseImportTestsModelsComplex: Entity<Guid>, IEntityDto<Guid
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BaseImportTestsModelsComplexCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("BaseImportTestsModelsComplexes")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BaseImportTestsModelsComplexWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

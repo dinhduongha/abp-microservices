@@ -134,50 +134,62 @@ public partial class PaymentTransaction: Entity<Guid>, IEntityDto<Guid>, IMultiT
 
     [ForeignKey("CallbackModelId")]
     //[InverseProperty("PaymentTransactions")]
+    [NotMapped]
     public virtual IrModel? CallbackModel { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("PaymentTransactions")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PaymentTransactionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("PaymentTransactions")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("PaymentTransactions")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PartnerCountryId")]
     //[InverseProperty("PaymentTransactions")]
+    [NotMapped]
     public virtual ResCountry? PartnerCountry { get; set; }
 
     [ForeignKey("PartnerStateId")]
     //[InverseProperty("PaymentTransactions")]
+    [NotMapped]
     public virtual ResCountryState? PartnerState { get; set; }
 
     [ForeignKey("PaymentId")]
     //[InverseProperty("PaymentTransactions")]
+    [NotMapped]
     public virtual AccountPayment? Payment { get; set; }
 
     [ForeignKey("ProviderId")]
     //[InverseProperty("PaymentTransactions")]
+    [NotMapped]
     public virtual PaymentProvider? Provider { get; set; }
 
     [ForeignKey("SourceTransactionId")]
     //[InverseProperty("InverseSourceTransaction")]
+    [NotMapped]
     public virtual PaymentTransaction? SourceTransaction { get; set; }
 
     [ForeignKey("TokenId")]
     //[InverseProperty("PaymentTransactions")]
+    [NotMapped]
     public virtual PaymentToken? Token { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PaymentTransactionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("PaymentTransaction")]

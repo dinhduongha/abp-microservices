@@ -46,18 +46,22 @@ public partial class AccountGroupTemplate: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("ChartTemplateId")]
     //[InverseProperty("AccountGroupTemplates")]
+    [NotMapped]
     public virtual AccountChartTemplate? ChartTemplate { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountGroupTemplateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual AccountGroupTemplate? Parent { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountGroupTemplateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Parent")]

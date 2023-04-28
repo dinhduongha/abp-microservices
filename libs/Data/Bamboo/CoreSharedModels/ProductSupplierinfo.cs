@@ -72,30 +72,37 @@ public partial class ProductSupplierinfo: Entity<Guid>, IEntityDto<Guid>, IMulti
 
     [ForeignKey("TenantId")]
     //[InverseProperty("ProductSupplierinfos")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProductSupplierinfoCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("ProductSupplierinfos")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("ProductSupplierinfos")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("ProductSupplierinfos")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductTmplId")]
     //[InverseProperty("ProductSupplierinfos")]
+    [NotMapped]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProductSupplierinfoWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Supplier")]

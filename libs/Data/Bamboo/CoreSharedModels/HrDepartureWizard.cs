@@ -58,17 +58,21 @@ public partial class HrDepartureWizard: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrDepartureWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartureReasonId")]
     //[InverseProperty("HrDepartureWizards")]
+    [NotMapped]
     public virtual HrDepartureReason? DepartureReason { get; set; }
 
     [ForeignKey("EmployeeId")]
     //[InverseProperty("HrDepartureWizards")]
+    [NotMapped]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrDepartureWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

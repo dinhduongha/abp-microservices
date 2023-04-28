@@ -106,22 +106,27 @@ public partial class IrUiView: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrUiViewCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InheritId")]
     //[InverseProperty("InverseInherit")]
+    [NotMapped]
     public virtual IrUiView? Inherit { get; set; }
 
     [ForeignKey("ThemeTemplateId")]
     //[InverseProperty("IrUiViews")]
+    [NotMapped]
     public virtual ThemeIrUiView? ThemeTemplate { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("IrUiViews")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrUiViewWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Inherit")]

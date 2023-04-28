@@ -44,10 +44,8 @@ public partial class ResCompany: Entity<Guid>, IEntityDto<Guid>
     public Guid? ExternalReportLayoutId { get; set; }
 
     [Column("create_uid")]
-    [ForeignKey("CreatorId")]
     public Guid? CreatorId { get; set; }    
-    public virtual ResUser? CreateU { get; set; }
-
+    
     [Column("write_uid")]
     public Guid? LastModifierId { get; set; }
 
@@ -446,177 +444,221 @@ public partial class ResCompany: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AccountCashBasisBaseAccountId")]
     //[InverseProperty("ResCompanyAccountCashBasisBaseAccounts")]
+    [NotMapped]
     public virtual AccountAccount? AccountCashBasisBaseAccount { get; set; }
 
     [ForeignKey("AccountFiscalCountryId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual ResCountry? AccountFiscalCountry { get; set; }
 
     [ForeignKey("AccountDefaultPosReceivableAccountId")]
     //[InverseProperty("ResCompanyAccountDefaultPosReceivableAccounts")]
+    [NotMapped]
     public virtual AccountAccount? AccountDefaultPosReceivableAccount { get; set; }
 
     [ForeignKey("AccountJournalEarlyPayDiscountGainAccountId")]
     //[InverseProperty("ResCompanyAccountJournalEarlyPayDiscountGainAccounts")]
+    [NotMapped]
     public virtual AccountAccount? AccountJournalEarlyPayDiscountGainAccount { get; set; }
 
     [ForeignKey("AccountJournalEarlyPayDiscountLossAccountId")]
     //[InverseProperty("ResCompanyAccountJournalEarlyPayDiscountLossAccounts")]
+    [NotMapped]
     public virtual AccountAccount? AccountJournalEarlyPayDiscountLossAccount { get; set; }
 
     [ForeignKey("AccountJournalPaymentCreditAccountId")]
     //[InverseProperty("ResCompanyAccountJournalPaymentCreditAccounts")]
+    [NotMapped]
     public virtual AccountAccount? AccountJournalPaymentCreditAccount { get; set; }
 
     [ForeignKey("AccountJournalPaymentDebitAccountId")]
     //[InverseProperty("ResCompanyAccountJournalPaymentDebitAccounts")]
+    [NotMapped]
     public virtual AccountAccount? AccountJournalPaymentDebitAccount { get; set; }
 
     [ForeignKey("AccountJournalSuspenseAccountId")]
     //[InverseProperty("ResCompanyAccountJournalSuspenseAccounts")]
+    [NotMapped]
     public virtual AccountAccount? AccountJournalSuspenseAccount { get; set; }
 
     [ForeignKey("AccountOpeningMoveId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual AccountMove? AccountOpeningMove { get; set; }
 
     [ForeignKey("AccountPurchaseTaxId")]
     //[InverseProperty("ResCompanyAccountPurchaseTaxes")]
+    [NotMapped]
     public virtual AccountTax? AccountPurchaseTax { get; set; }
 
     [ForeignKey("AccountSaleTaxId")]
     //[InverseProperty("ResCompanyAccountSaleTaxes")]
+    [NotMapped]
     public virtual AccountTax? AccountSaleTax { get; set; }
 
     [ForeignKey("AutomaticEntryDefaultJournalId")]
     //[InverseProperty("ResCompanyAutomaticEntryDefaultJournals")]
+    [NotMapped]
     public virtual AccountJournal? AutomaticEntryDefaultJournal { get; set; }
 
     [ForeignKey("ChartTemplateId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual AccountChartTemplate? ChartTemplate { get; set; }
 
     [ForeignKey("CompanyExpenseJournalId")]
     //[InverseProperty("ResCompanyCompanyExpenseJournals")]
+    [NotMapped]
     public virtual AccountJournal? CompanyExpenseJournal { get; set; }
 
     //[InverseProperty("ResCompanyCreateUs")]
-    //[ForeignKey("CreatorId")]
-    //public virtual ResUser? CreateU { get; set; }
+    [ForeignKey("CreatorId")]
+    [NotMapped]
+    public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("CurrencyExchangeJournalId")]
     //[InverseProperty("ResCompanyCurrencyExchangeJournals")]
+    [NotMapped]
     public virtual AccountJournal? CurrencyExchangeJournal { get; set; }
 
     [ForeignKey("DefaultCashDifferenceExpenseAccountId")]
     //[InverseProperty("ResCompanyDefaultCashDifferenceExpenseAccounts")]
+    [NotMapped]
     public virtual AccountAccount? DefaultCashDifferenceExpenseAccount { get; set; }
 
     [ForeignKey("DefaultCashDifferenceIncomeAccountId")]
     //[InverseProperty("ResCompanyDefaultCashDifferenceIncomeAccounts")]
+    [NotMapped]
     public virtual AccountAccount? DefaultCashDifferenceIncomeAccount { get; set; }
 
     [ForeignKey("ExpenseAccrualAccountId")]
     //[InverseProperty("ResCompanyExpenseAccrualAccounts")]
+    [NotMapped]
     public virtual AccountAccount? ExpenseAccrualAccount { get; set; }
 
     [ForeignKey("ExpenseCurrencyExchangeAccountId")]
     //[InverseProperty("ResCompanyExpenseCurrencyExchangeAccounts")]
+    [NotMapped]
     public virtual AccountAccount? ExpenseCurrencyExchangeAccount { get; set; }
 
     [ForeignKey("ExpenseJournalId")]
     //[InverseProperty("ResCompanyExpenseJournals")]
+    [NotMapped]
     public virtual AccountJournal? ExpenseJournal { get; set; }
 
     [ForeignKey("ExternalReportLayoutId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual IrUiView? ExternalReportLayout { get; set; }
 
     //[InverseProperty("Company")]
+    [NotMapped]
     public virtual FollowupFollowup? FollowupFollowup { get; set; }
 
     [ForeignKey("IncotermId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual AccountIncoterm? Incoterm { get; set; }
 
     [ForeignKey("InternalTransitLocationId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual StockLocation? InternalTransitLocation { get; set; }
 
     [ForeignKey("IncomeCurrencyExchangeAccountId")]
     //[InverseProperty("ResCompanyIncomeCurrencyExchangeAccounts")]
+    [NotMapped]
     public virtual AccountAccount? IncomeCurrencyExchangeAccount { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("NomenclatureId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual BarcodeNomenclature? Nomenclature { get; set; }
 
     [ForeignKey("PaperformatId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual ReportPaperformat? Paperformat { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual ResCompany? Parent { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PropertyStockAccountInputCategId")]
     //[InverseProperty("ResCompanyPropertyStockAccountInputCategs")]
+    [NotMapped]
     public virtual AccountAccount? PropertyStockAccountInputCateg { get; set; }
 
     [ForeignKey("PropertyStockAccountOutputCategId")]
     //[InverseProperty("ResCompanyPropertyStockAccountOutputCategs")]
+    [NotMapped]
     public virtual AccountAccount? PropertyStockAccountOutputCateg { get; set; }
 
     [ForeignKey("PropertyStockValuationAccountId")]
     //[InverseProperty("ResCompanyPropertyStockValuationAccounts")]
+    [NotMapped]
     public virtual AccountAccount? PropertyStockValuationAccount { get; set; }
 
     [ForeignKey("ResourceCalendarId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual ResourceCalendar? ResourceCalendar { get; set; }
 
     [ForeignKey("RevenueAccrualAccountId")]
     //[InverseProperty("ResCompanyRevenueAccrualAccounts")]
+    [NotMapped]
     public virtual AccountAccount? RevenueAccrualAccount { get; set; }
 
     [ForeignKey("SaleOrderTemplateId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual SaleOrderTemplate? SaleOrderTemplate { get; set; }
 
     [ForeignKey("StockMailConfirmationTemplateId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual MailTemplate? StockMailConfirmationTemplate { get; set; }
 
     [ForeignKey("StockSmsConfirmationTemplateId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual SmsTemplate? StockSmsConfirmationTemplate { get; set; }
 
     [ForeignKey("TaxCashBasisJournalId")]
     //[InverseProperty("ResCompanyTaxCashBasisJournals")]
+    [NotMapped]
     public virtual AccountJournal? TaxCashBasisJournal { get; set; }
 
     [ForeignKey("TransferAccountId")]
     //[InverseProperty("ResCompanyTransferAccounts")]
+    [NotMapped]
     public virtual AccountAccount? TransferAccount { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("ResCompanies")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResCompanyWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
     /// TODO: DISABLE INVERSE
     //[InverseProperty("Company")]

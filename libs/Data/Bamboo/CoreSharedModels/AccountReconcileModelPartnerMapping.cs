@@ -43,17 +43,21 @@ public partial class AccountReconcileModelPartnerMapping: Entity<Guid>, IEntityD
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountReconcileModelPartnerMappingCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModelId")]
     //[InverseProperty("AccountReconcileModelPartnerMappings")]
+    [NotMapped]
     public virtual AccountReconcileModel? Model { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("AccountReconcileModelPartnerMappings")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountReconcileModelPartnerMappingWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

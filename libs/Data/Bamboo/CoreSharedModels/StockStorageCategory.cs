@@ -43,14 +43,17 @@ public partial class StockStorageCategory: Entity<long>, IEntityDto<long>, IMult
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockStorageCategories")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockStorageCategoryCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockStorageCategoryWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("StorageCategory")]

@@ -53,22 +53,27 @@ public partial class PaymentToken: Entity<Guid>, IEntityDto<Guid>, IMultiTenant,
 
     [ForeignKey("TenantId")]
     //[InverseProperty("PaymentTokens")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PaymentTokenCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("PaymentTokens")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("ProviderId")]
     //[InverseProperty("PaymentTokens")]
+    [NotMapped]
     public virtual PaymentProvider? Provider { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PaymentTokenWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("PaymentToken")]

@@ -46,21 +46,26 @@ public partial class StockWarnInsufficientQtyUnbuild: Entity<Guid>, IEntityDto<G
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockWarnInsufficientQtyUnbuildCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
     //[InverseProperty("StockWarnInsufficientQtyUnbuilds")]
+    [NotMapped]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockWarnInsufficientQtyUnbuilds")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("UnbuildId")]
     //[InverseProperty("StockWarnInsufficientQtyUnbuilds")]
+    [NotMapped]
     public virtual MrpUnbuild? Unbuild { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockWarnInsufficientQtyUnbuildWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -45,17 +45,21 @@ public partial class ResCurrencyRate: Entity<Guid>, IEntityDto<Guid>, IMultiTena
 
     [ForeignKey("TenantId")]
     //[InverseProperty("ResCurrencyRates")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResCurrencyRateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("ResCurrencyRates")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResCurrencyRateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

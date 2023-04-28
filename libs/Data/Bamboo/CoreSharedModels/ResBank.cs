@@ -65,18 +65,22 @@ public partial class ResBank: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("Country")]
     //[InverseProperty("ResBanks")]
+    [NotMapped]
     public virtual ResCountry? CountryNavigation { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResBankCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("State")]
     //[InverseProperty("ResBanks")]
+    [NotMapped]
     public virtual ResCountryState? StateNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResBankWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Bank")]

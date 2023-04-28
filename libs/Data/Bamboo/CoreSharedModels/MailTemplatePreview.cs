@@ -43,13 +43,16 @@ public partial class MailTemplatePreview: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailTemplatePreviewCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailTemplateId")]
     //[InverseProperty("MailTemplatePreviews")]
+    [NotMapped]
     public virtual MailTemplate? MailTemplate { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailTemplatePreviewWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

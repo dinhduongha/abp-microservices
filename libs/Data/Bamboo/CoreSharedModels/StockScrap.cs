@@ -85,62 +85,77 @@ public partial class StockScrap: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, I
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockScraps")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockScrapCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
     //[InverseProperty("StockScrapLocations")]
+    [NotMapped]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("LotId")]
     //[InverseProperty("StockScraps")]
+    [NotMapped]
     public virtual StockLot? Lot { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("StockScraps")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("MoveId")]
     //[InverseProperty("StockScraps")]
+    [NotMapped]
     public virtual StockMove? Move { get; set; }
 
     [ForeignKey("OwnerId")]
     //[InverseProperty("StockScraps")]
+    [NotMapped]
     public virtual ResPartner? Owner { get; set; }
 
     [ForeignKey("PackageId")]
     //[InverseProperty("StockScraps")]
+    [NotMapped]
     public virtual StockQuantPackage? Package { get; set; }
 
     [ForeignKey("PickingId")]
     //[InverseProperty("StockScraps")]
+    [NotMapped]
     public virtual StockPicking? Picking { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockScraps")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
     //[InverseProperty("StockScraps")]
+    [NotMapped]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("ProductionId")]
     //[InverseProperty("StockScraps")]
+    [NotMapped]
     public virtual MrpProduction? Production { get; set; }
 
     [ForeignKey("ScrapLocationId")]
     //[InverseProperty("StockScrapScrapLocations")]
+    [NotMapped]
     public virtual StockLocation? ScrapLocation { get; set; }
 
     [ForeignKey("WorkorderId")]
     //[InverseProperty("StockScraps")]
+    [NotMapped]
     public virtual MrpWorkorder? Workorder { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockScrapWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Scrap")]

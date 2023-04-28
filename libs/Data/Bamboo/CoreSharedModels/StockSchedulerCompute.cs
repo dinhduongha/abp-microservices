@@ -31,9 +31,11 @@ public partial class StockSchedulerCompute: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockSchedulerComputeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockSchedulerComputeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

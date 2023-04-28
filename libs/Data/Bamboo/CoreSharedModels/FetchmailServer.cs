@@ -93,14 +93,17 @@ public partial class FetchmailServer: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("FetchmailServerCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ObjectId")]
     //[InverseProperty("FetchmailServers")]
+    [NotMapped]
     public virtual IrModel? Object { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("FetchmailServerWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("FetchmailServer")]

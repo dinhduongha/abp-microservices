@@ -37,9 +37,11 @@ public partial class ChangePasswordOwn: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ChangePasswordOwnCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ChangePasswordOwnWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

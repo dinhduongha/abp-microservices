@@ -106,38 +106,47 @@ public partial class AccountAssetAsset: Entity<Guid>, IEntityDto<Guid>, IMultiTe
 
     [ForeignKey("AccountAnalyticId")]
     //[InverseProperty("AccountAssetAssets")]
+    [NotMapped]
     public virtual AccountAnalyticAccount? AccountAnalytic { get; set; }
 
     [ForeignKey("CategoryId")]
     //[InverseProperty("AccountAssetAssets")]
+    [NotMapped]
     public virtual AccountAssetCategory? Category { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountAssetAssets")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAssetAssetCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("AccountAssetAssets")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("InvoiceId")]
     //[InverseProperty("AccountAssetAssets")]
+    [NotMapped]
     public virtual AccountMove? Invoice { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("AccountAssetAssets")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("AccountAssetAssets")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAssetAssetWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Asset")]

@@ -43,13 +43,16 @@ public partial class IrSequenceDateRange: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrSequenceDateRangeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("SequenceId")]
     //[InverseProperty("IrSequenceDateRanges")]
+    [NotMapped]
     public virtual IrSequence? Sequence { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrSequenceDateRangeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

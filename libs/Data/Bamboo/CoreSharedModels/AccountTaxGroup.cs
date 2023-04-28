@@ -43,14 +43,17 @@ public partial class AccountTaxGroup: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CountryId")]
     //[InverseProperty("AccountTaxGroups")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountTaxGroupCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountTaxGroupWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("TaxGroup")]

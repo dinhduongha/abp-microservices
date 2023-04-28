@@ -43,21 +43,26 @@ public partial class ProjectTaskUserRel: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProjectTaskUserRelCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("StageId")]
     //[InverseProperty("ProjectTaskUserRels")]
+    [NotMapped]
     public virtual ProjectTaskType? Stage { get; set; }
 
     [ForeignKey("TaskId")]
     //[InverseProperty("ProjectTaskUserRels")]
+    [NotMapped]
     public virtual ProjectTask? Task { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("ProjectTaskUserRelUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProjectTaskUserRelWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

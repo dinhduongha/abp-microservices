@@ -50,18 +50,22 @@ public partial class SmsSm: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SmsSmCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailMessageId")]
     //[InverseProperty("SmsSms")]
+    [NotMapped]
     public virtual MailMessage? MailMessage { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("SmsSms")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SmsSmWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Sms")]

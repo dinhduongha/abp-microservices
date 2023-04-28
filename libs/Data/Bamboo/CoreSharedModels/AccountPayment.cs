@@ -106,78 +106,97 @@ public partial class AccountPayment: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountPaymentCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("AccountPayments")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("DestinationAccountId")]
     //[InverseProperty("AccountPaymentDestinationAccounts")]
+    [NotMapped]
     public virtual AccountAccount? DestinationAccount { get; set; }
 
     [ForeignKey("DestinationJournalId")]
     //[InverseProperty("AccountPayments")]
+    [NotMapped]
     public virtual AccountJournal? DestinationJournal { get; set; }
 
     [ForeignKey("ForceOutstandingAccountId")]
     //[InverseProperty("AccountPaymentForceOutstandingAccounts")]
+    [NotMapped]
     public virtual AccountAccount? ForceOutstandingAccount { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("AccountPayments")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("MoveId")]
     //[InverseProperty("AccountPayments")]
+    [NotMapped]
     public virtual AccountMove? Move { get; set; }
 
     [ForeignKey("OutstandingAccountId")]
     //[InverseProperty("AccountPaymentOutstandingAccounts")]
+    [NotMapped]
     public virtual AccountAccount? OutstandingAccount { get; set; }
 
     [ForeignKey("PairedInternalTransferPaymentId")]
     //[InverseProperty("InversePairedInternalTransferPayment")]
+    [NotMapped]
     public virtual AccountPayment? PairedInternalTransferPayment { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("AccountPayments")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PartnerBankId")]
     //[InverseProperty("AccountPayments")]
+    [NotMapped]
     public virtual ResPartnerBank? PartnerBank { get; set; }
 
     [ForeignKey("PaymentMethodId")]
     //[InverseProperty("AccountPayments")]
+    [NotMapped]
     public virtual AccountPaymentMethod? PaymentMethod { get; set; }
 
     [ForeignKey("PaymentMethodLineId")]
     //[InverseProperty("AccountPayments")]
+    [NotMapped]
     public virtual AccountPaymentMethodLine? PaymentMethodLine { get; set; }
 
     [ForeignKey("PaymentTokenId")]
     //[InverseProperty("AccountPayments")]
+    [NotMapped]
     public virtual PaymentToken? PaymentToken { get; set; }
 
     [ForeignKey("PaymentTransactionId")]
     //[InverseProperty("AccountPayments")]
+    [NotMapped]
     public virtual PaymentTransaction? PaymentTransaction { get; set; }
 
     [ForeignKey("PosPaymentMethodId")]
     //[InverseProperty("AccountPayments")]
+    [NotMapped]
     public virtual PosPaymentMethod? PosPaymentMethod { get; set; }
 
     [ForeignKey("PosSessionId")]
     //[InverseProperty("AccountPayments")]
+    [NotMapped]
     public virtual PosSession? PosSession { get; set; }
 
     [ForeignKey("SourcePaymentId")]
     //[InverseProperty("InverseSourcePayment")]
+    [NotMapped]
     public virtual AccountPayment? SourcePayment { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountPaymentWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Payment")]

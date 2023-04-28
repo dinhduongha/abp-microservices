@@ -34,14 +34,17 @@ public partial class StockReplenishmentInfo: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockReplenishmentInfoCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("OrderpointId")]
     //[InverseProperty("StockReplenishmentInfos")]
+    [NotMapped]
     public virtual StockWarehouseOrderpoint? Orderpoint { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockReplenishmentInfoWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ReplenishmentInfo")]

@@ -89,50 +89,62 @@ public partial class HrExpenseSheet: Entity<Guid>, IEntityDto<Guid>, IMultiTenan
 
     [ForeignKey("AccountMoveId")]
     //[InverseProperty("HrExpenseSheets")]
+    [NotMapped]
     public virtual AccountMove? AccountMove { get; set; }
 
     [ForeignKey("AddressId")]
     //[InverseProperty("HrExpenseSheets")]
+    [NotMapped]
     public virtual ResPartner? Address { get; set; }
 
     [ForeignKey("BankJournalId")]
     //[InverseProperty("HrExpenseSheetBankJournals")]
+    [NotMapped]
     public virtual AccountJournal? BankJournal { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("HrExpenseSheets")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrExpenseSheetCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("HrExpenseSheets")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("DepartmentId")]
     //[InverseProperty("HrExpenseSheets")]
+    [NotMapped]
     public virtual HrDepartment? Department { get; set; }
 
     [ForeignKey("EmployeeId")]
     //[InverseProperty("HrExpenseSheets")]
+    [NotMapped]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("HrExpenseSheetJournals")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("HrExpenseSheets")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("HrExpenseSheetUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrExpenseSheetWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Sheet")]

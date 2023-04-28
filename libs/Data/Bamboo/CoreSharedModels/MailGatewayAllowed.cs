@@ -38,9 +38,11 @@ public partial class MailGatewayAllowed: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailGatewayAllowedCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailGatewayAllowedWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

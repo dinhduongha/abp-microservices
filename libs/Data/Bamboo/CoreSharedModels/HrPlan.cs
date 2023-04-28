@@ -43,18 +43,22 @@ public partial class HrPlan: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IMayH
 
     [ForeignKey("TenantId")]
     //[InverseProperty("HrPlans")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrPlanCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepartmentId")]
     //[InverseProperty("HrPlans")]
+    [NotMapped]
     public virtual HrDepartment? Department { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrPlanWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
     
     //[InverseProperty("Plan")]

@@ -40,9 +40,11 @@ public partial class BaseImportTestsModelsPreview: Entity<Guid>, IEntityDto<Guid
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BaseImportTestsModelsPreviewCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BaseImportTestsModelsPreviewWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

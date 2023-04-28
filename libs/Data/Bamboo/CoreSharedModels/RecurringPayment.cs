@@ -61,22 +61,27 @@ public partial class RecurringPayment: Entity<Guid>, IEntityDto<Guid>, IMultiTen
 
     [ForeignKey("TenantId")]
     //[InverseProperty("RecurringPayments")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("RecurringPaymentCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("RecurringPayments")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("TemplateId")]
     //[InverseProperty("RecurringPayments")]
+    [NotMapped]
     public virtual AccountRecurringTemplate? Template { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("RecurringPaymentWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("RecurringPayment")]

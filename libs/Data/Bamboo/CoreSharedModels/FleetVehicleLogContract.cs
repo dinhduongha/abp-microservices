@@ -83,34 +83,42 @@ public partial class FleetVehicleLogContract: Entity<Guid>, IEntityDto<Guid>, IM
 
     [ForeignKey("TenantId")]
     //[InverseProperty("FleetVehicleLogContracts")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CostSubtypeId")]
     //[InverseProperty("FleetVehicleLogContractsNavigation")]
+    [NotMapped]
     public virtual FleetServiceType? CostSubtype { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("FleetVehicleLogContractCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("InsurerId")]
     //[InverseProperty("FleetVehicleLogContracts")]
+    [NotMapped]
     public virtual ResPartner? Insurer { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("FleetVehicleLogContracts")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("FleetVehicleLogContractUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("VehicleId")]
     //[InverseProperty("FleetVehicleLogContracts")]
+    [NotMapped]
     public virtual FleetVehicle? Vehicle { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("FleetVehicleLogContractWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("FleetVehicleLogContractId")]

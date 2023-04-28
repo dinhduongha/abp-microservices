@@ -55,14 +55,17 @@ public partial class FollowupPrint: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("FollowupPrintCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FollowupId")]
     //[InverseProperty("FollowupPrints")]
+    [NotMapped]
     public virtual FollowupFollowup? Followup { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("FollowupPrintWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("OsvMemory")]

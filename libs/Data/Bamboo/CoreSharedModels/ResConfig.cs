@@ -31,9 +31,11 @@ public partial class ResConfig: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResConfigCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResConfigWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

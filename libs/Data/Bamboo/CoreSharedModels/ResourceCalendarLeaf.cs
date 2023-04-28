@@ -57,26 +57,32 @@ public partial class ResourceCalendarLeaf: Entity<Guid>, IEntityDto<Guid>, IMult
 
     [ForeignKey("CalendarId")]
     //[InverseProperty("ResourceCalendarLeaves")]
+    [NotMapped]
     public virtual ResourceCalendar? Calendar { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("ResourceCalendarLeaves")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResourceCalendarLeafCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("HolidayId")]
     //[InverseProperty("ResourceCalendarLeaves")]
+    [NotMapped]
     public virtual HrLeave? Holiday { get; set; }
 
     [ForeignKey("ResourceId")]
     //[InverseProperty("ResourceCalendarLeaves")]
+    [NotMapped]
     public virtual ResourceResource? Resource { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResourceCalendarLeafWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Leave")]

@@ -38,9 +38,11 @@ public partial class IrConfigParameter: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrConfigParameterCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrConfigParameterWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

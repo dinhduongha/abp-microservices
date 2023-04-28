@@ -91,30 +91,37 @@ public partial class HrLeaveType: Entity<long>, IEntityDto<long>, IMultiTenant, 
 
     [ForeignKey("AllocationNotifSubtypeId")]
     //[InverseProperty("HrLeaveTypeAllocationNotifSubtypes")]
+    [NotMapped]
     public virtual MailMessageSubtype? AllocationNotifSubtype { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("HrLeaveTypes")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrLeaveTypeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("IconId")]
     //[InverseProperty("HrLeaveTypes")]
+    [NotMapped]
     public virtual IrAttachment? Icon { get; set; }
 
     [ForeignKey("LeaveNotifSubtypeId")]
     //[InverseProperty("HrLeaveTypeLeaveNotifSubtypes")]
+    [NotMapped]
     public virtual MailMessageSubtype? LeaveNotifSubtype { get; set; }
 
     [ForeignKey("ResponsibleId")]
     //[InverseProperty("HrLeaveTypeResponsibles")]
+    [NotMapped]
     public virtual ResUser? Responsible { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrLeaveTypeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     // ForeignKey???

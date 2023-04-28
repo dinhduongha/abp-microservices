@@ -25,5 +25,6 @@ public partial class PartnerStatRel//: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("OsvMemoryId")]
     //[InverseProperty("PartnerStatRels")]
+    [NotMapped]
     public virtual FollowupPrint OsvMemory { get; set; } = null!;
 }

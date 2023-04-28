@@ -68,17 +68,21 @@ public partial class IrProperty: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, I
 
     [ForeignKey("TenantId")]
     //[InverseProperty("IrProperties")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrPropertyCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FieldsId")]
     //[InverseProperty("IrProperties")]
+    [NotMapped]
     public virtual IrModelField? Fields { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrPropertyWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

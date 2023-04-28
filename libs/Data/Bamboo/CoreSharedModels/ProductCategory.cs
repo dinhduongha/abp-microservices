@@ -51,18 +51,22 @@ public partial class ProductCategory: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProductCategoryCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual ProductCategory? Parent { get; set; }
 
     [ForeignKey("RemovalStrategyId")]
     //[InverseProperty("ProductCategories")]
+    [NotMapped]
     public virtual ProductRemoval? RemovalStrategy { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProductCategoryWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("ProductCateg")]

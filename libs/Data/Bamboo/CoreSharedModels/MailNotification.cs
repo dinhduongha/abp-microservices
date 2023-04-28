@@ -65,26 +65,32 @@ public partial class MailNotification: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AuthorId")]
     //[InverseProperty("MailNotificationAuthors")]
+    [NotMapped]
     public virtual ResPartner? Author { get; set; }
 
     [ForeignKey("LetterId")]
     //[InverseProperty("MailNotifications")]
+    [NotMapped]
     public virtual SnailmailLetter? Letter { get; set; }
 
     [ForeignKey("MailMailId")]
     //[InverseProperty("MailNotifications")]
+    [NotMapped]
     public virtual MailMail? MailMail { get; set; }
 
     [ForeignKey("MailMessageId")]
     //[InverseProperty("MailNotifications")]
+    [NotMapped]
     public virtual MailMessage? MailMessage { get; set; }
 
     [ForeignKey("ResPartnerId")]
     //[InverseProperty("MailNotificationResPartners")]
+    [NotMapped]
     public virtual ResPartner? ResPartner { get; set; }
 
     [ForeignKey("SmsId")]
     //[InverseProperty("MailNotifications")]
+    [NotMapped]
     public virtual SmsSm? Sms { get; set; }
 
     //[InverseProperty("Notification")]

@@ -181,98 +181,122 @@ public partial class SaleOrder: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IM
 
     [ForeignKey("AnalyticAccountId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual AccountAnalyticAccount? AnalyticAccount { get; set; }
 
     [ForeignKey("CampaignId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual UtmCampaign? Campaign { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SaleOrderCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("FiscalPositionId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual AccountFiscalPosition? FiscalPosition { get; set; }
 
     [ForeignKey("Incoterm")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual AccountIncoterm? IncotermNavigation { get; set; }
 
     [ForeignKey("MediumId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual UtmMedium? Medium { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("OpportunityId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual CrmLead? Opportunity { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("SaleOrderPartners")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PartnerInvoiceId")]
     //[InverseProperty("SaleOrderPartnerInvoices")]
+    [NotMapped]
     public virtual ResPartner? PartnerInvoice { get; set; }
 
     [ForeignKey("PartnerShippingId")]
     //[InverseProperty("SaleOrderPartnerShippings")]
+    [NotMapped]
     public virtual ResPartner? PartnerShipping { get; set; }
 
     [ForeignKey("PaymentTermId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual AccountPaymentTerm? PaymentTerm { get; set; }
 
     [ForeignKey("PricelistId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual ProductPricelist? Pricelist { get; set; }
 
     [ForeignKey("ProcurementGroupId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual ProcurementGroup? ProcurementGroup { get; set; }
 
     [ForeignKey("ProjectId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual ProjectProject? Project { get; set; }
 
     [ForeignKey("SaleOrderTemplateId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual SaleOrderTemplate? SaleOrderTemplate { get; set; }
 
     [ForeignKey("SourceId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual UtmSource? Source { get; set; }
 
     [ForeignKey("TeamId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("SaleOrderUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("WarehouseId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual StockWarehouse? Warehouse { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("SaleOrders")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SaleOrderWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("SaleOrder")]

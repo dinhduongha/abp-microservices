@@ -79,45 +79,56 @@ public partial class FleetVehicleLogService: Entity<Guid>, IEntityDto<Guid>, IMu
 
     [ForeignKey("TenantId")]
     //[InverseProperty("FleetVehicleLogServices")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("FleetVehicleLogServiceCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ManagerId")]
     //[InverseProperty("FleetVehicleLogServiceManagers")]
+    [NotMapped]
     public virtual ResUser? Manager { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("FleetVehicleLogServices")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("OdometerId")]
     //[InverseProperty("FleetVehicleLogServices")]
+    [NotMapped]
     public virtual FleetVehicleOdometer? Odometer { get; set; }
 
     [ForeignKey("PurchaserId")]
     //[InverseProperty("FleetVehicleLogServicePurchasers")]
+    [NotMapped]
     public virtual ResPartner? Purchaser { get; set; }
 
     [ForeignKey("PurchaserEmployeeId")]
     //[InverseProperty("FleetVehicleLogServices")]
+    [NotMapped]
     public virtual HrEmployee? PurchaserEmployee { get; set; }
 
     [ForeignKey("ServiceTypeId")]
     //[InverseProperty("FleetVehicleLogServices")]
+    [NotMapped]
     public virtual FleetServiceType ServiceType { get; set; } = null!;
 
     [ForeignKey("VehicleId")]
     //[InverseProperty("FleetVehicleLogServices")]
+    [NotMapped]
     public virtual FleetVehicle Vehicle { get; set; } = null!;
 
     [ForeignKey("VendorId")]
     //[InverseProperty("FleetVehicleLogServiceVendors")]
+    [NotMapped]
     public virtual ResPartner? Vendor { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("FleetVehicleLogServiceWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

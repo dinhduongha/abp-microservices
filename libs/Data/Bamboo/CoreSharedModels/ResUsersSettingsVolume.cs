@@ -46,21 +46,26 @@ public partial class ResUsersSettingsVolume: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResUsersSettingsVolumeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("GuestId")]
     //[InverseProperty("ResUsersSettingsVolumeGuests")]
+    [NotMapped]
     public virtual ResPartner? Guest { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("ResUsersSettingsVolumePartners")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("UserSettingId")]
     //[InverseProperty("ResUsersSettingsVolumes")]
+    [NotMapped]
     public virtual ResUsersSetting? UserSetting { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResUsersSettingsVolumeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

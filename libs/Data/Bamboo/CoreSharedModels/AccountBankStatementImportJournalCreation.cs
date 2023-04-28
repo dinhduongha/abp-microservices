@@ -34,13 +34,16 @@ public partial class AccountBankStatementImportJournalCreation: Entity<Guid>, IE
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountBankStatementImportJournalCreationCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("AccountBankStatementImportJournalCreations")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountBankStatementImportJournalCreationWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

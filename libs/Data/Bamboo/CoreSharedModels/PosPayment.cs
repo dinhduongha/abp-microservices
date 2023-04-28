@@ -74,29 +74,36 @@ public partial class PosPayment: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, I
 
     [ForeignKey("AccountMoveId")]
     //[InverseProperty("PosPayments")]
+    [NotMapped]
     public virtual AccountMove? AccountMove { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("PosPayments")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PosPaymentCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PaymentMethodId")]
     //[InverseProperty("PosPayments")]
+    [NotMapped]
     public virtual PosPaymentMethod? PaymentMethod { get; set; }
 
     [ForeignKey("PosOrderId")]
     //[InverseProperty("PosPayments")]
+    [NotMapped]
     public virtual PosOrder? PosOrder { get; set; }
 
     [ForeignKey("SessionId")]
     //[InverseProperty("PosPayments")]
+    [NotMapped]
     public virtual PosSession? Session { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PosPaymentWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

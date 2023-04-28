@@ -40,13 +40,16 @@ public partial class ResUsersDeletion: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResUsersDeletionCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("ResUsersDeletionUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResUsersDeletionWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

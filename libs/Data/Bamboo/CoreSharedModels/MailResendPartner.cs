@@ -43,17 +43,21 @@ public partial class MailResendPartner: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailResendPartnerCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("MailResendPartners")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("ResendWizardId")]
     //[InverseProperty("MailResendPartners")]
+    [NotMapped]
     public virtual MailResendMessage? ResendWizard { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailResendPartnerWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

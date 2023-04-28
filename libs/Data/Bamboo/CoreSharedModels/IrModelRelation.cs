@@ -43,17 +43,21 @@ public partial class IrModelRelation: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrModelRelationCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("Model")]
     //[InverseProperty("IrModelRelations")]
+    [NotMapped]
     public virtual IrModel? ModelNavigation { get; set; }
 
     [ForeignKey("Module")]
     //[InverseProperty("IrModelRelations")]
+    [NotMapped]
     public virtual IrModuleModule? ModuleNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrModelRelationWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

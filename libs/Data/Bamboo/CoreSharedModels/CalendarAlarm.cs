@@ -55,18 +55,22 @@ public partial class CalendarAlarm: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CalendarAlarmCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MailTemplateId")]
     //[InverseProperty("CalendarAlarms")]
+    [NotMapped]
     public virtual MailTemplate? MailTemplate { get; set; }
 
     [ForeignKey("SmsTemplateId")]
     //[InverseProperty("CalendarAlarms")]
+    [NotMapped]
     public virtual SmsTemplate? SmsTemplate { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CalendarAlarmWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("CalendarAlarmId")]

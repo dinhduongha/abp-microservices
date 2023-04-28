@@ -34,9 +34,11 @@ public partial class ValidateAccountMove: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ValidateAccountMoveCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ValidateAccountMoveWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -96,39 +96,48 @@ public partial class AccountAssetCategory: Entity<Guid>, IEntityDto<Guid>, IMult
 
     [ForeignKey("AccountAnalyticId")]
     //[InverseProperty("AccountAssetCategories")]
+    [NotMapped]
     public virtual AccountAnalyticAccount? AccountAnalytic { get; set; }
 
     [ForeignKey("AccountAssetId")]
     //[InverseProperty("AccountAssetCategoryAccountAssets")]
+    [NotMapped]
     public virtual AccountAccount? AccountAsset { get; set; }
 
 
     [ForeignKey("AccountDepreciationId")]
     //[InverseProperty("AccountAssetCategoryAccountDepreciations")]
+    [NotMapped]
     public virtual AccountAccount? AccountDepreciation { get; set; }
 
     [ForeignKey("AccountDepreciationExpenseId")]
     //[InverseProperty("AccountAssetCategoryAccountDepreciationExpenses")]
+    [NotMapped]
     public virtual AccountAccount? AccountDepreciationExpense { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountAssetCategories")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAssetCategoryCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("AccountAssetCategories")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("AccountAssetCategories")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAssetCategoryWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Category")]

@@ -110,46 +110,57 @@ public partial class HrExpense: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IM
 
     [ForeignKey("AccountId")]
     //[InverseProperty("HrExpenses")]
+    [NotMapped]
     public virtual AccountAccount? Account { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("HrExpenses")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrExpenseCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("HrExpenses")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("EmployeeId")]
     //[InverseProperty("HrExpenses")]
+    [NotMapped]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("HrExpenses")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("HrExpenses")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductUomId")]
     //[InverseProperty("HrExpenses")]
+    [NotMapped]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("SaleOrderId")]
     //[InverseProperty("HrExpenses")]
+    [NotMapped]
     public virtual SaleOrder? SaleOrder { get; set; }
 
     [ForeignKey("SheetId")]
     //[InverseProperty("HrExpenses")]
+    [NotMapped]
     public virtual HrExpenseSheet? Sheet { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrExpenseWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Expense")]

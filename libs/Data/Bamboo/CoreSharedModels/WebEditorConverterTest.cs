@@ -64,13 +64,16 @@ public partial class WebEditorConverterTest: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("WebEditorConverterTestCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("Many2one")]
     //[InverseProperty("WebEditorConverterTests")]
+    [NotMapped]
     public virtual WebEditorConverterTestSub? Many2oneNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("WebEditorConverterTestWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

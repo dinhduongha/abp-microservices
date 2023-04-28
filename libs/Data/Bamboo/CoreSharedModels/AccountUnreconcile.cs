@@ -31,9 +31,11 @@ public partial class AccountUnreconcile: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountUnreconcileCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountUnreconcileWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

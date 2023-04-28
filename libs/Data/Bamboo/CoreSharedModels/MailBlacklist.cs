@@ -41,13 +41,16 @@ public partial class MailBlacklist: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailBlacklistCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("MailBlacklists")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailBlacklistWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

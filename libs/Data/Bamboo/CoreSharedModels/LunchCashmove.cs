@@ -46,17 +46,21 @@ public partial class LunchCashmove: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("LunchCashmoveCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CurrencyId")]
     //[InverseProperty("LunchCashmoves")]
+    [NotMapped]
     public virtual ResCurrency? Currency { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("LunchCashmoveUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("LunchCashmoveWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

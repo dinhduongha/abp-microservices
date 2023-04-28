@@ -60,14 +60,17 @@ public partial class IrRule: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrRuleCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModelId")]
     //[InverseProperty("IrRules")]
+    [NotMapped]
     public virtual IrModel? Model { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrRuleWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("RuleGroupId")]

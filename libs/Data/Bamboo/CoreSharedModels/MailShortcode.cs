@@ -40,9 +40,11 @@ public partial class MailShortcode: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailShortcodeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailShortcodeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -47,14 +47,17 @@ public partial class HrAttendanceOvertime: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrAttendanceOvertimeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EmployeeId")]
     //[InverseProperty("HrAttendanceOvertimes")]
+    [NotMapped]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrAttendanceOvertimeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Overtime")]

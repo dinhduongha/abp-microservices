@@ -57,17 +57,21 @@ public partial class WebsiteRewrite: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("WebsiteRewriteCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("RouteId")]
     //[InverseProperty("WebsiteRewrites")]
+    [NotMapped]
     public virtual WebsiteRoute? Route { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("WebsiteRewrites")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("WebsiteRewriteWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

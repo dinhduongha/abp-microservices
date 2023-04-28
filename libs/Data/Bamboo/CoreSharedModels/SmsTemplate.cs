@@ -53,18 +53,22 @@ public partial class SmsTemplate: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("SmsTemplateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ModelId")]
     //[InverseProperty("SmsTemplates")]
+    [NotMapped]
     public virtual IrModel? ModelNavigation { get; set; }
 
     [ForeignKey("SidebarActionId")]
     //[InverseProperty("SmsTemplates")]
+    [NotMapped]
     public virtual IrActWindow? SidebarAction { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("SmsTemplateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("SmsTemplate")]

@@ -34,9 +34,11 @@ public partial class WebsiteRobot: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("WebsiteRobotCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("WebsiteRobotWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

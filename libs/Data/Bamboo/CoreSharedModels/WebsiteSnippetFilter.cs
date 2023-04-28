@@ -57,21 +57,26 @@ public partial class WebsiteSnippetFilter: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("ActionServerId")]
     //[InverseProperty("WebsiteSnippetFilters")]
+    [NotMapped]
     public virtual IrActServer? ActionServer { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("WebsiteSnippetFilterCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FilterId")]
     //[InverseProperty("WebsiteSnippetFilters")]
+    [NotMapped]
     public virtual IrFilter? Filter { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("WebsiteSnippetFilters")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("WebsiteSnippetFilterWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

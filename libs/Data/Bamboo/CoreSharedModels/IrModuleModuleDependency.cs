@@ -29,5 +29,6 @@ public partial class IrModuleModuleDependency: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("ModuleId")]
     //[InverseProperty("IrModuleModuleDependencies")]
+    [NotMapped]
     public virtual IrModuleModule? Module { get; set; }
 }

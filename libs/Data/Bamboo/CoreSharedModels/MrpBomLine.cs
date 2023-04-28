@@ -64,34 +64,42 @@ public partial class MrpBomLine: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, I
 
     [ForeignKey("BomId")]
     //[InverseProperty("MrpBomLines")]
+    [NotMapped]
     public virtual MrpBom? Bom { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("MrpBomLines")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MrpBomLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("OperationId")]
     //[InverseProperty("MrpBomLines")]
+    [NotMapped]
     public virtual MrpRoutingWorkcenter? Operation { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("MrpBomLines")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("ProductTmplId")]
     //[InverseProperty("MrpBomLines")]
+    [NotMapped]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("ProductUomId")]
     //[InverseProperty("MrpBomLines")]
+    [NotMapped]
     public virtual UomUom? ProductUom { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MrpBomLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("BomLine")]

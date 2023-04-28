@@ -95,45 +95,56 @@ public partial class MaintenanceRequest: Entity<Guid>, IEntityDto<Guid>, IMultiT
 
     [ForeignKey("CategoryId")]
     //[InverseProperty("MaintenanceRequests")]
+    [NotMapped]
     public virtual MaintenanceEquipmentCategory? Category { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("MaintenanceRequests")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MaintenanceRequestCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EmployeeId")]
     //[InverseProperty("MaintenanceRequests")]
+    [NotMapped]
     public virtual HrEmployee? Employee { get; set; }
 
     [ForeignKey("EquipmentId")]
     //[InverseProperty("MaintenanceRequests")]
+    [NotMapped]
     public virtual MaintenanceEquipment? Equipment { get; set; }
 
     [ForeignKey("MaintenanceTeamId")]
     //[InverseProperty("MaintenanceRequests")]
+    [NotMapped]
     public virtual MaintenanceTeam? MaintenanceTeam { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("MaintenanceRequests")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("OwnerUserId")]
     //[InverseProperty("MaintenanceRequestOwnerUsers")]
+    [NotMapped]
     public virtual ResUser? OwnerUser { get; set; }
 
     [ForeignKey("StageId")]
     //[InverseProperty("MaintenanceRequests")]
+    [NotMapped]
     public virtual MaintenanceStage? Stage { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("MaintenanceRequestUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MaintenanceRequestWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

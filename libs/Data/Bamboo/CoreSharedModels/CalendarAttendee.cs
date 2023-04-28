@@ -49,17 +49,21 @@ public partial class CalendarAttendee: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CalendarAttendeeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EventId")]
     //[InverseProperty("CalendarAttendees")]
+    [NotMapped]
     public virtual CalendarEvent? Event { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("CalendarAttendees")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CalendarAttendeeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

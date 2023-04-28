@@ -77,18 +77,22 @@ public partial class MailActivityType: Entity<long>, IEntityDto<long>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailActivityTypeCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DefaultUserId")]
     //[InverseProperty("MailActivityTypeDefaultUsers")]
+    [NotMapped]
     public virtual ResUser? DefaultUser { get; set; }
 
     [ForeignKey("TriggeredNextTypeId")]
     //[InverseProperty("InverseTriggeredNextType")]
+    [NotMapped]
     public virtual MailActivityType? TriggeredNextType { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailActivityTypeWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("SaleActivityType")]

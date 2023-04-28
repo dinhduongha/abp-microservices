@@ -106,14 +106,17 @@ public partial class IrModuleModule: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CategoryId")]
     //[InverseProperty("IrModuleModules")]
+    [NotMapped]
     public virtual IrModuleCategory? Category { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrModuleModuleCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrModuleModuleWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Module")]

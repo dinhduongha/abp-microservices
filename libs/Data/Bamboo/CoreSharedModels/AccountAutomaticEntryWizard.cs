@@ -52,18 +52,22 @@ public partial class AccountAutomaticEntryWizard: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountAutomaticEntryWizards")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountAutomaticEntryWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DestinationAccountId")]
     //[InverseProperty("AccountAutomaticEntryWizards")]
+    [NotMapped]
     public virtual AccountAccount? DestinationAccount { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountAutomaticEntryWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("AccountAutomaticEntryWizardId")]

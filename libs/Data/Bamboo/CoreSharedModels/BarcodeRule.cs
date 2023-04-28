@@ -61,17 +61,21 @@ public partial class BarcodeRule: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AssociatedUomId")]
     //[InverseProperty("BarcodeRules")]
+    [NotMapped]
     public virtual UomUom? AssociatedUom { get; set; }
 
     [ForeignKey("BarcodeNomenclatureId")]
     //[InverseProperty("BarcodeRules")]
+    [NotMapped]
     public virtual BarcodeNomenclature? BarcodeNomenclature { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BarcodeRuleCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BarcodeRuleWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

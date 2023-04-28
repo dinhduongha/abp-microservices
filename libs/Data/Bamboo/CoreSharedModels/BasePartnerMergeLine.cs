@@ -40,14 +40,17 @@ public partial class BasePartnerMergeLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BasePartnerMergeLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("WizardId")]
     //[InverseProperty("BasePartnerMergeLines")]
+    [NotMapped]
     public virtual BasePartnerMergeAutomaticWizard? Wizard { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BasePartnerMergeLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("CurrentLine")]

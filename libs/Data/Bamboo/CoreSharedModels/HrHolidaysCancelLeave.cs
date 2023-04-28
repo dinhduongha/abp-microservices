@@ -37,13 +37,16 @@ public partial class HrHolidaysCancelLeave: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrHolidaysCancelLeaveCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LeaveId")]
     //[InverseProperty("HrHolidaysCancelLeaves")]
+    [NotMapped]
     public virtual HrLeave? Leave { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrHolidaysCancelLeaveWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

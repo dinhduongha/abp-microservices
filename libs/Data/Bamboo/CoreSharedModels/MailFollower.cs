@@ -32,6 +32,7 @@ public partial class MailFollower: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("MailFollowers")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("MailFollowersId")]

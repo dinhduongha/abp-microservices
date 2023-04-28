@@ -37,15 +37,18 @@ public partial class AccountBudgetPost: Entity<Guid>, IEntityDto<Guid>, IMultiTe
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountBudgetPosts")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountBudgetPostCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountBudgetPostWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("GeneralBudget")]

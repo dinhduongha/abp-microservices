@@ -55,22 +55,27 @@ public partial class ProjectMilestone: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProjectMilestoneCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("ProjectMilestones")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ProjectId")]
     //[InverseProperty("ProjectMilestones")]
+    [NotMapped]
     public virtual ProjectProject? Project { get; set; }
 
     [ForeignKey("SaleLineId")]
     //[InverseProperty("ProjectMilestones")]
+    [NotMapped]
     public virtual SaleOrderLine? SaleLine { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProjectMilestoneWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Milestone")]

@@ -40,9 +40,11 @@ public partial class BaseModuleUpdate: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("BaseModuleUpdateCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("BaseModuleUpdateWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

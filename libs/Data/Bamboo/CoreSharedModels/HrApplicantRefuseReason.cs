@@ -40,14 +40,17 @@ public partial class HrApplicantRefuseReason: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("HrApplicantRefuseReasonCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TemplateId")]
     //[InverseProperty("HrApplicantRefuseReasons")]
+    [NotMapped]
     public virtual MailTemplate? Template { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("HrApplicantRefuseReasonWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("RefuseReason")]

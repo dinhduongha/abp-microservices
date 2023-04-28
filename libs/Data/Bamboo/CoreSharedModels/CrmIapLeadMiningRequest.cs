@@ -76,26 +76,32 @@ public partial class CrmIapLeadMiningRequest: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CrmIapLeadMiningRequestCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PreferredRoleId")]
     //[InverseProperty("CrmIapLeadMiningRequests")]
+    [NotMapped]
     public virtual CrmIapLeadRole? PreferredRole { get; set; }
 
     [ForeignKey("SeniorityId")]
     //[InverseProperty("CrmIapLeadMiningRequests")]
+    [NotMapped]
     public virtual CrmIapLeadSeniority? Seniority { get; set; }
 
     [ForeignKey("TeamId")]
     //[InverseProperty("CrmIapLeadMiningRequests")]
+    [NotMapped]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("CrmIapLeadMiningRequestUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CrmIapLeadMiningRequestWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("LeadMiningRequest")]

@@ -55,25 +55,31 @@ public partial class AccountReportExternalValue: Entity<Guid>, IEntityDto<Guid>,
 
     [ForeignKey("CarryoverOriginReportLineId")]
     //[InverseProperty("AccountReportExternalValues")]
+    [NotMapped]
     public virtual AccountReportLine? CarryoverOriginReportLine { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountReportExternalValues")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountReportExternalValueCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ForeignVatFiscalPositionId")]
     //[InverseProperty("AccountReportExternalValues")]
+    [NotMapped]
     public virtual AccountFiscalPosition? ForeignVatFiscalPosition { get; set; }
 
     [ForeignKey("TargetReportExpressionId")]
     //[InverseProperty("AccountReportExternalValues")]
+    [NotMapped]
     public virtual AccountReportExpression? TargetReportExpression { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountReportExternalValueWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

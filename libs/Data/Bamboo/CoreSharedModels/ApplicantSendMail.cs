@@ -46,18 +46,22 @@ public partial class ApplicantSendMail: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("AuthorId")]
     //[InverseProperty("ApplicantSendMails")]
+    [NotMapped]
     public virtual ResPartner? Author { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ApplicantSendMailCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("TemplateId")]
     //[InverseProperty("ApplicantSendMails")]
+    [NotMapped]
     public virtual MailTemplate? Template { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ApplicantSendMailWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ApplicantSendMailId")]

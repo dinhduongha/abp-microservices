@@ -46,9 +46,11 @@ public partial class CalendarProviderConfig: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("CalendarProviderConfigCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("CalendarProviderConfigWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

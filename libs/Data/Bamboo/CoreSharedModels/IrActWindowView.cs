@@ -47,17 +47,21 @@ public partial class IrActWindowView: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("ActWindowId")]
     //[InverseProperty("IrActWindowViews")]
+    [NotMapped]
     public virtual IrActWindow? ActWindow { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrActWindowViewCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ViewId")]
     //[InverseProperty("IrActWindowViewsNavigation")]
+    [NotMapped]
     public virtual IrUiView? View { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrActWindowViewWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

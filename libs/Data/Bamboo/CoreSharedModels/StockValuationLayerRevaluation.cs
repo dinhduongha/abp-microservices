@@ -52,25 +52,31 @@ public partial class StockValuationLayerRevaluation: Entity<Guid>, IEntityDto<Gu
 
     [ForeignKey("AccountId")]
     //[InverseProperty("StockValuationLayerRevaluations")]
+    [NotMapped]
     public virtual AccountAccount? Account { get; set; }
 
     [ForeignKey("AccountJournalId")]
     //[InverseProperty("StockValuationLayerRevaluations")]
+    [NotMapped]
     public virtual AccountJournal? AccountJournal { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockValuationLayerRevaluations")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockValuationLayerRevaluationCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductId")]
     //[InverseProperty("StockValuationLayerRevaluations")]
+    [NotMapped]
     public virtual ProductProduct? Product { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockValuationLayerRevaluationWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

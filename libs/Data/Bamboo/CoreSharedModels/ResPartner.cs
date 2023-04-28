@@ -248,62 +248,77 @@ public partial class ResPartner: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, I
 
     [ForeignKey("CommercialPartnerId")]
     //[InverseProperty("InverseCommercialPartner")]
+    [NotMapped]
     public virtual ResPartner? CommercialPartner { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("ResPartners")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CountryId")]
     //[InverseProperty("ResPartners")]
+    [NotMapped]
     public virtual ResCountry? Country { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResPartnerCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("IndustryId")]
     //[InverseProperty("ResPartners")]
+    [NotMapped]
     public virtual ResPartnerIndustry? Industry { get; set; }
 
     [ForeignKey("LatestFollowupLevelIdWithoutLit")]
     //[InverseProperty("ResPartners")]
+    [NotMapped]
     public virtual FollowupLine? LatestFollowupLevelIdWithoutLitNavigation { get; set; }
 
     [ForeignKey("MessageMainAttachmentId")]
     //[InverseProperty("ResPartners")]
+    [NotMapped]
     public virtual IrAttachment? MessageMainAttachment { get; set; }
 
     [ForeignKey("ParentId")]
     //[InverseProperty("InverseParent")]
+    [NotMapped]
     public virtual ResPartner? Parent { get; set; }
 
     [ForeignKey("PaymentResponsibleId")]
     //[InverseProperty("ResPartnerPaymentResponsibles")]
+    [NotMapped]
     public virtual ResUser? PaymentResponsible { get; set; }
 
     [ForeignKey("StateId")]
     //[InverseProperty("ResPartners")]
+    [NotMapped]
     public virtual ResCountryState? State { get; set; }
 
     [ForeignKey("TeamId")]
     //[InverseProperty("ResPartners")]
+    [NotMapped]
     public virtual CrmTeam? Team { get; set; }
 
     [ForeignKey("Title")]
     //[InverseProperty("ResPartners")]
+    [NotMapped]
     public virtual ResPartnerTitle? TitleNavigation { get; set; }
 
     [ForeignKey("UserId")]
     //[InverseProperty("ResPartnerUsers")]
+    [NotMapped]
     public virtual ResUser? User { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("ResPartners")]
+    [NotMapped]
     public virtual Website? WebsiteNavigation { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResPartnerWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     /// TODO: DISABLE INVERSE

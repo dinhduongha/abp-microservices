@@ -727,58 +727,72 @@ public partial class ResConfigSetting: Entity<Guid>, IEntityDto<Guid>, IMultiTen
 
     [ForeignKey("AuthSignupTemplateUserId")]
     //[InverseProperty("ResConfigSettingAuthSignupTemplateUsers")]
+    [NotMapped]
     public virtual ResUser? AuthSignupTemplateUser { get; set; }
 
     [ForeignKey("ChartTemplateId")]
     //[InverseProperty("ResConfigSettings")]
+    [NotMapped]
     public virtual AccountChartTemplate? ChartTemplate { get; set; }
 
     [ForeignKey("TenantId")]
     //[InverseProperty("ResConfigSettings")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ResConfigSettingCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("DepositDefaultProductId")]
     //[InverseProperty("ResConfigSettingDepositDefaultProducts")]
+    [NotMapped]
     public virtual ProductProduct? DepositDefaultProduct { get; set; }
 
     [ForeignKey("DigestId")]
     //[InverseProperty("ResConfigSettings")]
+    [NotMapped]
     public virtual DigestDigest? Digest { get; set; }
 
     [ForeignKey("InvoiceMailTemplateId")]
     //[InverseProperty("ResConfigSettings")]
+    [NotMapped]
     public virtual MailTemplate? InvoiceMailTemplate { get; set; }
 
     [ForeignKey("PosConfigId")]
     //[InverseProperty("ResConfigSettings")]
+    [NotMapped]
     public virtual PosConfig? PosConfig { get; set; }
 
     [ForeignKey("PosDefaultFiscalPositionId")]
     //[InverseProperty("ResConfigSettingsNavigation")]
+    [NotMapped]
     public virtual AccountFiscalPosition? PosDefaultFiscalPosition { get; set; }
 
     [ForeignKey("PosIfaceStartCategId")]
     //[InverseProperty("ResConfigSettingsNavigation")]
+    [NotMapped]
     public virtual PosCategory? PosIfaceStartCateg { get; set; }
 
     [ForeignKey("PosPricelistId")]
     //[InverseProperty("ResConfigSettingsNavigation")]
+    [NotMapped]
     public virtual ProductPricelist? PosPricelist { get; set; }
 
     [ForeignKey("PosTipProductId")]
     //[InverseProperty("ResConfigSettingPosTipProducts")]
+    [NotMapped]
     public virtual ProductProduct? PosTipProduct { get; set; }
 
     [ForeignKey("WebsiteId")]
     //[InverseProperty("ResConfigSettings")]
+    [NotMapped]
     public virtual Website? Website { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ResConfigSettingWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ResConfigSettingsId")]

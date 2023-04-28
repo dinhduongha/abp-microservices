@@ -38,13 +38,16 @@ public partial class IrCronTrigger: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("IrCronTriggerCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("CronId")]
     //[InverseProperty("IrCronTriggers")]
+    [NotMapped]
     public virtual IrCron? Cron { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("IrCronTriggerWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

@@ -74,18 +74,22 @@ public partial class MailMail: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailMailCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("FetchmailServerId")]
     //[InverseProperty("MailMails")]
+    [NotMapped]
     public virtual FetchmailServer? FetchmailServer { get; set; }
 
     [ForeignKey("MailMessageId")]
     //[InverseProperty("MailMails")]
+    [NotMapped]
     public virtual MailMessage? MailMessage { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailMailWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("MailMail")]

@@ -51,17 +51,21 @@ public partial class ProductImage: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("ProductImageCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ProductTmplId")]
     //[InverseProperty("ProductImages")]
+    [NotMapped]
     public virtual ProductTemplate? ProductTmpl { get; set; }
 
     [ForeignKey("ProductVariantId")]
     //[InverseProperty("ProductImages")]
+    [NotMapped]
     public virtual ProductProduct? ProductVariant { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("ProductImageWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

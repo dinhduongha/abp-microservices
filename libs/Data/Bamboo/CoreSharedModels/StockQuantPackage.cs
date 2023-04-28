@@ -52,22 +52,27 @@ public partial class StockQuantPackage: Entity<Guid>, IEntityDto<Guid>, IMultiTe
 
     [ForeignKey("TenantId")]
     //[InverseProperty("StockQuantPackages")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("StockQuantPackageCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("LocationId")]
     //[InverseProperty("StockQuantPackages")]
+    [NotMapped]
     public virtual StockLocation? Location { get; set; }
 
     [ForeignKey("PackageTypeId")]
     //[InverseProperty("StockQuantPackages")]
+    [NotMapped]
     public virtual StockPackageType? PackageType { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("StockQuantPackageWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("Package")]

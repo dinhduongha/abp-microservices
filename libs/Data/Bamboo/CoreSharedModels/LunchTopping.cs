@@ -46,18 +46,22 @@ public partial class LunchTopping: Entity<Guid>, IEntityDto<Guid>, IMultiTenant,
 
     [ForeignKey("TenantId")]
     //[InverseProperty("LunchToppings")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("LunchToppingCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("SupplierId")]
     //[InverseProperty("LunchToppings")]
+    [NotMapped]
     public virtual LunchSupplier? Supplier { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("LunchToppingWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     [ForeignKey("ToppingId")]

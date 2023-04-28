@@ -37,14 +37,17 @@ public partial class AccountFullReconcile: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountFullReconcileCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("ExchangeMoveId")]
     //[InverseProperty("AccountFullReconciles")]
+    [NotMapped]
     public virtual AccountMove? ExchangeMove { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountFullReconcileWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("FullReconcile")]

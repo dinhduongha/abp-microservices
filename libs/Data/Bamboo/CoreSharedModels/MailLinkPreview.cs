@@ -57,13 +57,16 @@ public partial class MailLinkPreview: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("MailLinkPreviewCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("MessageId")]
     //[InverseProperty("MailLinkPreviews")]
+    [NotMapped]
     public virtual MailMessage? Message { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("MailLinkPreviewWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

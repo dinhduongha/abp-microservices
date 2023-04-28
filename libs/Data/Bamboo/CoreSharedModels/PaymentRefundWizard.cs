@@ -37,13 +37,16 @@ public partial class PaymentRefundWizard: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("PaymentRefundWizardCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PaymentId")]
     //[InverseProperty("PaymentRefundWizards")]
+    [NotMapped]
     public virtual AccountPayment? Payment { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("PaymentRefundWizardWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

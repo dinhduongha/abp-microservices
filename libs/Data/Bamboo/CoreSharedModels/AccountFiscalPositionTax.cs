@@ -44,25 +44,31 @@ public partial class AccountFiscalPositionTax: Entity<Guid>, IEntityDto<Guid>, I
 
     [ForeignKey("TenantId")]
     //[InverseProperty("AccountFiscalPositionTaxes")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("AccountFiscalPositionTaxCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("PositionId")]
     //[InverseProperty("AccountFiscalPositionTaxes")]
+    [NotMapped]
     public virtual AccountFiscalPosition? Position { get; set; }
 
     [ForeignKey("TaxDestId")]
     //[InverseProperty("AccountFiscalPositionTaxTaxDests")]
+    [NotMapped]
     public virtual AccountTax? TaxDest { get; set; }
 
     [ForeignKey("TaxSrcId")]
     //[InverseProperty("AccountFiscalPositionTaxTaxSrcs")]
+    [NotMapped]
     public virtual AccountTax? TaxSrc { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("AccountFiscalPositionTaxWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }

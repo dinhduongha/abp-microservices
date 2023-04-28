@@ -62,22 +62,27 @@ public partial class FollowupLine: Entity<Guid>, IEntityDto<Guid>
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("FollowupLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("EmailTemplateId")]
     //[InverseProperty("FollowupLines")]
+    [NotMapped]
     public virtual MailTemplate? EmailTemplate { get; set; }
 
     [ForeignKey("FollowupId")]
     //[InverseProperty("FollowupLines")]
+    [NotMapped]
     public virtual FollowupFollowup? Followup { get; set; }
 
     [ForeignKey("ManualActionResponsibleId")]
     //[InverseProperty("FollowupLineManualActionResponsibles")]
+    [NotMapped]
     public virtual ResUser? ManualActionResponsible { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("FollowupLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 
     //[InverseProperty("FollowupLine")]

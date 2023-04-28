@@ -55,29 +55,36 @@ public partial class RecurringPaymentLine: Entity<Guid>, IEntityDto<Guid>, IMult
 
     [ForeignKey("TenantId")]
     //[InverseProperty("RecurringPaymentLines")]
+    [NotMapped]
     public virtual ResCompany? Company { get; set; }
 
     [ForeignKey("CreatorId")]
     //[InverseProperty("RecurringPaymentLineCreateUs")]
+    [NotMapped]
     public virtual ResUser? CreateU { get; set; }
 
     [ForeignKey("JournalId")]
     //[InverseProperty("RecurringPaymentLines")]
+    [NotMapped]
     public virtual AccountJournal? Journal { get; set; }
 
     [ForeignKey("PartnerId")]
     //[InverseProperty("RecurringPaymentLines")]
+    [NotMapped]
     public virtual ResPartner? Partner { get; set; }
 
     [ForeignKey("PaymentId")]
     //[InverseProperty("RecurringPaymentLines")]
+    [NotMapped]
     public virtual AccountPayment? Payment { get; set; }
 
     [ForeignKey("RecurringPaymentId")]
     //[InverseProperty("RecurringPaymentLines")]
+    [NotMapped]
     public virtual RecurringPayment? RecurringPayment { get; set; }
 
     [ForeignKey("LastModifierId")]
     //[InverseProperty("RecurringPaymentLineWriteUs")]
+    [NotMapped]
     public virtual ResUser? WriteU { get; set; }
 }
