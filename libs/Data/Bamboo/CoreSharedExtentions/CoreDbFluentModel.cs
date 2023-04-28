@@ -8181,7 +8181,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnName("name");
             entity.Property(e => e.RevealIds).HasColumnName("reveal_ids");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.LastModificationTime)
                 .HasColumnType("timestamp without time zone")
@@ -9175,7 +9175,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnName("name");
             entity.Property(e => e.Requirements).HasColumnName("requirements");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.TeamId).HasColumnName("team_id");
             entity.Property(e => e.LastModificationTime)
@@ -10304,7 +10304,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnType("jsonb")
                 .HasColumnName("name");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.LastModificationTime)
                 .HasColumnType("timestamp without time zone")
@@ -11048,7 +11048,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnType("jsonb")
                 .HasColumnName("name");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.LastModificationTime)
                 .HasColumnType("timestamp without time zone")
@@ -11152,7 +11152,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnType("jsonb")
                 .HasColumnName("name");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.LastModificationTime)
                 .HasColumnType("timestamp without time zone")
@@ -12825,7 +12825,7 @@ public static class CoreDbtModelFluentCreatingExtensions
             entity.Property(e => e.RequiresAllocation).HasColumnName("requires_allocation");
             entity.Property(e => e.ResponsibleId).HasColumnName("responsible_id");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.SupportDocument).HasColumnName("support_document");
             entity.Property(e => e.TimeType).HasColumnName("time_type");
@@ -13076,7 +13076,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnType("jsonb")
                 .HasColumnName("name");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.LastModificationTime)
                 .HasColumnType("timestamp without time zone")
@@ -13174,7 +13174,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnName("name");
             entity.Property(e => e.Requirements).HasColumnName("requirements");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.TemplateId).HasColumnName("template_id");
             entity.Property(e => e.LastModificationTime)
@@ -16405,7 +16405,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnName("name");
             entity.Property(e => e.ResModel).HasColumnName("res_model");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.Summary)
                 .HasColumnType("jsonb")
@@ -17466,7 +17466,7 @@ public static class CoreDbtModelFluentCreatingExtensions
             entity.Property(e => e.RelationField).HasColumnName("relation_field");
             entity.Property(e => e.ResModel).HasColumnName("res_model");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.TrackRecipients).HasColumnName("track_recipients");
             entity.Property(e => e.LastModificationTime)
@@ -18281,7 +18281,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnType("jsonb")
                 .HasColumnName("name");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.LastModificationTime)
                 .HasColumnType("timestamp without time zone")
@@ -19968,7 +19968,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnType("jsonb")
                 .HasColumnName("name");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.LastModificationTime)
@@ -21956,7 +21956,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnType("jsonb")
                 .HasColumnName("name");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.Visibility).HasColumnName("visibility");
             entity.Property(e => e.LastModificationTime)
@@ -22652,7 +22652,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnType("jsonb")
                 .HasColumnName("seo_name");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.WebsiteDescription)
                 .HasColumnType("jsonb")
@@ -23740,7 +23740,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnType("jsonb")
                 .HasColumnName("name");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.SmsTemplateId).HasColumnName("sms_template_id");
             entity.Property(e => e.LastModificationTime)
@@ -24163,7 +24163,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnName("name");
             entity.Property(e => e.RatingTemplateId).HasColumnName("rating_template_id");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.SmsTemplateId).HasColumnName("sms_template_id");
             entity.Property(e => e.UserId).HasColumnName("user_id");
@@ -25359,7 +25359,7 @@ public static class CoreDbtModelFluentCreatingExtensions
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.Pdf).HasColumnName("pdf");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.ViewId).HasColumnName("view_id");
             entity.Property(e => e.LastModificationTime)
@@ -29118,7 +29118,7 @@ public static class CoreDbtModelFluentCreatingExtensions
             entity.Property(e => e.CreatorId).HasColumnName("create_uid");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.LastModificationTime)
                 .HasColumnType("timestamp without time zone")
@@ -30379,7 +30379,7 @@ public static class CoreDbtModelFluentCreatingExtensions
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.PackagingLength).HasColumnName("packaging_length");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.Width).HasColumnName("width");
             entity.Property(e => e.LastModificationTime)
@@ -32504,7 +32504,7 @@ public static class CoreDbtModelFluentCreatingExtensions
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.Path).HasColumnName("path");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.Target).HasColumnName("target");
             entity.Property(e => e.LastModificationTime)
@@ -32614,7 +32614,7 @@ public static class CoreDbtModelFluentCreatingExtensions
             entity.Property(e => e.PageId).HasColumnName("page_id");
             entity.Property(e => e.ParentId).HasColumnName("parent_id");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.Url).HasColumnName("url");
             entity.Property(e => e.UseMainMenuAsParent).HasColumnName("use_main_menu_as_parent");
@@ -32908,7 +32908,7 @@ public static class CoreDbtModelFluentCreatingExtensions
                 .HasColumnType("jsonb")
                 .HasColumnName("name");
             entity.Property(e => e.Sequence)
-                .ValueGeneratedOnAdd()
+                //.ValueGeneratedOnAdd()
                 .HasColumnName("sequence");
             entity.Property(e => e.LastModificationTime)
                 .HasColumnType("timestamp without time zone")
