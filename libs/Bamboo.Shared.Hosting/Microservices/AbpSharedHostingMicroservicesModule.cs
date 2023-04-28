@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using StackExchange.Redis;
 
+using Volo.Abp;
 using Volo.Abp.Autofac;
 using Volo.Abp.Data;
 using Volo.Abp.Swashbuckle;

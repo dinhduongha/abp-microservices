@@ -1,4 +1,7 @@
-﻿using Volo.Abp.Modularity;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Volo.Abp.Guids;
+using Volo.Abp.Modularity;
 
 namespace Bamboo.Shared.EfCore;
 public class AbpSharedEfCoreModule : AbpModule

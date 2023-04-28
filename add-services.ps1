@@ -327,7 +327,7 @@ function CreateServices {
 		dotnet add ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql -v $abpver
 		#dotnet remove ./services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj package Volo.Abp.EntityFrameworkCore.SqlServer
 		
-		dotnet add ./$name/services/$folder/src/$name.$service.Domain/$name.$service.Domain.csproj package System.ComponentModel.Annotations		
+		dotnet add ./$name/services/$folder/src/$name.$service.Domain/$name.$service.Domain.csproj package System.ComponentModel.Annotations
 		#dotnet add ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql -v $abpver
 		dotnet add ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj reference ./$shared_common/$name.Shared.EfCore/$name.Shared.EfCore.csproj
 		
