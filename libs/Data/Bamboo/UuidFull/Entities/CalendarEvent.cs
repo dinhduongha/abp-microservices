@@ -1,0 +1,163 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace Bamboo.Core.Models;
+
+[Table("calendar_event")]
+[Index("AccessToken", Name = "calendar_event_access_token_index")]
+[Index("OpportunityId", Name = "calendar_event_opportunity_id_index")]
+public partial class CalendarEvent
+{
+    [Key]
+    [Column("id")]
+    public Guid Id { get; set; }
+
+    [Column("message_main_attachment_id")]
+    public Guid? MessageMainAttachmentId { get; set; }
+
+    [Column("user_id")]
+    public Guid? UserId { get; set; }
+
+    [Column("videocall_channel_id")]
+    public Guid? VideocallChannelId { get; set; }
+
+    [Column("res_id")]
+    public Guid? ResId { get; set; }
+
+    [Column("res_model_id")]
+    public Guid? ResModelId { get; set; }
+
+    [Column("recurrence_id")]
+    public Guid? RecurrenceId { get; set; }
+
+    [Column("create_uid")]
+    public Guid? CreateUid { get; set; }
+
+    [Column("write_uid")]
+    public Guid? WriteUid { get; set; }
+
+    [Column("name")]
+    public string? Name { get; set; }
+
+    [Column("location")]
+    public string? Location { get; set; }
+
+    [Column("videocall_location")]
+    public string? VideocallLocation { get; set; }
+
+    [Column("access_token")]
+    public string? AccessToken { get; set; }
+
+    [Column("privacy")]
+    public string? Privacy { get; set; }
+
+    [Column("show_as")]
+    public string? ShowAs { get; set; }
+
+    [Column("res_model")]
+    public string? ResModel { get; set; }
+
+    [Column("start_date")]
+    public DateOnly? StartDate { get; set; }
+
+    [Column("stop_date")]
+    public DateOnly? StopDate { get; set; }
+
+    [Column("description")]
+    public string? Description { get; set; }
+
+    [Column("active")]
+    public bool? Active { get; set; }
+
+    [Column("allday")]
+    public bool? Allday { get; set; }
+
+    [Column("recurrency")]
+    public bool? Recurrency { get; set; }
+
+    [Column("follow_recurrence")]
+    public bool? FollowRecurrence { get; set; }
+
+    [Column("start", TypeName = "timestamp without time zone")]
+    public DateTime? Start { get; set; }
+
+    [Column("stop", TypeName = "timestamp without time zone")]
+    public DateTime? Stop { get; set; }
+
+    [Column("create_date", TypeName = "timestamp without time zone")]
+    public DateTime? CreateDate { get; set; }
+
+    [Column("write_date", TypeName = "timestamp without time zone")]
+    public DateTime? WriteDate { get; set; }
+
+    [Column("duration")]
+    public double? Duration { get; set; }
+
+    [Column("opportunity_id")]
+    public Guid? OpportunityId { get; set; }
+
+    [Column("applicant_id")]
+    public Guid? ApplicantId { get; set; }
+
+    [ForeignKey("ApplicantId")]
+    [InverseProperty("CalendarEvents")]
+    public virtual HrApplicant? Applicant { get; set; }
+
+    [InverseProperty("Event")]
+    public virtual ICollection<CalendarAttendee> CalendarAttendees { get; } = new List<CalendarAttendee>();
+
+    [InverseProperty("BaseEvent")]
+    public virtual ICollection<CalendarRecurrence> CalendarRecurrences { get; } = new List<CalendarRecurrence>();
+
+    [ForeignKey("CreateUid")]
+    [InverseProperty("CalendarEventCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [InverseProperty("Meeting")]
+    public virtual ICollection<HrLeave> HrLeaves { get; } = new List<HrLeave>();
+
+    [InverseProperty("CalendarEvent")]
+    public virtual ICollection<MailActivity> MailActivities { get; } = new List<MailActivity>();
+
+    [InverseProperty("Event")]
+    public virtual ICollection<MeetingCategoryRel> MeetingCategoryRels { get; } = new List<MeetingCategoryRel>();
+
+    [ForeignKey("MessageMainAttachmentId")]
+    [InverseProperty("CalendarEvents")]
+    public virtual IrAttachment? MessageMainAttachment { get; set; }
+
+    [ForeignKey("OpportunityId")]
+    [InverseProperty("CalendarEvents")]
+    public virtual CrmLead? Opportunity { get; set; }
+
+    [ForeignKey("RecurrenceId")]
+    [InverseProperty("CalendarEvents")]
+    public virtual CalendarRecurrence? Recurrence { get; set; }
+
+    [ForeignKey("ResModelId")]
+    [InverseProperty("CalendarEvents")]
+    public virtual IrModel? ResModelNavigation { get; set; }
+
+    [ForeignKey("UserId")]
+    [InverseProperty("CalendarEventUsers")]
+    public virtual ResUser? User { get; set; }
+
+    [ForeignKey("VideocallChannelId")]
+    [InverseProperty("CalendarEvents")]
+    public virtual MailChannel? VideocallChannel { get; set; }
+
+    [ForeignKey("WriteUid")]
+    [InverseProperty("CalendarEventWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [ForeignKey("CalendarEventId")]
+    [InverseProperty("CalendarEvents")]
+    public virtual ICollection<CalendarAlarm> CalendarAlarms { get; } = new List<CalendarAlarm>();
+
+    [ForeignKey("CalendarEventId")]
+    [InverseProperty("CalendarEvents")]
+    public virtual ICollection<ResPartner> ResPartners { get; } = new List<ResPartner>();
+}

@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace Bamboo.Core.Models;
+
+[Table("ir_profile")]
+[Index("Session", Name = "ir_profile_session_index")]
+public partial class IrProfile
+{
+    [Key]
+    [Column("id")]
+    public Guid Id { get; set; }
+
+    [Column("sql_count")]
+    public long? SqlCount { get; set; }
+
+    [Column("entry_count")]
+    public long? EntryCount { get; set; }
+
+    [Column("session")]
+    public string? Session { get; set; }
+
+    [Column("name")]
+    public string? Name { get; set; }
+
+    [Column("init_stack_trace")]
+    public string? InitStackTrace { get; set; }
+
+    [Column("sql")]
+    public string? Sql { get; set; }
+
+    [Column("traces_async")]
+    public string? TracesAsync { get; set; }
+
+    [Column("traces_sync")]
+    public string? TracesSync { get; set; }
+
+    [Column("qweb")]
+    public string? Qweb { get; set; }
+
+    [Column("create_date", TypeName = "timestamp without time zone")]
+    public DateTime? CreateDate { get; set; }
+
+    [Column("duration")]
+    public double? Duration { get; set; }
+}

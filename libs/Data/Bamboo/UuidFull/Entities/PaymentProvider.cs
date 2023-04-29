@@ -1,0 +1,170 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace Bamboo.Core.Models;
+
+[Table("payment_provider")]
+[Index("CompanyId", Name = "payment_provider_company_id_index")]
+public partial class PaymentProvider
+{
+    [Key]
+    [Column("id")]
+    public Guid Id { get; set; }
+
+    [Column("sequence")]
+    public long? Sequence { get; set; }
+
+    [Column("company_id")]
+    public Guid? CompanyId { get; set; }
+
+    [Column("redirect_form_view_id")]
+    public Guid? RedirectFormViewId { get; set; }
+
+    [Column("inline_form_view_id")]
+    public Guid? InlineFormViewId { get; set; }
+
+    [Column("token_inline_form_view_id")]
+    public Guid? TokenInlineFormViewId { get; set; }
+
+    [Column("express_checkout_form_view_id")]
+    public Guid? ExpressCheckoutFormViewId { get; set; }
+
+    [Column("color")]
+    public long? Color { get; set; }
+
+    [Column("module_id")]
+    public Guid? ModuleId { get; set; }
+
+    [Column("create_uid")]
+    public Guid? CreateUid { get; set; }
+
+    [Column("write_uid")]
+    public Guid? WriteUid { get; set; }
+
+    [Column("code")]
+    public string? Code { get; set; }
+
+    [Column("state")]
+    public string? State { get; set; }
+
+    [Column("module_state")]
+    public string? ModuleState { get; set; }
+
+    [Column("name", TypeName = "jsonb")]
+    public string? Name { get; set; }
+
+    [Column("display_as", TypeName = "jsonb")]
+    public string? DisplayAs { get; set; }
+
+    [Column("pre_msg", TypeName = "jsonb")]
+    public string? PreMsg { get; set; }
+
+    [Column("pending_msg", TypeName = "jsonb")]
+    public string? PendingMsg { get; set; }
+
+    [Column("auth_msg", TypeName = "jsonb")]
+    public string? AuthMsg { get; set; }
+
+    [Column("done_msg", TypeName = "jsonb")]
+    public string? DoneMsg { get; set; }
+
+    [Column("cancel_msg", TypeName = "jsonb")]
+    public string? CancelMsg { get; set; }
+
+    [Column("maximum_amount")]
+    public decimal? MaximumAmount { get; set; }
+
+    [Column("is_published")]
+    public bool? IsPublished { get; set; }
+
+    [Column("allow_tokenization")]
+    public bool? AllowTokenization { get; set; }
+
+    [Column("capture_manually")]
+    public bool? CaptureManually { get; set; }
+
+    [Column("allow_express_checkout")]
+    public bool? AllowExpressCheckout { get; set; }
+
+    [Column("fees_active")]
+    public bool? FeesActive { get; set; }
+
+    [Column("create_date", TypeName = "timestamp without time zone")]
+    public DateTime? CreateDate { get; set; }
+
+    [Column("write_date", TypeName = "timestamp without time zone")]
+    public DateTime? WriteDate { get; set; }
+
+    [Column("fees_dom_fixed")]
+    public double? FeesDomFixed { get; set; }
+
+    [Column("fees_dom_var")]
+    public double? FeesDomVar { get; set; }
+
+    [Column("fees_int_fixed")]
+    public double? FeesIntFixed { get; set; }
+
+    [Column("fees_int_var")]
+    public double? FeesIntVar { get; set; }
+
+    [Column("so_reference_type")]
+    public string? SoReferenceType { get; set; }
+
+    [Column("website_id")]
+    public Guid? WebsiteId { get; set; }
+
+    [InverseProperty("PaymentProvider")]
+    public virtual ICollection<AccountPaymentMethodLine> AccountPaymentMethodLines { get; } = new List<AccountPaymentMethodLine>();
+
+    [ForeignKey("CompanyId")]
+    [InverseProperty("PaymentProviders")]
+    public virtual ResCompany? Company { get; set; }
+
+    [ForeignKey("CreateUid")]
+    [InverseProperty("PaymentProviderCreateUs")]
+    public virtual ResUser? CreateU { get; set; }
+
+    [ForeignKey("ExpressCheckoutFormViewId")]
+    [InverseProperty("PaymentProviderExpressCheckoutFormViews")]
+    public virtual IrUiView? ExpressCheckoutFormView { get; set; }
+
+    [ForeignKey("InlineFormViewId")]
+    [InverseProperty("PaymentProviderInlineFormViews")]
+    public virtual IrUiView? InlineFormView { get; set; }
+
+    [ForeignKey("ModuleId")]
+    [InverseProperty("PaymentProviders")]
+    public virtual IrModuleModule? Module { get; set; }
+
+    [InverseProperty("Payment")]
+    public virtual ICollection<PaymentCountryRel> PaymentCountryRels { get; } = new List<PaymentCountryRel>();
+
+    [InverseProperty("Provider")]
+    public virtual ICollection<PaymentToken> PaymentTokens { get; } = new List<PaymentToken>();
+
+    [InverseProperty("Provider")]
+    public virtual ICollection<PaymentTransaction> PaymentTransactions { get; } = new List<PaymentTransaction>();
+
+    [ForeignKey("RedirectFormViewId")]
+    [InverseProperty("PaymentProviderRedirectFormViews")]
+    public virtual IrUiView? RedirectFormView { get; set; }
+
+    [ForeignKey("TokenInlineFormViewId")]
+    [InverseProperty("PaymentProviderTokenInlineFormViews")]
+    public virtual IrUiView? TokenInlineFormView { get; set; }
+
+    [ForeignKey("WebsiteId")]
+    [InverseProperty("PaymentProviders")]
+    public virtual Website? Website { get; set; }
+
+    [ForeignKey("WriteUid")]
+    [InverseProperty("PaymentProviderWriteUs")]
+    public virtual ResUser? WriteU { get; set; }
+
+    [ForeignKey("PaymentProviderId")]
+    [InverseProperty("PaymentProviders")]
+    public virtual ICollection<PaymentIcon> PaymentIcons { get; } = new List<PaymentIcon>();
+}
