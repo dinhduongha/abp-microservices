@@ -392,13 +392,13 @@ public partial class ResCompany: Entity<Guid>, IEntityDto<Guid>
     public Guid? CompanyExpenseJournalId { get; set; }
 
     [Column("overtime_company_threshold")]
-    public Guid? OvertimeCompanyThreshold { get; set; }
+    public long? OvertimeCompanyThreshold { get; set; }
 
     [Column("overtime_employee_threshold")]
-    public Guid? OvertimeEmployeeThreshold { get; set; }
+    public long? OvertimeEmployeeThreshold { get; set; }
 
     [Column("attendance_kiosk_delay")]
-    public Guid? AttendanceKioskDelay { get; set; }
+    public long? AttendanceKioskDelay { get; set; }
 
     [Column("attendance_kiosk_mode")]
     public string? AttendanceKioskMode { get; set; }
