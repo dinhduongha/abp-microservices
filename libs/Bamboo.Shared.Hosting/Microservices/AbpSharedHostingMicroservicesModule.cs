@@ -49,6 +49,7 @@ public class AbpSharedHostingMicroservicesModule : AbpModule
         Configure<JsonOptions>(jsonOptions =>
         {
             jsonOptions.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            //jsonOptions.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         });
         Configure<AbpDbContextOptions>(options =>
         {

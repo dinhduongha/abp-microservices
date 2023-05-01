@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 
 using Bamboo.Core.Models;
-using Microsoft.Extensions.Hosting.Internal;
+
 
 namespace Bamboo.CodeGenerators;
 /*
@@ -54,7 +54,7 @@ using Bamboo.Core.Models;
 
 namespace Bamboo.Core.Services;
 
-public class %NameModel%AppService :
+public partial class %NameModel%AppService :
     CrudAppService<%NameModel%, %NameModel%, %NameKey%, PagedAndSortedResultRequestDto>,
     I%NameModel%AppService
 {
@@ -83,8 +83,9 @@ namespace Bamboo.Core.Controllers;
 
 [Area(CoreRemoteServiceConsts.ModuleName)]
 [RemoteService(Name = CoreRemoteServiceConsts.RemoteServiceName)]
-[Route(""api/Core/%NameModel%"")]
-public class %NameModel%Controller : CoreController, I%NameModel%AppService
+[Route(""api/Core/%NameController%"")]
+//[Authorize]
+public partial class %NameModel%Controller : CoreController, I%NameModel%AppService
 {
     private readonly I%NameModel%AppService _AppService;
     
@@ -101,12 +102,14 @@ public class %NameModel%Controller : CoreController, I%NameModel%AppService
 
     [HttpGet]
     [Route(""{id}"")]
+    [AllowAnonymous]
     public async Task<%NameModel%> GetAsync(%NameKey% id)
     {
         return await _AppService.GetAsync(id);
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public async Task<PagedResultDto<%NameModel%>> GetListAsync(PagedAndSortedResultRequestDto input)
     {
         return await _AppService.GetListAsync(input);
@@ -125,7 +128,6 @@ public class %NameModel%Controller : CoreController, I%NameModel%AppService
     {
         await _AppService.DeleteAsync(id);
     }
-
 }
 ";
         var pathContract = Path.Combine("", string.Format("..{0}..{0}..{0}..{0}shared{0}core{0}Bamboo.Core.Application.Contracts{0}AppContract", Path.DirectorySeparatorChar));
@@ -148,35 +150,40 @@ public class %NameModel%Controller : CoreController, I%NameModel%AppService
                 var typeName = prop.PropertyType.Name;
                 if (typeName == "Guid" || prop.PropertyType.FullName.StartsWith("System.Nullable`1[[System.Guid"))
                 {
-                    if(!prop.Name.EndsWith("Id"))
+                    if (!prop.Name.EndsWith("Id"))
+                    {
                         lstString.Add($"{type.Name}.{prop.Name}");
+                    }
                 }
             }
-            var NameKey = info.Name;
-            var NameType = info.PropertyType.Name;
-            if (NameType == "Int64") NameType = "long";
+            //var NameKey = info.Name;
+            var NameKeyType = info.PropertyType.Name;
+            if (NameKeyType == "Int64") NameKeyType = "long";
             var NameTenant = props.Where(x => x.Name == "TenantId").FirstOrDefault();
 
             var contract = contractTemplate.Replace("%NameModel%", type.Name);
-            contract = contract.Replace("%NameKey%", NameType);
+            contract = contract.Replace("%NameKey%", NameKeyType);
 
             var service = serviceTemplate.Replace("%NameModel%", type.Name);
-            service = service.Replace("%NameKey%", NameType);
-            var controller = controllerTemplate.Replace("%NameModel%", type.Name);
-            controller = controller.Replace("%NameKey%", NameType);
+            service = service.Replace("%NameKey%", NameKeyType);
 
-            File.WriteAllText($"{pathContract}{Path.DirectorySeparatorChar}{type.Name}Contract.cs", contract);
-            if (type.Name.StartsWith("Res") || type.Name.StartsWith("Ir"))
-            {
-                File.WriteAllText($"{pathService}{Path.DirectorySeparatorChar}{type.Name}Service.cs", service);
-                File.WriteAllText($"{pathController}{Path.DirectorySeparatorChar}{type.Name}Controller.cs", controller);
-            }
+            var controller = controllerTemplate.Replace("%NameModel%", type.Name);
+            controller = controller.Replace("%NameController%", type.Name);
+            controller = controller.Replace("%NameKey%", NameKeyType);
+
             if (NameTenant != null)
             {
             }
             else
             {
             }
+
+            File.WriteAllText($"{pathContract}{Path.DirectorySeparatorChar}{type.Name}Contract.cs", contract);
+            //if (type.Name.StartsWith("Res") || type.Name.StartsWith("Ir"))
+            {
+                File.WriteAllText($"{pathService}{Path.DirectorySeparatorChar}{type.Name}Service.cs", service);
+                File.WriteAllText($"{pathController}{Path.DirectorySeparatorChar}{type.Name}Controller.cs", controller);
+            }            
         }
         var str = String.Join(Environment.NewLine, lstString);
         if (lstString.Count > 0) 
