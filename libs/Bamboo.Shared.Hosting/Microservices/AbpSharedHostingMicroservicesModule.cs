@@ -46,7 +46,10 @@ public class AbpSharedHostingMicroservicesModule : AbpModule
     	// https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         var configuration = context.Services.GetConfiguration();
-
+        Configure<JsonOptions>(jsonOptions =>
+        {
+            jsonOptions.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        });
         Configure<AbpDbContextOptions>(options =>
         {
             options.UseNpgsql();

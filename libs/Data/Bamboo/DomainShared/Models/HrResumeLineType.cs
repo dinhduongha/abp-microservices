@@ -17,8 +17,8 @@ public partial class HrResumeLineType: Entity<long>, IEntityDto<long>
     [Column("id")]
     public long Id { get => base.Id; set => base.Id = value; }
 
-    [Column("sequence")]
-    public Guid? Sequence { get; set; }
+    [Column("sequence", TypeName = "bigserial")]
+    public long Sequence { get; set; }
 
     [Column("create_uid")]
     public Guid? CreatorId { get; set; }

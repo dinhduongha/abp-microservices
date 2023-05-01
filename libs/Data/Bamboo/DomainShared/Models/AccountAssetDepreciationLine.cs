@@ -19,8 +19,8 @@ public partial class AccountAssetDepreciationLine: Entity<Guid>, IEntityDto<Guid
     [Column("id")]
     public Guid Id { get => base.Id; set => base.Id = value; }
 
-    [Column("sequence")]
-    public Guid? Sequence { get; set; }
+    [Column("sequence", TypeName = "bigserial")]
+    public long Sequence { get; set; }
 
     [Column("asset_id")]
     public Guid? AssetId { get; set; }

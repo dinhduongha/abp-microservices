@@ -380,7 +380,7 @@ public partial class ResCompany: Entity<Guid>, IEntityDto<Guid>
     public double? ManufacturingLead { get; set; }
 
     [Column("hr_presence_control_email_amount")]
-    public Guid? HrPresenceControlEmailAmount { get; set; }
+    public long? HrPresenceControlEmailAmount { get; set; }
 
     [Column("hr_presence_control_ip_list")]
     public string? HrPresenceControlIpList { get; set; }

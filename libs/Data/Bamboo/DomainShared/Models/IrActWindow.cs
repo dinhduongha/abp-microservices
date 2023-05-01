@@ -54,7 +54,7 @@ public partial class IrActWindow: Entity<Guid>, IEntityDto<Guid>
     public Guid? ResId { get; set; }
 
     [Column("limit")]
-    public Guid? Limit { get; set; }
+    public long? Limit { get; set; }
 
     [Column("search_view_id")]
     public Guid? SearchViewId { get; set; }

@@ -17,35 +17,35 @@ public partial class HrLeaveAccrualLevel: Entity<long>, IEntityDto<long>
     [Column("id")]
     public long Id { get => base.Id; set => base.Id = value; }
 
-    [Column("sequence")]
-    public Guid? Sequence { get; set; }
+    [Column("sequence", TypeName = "bigserial")]
+    public long Sequence { get; set; }
 
     [Column("accrual_plan_id")]
     public Guid? AccrualPlanId { get; set; }
 
     [Column("start_count")]
-    public Guid? StartCount { get; set; }
+    public long? StartCount { get; set; }
 
     [Column("first_day")]
-    public Guid? FirstDay { get; set; }
+    public long? FirstDay { get; set; }
 
     [Column("second_day")]
-    public Guid? SecondDay { get; set; }
+    public long? SecondDay { get; set; }
 
     [Column("first_month_day")]
-    public Guid? FirstMonthDay { get; set; }
+    public long? FirstMonthDay { get; set; }
 
     [Column("second_month_day")]
-    public Guid? SecondMonthDay { get; set; }
+    public long? SecondMonthDay { get; set; }
 
     [Column("yearly_day")]
-    public Guid? YearlyDay { get; set; }
+    public long? YearlyDay { get; set; }
 
     [Column("parent_id")]
     public long? ParentId { get; set; }
 
     [Column("postpone_max_days")]
-    public Guid? PostponeMaxDays { get; set; }
+    public long? PostponeMaxDays { get; set; }
 
     [Column("create_uid")]
     public Guid? CreatorId { get; set; }

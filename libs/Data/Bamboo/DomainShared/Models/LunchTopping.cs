@@ -24,7 +24,7 @@ public partial class LunchTopping: Entity<Guid>, IEntityDto<Guid>, IMultiTenant,
     public Guid? SupplierId { get; set; }
 
     [Column("topping_category")]
-    public Guid? ToppingCategory { get; set; }
+    public long? ToppingCategory { get; set; }
 
     [Column("create_uid")]
     public Guid? CreatorId { get; set; }

@@ -21,7 +21,7 @@ public partial class HrSkillLevel: Entity<long>, IEntityDto<long>
     public long? SkillTypeId { get; set; }
 
     [Column("level_progress")]
-    public Guid? LevelProgress { get; set; }
+    public long? LevelProgress { get; set; }
 
     [Column("create_uid")]
     public Guid? CreatorId { get; set; }

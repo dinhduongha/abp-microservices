@@ -17,8 +17,8 @@ public partial class HrSkill: Entity<Guid>, IEntityDto<Guid>
     [Column("id")]
     public Guid Id { get => base.Id; set => base.Id = value; }
 
-    [Column("sequence")]
-    public Guid? Sequence { get; set; }
+    [Column("sequence", TypeName = "bigserial")]
+    public long Sequence { get; set; }
 
     [Column("skill_type_id")]
     public long? SkillTypeId { get; set; }

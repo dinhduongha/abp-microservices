@@ -29,7 +29,7 @@ public partial class WebsiteSnippetFilter: Entity<Guid>, IEntityDto<Guid>
     public Guid? FilterId { get; set; }
 
     [Column("limit")]
-    public Guid? Limit { get; set; }
+    public long? Limit { get; set; }
 
     [Column("create_uid")]
     public Guid? CreatorId { get; set; }

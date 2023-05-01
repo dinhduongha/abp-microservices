@@ -80,7 +80,7 @@ public partial class FetchmailServer: Entity<Guid>, IEntityDto<Guid>
     public DateTime? LastModificationTime { get; set; }
 
     [Column("google_gmail_access_token_expiration")]
-    public Guid? GoogleGmailAccessTokenExpiration { get; set; }
+    public long? GoogleGmailAccessTokenExpiration { get; set; }
 
     [Column("google_gmail_authorization_code")]
     public string? GoogleGmailAuthorizationCode { get; set; }

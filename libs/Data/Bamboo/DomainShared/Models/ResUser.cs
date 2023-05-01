@@ -1,7 +1,11 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+//using Newtonsoft.Json;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities;
@@ -34,6 +38,7 @@ public partial class ResUser: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IMay
     [Column("login")]
     public string? Login { get; set; }
 
+    [JsonIgnore]
     [Column("password")]
     public string? Password { get; set; }
 
@@ -130,8 +135,8 @@ public partial class ResUser: Entity<Guid>, IEntityDto<Guid>, IMultiTenant, IMay
 
     /// TODO: DISABLE INVERSE
     //[InverseProperty("CreateU")]
-    [NotMapped]
-    public virtual ICollection<ResUser> InverseCreateU { get; } = new List<ResUser>();
+    //[NotMapped]
+    //public virtual ICollection<ResUser> InverseCreateU { get; } = new List<ResUser>();
     /*
     //[InverseProperty("CreateU")]
     [NotMapped]

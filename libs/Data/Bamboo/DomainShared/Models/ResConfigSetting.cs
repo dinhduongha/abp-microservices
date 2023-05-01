@@ -516,7 +516,7 @@ public partial class ResConfigSetting: Entity<Guid>, IEntityDto<Guid>, IMultiTen
     public bool? GroupMrpWorkorderDependencies { get; set; }
 
     [Column("crm_auto_assignment_interval_number")]
-    public Guid? CrmAutoAssignmentIntervalNumber { get; set; }
+    public long? CrmAutoAssignmentIntervalNumber { get; set; }
 
     [Column("crm_auto_assignment_action")]
     public string? CrmAutoAssignmentAction { get; set; }
@@ -621,10 +621,10 @@ public partial class ResConfigSetting: Entity<Guid>, IEntityDto<Guid>, IMultiTen
     public bool? ModuleHrExpenseExtract { get; set; }
 
     [Column("overtime_company_threshold")]
-    public Guid? OvertimeCompanyThreshold { get; set; }
+    public long? OvertimeCompanyThreshold { get; set; }
 
     [Column("overtime_employee_threshold")]
-    public Guid? OvertimeEmployeeThreshold { get; set; }
+    public long? OvertimeEmployeeThreshold { get; set; }
 
     [Column("overtime_start_date")]
     public DateTime? OvertimeStartDate { get; set; }
@@ -723,7 +723,7 @@ public partial class ResConfigSetting: Entity<Guid>, IEntityDto<Guid>, IMultiTen
     public double? AvailableThreshold { get; set; }
 
     [Column("delay_alert_contract")]
-    public Guid? DelayAlertContract { get; set; }
+    public long? DelayAlertContract { get; set; }
 
     [ForeignKey("AuthSignupTemplateUserId")]
     //[InverseProperty("ResConfigSettingAuthSignupTemplateUsers")]

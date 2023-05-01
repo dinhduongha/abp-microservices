@@ -44,7 +44,7 @@ public partial class CrmTeamMember: Entity<Guid>, IEntityDto<Guid>
     public DateTime? LastModificationTime { get; set; }
 
     [Column("assignment_max")]
-    public Guid? AssignmentMax { get; set; }
+    public long? AssignmentMax { get; set; }
 
     [Column("assignment_domain")]
     public string? AssignmentDomain { get; set; }
