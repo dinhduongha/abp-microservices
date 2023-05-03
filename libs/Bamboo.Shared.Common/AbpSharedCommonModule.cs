@@ -4,9 +4,8 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Volo.Abp.Guids;
 using Volo.Abp.Modularity;
 
-namespace Starify.Shared.Common
+namespace Bamboo.Shared.Common
 {
-
     public class AbpSharedCommonModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)

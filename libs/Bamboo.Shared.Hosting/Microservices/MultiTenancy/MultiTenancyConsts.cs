@@ -1,4 +1,4 @@
-﻿namespace Bamboo.Admin.MultiTenancy;
+﻿namespace Bamboo.MultiTenancy;
 
 public static class MultiTenancyConsts
 {

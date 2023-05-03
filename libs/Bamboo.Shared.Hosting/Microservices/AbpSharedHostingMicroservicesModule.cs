@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using StackExchange.Redis;
 
+using Volo.Abp;
 using Volo.Abp.Autofac;
 using Volo.Abp.Data;
 using Volo.Abp.Swashbuckle;
@@ -45,7 +46,11 @@ public class AbpSharedHostingMicroservicesModule : AbpModule
     	// https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         var configuration = context.Services.GetConfiguration();
-
+        Configure<JsonOptions>(jsonOptions =>
+        {
+            jsonOptions.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            //jsonOptions.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        });
         Configure<AbpDbContextOptions>(options =>
         {
             options.UseNpgsql();
@@ -86,5 +91,26 @@ public class AbpSharedHostingMicroservicesModule : AbpModule
             return new RedisDistributedSynchronizationProvider(connection.GetDatabase());
         });
 		
+    }
+    public override void OnApplicationInitialization(ApplicationInitializationContext context)
+    {
+        // app.UseSwagger(options =>
+        // {
+        //     //options.RouteTemplate = "api/v1/myname/swagger/{documentName}/swagger.json";
+        // });
+
+        // app.UseAbpSwaggerUI(options =>
+        // {
+        //     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Support APP API");
+
+        //     //options.SwaggerEndpoint("/api/v1/myname/swagger/v1/swagger.json", "Support APP API");
+        //     //options.RoutePrefix = "api/v1/myname";
+        //     //options.InjectJavascript("/swagger/ui/abp.js");
+        //     //options.InjectJavascript("/swagger/ui/abp.swagger.js");
+
+        //     var configuration = context.GetConfiguration();
+        //     options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
+        //     options.OAuthScopes("Starify");
+        // });
     }
 }
