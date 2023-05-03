@@ -6,9 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>    
-    <PackageReference Include="FirebaseAdmin" Version="2.3.0" />
-    <PackageReference Include="Twilio.AspNet.Core" Version="6.0.0" />
+  <ItemGroup>
+    <!--<PackageReference Include="FirebaseAdmin" Version="2.3.0" />
+    <PackageReference Include="Twilio.AspNet.Core" Version="6.0.0" />-->
     <PackageReference Include="DistributedLock.Redis" Version="1.0.2" />
     <PackageReference Include="DistributedLock.FileSystem" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.*" />

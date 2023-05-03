@@ -1,6 +1,6 @@
 $name = $args[0]
 $name = "Bamboo"
-$abpver = "7.2.0-rc.2"
+$abpver = "7.2.1"
 
 $sln_service = "$name.Services.All"
 $shared_common = "$name/shared/common"
@@ -517,8 +517,8 @@ function CreateServices {
 		}
 
 		if ($service -eq $admin_name) {		
-			Copy-Item -Path "./libs/Bamboo.Authentication" -Destination ./$name/services/$folder/src/$name.Authentication -recurse -Force
-			Move-Item -Path "./$name/services/$folder/src/$name.Authentication/Bamboo.Authentication.csproj" -Destination "./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj" -Force
+			Copy-Item -Path "./libs/Bamboo.AdminExtensions" -Destination ./$name/services/$folder/src/$name.AdminExtensions -recurse -Force
+			Move-Item -Path "./$name/services/$folder/src/$name.AdminExtensions/Bamboo.AdminExtensions.csproj" -Destination "./$name/services/$folder/src/$name.AdminExtensions/$name.AdminExtensions.csproj" -Force
 			Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination ./$name/services/$folder/src/$name.LoginUi.Web -recurse -Force
 			Move-Item -Path "./$name/services/$folder/src/$name.LoginUi.Web/Bamboo.LoginUi.Web.csproj" -Destination "./$name/services/$folder/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj" -Force
 			Copy-Item -Path "./libs/Data/AdminDbExtensions" -Destination ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/ -recurse -Force
@@ -532,7 +532,7 @@ function CreateServices {
 			dotnet remove ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "..\..\src\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
 			#dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference "..\..\src\$name.$service.Application.Contracts\$name.$service.Application.Contracts.csproj"
-			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference ./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj
+			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference ./$name/services/$folder/src/$name.AdminExtensions/$name.AdminExtensions.csproj
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference ./$name/services/$folder/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj
 			dotnet add ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj reference ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
 
@@ -541,7 +541,7 @@ function CreateServices {
 			dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.DistributedLocking -v $abpver
 			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.OpenIddict.AspNetCore -v $abpver
 			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj package Volo.Abp.BackgroundJobs.HangFire -v $abpver
-			dotnet add ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj reference ./$name/services/$folder/src/$name.Authentication/$name.Authentication.csproj
+			dotnet add ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj reference ./$name/services/$folder/src/$name.AdminExtensions/$name.AdminExtensions.csproj
 			#dotnet add ./$name/services/$folder/host/"$name.$service".HttpApi.Host/"$name.$service".HttpApi.Host.csproj reference ./$name/services/$folder/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj
 			
 			dotnet sln "./$name/services/$folder/$name.$service.sln" add (Get-ChildItem -r ./$name/services/$folder/src/**/*.csproj)
