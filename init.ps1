@@ -83,6 +83,7 @@ function CreateCoreLibs {
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Swashbuckle.AspNetCore #-v 6.4.0
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Hangfire.LiteDB
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package IdentityModel -v 6.0.0
+	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Rebus.ServiceProvider -v 9.0.0
 	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Serilog.Sinks.Async -v 1.5.0
 	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Serilog.AspNetCore -v 5.0.0
 	
@@ -101,7 +102,7 @@ function CreateCoreLibs {
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.EventBus.RabbitMQ -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.EventBus.Azure -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.EventBus.Kafka -v $abpver
-	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.EventBus.Rebus -v $abpver
+	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.EventBus.Rebus -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.Localization -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.MultiTenancy -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.MongoDB -v $abpver
@@ -255,7 +256,9 @@ function CreateCoreApp  {
 	dotnet add $app_path/$app_name/src/$app_name.AuthServer reference $app_path/$app_name/src/$name.LoginUi.Web
 	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.AdminExtensions
 	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.LoginUi.Web
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host package Rebus.ServiceProvider -v 9.0.0
 	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Sis.Host reference $app_path/$app_name/src/$name.AdminExtensions
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Sis.Host package Rebus.ServiceProvider -v 9.0.0
 
 	#dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
 	#dotnet add $app_path/$app_name/src/$app_name.HttpApi.Sis.Host reference $name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
