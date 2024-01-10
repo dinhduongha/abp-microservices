@@ -25,6 +25,7 @@ The project is inspired by:
 
     ```./init.ps1 YourProjectName```
 
+then copy libs/global.json to YourProjectName
 * Add services
 
     Edit add-services.ps1, add more micro-services as you want. For examle:

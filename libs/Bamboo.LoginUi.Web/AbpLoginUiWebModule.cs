@@ -318,7 +318,7 @@ public class AbpLoginUiWebModule : AbpModule
         GlobalSettingManagementProvider settingManagementProvider = context.ServiceProvider.GetRequiredService<GlobalSettingManagementProvider>();
         SettingDefinitionManager settingDefinitionManager = context.ServiceProvider.GetRequiredService<SettingDefinitionManager>();
         await settingManagementProvider.SetAsync(
-           settingDefinitionManager.Get(AccountSettingNames.IsSelfRegistrationEnabled),
+           await settingDefinitionManager.GetAsync(AccountSettingNames.IsSelfRegistrationEnabled),
            true.ToString(),
            GlobalSettingValueProvider.ProviderName
         );

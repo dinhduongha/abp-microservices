@@ -11,6 +11,7 @@ using Volo.Abp.Guids;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.OpenIddict;
 using Volo.Abp.Security.Claims;
+using Volo.Abp.Identity;
 
 //using IdentityModel;
 
@@ -19,7 +20,7 @@ namespace Bamboo.Abp.LoginUi.Web.Pages.Account;
 public class LoginUiLoginModel : LoginModel
 {
     public LoginUiLoginModel(IAuthenticationSchemeProvider schemeProvider, IOptions<AbpAccountOptions> accountOptions,
-        IOptions<IdentityOptions> identityOptions) : base(schemeProvider, accountOptions, identityOptions)
+        IOptions<IdentityOptions> identityOptions, IdentityDynamicClaimsPrincipalContributorCache cache) : base(schemeProvider, accountOptions, identityOptions, cache)
     {
     }
 

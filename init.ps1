@@ -1,15 +1,15 @@
 $name = $args[0]
 $name = "Bamboo"
-$abpver = "7.2.1"
-$msver = "7.0.0"
+$abpver = "8.0.1"
+$msver = "8.0.*"
 $ntsver = "13.0.1"
-$apps = "apps"
+$apps = "services"
 $shared_common = "shared/common"
 #$app_name = "Bamboo.Admin"
 $app_name = "$name.Admin"
 $shared_app = "shared/admin"
 $app_path = "$name/services/admin"
-$sln_account = "$name.App.Host"
+$sln_account = "$name.Admin.Host"
 $sln_service = "$name.Services.All"
 $sln_gateways = "$name.Gateways"
 $sln_webs = "$name.Web"
@@ -46,7 +46,7 @@ function CreateCoreLibs {
 
 	dotnet new classlib -n "$name.Shared.EfCore" -o "$name/$shared_common/$name.Shared.EfCore"
 	# Un-comment line below to enable TopologySuite/GIS
-    dotnet add ./$name/$shared_common/$name.Shared.EfCore/$name.Shared.EfCore.csproj package Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite #-v 6.0.5
+    dotnet add ./$name/$shared_common/$name.Shared.EfCore/$name.Shared.EfCore.csproj package Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite #-v 8.0.0
 	dotnet add ./$name/$shared_common/$name.Shared.EfCore/$name.Shared.EfCore.csproj package Volo.Abp.EntityFrameworkCore -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.EfCore/$name.Shared.EfCore.csproj package EFCore.NamingConventions
 	dotnet add ./$name/$shared_common/$name.Shared.EfCore/$name.Shared.EfCore.csproj reference ./$name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
@@ -82,8 +82,8 @@ function CreateCoreLibs {
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package DistributedLock.Redis -v 1.0.2
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Swashbuckle.AspNetCore #-v 6.4.0
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Hangfire.LiteDB
-	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package IdentityModel -v 6.0.0
-	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Rebus.ServiceProvider -v 9.0.0
+	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package IdentityModel -v 6.2.0
+	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Rebus.ServiceProvider -v 10.0.0
 	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Serilog.Sinks.Async -v 1.5.0
 	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Serilog.AspNetCore -v 5.0.0
 	
@@ -118,6 +118,10 @@ function CreateCoreLibs {
 	Copy-Item -Path "./libs/Bamboo.Shared.Hosting/Microservices/*" -Destination ./$name/$shared_common/$name.Shared.Microservices/ -recurse -Force
 	Remove-Item -Path ./$name/$shared_common/$name.Shared.Microservices/Class1.cs -Force
 	
+	if (-not(Test-Path -Path "$name/web_apps")){
+		new-item "$name/web_apps" -itemtype directory
+	}
+
 	Copy-Item "./common.props*" -Destination ./$name/ -Force
 	Copy-Item "./common.props*" -Destination ./$name/shared/ -Force
 	Copy-Item "./common.props*" -Destination ./$name/web_apps/ -Force
@@ -198,6 +202,7 @@ function CreateCoreApp  {
 	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.SettingManagement.Application -v $abpver
 	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.TenantManagement.Application -v $abpver
 	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.TenantManagement.HttpApi -v $abpver
+
 	
 	Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination $app_path/$app_name/src/$name.LoginUi.Web -recurse -Force
 	Move-Item -Path $app_path/$app_name/src/$name.LoginUi.Web/Bamboo.LoginUi.Web.csproj -Destination $app_path/$app_name/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj -Force
@@ -208,6 +213,7 @@ function CreateCoreApp  {
 	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Identity.Web -v $abpver
 	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.SettingManagement.Application -v $abpver
 	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.TenantManagement.Application -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Sms -v $abpver
 
 	## Blazor --separate-identity-server
 	#abp new "$name" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -m none -o temp/$name-blazor-sis
@@ -241,7 +247,7 @@ function CreateCoreApp  {
 	dotnet add $app_path/$app_name/src/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj package Newtonsoft.Json -v $ntsver
 	dotnet add $app_path/$app_name/src/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj package Volo.Abp.Guids -v $abpver
 	dotnet add $app_path/$app_name/src/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj package Volo.Abp.Ddd.Application.Contracts -v $abpver	
-	dotnet add $app_path/$app_name/src/$app_name.EntityFrameworkCore/$app_name.EntityFrameworkCore.csproj package Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite -v 7.0.5
+	dotnet add $app_path/$app_name/src/$app_name.EntityFrameworkCore/$app_name.EntityFrameworkCore.csproj package Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite -v 8.0.0
 	
 	Copy-Item -Path "./libs/Bamboo.Shared.Common/Extensions" -Destination $app_path/$app_name/src/$app_name.Domain.Shared/ -recurse -Force
 	Copy-Item -Path "./libs/Bamboo.Shared.Common/Guids" -Destination $app_path/$app_name/src/$app_name.Domain.Shared/ -recurse -Force
@@ -256,9 +262,9 @@ function CreateCoreApp  {
 	dotnet add $app_path/$app_name/src/$app_name.AuthServer reference $app_path/$app_name/src/$name.LoginUi.Web
 	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.AdminExtensions
 	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.LoginUi.Web
-	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host package Rebus.ServiceProvider -v 9.0.0
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host package Rebus.ServiceProvider -v 10.0.0
 	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Sis.Host reference $app_path/$app_name/src/$name.AdminExtensions
-	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Sis.Host package Rebus.ServiceProvider -v 9.0.0
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Sis.Host package Rebus.ServiceProvider -v 10.0.0
 
 	#dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
 	#dotnet add $app_path/$app_name/src/$app_name.HttpApi.Sis.Host reference $name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
@@ -279,6 +285,9 @@ function CreateCoreApp  {
 	dotnet sln "./$name/$apps/$sln_account.sln" add (Get-ChildItem -r $app_path/$app_name/src/**/*.csproj)	
 	
 	## Blazor Client
+	# abp new Bamboo -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling --with-public-website -o temp/ -v 8.0.1 --separate-auth-server --pwa
+	# abp new Bamboo -t app --no-random-port -u blazor --database-provider ef -dbms SQLite --create-solution-folder --skip-installing-libs -m none --skip-bundling --with-public-website -o temp/ -v 8.0.1 --pwa
+
 	abp new "$name" -t app --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o temp/$name-blazor-client -v $abpver
 	Copy-Item -Path temp/$name-blazor-client/$name/src/$name.Blazor -Destination ./$name/web_apps/"$name.Blazor" -recurse -Force
 
