@@ -3,15 +3,15 @@
   <Import Project="..\..\common.props" />
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>Bamboo.Base</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
   
     <PackageReference Include="EFCore.NamingConventions"/>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.5" />
-    <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="7.1.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.*" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="8.0.*" />
   </ItemGroup>
 
 </Project>

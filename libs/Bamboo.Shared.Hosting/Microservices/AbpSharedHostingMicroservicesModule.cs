@@ -17,7 +17,7 @@ using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.DistributedLocking;
 using Volo.Abp.EventBus.RabbitMq;
-using Volo.Abp.EventBus.RabbitMq;
+using Volo.Abp.EventBus.Rebus;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.EntityFrameworkCore;
@@ -33,6 +33,7 @@ using Volo.Abp.EntityFrameworkCore.PostgreSql;
     typeof(AbpAspNetCoreMultiTenancyModule),
     typeof(AbpDistributedLockingModule),
     typeof(AbpSwashbuckleModule),
+    //typeof(AbpEventBusRebusModule),
     //typeof(AbpEventBusRabbitMqModule),
     //typeof(AbpBackgroundJobsRabbitMqModule),
     //typeof(AbpSharedHostingAspNetCoreModule),

@@ -1,6 +1,6 @@
 $name = $args[0]
 $name = "Bamboo"
-$abpver = "7.2.1"
+$abpver = "8.0.1"
 
 $sln_service = "$name.Services.All"
 $shared_common = "$name/shared/common"
@@ -173,7 +173,7 @@ function AccountServiceAddReference {
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.AuditLogging.EntityFrameworkCore -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.BackgroundJobs.EntityFrameworkCore -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.BlobStoring.Database.EntityFrameworkCore -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Microsoft.EntityFrameworkCore.Tools -v "7.0.1"
+	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Microsoft.EntityFrameworkCore.Tools -v "8.0.*"
 
 	## HTTP API
 	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.Account.HttpApi -v $abpver
@@ -443,7 +443,7 @@ function CreateServices {
 		{
 			$migrator_path = "./$name/services/$folder/src"
 			dotnet new console -n "$name.$service.DbMigrator" -o $migrator_path/$name.$service.DbMigrator
-			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Microsoft.Extensions.Hosting -v "7.0.*"
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Microsoft.Extensions.Hosting -v "8.0.*"
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Extensions.Logging -v "3.1.0"
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.Async -v "1.5.0"
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.File -v "5.0.0"
