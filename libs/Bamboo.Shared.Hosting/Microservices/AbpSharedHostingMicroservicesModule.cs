@@ -1,8 +1,10 @@
-﻿using Medallion.Threading;
+﻿using System.Text.Json.Serialization;
+using Medallion.Threading;
 using Medallion.Threading.Redis;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http.Json;
 
 using StackExchange.Redis;
 
