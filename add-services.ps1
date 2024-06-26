@@ -424,8 +424,8 @@ function CreateServices {
 		}
 		
 		# DBMigrator
-		#if ($service -eq $admin_name)
-		#{
+		if ($service -eq $admin_name)
+		{
 			Write-Output "CREATE DbMigrator"
 			$migrator_path = "./$name/services/$folder/host"
 			Write-Output "dotnet new console -n "$name.$service.DbMigrator" -o "$migrator_path/$name.$service.DbMigrator""
@@ -460,7 +460,7 @@ function CreateServices {
 				dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./$name/services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj
 			}
 			dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder host $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj
-		#}
+		}
 		# End DBMigrator
 
 		dotnet add $shared_folder/"$name.$service".Domain.Shared/"$name.$service".Domain.Shared.csproj reference ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
@@ -481,11 +481,12 @@ function CreateServices {
 		Remove-Item -Recurse -Force ./$name/services/$folder/src/*.$service.Installer
 		#Remove-Item -Recurse -Force ./$name/services/$folder/angular*
 
-		Write-Output "Solution add ./$name/services/$folder/$name.$service.sln" 
+		Write-Output "ADD SHARED PROJECT TO SOLUTIONS"
+		Write-Output "Solution: add to ./$name/services/$folder/$name.$service.sln" 
 		dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/**/*.csproj)
 		dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r $shared_folder/**/*.csproj)			
 
-		Write-Output "Solution add ./$name/$apps_path/$folder/$name.$service.sln" 
+		Write-Output "Solution: add to ./$name/$apps_path/$folder/$name.$service.sln" 
 		dotnet sln "./$name/$apps_path/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/**/*.csproj)
 		dotnet sln "./$name/$apps_path/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r $shared_folder/**/*.csproj)			
 
@@ -498,6 +499,8 @@ function CreateServices {
 		if ($use_share  -eq "True") {
 			dotnet sln "./$name/services/$sln_service.sln" add --solution-folder "$name/modules_shared" (Get-ChildItem -r $shared_folder/**/*.csproj)
 			if ($ui_enable -eq "True") {
+				Write-Output "ADD SHARED PROJECT TO APP SOLUTIONS"
+
 				dotnet sln "./$name/$apps_path/$name.Web.Blazor.sln" add --solution-folder "ui" (Get-ChildItem -r ./$name/$apps_path/$folder/src/*.Blazor.csproj)
 				dotnet sln "./$name/$apps_path/$name.Web.Blazor.sln" add --solution-folder "ui" (Get-ChildItem -r ./$name/$apps_path/$folder/src/*.WebAssembly.csproj)
 				dotnet sln "./$name/$apps_path/$name.Web.Blazor.sln" add --solution-folder "modules_shared" (Get-ChildItem -r $shared_folder/**/*.csproj)
@@ -518,7 +521,8 @@ function CreateServices {
 			}
 		}
 
-		if ($service -eq $admin_name) {		
+		if ($service -eq $admin_name) {
+			Write-Output "ADD ADMIN PROJECT TO APP SOLUTION"
 			Copy-Item -Path "./libs/Bamboo.AdminExtensions" -Destination ./$name/services/$folder/src/$name.AdminExtensions -recurse -Force
 			Move-Item -Path "./$name/services/$folder/src/$name.AdminExtensions/Bamboo.AdminExtensions.csproj" -Destination "./$name/services/$folder/src/$name.AdminExtensions/$name.AdminExtensions.csproj" -Force
 			
@@ -560,23 +564,28 @@ function CreateServices {
 		# Write-Output "abp create-migration-and-run-migrator ./$name/services/$folder/src/$name.$service.Core.EntityFrameworkCore"
 
 		# MIGRATIONS
-		Write-Output "MIGRATIONS: " 
+		Write-Output "MIGRATIONS SCRIPTS" 
 		Write-Output "dotnet ef migrations add Initial --startup-project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --project ./$name/services/$folder/src/$name.$service.Core.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj --context "$service"DbContext"
-		Write-Output "dotnet ef migrations add Initial --project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --context "$service"DbContext"
+		Write-Output "dotnet ef migrations add Initial --project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj"
 		#dotnet ef migrations add Initial --startup-project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --project ./$name/services/$folder/src/$name.$service.Core.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj --context $service"DbContext"
 		dotnet ef migrations add Initial --project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj
 
 		# Update database
-		Write-Output "UPDATE DATABASE" 
+		Write-Output "UPDATE DATABASE SCRIPTS"
+		Write-Output "Change ConnectionStrings:$service in appsettings.json to correct database connection"
 		Write-Output "dotnet ef database update --startup-project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --project ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj --context "$service"DbContext"
-		Write-Output "dotnet ef database update --project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --context "$service"DbContext"
+		Write-Output "dotnet ef database update --project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj"
 		#dotnet ef database update --startup-project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --project ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj --context $service"DbContext"
-		#dotnet ef database update --project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --context $service"DbContext"
+		#dotnet ef database update --project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj"
 
 		# TEST
 		# dotnet ef migrations add Initial --startup-project ./Bamboo/services/core/host/Bamboo.Core.HttpApi.Host/Bamboo.Core.HttpApi.Host.csproj --project ./Bamboo/services/core/src/Bamboo.Core.EntityFrameworkCore/Bamboo.Core.EntityFrameworkCore.csproj --context CoreDbContext
 		# dotnet ef migrations add Initial --project ./Bamboo/services/core/host/Bamboo.Core.HttpApi.Host/Bamboo.Core.HttpApi.Host.csproj
+		# dotnet ef database update --project ./Bamboo/services/core/host/Bamboo.Core.HttpApi.Host/Bamboo.Core.HttpApi.Host.csproj
+		
+		# DbMigrator
 		# dotnet ef migrations add Initial --project ./Bamboo/services/core/host/Bamboo.Core.DbMigrator/Bamboo.Core.DbMigrator.csproj
+		# dotnet ef database update --project ./Bamboo/services/core/host/Bamboo.Core.DbMigrator/Bamboo.Core.DbMigrator.csproj
 
 	}
 }
