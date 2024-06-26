@@ -1,6 +1,6 @@
 $name = $args[0]
 $name = "Bamboo"
-$abpver = "8.1.0"
+$abpver = "8.2.0-rc.5"
 $msver = "8.0.*"
 $ntsver = "13.0.1"
 
@@ -94,22 +94,26 @@ function CreateCoreLibs {
 	Copy-Item -Path "./libs/Bamboo.Shared.Hosting/Hosting/*" -Destination ./$name/$shared_common/$name.Shared.Hosting/ -recurse -Force
 	Remove-Item -Path ./$name/$shared_common/$name.Shared.Hosting/Class1.cs -Force 
 
-	dotnet new classlib -n "$name.Shared.AspNetCore" -o "./$name/$shared_common/$name.Shared.AspNetCore"
-	#dotnet add ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj package Serilog.AspNetCore -v "5.0.0"
-	dotnet add ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj package Volo.Abp.AspNetCore.Serilog -v $abpver
-	dotnet add ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj package Volo.Abp.Swashbuckle -v $abpver
-	dotnet add ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj reference ./$name/$shared_common/$name.Shared.Hosting/$name.Shared.Hosting.csproj
-	Copy-Item -Path "./libs/Bamboo.Shared.Hosting/AspNetCore/*" -Destination ./$name/$shared_common/$name.Shared.AspNetCore/ -recurse -Force
-	Remove-Item -Path ./$name/$shared_common/$name.Shared.AspNetCore/Class1.cs -Force 
+	#dotnet new classlib -n "$name.Shared.AspNetCore" -o "./$name/$shared_common/$name.Shared.AspNetCore"
+	##dotnet add ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj package Serilog.AspNetCore -v "5.0.0"
+	#dotnet add ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj package Volo.Abp.AspNetCore.Serilog -v $abpver
+	#dotnet add ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj package Volo.Abp.Swashbuckle -v $abpver
+	#dotnet add ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj reference ./$name/$shared_common/$name.Shared.Hosting/$name.Shared.Hosting.csproj
+	#Copy-Item -Path "./libs/Bamboo.Shared.Hosting/AspNetCore/*" -Destination ./$name/$shared_common/$name.Shared.AspNetCore/ -recurse -Force
+	#Remove-Item -Path ./$name/$shared_common/$name.Shared.AspNetCore/Class1.cs -Force 
 	
 	dotnet new classlib -n "$name.Shared.Microservices" -o "./$name/$shared_common/$name.Shared.Microservices"
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Microsoft.AspNetCore.DataProtection.StackExchangeRedis -v $msver
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Microsoft.AspNetCore.Authentication.JwtBearer -v $msver
+	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package DistributedLock.FileSystem -v 1.0.1
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package DistributedLock.Redis -v 1.0.2
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Swashbuckle.AspNetCore #-v 6.4.0
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Hangfire.LiteDB
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package IdentityModel -v 6.2.0
-	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Rebus.ServiceProvider -v 10.0.0
+	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Rebus.ServiceProvider -v 10.1.2
+	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Rebus.Redis -v 0.0.1
+	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Rebus.PostgreSql -v 9.1.1
+	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Rebus.Kafka -v 3.4.1
 	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Serilog.Sinks.Async -v 1.5.0
 	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Serilog.AspNetCore -v 5.0.0
 	
@@ -119,7 +123,10 @@ function CreateCoreLibs {
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.AspNetCore.Authentication.JwtBearer -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.BackgroundJobs.RabbitMQ -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.BackgroundJobs.HangFire -v $abpver
-	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.BlobStoring -v $abpver	
+	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.BackgroundWorkers.HangFire -v $abpver
+	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.BlobStoring -v $abpver
+	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.BlobStoring.FileSystem -v $abpver
+	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.BlobStoring.Database -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.Caching.StackExchangeRedis -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.Data -v $abpver
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.DistributedLocking -v $abpver
@@ -135,6 +142,7 @@ function CreateCoreLibs {
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.Swashbuckle -v $abpver
 
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.Identity.Application -v $abpver	
+	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.SettingManagement.Application -v $abpver	
 	dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.TenantManagement.Application -v $abpver	
 
 	#dotnet add ./$name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj package Volo.Abp.AuditLogging.EntityFrameworkCore -v $abpver
@@ -162,7 +170,7 @@ function CreateGateways {
 	dotnet new sln -n "$sln_gateways" -o ./$name/gateways
 	dotnet new classlib -n "$name.Shared.Gateway" -o "./$name/gateways/shared/$name.Shared.Gateway"
 	dotnet add ./$name/gateways/shared/$name.Shared.Gateway/$name.Shared.Gateway.csproj package Yarp.ReverseProxy -v 2.0.0
-	dotnet add ./$name/gateways/shared/$name.Shared.Gateway/$name.Shared.Gateway.csproj reference ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj
+	#dotnet add ./$name/gateways/shared/$name.Shared.Gateway/$name.Shared.Gateway.csproj reference ./$name/$shared_common/$name.Shared.AspNetCore/$name.Shared.AspNetCore.csproj
 	Copy-Item -Path "./libs/Bamboo.Shared.Hosting/Gateways/*" -Destination ./$name/gateways/shared/$name.Shared.Gateway/ -recurse -Force
 	Remove-Item -Path ./$name/gateways/shared/$name.Shared.Gateway/Class1.cs -Force 
 	
@@ -170,7 +178,7 @@ function CreateGateways {
 	dotnet add ./$name/gateways/$name.Gateway/$name.Gateway.csproj reference ./$name/gateways/shared/$name.Shared.Gateway/$name.Shared.Gateway.csproj
 	dotnet sln "./$name/gateways/$sln_gateways.sln" add (Get-ChildItem -r ./$name/gateways/**/*.csproj)
 	dotnet sln "./$name/gateways/$sln_gateways.sln" add --solution-folder shared (Get-ChildItem -r ./$name/$shared_common/$name.Shared.Hosting/**/*.csproj)
-	dotnet sln "./$name/gateways/$sln_gateways.sln" add --solution-folder shared (Get-ChildItem -r ./$name/$shared_common/$name.Shared.AspNetCore/**/*.csproj)
+	#dotnet sln "./$name/gateways/$sln_gateways.sln" add --solution-folder shared (Get-ChildItem -r ./$name/$shared_common/$name.Shared.AspNetCore/**/*.csproj)
 	#dotnet sln "./gateways/$sln_gateways.sln" add (Get-ChildItem -r ./$shared_common/$name.Shared.Gateway/**/*.csproj)
 }
 
@@ -191,7 +199,7 @@ function CreateCoreApp  {
 	## Blazor Client
 	# abp new "Bamboo" -t app --no-open --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o temp/$name-blazor
 	# abp new "Bamboo.Admin" -t app --no-open --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o $name/$services_path
-	abp new "$app_name" -t app --no-open --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o $app_path -v $abpver
+	abp new "$app_name" -t app --no-open --no-random-port -u blazor --separate-auth-server --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o $app_path -v $abpver
 	Remove-Item -Recurse -Force $app_path/$app_name/src/$app_name.Blazor
 	#Move-Item -Path $name/$services_path/$name/src/$name.Blazor -Destination ./$name/$apps_path/"$name.Blazor" -Force
 
@@ -227,16 +235,16 @@ function CreateCoreApp  {
 	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Sms -v $abpver
 
 	## Blazor --separate-identity-server
-	#abp new "$name" -t app --no-open --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -m none -o temp/$name-blazor-sis
+	#abp new "$name" -t app --no-open --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -m none -o temp/$name-blazor-bundle
 	#abp new "$app_name" -t app --no-open --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -m none -o $app_path -v $abpver
 	#Remove-Item -Recurse -Force $app_path/$app_name/src/$app_name.Blazor
 	#Copy-Item -Path $app_path/$app_name/src/$app_name.Blazor -Destination ./$name/$apps_path/"$name.Blazor" -recurse -Force
 	#Move-Item -Path $app_path/$app_name/src/$app_name.HttpApi.Saas.Host/$name.HttpApi.Host.csproj -Destination $app_path/$app_name/src/"$name.HttpApi.Saas.Host.csproj" -Force
 
-	abp new "$app_name" -t app --no-open --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -m none -o temp/$name-blazor-sis -v $abpver
-    Copy-Item -Path temp/$name-blazor-sis/$app_name/src/$app_name.AuthServer -Destination $app_path/$app_name/src/$app_name.AuthServer -recurse -Force
-	Copy-Item -Path temp/$name-blazor-sis/$app_name/src/$app_name.HttpApi.Host -Destination $app_path/$app_name/src/$app_name.HttpApi.Sis.Host -recurse -Force
-	Move-Item -Path $app_path/$app_name/src/$app_name.HttpApi.Sis.Host/$app_name.HttpApi.Host.csproj -Destination $app_path/$app_name/src/$app_name.HttpApi.Sis.Host/$app_name.HttpApi.Sis.Host.csproj -Force
+	abp new "$app_name" -t app --no-open --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none -o temp/$name-blazor-bundle -v $abpver
+    #Copy-Item -Path temp/$name-blazor-bundle/$app_name/src/$app_name.AuthServer -Destination $app_path/$app_name/src/$app_name.AuthServer -recurse -Force
+	Copy-Item -Path temp/$name-blazor-bundle/$app_name/src/$app_name.HttpApi.Host -Destination $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle -recurse -Force
+	Move-Item -Path $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle/$app_name.HttpApi.Host.csproj -Destination $app_path/$app_name/src/$app_name.HttpApi.Bundle.Host/$app_name.HttpApi.Sis.Host.Bundle.csproj -Force
 
 	## Angular
 	abp new "$name" -t app --no-open --no-random-port -u angular --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server  --skip-installing-libs -m react-native -o temp/$name-angular -v $abpver
@@ -397,6 +405,6 @@ function AppAddSource {
 CreatePath
 CreateCoreLibs
 #CreateGateways
-CreateCoreApp
+#CreateCoreApp
 
 cmd /c pause

@@ -10,6 +10,18 @@ public partial class Utils
     //private static readonly IUlidRng DEFAULTRNG = new CSUlidRng();
     private static readonly RandomNumberGenerator Rng = RandomNumberGenerator.Create();
 
+    public static Guid NewGuid(long randPart)
+    {
+        var randomPart = BitConverter.GetBytes(randPart);
+        if (BitConverter.IsLittleEndian)
+        {
+            Array.Reverse(randomPart);
+        }
+        byte[] bytes = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0,
+                                    randomPart[0], randomPart[1], randomPart[2], randomPart[3],
+                                    randomPart[4], randomPart[5], randomPart[6], randomPart[7]};
+        return new Guid(bytes);
+    }
     public static Guid NewGuid(DateTime timePart, long randPart)
     {
         var d = DateTimeOffsetToByteArray(timePart);
