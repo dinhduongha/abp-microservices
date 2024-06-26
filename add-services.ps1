@@ -11,13 +11,13 @@ $ui_enable = "True"
 $admin_name = "Admin"
 
 $services = @{}
-$services.Add('Admin', 'admin') # Use Core App
+#$services.Add('Admin', 'admin') # Use Core App
 #$services.Add('Base', 'base')
 #$services.Add('Blog', 'blog')
 #$services.Add('Docs', 'docs')
 #$services.Add('Support', 'support')
 #$services.Add('Forum', 'forum')
-#$services.Add('Core', 'core')
+$services.Add('Core', 'core')
 #$services.Add('Crm', 'crm')
 #$services.Add('Sales', 'sales')
 #$services.Add('Pos', 'pos')
@@ -180,7 +180,7 @@ function AdminServiceAddReference {
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.AuditLogging.EntityFrameworkCore -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.BackgroundJobs.EntityFrameworkCore -v $abpver
 	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Volo.Abp.BlobStoring.Database.EntityFrameworkCore -v $abpver
-	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Microsoft.EntityFrameworkCore.Tools -v "8.0.*"
+	dotnet add $name/services/$folder/src/$name.$admin.EntityFrameworkCore/$name.$admin.EntityFrameworkCore.csproj package Microsoft.EntityFrameworkCore.Tools -v "8.0.4"
 
 	## HTTP API
 	dotnet add $name/services/$folder/src/$name.$admin.HttpApi/$name.$admin.HttpApi.csproj package Volo.Abp.Account.HttpApi -v $abpver
@@ -420,33 +420,43 @@ function CreateServices {
 			
             }
 		}
-
+		
 		# DBMigrator
-		if ($service -eq $admin_name) 
-		{
-			$migrator_path = "./$name/services/$folder/src"
-			dotnet new console -n "$name.$service.DbMigrator" -o $migrator_path/$name.$service.DbMigrator
+		#if ($service -eq $admin_name)
+		#{
+			Write-Output "CREATE DbMigrator"
+			$migrator_path = "./$name/services/$folder/host"
+			Write-Output "dotnet new console -n "$name.$service.DbMigrator" -o "$migrator_path/$name.$service.DbMigrator""
+			dotnet new console -n "$name.$service.DbMigrator" -o "$migrator_path/$name.$service.DbMigrator"
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Microsoft.EntityFrameworkCore.Tools -v "8.0.4"
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Microsoft.Extensions.Hosting -v "8.0.*"
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Extensions.Logging -v "3.1.0"
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.Async -v "1.5.0"
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.File -v "5.0.0"
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.ColoredConsole -v "3.0.1"	
-			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Autofac -v $abpver	
-			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.BackgroundJobs -v $abpver
-			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Identity.Domain -v $abpver
-			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.TenantManagement.Domain -v $abpver	
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Autofac -v $abpver
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql -v $abpver
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj
-			Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination $migrator_path/$name.$service.DbMigrator/ -recurse -Force
-			if ($service -ne $admin_name) {
-				Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination $migrator_path/$name.$service.DbMigrator/ -recurse -Force
+			#Copy-Item -Path "./libs/Domain/*" -Destination "$migrator_path/$name.$service.Domain/" -recurse -Force
+			#Copy-Item -Path "./libs/EntityFrameworkCore/*" -Destination $migrator_path/$name.$service.EntityFrameworkCore/ -recurse -Force
+			Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination "$migrator_path/$name.$service.DbMigrator/" -recurse -Force
+			#if ($service -ne $admin_name) {
+			#	Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination "$migrator_path/$name.$service.DbMigrator/" -recurse -Force
+			#}
+			if ($service -eq $admin_name) {
+				#Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination "$migrator_path/$name.$service.DbMigrator/" -recurse -Force
+				dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.BackgroundJobs -v $abpver
+				dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Identity.Domain -v $abpver
+				dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.TenantManagement.Domain -v $abpver
 			}
+
 			if ($use_share  -eq "True") {
 				dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference "$shared_folder/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj"
 			} else {
 				dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./$name/services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj
 			}
-			dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder src $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj
-		}
+			dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder host $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj
+		#}
 		# End DBMigrator
 
 		dotnet add $shared_folder/"$name.$service".Domain.Shared/"$name.$service".Domain.Shared.csproj reference ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
@@ -541,6 +551,29 @@ function CreateServices {
 			dotnet add ./$name/$apps_path/$folder/src/$name.$service.Web/$name.$service.Web.csproj package Volo.CmsKit.Public.Web -v $abpver
 			CmsKitAddReference
 		}
+		Remove-Item -Recurse -Force ./$name/services/$folder/host/$name.$service.HttpApi.Host/Migrations
+		#Remove-Item -Recurse -Force ./$name/services/$folder/host/$name.$service.DbMigrator/Migrations
+		# Write-Output "abp create-migration-and-run-migrator ./$name/services/$folder/src/$name.$service.Core.EntityFrameworkCore"
+
+		# MIGRATIONS
+		Write-Output "MIGRATIONS: " 
+		Write-Output "dotnet ef migrations add Initial --startup-project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --project ./$name/services/$folder/src/$name.$service.Core.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj --context "$service"DbContext"
+		Write-Output "dotnet ef migrations add Initial --project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --context "$service"DbContext"
+		#dotnet ef migrations add Initial --startup-project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --project ./$name/services/$folder/src/$name.$service.Core.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj --context $service"DbContext"
+		dotnet ef migrations add Initial --project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj
+
+		# Update database
+		Write-Output "UPDATE DATABASE" 
+		Write-Output "dotnet ef database update --startup-project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --project ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj --context "$service"DbContext"
+		Write-Output "dotnet ef database update --project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --context "$service"DbContext"
+		#dotnet ef database update --startup-project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --project ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj --context $service"DbContext"
+		#dotnet ef database update --project ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj --context $service"DbContext"
+
+		# TEST
+		# dotnet ef migrations add Initial --startup-project ./Bamboo/services/core/host/Bamboo.Core.HttpApi.Host/Bamboo.Core.HttpApi.Host.csproj --project ./Bamboo/services/core/src/Bamboo.Core.EntityFrameworkCore/Bamboo.Core.EntityFrameworkCore.csproj --context CoreDbContext
+		# dotnet ef migrations add Initial --project ./Bamboo/services/core/host/Bamboo.Core.HttpApi.Host/Bamboo.Core.HttpApi.Host.csproj
+		# dotnet ef migrations add Initial --project ./Bamboo/services/core/host/Bamboo.Core.DbMigrator/Bamboo.Core.DbMigrator.csproj
+
 	}
 }
 
