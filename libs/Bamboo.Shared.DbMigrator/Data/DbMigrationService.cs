@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
-using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.TenantManagement;
 
@@ -97,11 +96,13 @@ public class DbMigrationService : ITransientDependency
     private async Task SeedDataAsync(Tenant? tenant = null)
     {
         Logger.LogInformation($"Executing {(tenant == null ? "host" : tenant.Name + " tenant")} database seed...");
-
+        /*
+        // For Admin module 
         await _dataSeeder.SeedAsync(new DataSeedContext(tenant?.Id)
             .WithProperty(IdentityDataSeedContributor.AdminEmailPropertyName, IdentityDataSeedContributor.AdminEmailDefaultValue)
             .WithProperty(IdentityDataSeedContributor.AdminPasswordPropertyName, IdentityDataSeedContributor.AdminPasswordDefaultValue)
         );
+        */
     }
 
     private bool AddInitialMigrationIfNotExist()

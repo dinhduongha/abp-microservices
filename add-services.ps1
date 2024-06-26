@@ -383,7 +383,9 @@ function CreateServices {
 				Move-Item -Path "./$name/services/$folder/host/$name.$service.Web.Host" -Destination "./$name/$apps_path/$folder/host/$name.$service.Web.Host" -Force
 				Move-Item -Path "./$name/services/$folder/host/$name.$service.Web.Unified" -Destination "./$name/$apps_path/$folder/host/$name.$service.Web.Unified" -Force
 
+				# Angular client
 				Move-Item -Path "./$name/services/$folder/angular" -Destination "./$name/$apps_path/angular/$folder" -Force
+				
 				#if (-not(Test-Path -Path "./$name/$apps_path/angular/projects/dev-app")) {
 				#	Move-Item -Path "./$name/services/$folder/angular/projects/dev-app" -Destination "./$name/$apps_path/angular/projects/" -Force
 				#}
@@ -435,6 +437,8 @@ function CreateServices {
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.File -v "5.0.0"
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Serilog.Sinks.ColoredConsole -v "3.0.1"	
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Autofac -v $abpver
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.BackgroundJobs -v $abpver
+			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.TenantManagement.EntityFrameworkCore -v $abpver
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.EntityFrameworkCore.PostgreSql -v $abpver
 			dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj reference ./$name/services/$folder/src/$name.$service.EntityFrameworkCore/$name.$service.EntityFrameworkCore.csproj
 			#Copy-Item -Path "./libs/Domain/*" -Destination "$migrator_path/$name.$service.Domain/" -recurse -Force
@@ -445,9 +449,9 @@ function CreateServices {
 			#}
 			if ($service -eq $admin_name) {
 				#Copy-Item -Path "./libs/Bamboo.Shared.DbMigrator/*" -Destination "$migrator_path/$name.$service.DbMigrator/" -recurse -Force
-				dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.BackgroundJobs -v $abpver
+				#dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.BackgroundJobs -v $abpver
 				dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.Identity.Domain -v $abpver
-				dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.TenantManagement.Domain -v $abpver
+				#dotnet add $migrator_path/$name.$service.DbMigrator/$name.$service.DbMigrator.csproj package Volo.Abp.TenantManagement.Domain -v $abpver
 			}
 
 			if ($use_share  -eq "True") {

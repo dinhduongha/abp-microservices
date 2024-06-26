@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Guids;
-using Volo.Abp.Identity;
-using Volo.Abp.MultiTenancy;
 
 class NullDataSeederContributor
         : IDataSeedContributor, ITransientDependency
