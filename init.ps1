@@ -228,21 +228,25 @@ function CreateCoreApp  {
 	#dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle reference $name/$shared_common/$name.Shared.Microservices/$name.Shared.Microservices.csproj
 
 	if ($use_share -eq "True") {
+		dotnet sln "$app_path/$app_name/$app_name.sln" remove $app_path/$app_name/src/$app_name.Blazor/$app_name.Blazor.csproj		
 		dotnet sln "$app_path/$app_name/$app_name.sln" remove $app_path/$app_name/src/$app_name.Blazor.Client/$app_name.Blazor.Client.csproj
-		dotnet sln "$app_path/$app_name/$app_name.sln" remove $app_path/$app_name/src/$app_name.Blazor/$app_name.Blazor.csproj
 		dotnet sln "$app_path/$app_name/$app_name.sln" remove $app_path/$app_name/src/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj
 		dotnet sln "$app_path/$app_name/$app_name.sln" remove $app_path/$app_name/src/$app_name.Application.Contracts/$app_name.Application.Contracts.csproj
 		dotnet sln "$app_path/$app_name/$app_name.sln" remove $app_path/$app_name/src/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj
 		
 		# Remove reference
+		Write-Output "Remove reference"
 		dotnet remove $app_path/$app_name/src/$app_name.Domain/$app_name.Domain.csproj reference "..\$app_name.Domain.Shared\$app_name.Domain.Shared.csproj"		
 		dotnet remove $app_path/$app_name/src/$app_name.Application/$app_name.Application.csproj reference "..\$app_name.Application.Contracts\$app_name.Application.Contracts.csproj"
 		dotnet remove $app_path/$app_name/src/$app_name.HttpApi/$app_name.HttpApi.csproj reference "..\$app_name.Application.Contracts\$app_name.Application.Contracts.csproj"
 		dotnet remove $app_path/$app_name/src/$app_name.DbMigrator/$app_name.DbMigrator.csproj reference "..\$app_name.Application.Contracts\$app_name.Application.Contracts.csproj"
+		dotnet remove $app_path/$app_name/src/$app_name.Blazor.Client/$app_name.Blazor.Client.csproj reference "..\..\src\$app_name.HttpApi.Client\$app_name.HttpApi.Client.csproj"
 		dotnet remove $app_path/$app_name/test/$app_name.HttpApi.Client.ConsoleTestApp/$app_name.HttpApi.Client.ConsoleTestApp.csproj reference "..\$app_name.HttpApi.Client\$app_name.HttpApi.Client.csproj"
+		
 		#dotnet remove $app_path/$app_name/src/$name.$service.Domain/$name.$service.Domain.csproj reference ./services/$folder/"$name.$service".Domain.Shared/"$name.$service".Domain.Shared.csproj
 		#dotnet remove $app_path/$app_name/src/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj reference  "..\$name.$service.Host.Shared\$name.$service.Host.Shared.csproj"
 
+		Write-Output "Move-Item"
 		Move-Item -Path "$app_path/$app_name/src/$app_name.Domain.Shared" -Destination "./$name/$app_shared/" -Force
 		Move-Item -Path "$app_path/$app_name/src/$app_name.Application.Contracts" -Destination "./$name/$app_shared/" -Force
 		Move-Item -Path "$app_path/$app_name/src/$app_name.HttpApi.Client" -Destination "./$name/$app_shared/" -Force
@@ -253,17 +257,21 @@ function CreateCoreApp  {
 		# For MVC
 		# Copy-Item -Path "$app_path/$app_name/src/$app_name.HttpApi" -Destination "./$name/$app_shared/" -recurse -Force
 
-		Copy-Item "$app_path/$app_name/$app_name.sln" ./$name/$apps_path/$app_admin/ -Force
-
+		Write-Output "Add reference"
+		dotnet add "$name/$app_shared/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj" reference $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
 		dotnet add $app_path/$app_name/src/$app_name.Domain/$app_name.Domain.csproj reference "$name/$app_shared/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj"
 		dotnet add $app_path/$app_name/src/$app_name.Application/$app_name.Application.csproj reference "$name/$app_shared/$app_name.Application.Contracts/$app_name.Application.Contracts.csproj"
 		dotnet add $app_path/$app_name/src/$app_name.HttpApi/$app_name.HttpApi.csproj reference "$name/$app_shared/$app_name.Application.Contracts/$app_name.Application.Contracts.csproj"
 		dotnet add $app_path/$app_name/src/$app_name.DbMigrator/$app_name.DbMigrator.csproj reference "$name/$app_shared/$app_name.Application.Contracts/$app_name.Application.Contracts.csproj"
+		dotnet add $name/$apps_path/$app_admin/$app_name.Blazor.Client/$app_name.Blazor.Client.csproj reference "$name/$app_shared/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj"
 		dotnet add $app_path/$app_name/test/$app_name.HttpApi.Client.ConsoleTestApp/$app_name.HttpApi.Client.ConsoleTestApp.csproj reference "$name/$app_shared/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj"
 
-		#dotnet sln "./$name/$apps_path/$app_admin/$app_name.sln"  add --solution-folder shared (Get-ChildItem -r $name/$shared_common/**/*.csproj)
-		#dotnet sln "./$name/$apps_path/$app_admin/$app_name.sln"  add --solution-folder shared (Get-ChildItem -r $name/$shared_folder/**/*.csproj)
-		#dotnet sln "./$name/$apps_path/$app_admin/$app_name.sln"  add --solution-folder src (Get-ChildItem -r $name/$apps_path/$app_admin/**/*.csproj)
+		#Copy-Item "$app_path/$app_name/$app_name.sln" ./$name/$apps_path/$app_admin/ -Force
+		dotnet new sln -n "$app_name" -o ./$name/$apps_path/$app_admin
+		#dotnet sln "./$name/$apps_path/$app_admin/$app_name.sln"  add --solution-folder shared (Get-ChildItem -r $name/$shared_common/$name.Shared.Common/**/*.csproj)
+		dotnet sln "./$name/$apps_path/$app_admin/$app_name.sln"  add --solution-folder shared $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
+		dotnet sln "./$name/$apps_path/$app_admin/$app_name.sln"  add --solution-folder shared (Get-ChildItem -r $name/$app_shared/**/*.csproj)
+		dotnet sln "./$name/$apps_path/$app_admin/$app_name.sln"  add --solution-folder src (Get-ChildItem -r $name/$apps_path/$app_admin/**/*.csproj)
 
 		dotnet sln "$app_path/$app_name/$app_name.sln"  add --solution-folder shared (Get-ChildItem -r $name/$shared_common/**/*.csproj)
 		dotnet sln "$app_path/$app_name/$app_name.sln"  add --solution-folder shared (Get-ChildItem -r $name/$app_shared/**/*.csproj)			
@@ -277,53 +285,51 @@ function CreateCoreApp  {
 		# Copy-Item -Path "./libs/Bamboo.Shared.Common/Utils" -Destination $app_path/$app_name/src/$app_name.Domain.Shared/ -recurse -Force
 	}
 
-	if (0) {
-		Write-Output "Add Extensions"
-		Copy-Item -Path "./libs/Bamboo.AdminExtensions" -Destination $app_path/$app_name/src/$name.AdminExtensions -recurse -Force
-		Move-Item -Path $app_path/$app_name/src/$name.AdminExtensions/Bamboo.AdminExtensions.csproj -Destination $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj -Force
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.AspNetCore.Mvc -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.AspNetCore.MultiTenancy -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Autofac -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Caching.StackExchangeRedis -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.DistributedLocking -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Sms -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Account.Application -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Account.HttpApi -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Identity.AspNetCore -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Identity.Application -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Identity.HttpApi -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Identity.EntityFrameworkCore -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.OpenIddict.Domain -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.SettingManagement.Application -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.TenantManagement.Application -v $abpver
-		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.TenantManagement.HttpApi -v $abpver
+	Write-Output "Add Extensions"
+	Copy-Item -Path "./libs/Bamboo.AdminExtensions" -Destination $app_path/$app_name/src/$name.AdminExtensions -recurse -Force
+	Move-Item -Path $app_path/$app_name/src/$name.AdminExtensions/Bamboo.AdminExtensions.csproj -Destination $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj -Force
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.AspNetCore.Mvc -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.AspNetCore.MultiTenancy -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Autofac -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Caching.StackExchangeRedis -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.DistributedLocking -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Sms -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Account.Application -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Account.HttpApi -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Identity.AspNetCore -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Identity.Application -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Identity.HttpApi -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.Identity.EntityFrameworkCore -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.OpenIddict.Domain -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.SettingManagement.Application -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.TenantManagement.Application -v $abpver
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.TenantManagement.HttpApi -v $abpver
 
-		
-		Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination $app_path/$app_name/src/$name.LoginUi.Web -recurse -Force
-		Move-Item -Path $app_path/$app_name/src/$name.LoginUi.Web/Bamboo.LoginUi.Web.csproj -Destination $app_path/$app_name/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj -Force
-		dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Caching.StackExchangeRedis -v $abpver
-		dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.DistributedLocking -v $abpver
-		dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Account.Web.OpenIddict -v $abpver
-		dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared -v $abpver
-		dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Identity.Web -v $abpver
-		dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.SettingManagement.Application -v $abpver
-		dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.TenantManagement.Application -v $abpver
-		dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Sms -v $abpver
+	
+	Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination $app_path/$app_name/src/$name.LoginUi.Web -recurse -Force
+	Move-Item -Path $app_path/$app_name/src/$name.LoginUi.Web/Bamboo.LoginUi.Web.csproj -Destination $app_path/$app_name/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj -Force
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Caching.StackExchangeRedis -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.DistributedLocking -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Account.Web.OpenIddict -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Identity.Web -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.SettingManagement.Application -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.TenantManagement.Application -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Sms -v $abpver
 
-		#Copy-Item -Path "./libs/Bamboo.AdminExtensions" -Destination $app_path/$app_name/src/$name.AdminExtensions -recurse -Force
-		#Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination $app_path/$app_name/src/$name.LoginUi.Web -recurse -Force
-		
-		#dotnet add $app_path/$app_name/src/$name.AuthServer reference $app_path/$app_name/src/$name.AdminExtensions
-		dotnet add $app_path/$app_name/src/$app_name.AuthServer reference $app_path/$app_name/src/$name.LoginUi.Web
-		dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.AdminExtensions
-		#dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.LoginUi.Web
-		dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host package Rebus.ServiceProvider -v 10.0.0
+	#Copy-Item -Path "./libs/Bamboo.AdminExtensions" -Destination $app_path/$app_name/src/$name.AdminExtensions -recurse -Force
+	#Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination $app_path/$app_name/src/$name.LoginUi.Web -recurse -Force
+	
+	#dotnet add $app_path/$app_name/src/$name.AuthServer reference $app_path/$app_name/src/$name.AdminExtensions
+	dotnet add $app_path/$app_name/src/$app_name.AuthServer reference $app_path/$app_name/src/$name.LoginUi.Web
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.AdminExtensions
+	#dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.LoginUi.Web
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host package Rebus.ServiceProvider -v 10.1.2
 
-		dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle reference $app_path/$app_name/src/$name.AdminExtensions
-		dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle reference $app_path/$app_name/src/$name.LoginUi.Web
-		dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle package Rebus.ServiceProvider -v 10.0.0
-	}
-
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle reference $app_path/$app_name/src/$name.AdminExtensions
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle reference $app_path/$app_name/src/$name.LoginUi.Web
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle package Rebus.ServiceProvider -v 10.1.2
+	
 	Write-Output "PATH: $app_path/$app_name"
 
 	dotnet sln "$app_path/$app_name/$app_name.sln" remove $app_path/$app_name/src/$app_name.Blazor/$app_name.Blazor.csproj
@@ -461,9 +467,10 @@ function AppAddSource {
 	#abp add-module Volo.TenantManagement -s "./$services_path/$sln_admin.sln" --skip-db-migrations
 }
 
-#CreatePath
-#CreateCoreLibs
+CreatePath
+CreateCoreLibs
 #CreateGateways
 CreateCoreApp
+#CreateExtraApp
 
 cmd /c pause

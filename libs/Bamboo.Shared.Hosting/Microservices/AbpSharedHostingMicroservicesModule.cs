@@ -83,7 +83,7 @@ public class AbpSharedHostingMicroservicesModule : AbpModule
 
         ConfigureCache(context, configuration);
         ConfigureRedis(context, configuration);
-        ConfigureDataProtection(context, configuration, hostingEnvironment);
+        ConfigureDataProtection(context, configuration);
         ConfigureDistributedLocking(context, configuration);
         ConfigureHangfire(context, configuration);
     }
