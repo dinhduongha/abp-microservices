@@ -1,6 +1,6 @@
 $name = $args[0]
 $name = "Bamboo"
-$abpver = "8.2.0-rc.5"
+$abpver = "8.2.0"
 
 $apps_path = "apps"
 
@@ -301,7 +301,7 @@ function CreateServices {
 			dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.Application.Contracts/$name.$service.Application.Contracts.csproj)
 			dotnet sln ./$name/services/$folder/$name.$service.sln remove (Get-ChildItem -r ./$name/services/$folder/src/$name.$service.HttpApi.Client/$name.$service.HttpApi.Client.csproj)
 
-			Copy-Item "./$name/services/$folder/$name.$service.sln" -Destination "./$name/services/$folder/$name.$service-apps.sln" -Force			
+			Copy-Item "./$name/services/$folder/$name.$service.sln" -Destination "./$name/services/$folder/$name.$service-apps.sln" -Force
 			dotnet sln ./$name/services/$folder/$name.$service-apps.sln remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.AuthServer/$name.$service.AuthServer.csproj)
 			dotnet sln ./$name/services/$folder/$name.$service-apps.sln remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.Host.Shared/$name.$service.Host.Shared.csproj)
 			dotnet sln ./$name/services/$folder/$name.$service-apps.sln remove (Get-ChildItem -r ./$name/services/$folder/host/$name.$service.HttpApi.Host/$name.$service.HttpApi.Host.csproj)
