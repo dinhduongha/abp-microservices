@@ -248,6 +248,10 @@ function CreateServices {
 	if (-not(Test-Path -Path "./$name/services/$sln_service.sln" -PathType Leaf)) {
 		#dotnet new sln -n "$sln_service" -o ./services
 	}
+	if (-not(Test-Path -Path "./$name/$apps_path/angular")) {
+		new-item "./$name/$apps_path/angular" -itemtype directory
+	}
+
 	#dotnet sln "./$apps_path/$name.Web.Blazor.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
 	#dotnet sln "./$apps_path/$name.Web.BlazorServer.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
 	#dotnet sln "./$apps_path/$name.Web.MVC.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
@@ -261,15 +265,17 @@ function CreateServices {
 		}
 		if ($use_share -eq "True") {
 			$shared_folder = "./$name/shared/$folder"
-			new-item "$shared_folder" -itemtype directory			
+			new-item "$shared_folder" -itemtype directory
 		} else {
-			$shared_folder = "./$nameservices/$folder/src"		
+			$shared_folder = "./$name.$services/$folder/src"		
 		}
 		
 		if ($ui_enable -eq "True") {
-			new-item "./$name/$apps_path/$folder/src" -itemtype directory
-			new-item "./$name/$apps_path/$folder/host" -itemtype directory
-	        Copy-Item "./common.props*" -Destination "./$name/$apps_path/$folder/" -Force
+			if ($use_share -eq "True") {
+				new-item "./$name/$apps_path/$folder/src" -itemtype directory
+				new-item "./$name/$apps_path/$folder/host" -itemtype directory			
+				Copy-Item "./common.props*" -Destination "./$name/$apps_path/$folder/" -Force
+			}
 			#abp new "Bamboo.Base" -t module --no-open -o Bamboo/services/base --skip-installing-libs
 			abp new "$name.$service" -t module --no-open --no-random-port -dbms PostgreSQL -o $name/services/$folder --skip-installing-libs -v $abpver
 		} else {
@@ -421,6 +427,8 @@ function CreateServices {
 				dotnet add ./$name/services/$folder/test/$name.$service.HttpApi.Client.ConsoleTestApp/$name.$service.HttpApi.Client.ConsoleTestApp.csproj reference "$shared_folder/$name.$service.HttpApi.Client/$name.$service.HttpApi.Client.csproj"
 			
             }
+		} else {
+
 		}
 		
 		# DBMigrator
@@ -484,11 +492,15 @@ function CreateServices {
 		Write-Output "ADD SHARED PROJECT TO SOLUTIONS"
 		Write-Output "Solution: add to ./$name/services/$folder/$name.$service.sln" 
 		dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/**/*.csproj)
-		dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r $shared_folder/**/*.csproj)			
+		if ($use_share  -eq "True") {
+			dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r $shared_folder/**/*.csproj)			
+		}
 
 		Write-Output "Solution: add to ./$name/$apps_path/$folder/$name.$service.sln" 
 		dotnet sln "./$name/$apps_path/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r ./$shared_common/**/*.csproj)
-		dotnet sln "./$name/$apps_path/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r $shared_folder/**/*.csproj)			
+		if ($use_share  -eq "True") {
+			dotnet sln "./$name/$apps_path/$folder/$name.$service.sln" add --solution-folder shared (Get-ChildItem -r $shared_folder/**/*.csproj)			
+		}
 
 		if ($ui_enable -eq "True") {
 			#dotnet sln "./$name/services/$folder/$name.$service.sln" add --solution-folder "ui/shared"(Get-ChildItem -r ./$name/$apps_path/$folder/src/**/*.csproj)

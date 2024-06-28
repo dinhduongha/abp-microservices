@@ -199,7 +199,7 @@ function CreateCoreApp  {
 	if (-not(Test-Path -Path "$name/$apps_path/$app_admin")){
 		new-item "$name/$apps_path/$app_admin" -itemtype directory
 	}
-	dotnet new sln -n "$sln_admin" -o ./$name/$services_path
+	dotnet new sln -n "$sln_admin" -o ./$name/$services_path --force
 	
 	## Blazor Client
 	# abp new "Bamboo" -t app --no-open --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o temp/$name-blazor
@@ -304,31 +304,27 @@ function CreateCoreApp  {
 	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.SettingManagement.Application -v $abpver
 	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.TenantManagement.Application -v $abpver
 	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.TenantManagement.HttpApi -v $abpver
-
-	
+	dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj package Volo.Abp.EventBus.Rebus -v $abpver
+		
 	Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination $app_path/$app_name/src/$name.LoginUi.Web -recurse -Force
 	Move-Item -Path $app_path/$app_name/src/$name.LoginUi.Web/Bamboo.LoginUi.Web.csproj -Destination $app_path/$app_name/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj -Force
 	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Caching.StackExchangeRedis -v $abpver
 	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.DistributedLocking -v $abpver
 	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Account.Web.OpenIddict -v $abpver
+	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Account.HttpApi -v $abpver
 	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared -v $abpver
 	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Identity.Web -v $abpver
 	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.SettingManagement.Application -v $abpver
 	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.TenantManagement.Application -v $abpver
 	dotnet add $app_path/$app_name/src/$name.LoginUi.Web package Volo.Abp.Sms -v $abpver
 
+	if ($use_share -eq "True") {
+		dotnet add $app_path/$app_name/src/$name.LoginUi.Web/$name.LoginUi.Web.csproj reference "$name/$app_shared/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj"
+		dotnet add $app_path/$app_name/src/$name.AdminExtensions/$name.AdminExtensions.csproj reference "$name/$app_shared/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj"
+	}
 	#Copy-Item -Path "./libs/Bamboo.AdminExtensions" -Destination $app_path/$app_name/src/$name.AdminExtensions -recurse -Force
 	#Copy-Item -Path "./libs/Bamboo.LoginUi.Web" -Destination $app_path/$app_name/src/$name.LoginUi.Web -recurse -Force
 	
-	#dotnet add $app_path/$app_name/src/$name.AuthServer reference $app_path/$app_name/src/$name.AdminExtensions
-	dotnet add $app_path/$app_name/src/$app_name.AuthServer reference $app_path/$app_name/src/$name.LoginUi.Web
-	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.AdminExtensions
-	#dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.LoginUi.Web
-	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host package Rebus.ServiceProvider -v 10.1.2
-
-	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle reference $app_path/$app_name/src/$name.AdminExtensions
-	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle reference $app_path/$app_name/src/$name.LoginUi.Web
-	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle package Rebus.ServiceProvider -v 10.1.2
 	
 	Write-Output "PATH: $app_path/$app_name"
 
@@ -337,7 +333,18 @@ function CreateCoreApp  {
 	#dotnet sln "$app_path/$app_name/$app_name.sln" add --solution-folder src (Get-ChildItem -r $name/$shared_common/$name.Shared.Microservices/**/*.csproj)
 	#dotnet sln "$app_path/$app_name/$app_name.sln" add --solution-folder src (Get-ChildItem -r $name/$shared_common/$name.Shared.Hosting/**/*.csproj)
 
-	dotnet sln "./$name/$services_path/$sln_admin.sln" add (Get-ChildItem -r $app_path/$app_name/src/**/*.csproj)	
+	#dotnet sln "./$name/$services_path/$sln_admin.sln" add (Get-ChildItem -r $app_path/$app_name/src/**/*.csproj)	
+
+	#dotnet add $app_path/$app_name/src/$name.AuthServer reference $app_path/$app_name/src/$name.AdminExtensions
+	dotnet add $app_path/$app_name/src/$app_name.AuthServer reference $app_path/$app_name/src/$name.LoginUi.Web
+	
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.AdminExtensions
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host reference $app_path/$app_name/src/$name.LoginUi.Web
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host package Rebus.ServiceProvider -v 10.1.2
+
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle reference $app_path/$app_name/src/$name.AdminExtensions
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle reference $app_path/$app_name/src/$name.LoginUi.Web
+	dotnet add $app_path/$app_name/src/$app_name.HttpApi.Host.Bundle package Rebus.ServiceProvider -v 10.1.2
 
 }
 
@@ -470,7 +477,7 @@ function AppAddSource {
 CreatePath
 CreateCoreLibs
 #CreateGateways
-CreateCoreApp
+#CreateCoreApp
 #CreateExtraApp
 
 cmd /c pause

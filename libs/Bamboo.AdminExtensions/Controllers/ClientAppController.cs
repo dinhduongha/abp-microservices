@@ -4,15 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 
 using Volo.Abp.AspNetCore.Mvc;
 using Bamboo.AdminExtensions.Dtos;
+using Volo.Abp;
+
 namespace Bamboo.AdminExtensions;
 
 [Produces("application/json")]
 [Route("api/admin/client-app")]
-[Authorize]
-public class ClientAppController : AbpController
+[Authorize(Roles="admin")]
+public class HostClientAppController : AbpController
 {
     private readonly ClientAppService _clientAppService;
-    public ClientAppController(ClientAppService clientAppService)
+    public HostClientAppController(ClientAppService clientAppService)
     {
         this._clientAppService = clientAppService;
     }
@@ -20,6 +22,10 @@ public class ClientAppController : AbpController
     [HttpGet]
     public async Task<ActionResult<List<ClientAppDto>>> GetListAsync()
     {
+        if (CurrentUser.TenantId != null)
+        {
+            throw new UserFriendlyException("Only host users can access features");
+        }
         var clients = await _clientAppService.GetListAsync();
         return Ok(clients);
     }
@@ -27,6 +33,10 @@ public class ClientAppController : AbpController
     [HttpGet("{id}")]
     public async Task<ActionResult<ClientAppDto>> GetAsync(Guid id)
     {
+        if (CurrentUser.TenantId != null)
+        {
+            throw new UserFriendlyException("Only host users can access features");
+        }
         var client = await _clientAppService.GetAsync(id);
         return Ok(client);
     }
@@ -34,6 +44,10 @@ public class ClientAppController : AbpController
     [HttpPost]
     public async Task<ActionResult<ClientAppDto>> CreateAsync([FromBody] ClientAppDto input)
     {
+        if (CurrentUser.TenantId != null)
+        {
+            throw new UserFriendlyException("Only host users can access features");
+        }
         var client = await _clientAppService.CreateAsync(input);
         return Ok(client);
     }
@@ -41,6 +55,10 @@ public class ClientAppController : AbpController
     [HttpPut("{id}")]
     public async Task<ActionResult<ClientAppDto>> UpdateAsync(Guid id, [FromBody] ClientAppDto input)
     {
+        if (CurrentUser.TenantId != null)
+        {
+            throw new UserFriendlyException("Only host users can access features");
+        }
         var client = await _clientAppService.UpdateAsync(id, input);
         return Ok(client);
     }
@@ -48,6 +66,10 @@ public class ClientAppController : AbpController
     [HttpPost("add-redirect-uri/{id}")]
     public async Task<ActionResult<ClientAppDto>> AddRedirectUriAsync(Guid id, string redirectUri)
     {
+        if (CurrentUser.TenantId != null)
+        {
+            throw new UserFriendlyException("Only host users can access features");
+        }
         var client = await _clientAppService.AddRedirectUriAsync(id, redirectUri);
         return Ok(client);
     }
@@ -55,6 +77,10 @@ public class ClientAppController : AbpController
     [HttpPost("add-post-logout-redirect-uri/{id}")]
     public async Task<ActionResult<ClientAppDto>> AddPostLogoutRedirectUriAsync(Guid id, string redirectUri)
     {
+        if (CurrentUser.TenantId != null)
+        {
+            throw new UserFriendlyException("Only host users can access features");
+        }
         var client = await _clientAppService.AddPostLogoutRedirectUriAsync(id, redirectUri);
         return Ok(client);
     }
@@ -62,6 +88,10 @@ public class ClientAppController : AbpController
     [HttpPost("update-client-type/{id}")]
     public async Task<ActionResult<ClientAppDto>> UpdateClientTypeAsync(Guid id, string clientType)
     {
+        if (CurrentUser.TenantId != null)
+        {
+            throw new UserFriendlyException("Only host users can access features");
+        }
         var client = await _clientAppService.UpdateClientTypeAsync(id, clientType);
         return Ok(client);
     }
@@ -69,6 +99,10 @@ public class ClientAppController : AbpController
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteAsync(Guid id)
     {
+        if (CurrentUser.TenantId != null)
+        {
+            throw new UserFriendlyException("Only host users can access features");
+        }
         await _clientAppService.DeleteAsync(id);
         return Ok();
     }

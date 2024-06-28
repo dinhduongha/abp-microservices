@@ -26,18 +26,29 @@ using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.Account.Settings;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.Settings;
+using Volo.Abp.EventBus.Rebus;
+using Rebus.PostgreSql;
+using Rebus.Config;
+using Rebus.Persistence.FileSystem;
+using Rebus.Transport.InMem;
+using Rebus.Persistence.InMem;
 
-namespace Bamboo.Authentication;
+namespace Bamboo.AdminExtensions;
 [DependsOn(
     typeof(AbpAutofacModule),
     typeof(AbpCachingModule),
     typeof(AbpIdentityHttpApiModule),
     typeof(AbpAccountHttpApiModule),
     typeof(AbpSmsModule))]
-public class BambooAuthenticationModule : AbpModule
+public class AbpAdminExtensionsModule : AbpModule
 {
+    public override void PreConfigureServices(ServiceConfigurationContext context)
+    {
+    }
+
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        
         var configuration = context.Services.GetConfiguration();
 
         context.Services.AddHttpClient();
