@@ -54,9 +54,9 @@ function CreatePath {
 	Copy-Item "./libs/global.json" -Destination ./$name/$apps_path -Force
 
 	dotnet new sln -n "$sln_service" -o ./$name/services # --force
-	dotnet new sln -n "$sln_webs.Blazor" -o ./$name/$apps_path
-	dotnet new sln -n "$sln_webs.BlazorServer" -o ./$name/$apps_path
-	dotnet new sln -n "$sln_webs.MVC" -o ./$name/$apps_path
+	dotnet new sln -n "$sln_webs.Blazor" -o ./$name/$apps_path --force
+	dotnet new sln -n "$sln_webs.BlazorServer" -o ./$name/$apps_path --force
+	dotnet new sln -n "$sln_webs.MVC" -o ./$name/$apps_path --force
 }
 
 
@@ -354,14 +354,6 @@ function CreateExtraApp  {
 		$app_shared = "$app_path/$app_name/src"
 	}
 
-	## Blazor --separate-identity-server
-	#abp new "$name" -t app --no-open --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -m none -o temp/$name-blazor-bundle
-	#abp new "$app_name" -t app --no-open --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -m none -o $app_path -v $abpver
-	#Remove-Item -Recurse -Force $app_path/$app_name/src/$app_name.Blazor
-	#Copy-Item -Path $app_path/$app_name/src/$app_name.Blazor -Destination ./$name/$apps_path/"$name.Blazor" -recurse -Force
-	#Move-Item -Path $app_path/$app_name/src/$app_name.HttpApi.Saas.Host/$name.HttpApi.Host.csproj -Destination $app_path/$app_name/src/"$name.HttpApi.Saas.Host.csproj" -Force
-
-
 	# MAUI
 	# dotnet new mauiapp -f net8.0 --design-pattern Hybrid --razor-class-library --target-platform Desktop Mobile -n "Blazor.Maui" -o "$apps_path/maui"
 	# dotnet new mauiapp -f net8.0 --design-pattern Hybrid --razor-class-library --target-platform Desktop Mobile -n "$name.Maui" -o "$name/$apps_path/maui"
@@ -375,30 +367,64 @@ function CreateExtraApp  {
 	# abp new "$name.Server" -t app-nolayers --no-open --no-random-port --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -u none --skip-bundling -o $name/$services_path -v $abpver
 
 	## Angular
-	abp new "$name" -t app --no-open --no-random-port -u angular --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server  --skip-installing-libs -m react-native -o temp/$name-angular -v $abpver
-	Move-Item -Path ./temp/$name-angular/$name/angular -Destination ./$name/$apps_path/angular/app -Force
-	Move-Item -Path ./temp/$name-angular/$name/react-native -Destination ./$name/mobile/ -Force
+	# abp new Bamboo -t app --no-open --no-random-port -u angular -m react-native --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs --skip-bundling --with-public-website -o temp/blazor-angular --pwa
+	#abp new "$name" -t app --no-open --no-random-port -u angular -m react-native --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -o temp/$name-angular -v $abpver
+	#Move-Item -Path ./temp/$name-angular/$name/angular -Destination ./$name/$apps_path/angular/app -Force
+	#Move-Item -Path ./temp/$name-angular/$name/react-native -Destination ./$name/mobile/ -Force
 
 	## Blazor Client
-	# abp new Bamboo -t app --no-open --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs -m none --skip-bundling --with-public-website -o temp/ -v 8.0.1  --pwa
-	# abp new Bamboo -t app --no-open --no-random-port -u blazor --database-provider ef -dbms SQLite --create-solution-folder --skip-installing-libs -m none --skip-bundling --with-public-website -o temp/ -v 8.0.1 --pwa
+	# abp new Bamboo -t app --no-open --no-random-port -u blazor -m none --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs --skip-bundling --with-public-website -o temp/blazor-client-bundle --pwa
+	# abp new Bamboo -t app --no-open --no-random-port -u blazor -m none --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs --skip-bundling --with-public-website -o temp/blazor-client-tiered --pwa
+	# abp new Bamboo -t app --no-open --no-random-port -u blazor -m none --database-provider ef -dbms SQLite --create-solution-folder --skip-installing-libs --skip-bundling --with-public-website -o temp/blazor-client-sqlite -v 8.0.1 --pwa
 
-	abp new "$name" -t app --no-open --no-random-port -u blazor --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -m none --skip-bundling -o temp/$name-blazor-client -v $abpver
-	Copy-Item -Path temp/$name-blazor-client/$name/src/$name.Blazor -Destination ./$name/$apps_path/"$name.Blazor" -recurse -Force
+	abp new "$name" -t app --no-open --no-random-port -u blazor -m none --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs --skip-bundling -o temp/$name-blazor-client-bundle -v $abpver
+	#Copy-Item -Path temp/$name-blazor-client-bundle/$name/src/$name.Blazor -Destination ./$name/$apps_path/"$name.Blazor" -recurse -Force
+	#dotnet remove ./$name/$apps_path/$name.Blazor/$name.Blazor.csproj reference "..\..\src\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
+	#dotnet add ./$name/$apps_path/$name.Blazor/$name.Blazor.csproj reference $name/$app_shared/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj
+	#dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add --solution-folder shared (Get-ChildItem -r $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
+	#dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add --solution-folder shared (Get-ChildItem -r $name/$app_shared/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj)
+	#dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add --solution-folder shared (Get-ChildItem -r $name/$app_shared/$app_name.Application.Contracts/$app_name.Application.Contracts.csproj)
+	#dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add --solution-folder shared (Get-ChildItem -r $name/$app_shared/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj)
+	#dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add (Get-ChildItem -r ./$name/$apps_path/$name.Blazor/**/*.csproj)
 
-	dotnet remove ./$name/$apps_path/$name.Blazor/$name.Blazor.csproj reference "..\..\src\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
-	dotnet add ./$name/$apps_path/$name.Blazor/$name.Blazor.csproj reference $name/$app_shared/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj	
-	
+	Write-Output "Create Blazor Wasm project"
+	## Blazor --separate-identity-server
+	abp new "$name" -t app --no-open --no-random-port -u blazor -m none --database-provider ef -dbms PostgreSQL --create-solution-folder --separate-auth-server --skip-installing-libs --skip-bundling --with-public-website -v $abpver -o temp/$name-blazor-client-tiered
+	Copy-Item -Path temp/$name-blazor-client-tiered/$name/src/$name.Blazor -Destination ./$name/$apps_path/"$name.BlazorWasm" -recurse -Force
+	Move-Item ./$name/$apps_path/$name.BlazorWasm/$name.Blazor.csproj -Destination "./$name/$apps_path/$name.BlazorWasm/$name.BlazorWasm.csproj" -Force
+	Copy-Item -Path temp/$name-blazor-client-tiered/$name/src/$name.Blazor.Client -Destination ./$name/$apps_path/"$name.Blazor.Client" -recurse -Force
+	dotnet remove ./$name/$apps_path/$name.Blazor.Client/$name.Blazor.Client.csproj reference "..\..\src\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
+	dotnet add ./$name/$apps_path/$name.Blazor.Client/$name.Blazor.Client.csproj reference $name/$app_shared/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj
+
+	#Copy-Item -Path $app_path/$app_name/src/$app_name.Blazor -Destination ./$name/$apps_path/"$name.Blazor" -recurse -Force
+	#Move-Item -Path $app_path/$app_name/src/$app_name.HttpApi.Saas.Host/$name.HttpApi.Host.csproj -Destination $app_path/$app_name/src/"$name.HttpApi.Saas.Host.csproj" -Force
 	dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add --solution-folder shared (Get-ChildItem -r $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj)
 	dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add --solution-folder shared (Get-ChildItem -r $name/$app_shared/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj)
 	dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add --solution-folder shared (Get-ChildItem -r $name/$app_shared/$app_name.Application.Contracts/$app_name.Application.Contracts.csproj)
 	dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add --solution-folder shared (Get-ChildItem -r $name/$app_shared/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj)
-	dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add (Get-ChildItem -r ./$name/$apps_path/$name.Blazor/**/*.csproj)
+	dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add (Get-ChildItem -r ./$name/$apps_path/$name.Blazor.Client/**/*.csproj)
+	dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add (Get-ChildItem -r ./$name/$apps_path/$name.BlazorWasm/**/*.csproj)
 
+
+	Write-Output "Create Blazor WebApp project"
+	## Blazor Web-App
+	# abp new "Bamboo" -t app --no-open --no-random-port -u blazor-webapp -m none --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs --skip-bundling --with-public-website -o temp/blazor-webapp-bundle --pwa
+	# abp new "Bamboo" -t app --no-open --no-random-port -u blazor-webapp -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs --skip-bundling --with-public-website -o temp/blazor-webapp-tiered --pwa
+	# abp new "$name" -t app --no-open --no-random-port -u blazor-webapp -m none --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -o temp/$name-blazor-webapp-bundle -v $abpver
+
+	abp new "$name" -t app --no-open --no-random-port -u blazor-webapp -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -o temp/$name-blazor-webapp-tiered -v $abpver
+	Copy-Item -Path temp/$name-blazor-webapp-tiered/$name/src/$name.Blazor -Destination ./$name/$apps_path/"$name.BlazorWebApp" -recurse -Force
+	Move-Item ./$name/$apps_path/$name.BlazorWebApp/$name.Blazor.csproj -Destination "./$name/$apps_path/$name.BlazorWebApp/$name.BlazorWebApp.csproj" -Force
+	dotnet remove ./$name/$apps_path/$name.BlazorWebApp/$name.BlazorWebApp.csproj reference "..\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
+	dotnet add ./$name/$apps_path/$name.BlazorWebApp/$name.BlazorWebApp.csproj reference $name/$app_shared/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj
+	dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add (Get-ChildItem -r ./$name/$apps_path/$name.BlazorWebApp/**/*.csproj)
+
+	Write-Output "Create Blazor Server"
 	## Blazor Server
-	# abp new "Bamboo" -t app --no-open --no-random-port -u blazor-server -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder -o temp/blazor-server --skip-installing-libs
-	abp new "$name" -t app --no-open --no-random-port -u blazor-server -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -o temp/$name-blazor-server -v $abpver
-	Copy-Item -Path ./temp/$name-blazor-server/$name/src/$name.Blazor -Destination ./$name/$apps_path/$name.BlazorServer -recurse -Force
+	# abp new "Bamboo" -t app --no-open --no-random-port -u blazor-server -m none --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs --with-public-website -o temp/blazor-server-bundle 
+	# abp new "Bamboo" -t app --no-open --no-random-port -u blazor-server -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs --with-public-website -o temp/blazor-server-tiered 
+	abp new "$name" -t app --no-open --no-random-port -u blazor-server -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs --with-public-website -o temp/$name-blazor-server-tiered -v $abpver
+	Copy-Item -Path ./temp/$name-blazor-server-tiered/$name/src/$name.Blazor -Destination ./$name/$apps_path/$name.BlazorServer -recurse -Force
 	dotnet remove ./$name/$apps_path/$name.BlazorServer/$name.Blazor.csproj reference "..\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
 	dotnet add ./$name/$apps_path/$name.BlazorServer/$name.Blazor.csproj reference $name/$app_shared/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj	
 	Move-Item ./$name/$apps_path/$name.BlazorServer/$name.Blazor.csproj -Destination "./$name/$apps_path/$name.BlazorServer/$name.BlazorServer.csproj" -Force
@@ -406,12 +432,14 @@ function CreateExtraApp  {
 	dotnet sln ./$name/$apps_path/$sln_webs.BlazorServer.sln add --solution-folder shared (Get-ChildItem -r $name/$app_shared/$app_name.Domain.Shared/$app_name.Domain.Shared.csproj)
 	dotnet sln ./$name/$apps_path/$sln_webs.BlazorServer.sln add --solution-folder shared (Get-ChildItem -r $name/$app_shared/$app_name.Application.Contracts/$app_name.Application.Contracts.csproj)
 	dotnet sln ./$name/$apps_path/$sln_webs.BlazorServer.sln add --solution-folder shared (Get-ChildItem -r $name/$app_shared/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj)
-	dotnet sln ./$name/$apps_path/$sln_webs.BlazorServer.sln add (Get-ChildItem -r ./$name/$apps_path/$name.BlazorServer/**/*.csproj)	
+	dotnet sln ./$name/$apps_path/$sln_webs.BlazorServer.sln add (Get-ChildItem -r ./$name/$apps_path/$name.BlazorServer/**/*.csproj)
+	dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add (Get-ChildItem -r ./$name/$apps_path/$name.BlazorServer/**/*.csproj)	
 
+	Write-Output "Create MVC project"
 	## MVC
-	# abp new "Bamboo" -t app --no-open --no-random-port -u mvc -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder -o ./temp/mvc --skip-installing-libs
-	abp new "$name" -t app --no-open --no-random-port -u mvc -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -o ./temp/$name-mvc -v $abpver
-	Copy-Item -Path ./temp/$name-mvc/$name/src/$name.Web -Destination ./$name/$apps_path/ -recurse -Force
+	# abp new "Bamboo" -t app --no-open --no-random-port -u mvc -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder --with-public-website -o ./temp/mvc --skip-installing-libs
+	abp new "$name" -t app --no-open --no-random-port -u mvc -m none --tiered --database-provider ef -dbms PostgreSQL --create-solution-folder --skip-installing-libs -o ./temp/$name-mvc-tiered -v $abpver
+	Copy-Item -Path ./temp/$name-mvc-tiered/$name/src/$name.Web -Destination ./$name/$apps_path/ -recurse -Force
 	dotnet remove ./$name/$apps_path/$name.Web/$name.Web.csproj reference "..\$name.HttpApi.Client\$name.HttpApi.Client.csproj"
 	dotnet remove ./$name/$apps_path/$name.Web/$name.Web.csproj reference "..\$name.HttpApi\$name.HttpApi.csproj"	
 	dotnet add ./$name/$apps_path/$name.Web/$name.Web.csproj reference $name/$app_shared/$app_name.HttpApi.Client/$app_name.HttpApi.Client.csproj
@@ -438,7 +466,8 @@ function CreateExtraApp  {
 	#dotnet add ./$name/$apps_path/$name.Web/$name.Web.csproj package Newtonsoft.Json -v $ntsver
 	#dotnet add ./$name/$apps_path/$name.Web/$name.Web.csproj package Volo.Abp.Guids -v $abpver
 
-	dotnet add ./$name/$apps_path/$name.Blazor/$name.Blazor.csproj reference $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
+	Write-Output "Add other reference"
+	dotnet add ./$name/$apps_path/$name.Blazor.Client/$name.Blazor.Client.csproj reference $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
 	dotnet add ./$name/$apps_path/$name.BlazorServer/$name.BlazorServer.csproj reference $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
 	dotnet add ./$name/$apps_path/$name.Web/$name.Web.csproj reference $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
 	dotnet sln ./$name/$apps_path/$sln_webs.Blazor.sln add --solution-folder shared $name/$shared_common/$name.Shared.Common/$name.Shared.Common.csproj
@@ -475,9 +504,9 @@ function AppAddSource {
 }
 
 CreatePath
-CreateCoreLibs
+#CreateCoreLibs
 #CreateGateways
 #CreateCoreApp
-#CreateExtraApp
+CreateExtraApp
 
 cmd /c pause
