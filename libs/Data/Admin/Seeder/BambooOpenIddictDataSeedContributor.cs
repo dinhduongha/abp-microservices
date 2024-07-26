@@ -104,6 +104,53 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             );
         }
 
+        // Blazor WebApp Tiered Client
+        var blazorWebAppTieredClientId = configurationSection["Bamboo_BlazorWebAppTiered:ClientId"];
+        if (!blazorWebAppTieredClientId.IsNullOrWhiteSpace())
+        {
+            var blazorWebAppTieredRootUrl = configurationSection["Bamboo_BlazorWebAppTiered:RootUrl"]!.EnsureEndsWith('/');
+
+            await CreateApplicationAsync(
+                name: blazorWebAppTieredClientId!,
+                type: OpenIddictConstants.ClientTypes.Confidential,
+                consentType: OpenIddictConstants.ConsentTypes.Implicit,
+                displayName: "Blazor Wep App Application",
+                secret: configurationSection["Bamboo_BlazorWebAppTiered:ClientSecret"] ?? "1q2w3e*",
+                grantTypes: new List<string> //Hybrid flow
+                {
+                    OpenIddictConstants.GrantTypes.AuthorizationCode, OpenIddictConstants.GrantTypes.Implicit
+                },
+                scopes: commonScopes,
+                redirectUri: $"{blazorWebAppTieredRootUrl}signin-oidc",
+                clientUri: blazorWebAppTieredRootUrl,
+                postLogoutRedirectUri: $"{blazorWebAppTieredRootUrl}signout-callback-oidc"
+            );
+        }
+
+        // Blazor Server Tiered Client
+        var blazorServerTieredClientId = configurationSection["Bamboo_BlazorServerTiered:ClientId"];
+        if (!blazorServerTieredClientId.IsNullOrWhiteSpace())
+        {
+            var blazorServerTieredRootUrl = configurationSection["Bamboo_BlazorServerTiered:RootUrl"].EnsureEndsWith('/');
+
+            await CreateApplicationAsync(
+                name: blazorServerTieredClientId!,
+                type: OpenIddictConstants.ClientTypes.Confidential,
+                consentType: OpenIddictConstants.ConsentTypes.Implicit,
+                displayName: "Blazor Server Application",
+                secret: configurationSection["Bamboo_BlazorServerTiered:ClientSecret"] ?? "1q2w3e*",
+                grantTypes: new List<string> //Hybrid flow
+                {
+                    OpenIddictConstants.GrantTypes.AuthorizationCode,
+                    OpenIddictConstants.GrantTypes.Implicit
+                },
+                scopes: commonScopes,
+                redirectUri: $"{blazorServerTieredRootUrl}signin-oidc",
+                clientUri: blazorServerTieredRootUrl,
+                postLogoutRedirectUri: $"{blazorServerTieredRootUrl}signout-callback-oidc"
+            );
+        }
+
         //Console Test / Angular Client
         var consoleAndAngularClientId = configurationSection["Bamboo_App:ClientId"];
         if (!consoleAndAngularClientId.IsNullOrWhiteSpace())
@@ -149,30 +196,6 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 redirectUri: $"{blazorRootUrl}/authentication/login-callback",
                 clientUri: blazorRootUrl,
                 postLogoutRedirectUri: $"{blazorRootUrl}/authentication/logout-callback"
-            );
-        }
-
-        // Blazor Server Tiered Client
-        var blazorServerTieredClientId = configurationSection["Bamboo_BlazorServerTiered:ClientId"];
-        if (!blazorServerTieredClientId.IsNullOrWhiteSpace())
-        {
-            var blazorServerTieredRootUrl = configurationSection["Bamboo_BlazorServerTiered:RootUrl"].EnsureEndsWith('/');
-
-            await CreateApplicationAsync(
-                name: blazorServerTieredClientId!,
-                type: OpenIddictConstants.ClientTypes.Confidential,
-                consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Blazor Server Application",
-                secret: configurationSection["Bamboo_BlazorServerTiered:ClientSecret"] ?? "1q2w3e*",
-                grantTypes: new List<string> //Hybrid flow
-                {
-                    OpenIddictConstants.GrantTypes.AuthorizationCode,
-                    OpenIddictConstants.GrantTypes.Implicit
-                },
-                scopes: commonScopes,
-                redirectUri: $"{blazorServerTieredRootUrl}signin-oidc",
-                clientUri: blazorServerTieredRootUrl,
-                postLogoutRedirectUri: $"{blazorServerTieredRootUrl}signout-callback-oidc"
             );
         }
 
